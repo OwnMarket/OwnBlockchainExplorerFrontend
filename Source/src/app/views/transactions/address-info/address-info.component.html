@@ -1,0 +1,43 @@
+<div class="container">
+  <app-loader [isLoading]="isLoading"></app-loader>
+  <div class="row justify-content-md-center" [hidden]="isLoading && !blockchainAddress">
+    <div class="col col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Address : {{ addressInfo.blockchainAddress }}</h5>
+          <h5 class="card-title">Nonce : {{ addressInfo.nonce }}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total balance : {{ addressInfo.chxBalanceInfo.totalBalance }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">Events</div>
+        <div class="card-body">
+          <!-- TODO: infinitive scroll -->
+          <table class="table" *ngIf="events">
+            <thead>
+              <tr>
+                <th></th>
+                <th scope="col">Block Number</th>
+                <th scope="col">Tx/EX hash</th>
+                <th scope="col">Event info</th>
+                <th scope="col">Type</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Fee</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

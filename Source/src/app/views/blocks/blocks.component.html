@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="card">
+      <div class="card-header">Header</div>
+
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+
+        <app-loader [isLoading]="isLoading"></app-loader>
+
+        <div class="table-responsive">
+          <!-- TODO: infinitive scroll -->
+          <table [hidden]="isLoading" class="table">
+            <thead>
+              <tr>
+                <th scope="col">Block Number</th>
+                <th scope="col">Block Hash</th>
+                <th scope="col">Passed time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let block of blocks">
+                <td>
+                  <a [routerLink]="['/block', block.blockNumber]">
+                    {{ block.blockNumber }}
+                  </a>
+                </td>
+                <td>{{ block.hash }}</td>
+                <!-- TODO: MAKE PIPE FOR DATE -->
+                <td>{{ block.timestamp }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
