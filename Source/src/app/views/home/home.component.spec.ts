@@ -12,7 +12,7 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [CoreModule, SharedModule, HttpClientTestingModule],
-      declarations: [HomeComponent],
+      declarations: [HomeComponent]
     }).compileComponents();
   }));
 
