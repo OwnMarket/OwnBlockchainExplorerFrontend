@@ -5,6 +5,11 @@
 
   .card-header {
     background-color: white;
+    color: #1e1e1e;
+    i {
+      color: #fa591f;
+      font-size: 22px;
+    }
   }
 
   .card-body {
@@ -28,9 +33,11 @@
 }
 
 .table {
+  font-size: 11px;
   thead {
     th {
       border-top: none;
+      color: #ababab;
     }
   }
   tbody {

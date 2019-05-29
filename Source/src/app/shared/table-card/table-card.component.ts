@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, ViewEncapsulation, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewEncapsulation,
+  ViewChild
+} from '@angular/core';
 import * as _ from 'lodash';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -18,13 +24,18 @@ export class TableCardComponent implements OnInit {
   @Input() headers: any[];
   @Input() data: any[];
   @Input() expandable = false;
+  @Input() defaultExpand: any;
   // TODO Need to find better way for filters handler
   @Input() filters: any[];
   @Input() filterable = false;
+  @Input() class = '';
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // TODO Find a way to send immediately boolean values instead strings
+    this.expanded = this.defaultExpand !== 'false';
+  }
 
   // TODO Use url model
   navigate(url: any) {
