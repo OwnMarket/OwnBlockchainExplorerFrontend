@@ -1,0 +1,30 @@
+<h6>
+  {{ title }}
+</h6>
+<div class="card">
+  <div class="card-body">
+    <div class="row" *ngFor="let item of config">
+      <div class="col-sm-6 col-md-4 item-label">
+        <strong>{{ item.label }}</strong>
+      </div>
+      <div class="col-sm-6 col-md-8 text-right">
+        <div
+          class="item-value"
+          *ngIf="!item.url"
+          [innerHTML]="
+            (item.render ? item.render(item) : item.value) | htmlRender: 'html'
+          "
+        ></div>
+        <!-- TODO Find better way to handle routerLinks -->
+        <a
+          class="link item-value"
+          tabindex=""
+          *ngIf="item.url"
+          (click)="navigate(item.url(item))"
+        >
+          {{ item.value }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

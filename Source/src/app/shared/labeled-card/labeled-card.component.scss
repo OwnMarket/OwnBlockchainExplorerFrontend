@@ -1,0 +1,24 @@
+h6 {
+  font-size: 11px;
+  font-weight: bold;
+  padding-left: 1em;
+}
+.card {
+  font-size: 11px;
+  .card-header {
+    background: #f4f4f4;
+  }
+
+  .card-body {
+    .item-value {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .link {
+      cursor: pointer;
+      color: #0073dd;
+    }
+  }
+}
