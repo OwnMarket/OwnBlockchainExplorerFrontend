@@ -3,11 +3,11 @@ import {
   OnInit,
   Input,
   ViewEncapsulation,
-  ViewChild
+  Output,
+  EventEmitter
 } from '@angular/core';
 import * as _ from 'lodash';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-table-card',
@@ -16,11 +16,12 @@ import { Observable } from 'rxjs';
   encapsulation: ViewEncapsulation.Emulated
 })
 export class TableCardComponent implements OnInit {
-  expanded = true;
+  expanded: boolean = true;
   lodash = _;
 
   // Inputs
   @Input() title: string;
+  @Input() loading = false;
   @Input() headers: any[];
   @Input() data: any[];
   @Input() expandable = false;
@@ -30,20 +31,31 @@ export class TableCardComponent implements OnInit {
   @Input() filterable = false;
   @Input() class = '';
 
+  @Output() loadMore: EventEmitter<boolean> = new EventEmitter();
+
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
+    console.log(this.data);
+    console.log(this.loading);
+
     // TODO Find a way to send immediately boolean values instead strings
     this.expanded = this.defaultExpand !== 'false';
   }
 
   // TODO Use url model
   navigate(url: any) {
+    console.log(url);
     this.router.navigate([url.route, this.generateRouteParams(url)]);
   }
 
   expand() {
     this.expanded = !this.expanded;
+  }
+
+  endReached(isReached: boolean) {
+    console.log(isReached);
+    this.loadMore.emit(isReached);
   }
 
   // TODO: Use url model

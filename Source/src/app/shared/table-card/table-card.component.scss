@@ -2,10 +2,14 @@
   max-height: calc(100vh - 100px);
   height: 100%;
   overflow: hidden;
+  box-shadow: 2px 8px 15px rgba(0, 0, 0, 0.07);
+  background-color: #ffffff;
+  border: none;
 
   .card-header {
     background-color: white;
     color: #1e1e1e;
+
     i {
       color: #fa591f;
       font-size: 22px;
@@ -13,8 +17,8 @@
   }
 
   .card-body {
-    height: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
+    scroll-behavior: auto;
   }
 }
 
@@ -34,16 +38,33 @@
 
 .table {
   font-size: 11px;
+
   thead {
     th {
       border-top: none;
       color: #ababab;
+      width: 1%;
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 1px;
     }
   }
+
   tbody {
-    .link {
-      cursor: pointer;
-      color: #0073dd;
+    td {
+      width: 1%;
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 1px;
+
+      .link {
+        cursor: pointer;
+        color: #0073dd;
+      }
     }
   }
 }

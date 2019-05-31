@@ -1,9 +1,11 @@
 .input-group {
-  border: 2px solid #fa5925;
+  border: 3px solid #eb6723;
   border-radius: 0.5em;
+  margin-left: 1.5em;
 
   input {
     border: none;
+    box-shadow: none;
   }
 
   input:focus input:active {

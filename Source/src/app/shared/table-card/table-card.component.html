@@ -28,10 +28,16 @@
       </div>
     </div>
   </div>
-  <div class="card-body" *ngIf="expanded">
-    <div class="table-responsive">
+  <!-- <app-loader [isLoading]="loading"></app-loader> -->
+  <div
+    class="card-body"
+    *ngIf="expanded"
+    appScrollEnd
+    (endReached)="endReached($event)"
+  >
+    <div class="table" [hidden]="loading">
       <!-- TODO: infinitive scroll -->
-      <table [hidden]="isLoading" class="table">
+      <table class="table">
         <thead *ngIf="headers">
           <tr>
             <th *ngFor="let header of headers" scope="col">
