@@ -4,16 +4,23 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { BlocksRoutingModule } from './blocks-routing.module';
 import { BlocksComponent } from './blocks.component';
-import { BlocksService } from './blocks.service';
+import { BlockService } from './block.service';
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { BlockInfoComponent } from './block-info/block-info.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, NgbModule, CoreModule, SharedModule, BlocksRoutingModule],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    NgbModule,
+    CoreModule,
+    SharedModule,
+    BlocksRoutingModule
+  ],
   declarations: [BlocksComponent, BlockInfoComponent],
-  providers: [BlocksService],
+  providers: [BlockService],
   exports: [BlocksComponent]
 })
-export class BlocksModule {}
+export class BlockModule {}

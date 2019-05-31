@@ -3,7 +3,9 @@ import { finalize } from 'rxjs/operators';
 
 import { Logger, untilDestroyed } from '@app/core';
 
-import { BlocksService } from './blocks.service';
+import { BlockService } from './block.service';
+import { Observable } from 'rxjs';
+import { BlockStoreService } from './block-store.service';
 
 const log = new Logger('Blocks');
 
@@ -14,22 +16,41 @@ const log = new Logger('Blocks');
 })
 export class BlocksComponent implements OnInit, OnDestroy {
   // TODO: make models
-  blocks: any[];
+  blocks: Observable<any[]>;
   // TODO: make general loader
   isLoading = false;
-  // error: string | undefined;
+  pageLimit = 20;
+  currentPage = 1;
 
-  constructor(private blocksService: BlocksService) {}
+  // TODO: Add table header module
+  headers: any[] = [
+    {
+      label: 'Block Number',
+      key: 'blockNumber',
+      // TODO Use models for urls and Transaction
+      url: (block: any) => ({
+        route: '/block/',
+        params: [block.blockNumber]
+      })
+    },
+    {
+      label: 'Block hash',
+      key: 'hash'
+    }
+  ];
+
+  constructor(private blockStoreService: BlockStoreService) {}
 
   ngOnInit() {
-    log.debug('init');
+    this.blocks = this.blockStoreService.blocks$;
     this.getBlocks();
   }
   ngOnDestroy() {}
 
   getBlocks() {
-    this.isLoading = true;
+    this.blockStoreService.getBlocks(this.currentPage, this.pageLimit, true);
 
+    // this.isLoading = true;
     // TODO: use params from pagination
     // const blocks$ = this.blocksService.getBlocks({ page: 1, limit: 50 });
     // blocks$
@@ -51,16 +72,23 @@ export class BlocksComponent implements OnInit, OnDestroy {
     //   );
 
     // TODO: use params from pagination
-    this.blocksService
-      .getBlocks({ page: 1, limit: 50 })
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe(list => {
-        this.blocks = list;
-      });
+    // this.blockService
+    //   .getBlocks({ page: 1, limit: 50 })
+    //   .pipe(
+    //     finalize(() => {
+    //       this.isLoading = false;
+    //     }),
+    //     untilDestroyed(this)
+    //   )
+    //   .subscribe(list => {
+    //     this.blocks = list;
+    //   });
+  }
+
+  onLoadMore(shouldLoad: boolean) {
+    if (shouldLoad) {
+      this.currentPage++;
+      this.getBlocks();
+    }
   }
 }

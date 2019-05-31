@@ -1,21 +1,28 @@
-<div class="container">
+<div class="container" *ngIf="blockInfo | async as block">
   <app-loader [isLoading]="isLoading"></app-loader>
   <div class="row justify-content-md-center" [hidden]="isLoading">
     <div class="col col-lg-4">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Block number : {{ blockInfo.blockNumber }}</h5>
-          <h5 class="card-title">Hash : {{ blockInfo.hash }}</h5>
+          <h5 class="card-title">Block number : {{ block.blockNumber }}</h5>
+          <h5 class="card-title">Hash : {{ block.hash }}</h5>
         </div>
       </div>
     </div>
     <div class="col col-lg-4">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Previous block number : {{ blockInfo.previousBlockNumber }}</h5>
-          <h5 class="card-title">Hash : {{ blockInfo.previousBlockHash }}</h5>
+          <h5 class="card-title">
+            Previous block number : {{ block.previousBlockNumber }}
+          </h5>
+          <h5 class="card-title">Hash : {{ block.previousBlockHash }}</h5>
           <!-- TODO: Remove below line -->
-          <span class="card-title">Previous Hash (just for testing):<a [routerLink]="['/block', 46731]">46731</a></span>
+          <span class="card-title"
+            >Previous Hash (just for testing):<a
+              [routerLink]="['/block', 46731]"
+              >46731</a
+            ></span
+          >
         </div>
       </div>
     </div>
@@ -38,13 +45,13 @@
           <li class="list-group-item">
             <div class="row">
               <div class="col-6">TxSetRoot :</div>
-              <div class="col-6">{{ blockInfo.TxSetRoot }}</div>
+              <div class="col-6">{{ block.TxSetRoot }}</div>
             </div>
           </li>
           <li class="list-group-item">
             <div class="row">
               <div class="col-6">Consensus Round :</div>
-              <div class="col-6">{{ blockInfo.consensusRound }}</div>
+              <div class="col-6">{{ block.consensusRound }}</div>
             </div>
           </li>
         </ul>
@@ -53,77 +60,33 @@
   </div>
   <div class="row mt-5">
     <div class="col-12">
-      <div class="card">
-        <div class="card-header">TRANSACTIONS</div>
-        <div class="card-body">
-          <!-- TODO: infinitive scroll -->
-          <table class="table">
-            <thead>
-              <tr>
-                <th></th>
-                <th scope="col">Transactions Hash</th>
-                <th scope="col">Block number</th>
-                <th scope="col">Sender Address</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let transaction of transactions">
-                <!-- TODO Display right badge -->
-                <td>
-                  <span class="badge badge-pill badge-success"><i class="fas fa-check"></i></span>
-                </td>
-                <!-- TODO Clip text if is too long -->
-                <td>{{ transaction.hash }}</td>
-                <td>{{ transaction.blockNumber }}</td>
-                <td>{{ transaction.senderAddress }}</td>
-                <!-- TODO: MAKE PIPE FOR DATE -->
-                <td>{{ transaction.numberOfActions }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <app-table-card
+        title="Transactions"
+        [loading]="isLoading"
+        [headers]="transactionsHeaders"
+        [data]="transactions | async"
+      ></app-table-card>
     </div>
   </div>
 
   <div class="row mt-5">
     <div class="col-12">
-      <div class="card">
-        <div class="card-header">EQUIVOCATION PROOFS</div>
-        <div class="card-body">
-          <!-- TODO: infinitive scroll -->
-          <table class="table">
-            <thead>
-              <tr>
-                <th></th>
-                <th scope="col">EQ hash</th>
-                <th scope="col">Equivocation validator address</th>
-                <th scope="col">Slashed amount</th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
+      <app-table-card
+        title="EQUIVOCATION PROOFS"
+        [loading]="isLoading"
+        [headers]="equivocationsHeaders"
+        [data]="equivocations | async"
+      ></app-table-card>
     </div>
   </div>
   <div class="row mt-5">
     <div class="col-12">
-      <div class="card">
-        <div class="card-header">Staking Rewards</div>
-        <div class="card-body">
-          <!-- TODO: infinitive scroll -->
-          <table class="table">
-            <thead>
-              <tr>
-                <th></th>
-                <th scope="col">Staker Address</th>
-                <th scope="col">Slashed amount</th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
+      <app-table-card
+        title="Staking Rewards"
+        [loading]="isLoading"
+        [headers]="stakingRewardsHeaders"
+        [data]="stakingRewards | async"
+      ></app-table-card>
     </div>
   </div>
 </div>

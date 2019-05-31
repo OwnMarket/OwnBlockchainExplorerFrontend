@@ -6,7 +6,7 @@ import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { BlocksModule } from '../blocks/blocks.module';
+import { BlockModule } from '../blocks/block.module';
 import { TransactionsModule } from '../transactions/transactions.module';
 
 @NgModule({
@@ -15,7 +15,7 @@ import { TransactionsModule } from '../transactions/transactions.module';
     TranslateModule,
     CoreModule,
     SharedModule,
-    BlocksModule,
+    BlockModule,
     TransactionsModule,
     HomeRoutingModule
   ],

@@ -6,9 +6,12 @@ import { map, catchError } from 'rxjs/operators';
 const routes = {
   blocks: (c: PageLimitContext) => `/blocks?page=${c.page}&limit=${c.limit}`,
   blockInfo: (blockNumber: number) => `/block/${blockNumber}`,
-  transactionsByBlockNumber: (blockNumber: number) => `/block/${blockNumber}/transactions`,
-  equivocationsByBlockNumber: (blockNumber: number) => `/block/${blockNumber}/equivocations`,
-  stakingRewardsByBlockNumber: (blockNumber: number) => `/block/${blockNumber}/staking-rewards`
+  transactionsByBlockNumber: (blockNumber: number) =>
+    `/block/${blockNumber}/transactions`,
+  equivocationsByBlockNumber: (blockNumber: number) =>
+    `/block/${blockNumber}/equivocations`,
+  stakingRewardsByBlockNumber: (blockNumber: number) =>
+    `/block/${blockNumber}/staking-rewards`
 };
 
 // TODO: Make common modal for PageLimitContext
@@ -20,7 +23,7 @@ export interface PageLimitContext {
 @Injectable({
   providedIn: 'root'
 })
-export class BlocksService {
+export class BlockService {
   constructor(private httpClient: HttpClient) {}
 
   // TODO: add models
@@ -64,12 +67,14 @@ export class BlocksService {
   }
 
   // TODO: add models
-  getstakingRewards(context: number): Observable<[]> {
-    return this.httpClient.get(routes.stakingRewardsByBlockNumber(context)).pipe(
-      // TODO: make GENERIC api model!!
-      map((response: any) => response.data),
-      // TODO: make common error logger
-      catchError(() => of('Error, could not load transactions'))
-    );
+  getStakingRewards(context: number): Observable<[]> {
+    return this.httpClient
+      .get(routes.stakingRewardsByBlockNumber(context))
+      .pipe(
+        // TODO: make GENERIC api model!!
+        map((response: any) => response.data),
+        // TODO: make common error logger
+        catchError(() => of('Error, could not load transactions'))
+      );
   }
 }

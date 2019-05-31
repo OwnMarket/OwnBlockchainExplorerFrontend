@@ -3,7 +3,8 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 
 import { Logger, untilDestroyed } from '@app/core';
 import { switchMap, finalize } from 'rxjs/operators';
-import { BlocksService } from '../blocks.service';
+import { Observable } from 'rxjs';
+import { BlockStoreService } from '../block-store.service';
 
 const log = new Logger('BlockInfo');
 
@@ -17,27 +18,79 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   // TODO: make general loader
   isLoading = false;
   // TODO: make models
-  blockInfo: any;
+  blockInfo: Observable<any>;
   // TODO: make models
-  transactions: any[];
+  transactions: Observable<any[]>;
+
+  // TODO: Add table header module
+  transactionsHeaders: any[] = [
+    {
+      label: 'Transaction Hash',
+      key: 'hash'
+    },
+    {
+      label: 'Sender Address',
+      key: 'senderAddress'
+    },
+    {
+      label: 'Action',
+      key: 'numberOfActions'
+    }
+  ];
+
   // TODO: make models
-  equivocations: any[];
+  equivocations: Observable<any[]>;
+  equivocationsHeaders: any[] = [
+    {
+      label: 'EQ Hash',
+      key: 'equivocationProofHash'
+    },
+    // {
+    //   label: 'EQ validator address',
+    //   key: 'senderAddress',
+    // },
+    {
+      label: 'Slashed amount',
+      key: 'takenDeposit.amount'
+    }
+  ];
+
   // TODO: make models
-  stakingRewards: any[];
+  stakingRewards: Observable<any[]>;
+  stakingRewardsHeaders: any[] = [
+    {
+      label: 'Staker Address',
+      key: 'stakerAddress'
+    },
+    {
+      label: 'Amount',
+      key: 'amount'
+    }
+  ];
 
   public isAddCollapsed = true;
 
-  constructor(private route: ActivatedRoute, private blocksService: BlocksService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private blockStoreService: BlockStoreService
+  ) {}
 
   ngOnInit() {
-    this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params: ParamMap) => {
-      log.debug(params);
-      this.blockNumber = +params.get('number');
-      this.getBlockInfo();
-      this.getTransactions();
-      this.getEquivocations();
-      this.getStakingRewards();
-    });
+    this.route.paramMap
+      .pipe(untilDestroyed(this))
+      .subscribe((params: ParamMap) => {
+        log.debug(params);
+        this.blockNumber = +params.get('number');
+        this.blockInfo = this.blockStoreService.blockInfo$;
+        this.transactions = this.blockStoreService.transactions$;
+        this.equivocations = this.blockStoreService.equivocations$;
+        this.stakingRewards = this.blockStoreService.stakingRewards$;
+
+        this.getBlockInfo();
+        this.getTransactions();
+        this.getEquivocations();
+        this.getStakingRewards();
+      });
   }
 
   ngOnDestroy() {}
@@ -46,72 +99,27 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
     if (!this.blockNumber) {
       return;
     }
-
-    this.blocksService
-      .getBlockInfo(this.blockNumber)
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe(info => {
-        log.debug(info);
-        this.blockInfo = info;
-      });
+    this.blockStoreService.getBlockInfo(this.blockNumber);
   }
 
   getTransactions() {
     if (!this.blockNumber) {
       return;
     }
-    this.blocksService
-      .getTransactions(this.blockNumber)
-      .pipe(
-        finalize(() => {
-          // this.isLoading = false;
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe(list => {
-        log.debug(list);
-        this.transactions = list;
-      });
+    this.blockStoreService.getTransactions(this.blockNumber);
   }
 
   getEquivocations() {
     if (!this.blockNumber) {
       return;
     }
-    this.blocksService
-      .getEquivocations(this.blockNumber)
-      .pipe(
-        finalize(() => {
-          // this.isLoading = false;
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe(list => {
-        log.debug(list);
-        this.equivocations = list;
-      });
+    this.blockStoreService.getEquivocations(this.blockNumber);
   }
 
   getStakingRewards() {
     if (!this.blockNumber) {
       return;
     }
-    this.blocksService
-      .getstakingRewards(this.blockNumber)
-      .pipe(
-        finalize(() => {
-          // this.isLoading = false;
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe(list => {
-        log.debug(list);
-        this.stakingRewards = list;
-      });
+    this.blockStoreService.getStakingRewards(this.blockNumber);
   }
 }
