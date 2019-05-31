@@ -8,6 +8,14 @@ header .navbar {
 
 .navbar {
   margin-bottom: $spacer;
+
+  .nav-item {
+    color: #373737;
+    margin-right: 1em;
+  }
+  .nav-item.nav-link.active {
+    border-bottom: 3px solid #eb6723;
+  }
 }
 
 .nav-link.dropdown-toggle {
