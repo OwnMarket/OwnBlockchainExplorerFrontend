@@ -8,6 +8,7 @@ import { TableCardComponent } from './table-card/table-card.component';
 import { PageTitleComponent } from './page-title/page-title.component';
 import { LabeledCardComponent } from './labeled-card/labeled-card.component';
 import { HtmlRenderPipe } from './pipes/html-render.pipe';
+import { ScrollEndDirective } from './directives/scroll-end.directive';
 
 @NgModule({
   imports: [CommonModule, RouterModule],
@@ -17,7 +18,8 @@ import { HtmlRenderPipe } from './pipes/html-render.pipe';
     TableCardComponent,
     HtmlRenderPipe,
     PageTitleComponent,
-    LabeledCardComponent
+    LabeledCardComponent,
+    ScrollEndDirective
   ],
   exports: [
     LoaderComponent,
