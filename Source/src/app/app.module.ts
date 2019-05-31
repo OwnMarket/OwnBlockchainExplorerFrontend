@@ -14,13 +14,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { ShellModule } from './shell/shell.module';
 
 import { HomeModule } from './views/home/home.module';
-import { BlocksModule } from './views/blocks/blocks.module';
+import { BlockModule } from './views/blocks/block.module';
 import { TransactionsModule } from './views/transactions/transactions.module';
+import { AddressInfoModule } from './views/address-info/address-info.module';
 
 @NgModule({
   imports: [
     BrowserModule,
-    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('./ngsw-worker.js', {
+      enabled: environment.production
+    }),
     FormsModule,
     HttpClientModule,
     TranslateModule.forRoot(),
@@ -29,8 +32,9 @@ import { TransactionsModule } from './views/transactions/transactions.module';
     SharedModule,
     ShellModule,
     HomeModule,
-    BlocksModule,
+    BlockModule,
     TransactionsModule,
+    AddressInfoModule,
     AppRoutingModule // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent],

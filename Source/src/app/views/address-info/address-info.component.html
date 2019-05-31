@@ -1,0 +1,73 @@
+<div class="container-fluid">
+  <!-- <app-loader [isLoading]="isLoading"></app-loader> -->
+  <div
+    class="row justify-content-md-center"
+    [hidden]="isLoading && !blockchainAddress"
+    *ngIf="addressInfo | async as address"
+  >
+    <div class="col col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Address : {{ address.blockchainAddress }}</h5>
+          <h5 class="card-title">Nonce : {{ address.nonce }}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            Total balance : {{ address.chxBalanceInfo?.totalBalance }}
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-12">
+      <app-table-card
+        title="Events"
+        [headers]="eventsHeaders"
+        [data]="events | async"
+      ></app-table-card>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <app-table-card
+        title="Accounts"
+        [headers]="accountsHeaders"
+        [data]="accounts | async"
+      ></app-table-card>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <app-table-card
+        title="Assets"
+        [headers]="assetsHeaders"
+        [data]="accounts | async"
+      ></app-table-card>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-6">
+      <app-table-card
+        title="Stakes delegated by this address"
+        [headers]="receivedStakesHeaders"
+        [data]="receivedStakes | async"
+      ></app-table-card>
+    </div>
+
+    <div class="col-6">
+      <app-table-card
+        title="Stakes delegated to this address"
+        [headers]="delegatedStakesHeaders"
+        [data]="delegatedStakes | async"
+      ></app-table-card>
+    </div>
+  </div>
+</div>
