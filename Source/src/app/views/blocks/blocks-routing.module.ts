@@ -7,8 +7,18 @@ import { BlocksComponent } from './blocks.component';
 import { BlockInfoComponent } from './block-info/block-info.component';
 
 const routes: Routes = [
-  Shell.childRoutes([{ path: 'blocks', component: BlocksComponent, data: { title: extract('Blocks') } }]),
-  Shell.childRoutes([{ path: 'block/:number', component: BlockInfoComponent, data: { title: extract('BlockInfo') } }])
+  Shell.childRoutes([
+    {
+      path: 'blocks',
+      component: BlocksComponent,
+      data: { title: extract('Blocks') }
+    },
+    {
+      path: 'block/:number',
+      component: BlockInfoComponent,
+      data: { title: extract('BlockInfo') }
+    }
+  ])
 ];
 
 @NgModule({

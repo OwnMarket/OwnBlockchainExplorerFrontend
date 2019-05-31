@@ -11,13 +11,13 @@ import { TransactionsModule } from '../transactions/transactions.module';
 
 @NgModule({
   imports: [
+    HomeRoutingModule,
     CommonModule,
     TranslateModule,
     CoreModule,
     SharedModule,
     BlockModule,
-    TransactionsModule,
-    HomeRoutingModule
+    TransactionsModule
   ],
   declarations: [HomeComponent]
 })
