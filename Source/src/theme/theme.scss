@@ -2,3 +2,29 @@
  * Global application theme.
  * Framework overrides and customization goes here.
  */
+* {
+  font-family: "Averta Std";
+  font-size: 14px;
+}
+
+body {
+  background-color: #f4f4f4;
+}
+
+// TODO Extract css to some .scsss and import here
+.clip-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-transparent {
+  background-color: transparent !important;
+  border: none;
+
+  .card-header {
+    background-color: transparent !important;
+    border: none;
+    border-bottom: 2px solid #999999;
+  }
+}

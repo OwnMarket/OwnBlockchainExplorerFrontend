@@ -15,21 +15,3 @@
 
 // Theme customization
 @import "theme/theme";
-
-// TODO Extract css to some .scsss and import here
-.clip-text {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.card-transparent {
-  background-color: transparent;
-  border: none;
-
-  .card-header {
-    background-color: transparent !important;
-    border: none;
-    border-bottom: 2px solid #999999;
-  }
-}
