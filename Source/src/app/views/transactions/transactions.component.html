@@ -1,40 +1,9 @@
 <div class="container-fluid">
-  <!-- <div class="card">
-    <div class="card-header">Transactions</div>
-
-    <div class="card-body">
-      <app-loader [isLoading]="isLoading"></app-loader>
-      <div class="table-responsive">
-        <table [hidden]="isLoading" class="table">
-          <thead>
-            <tr>
-              <th></th>
-              <th scope="col">Transactions Hash</th>
-              <th scope="col">Block number</th>
-              <th scope="col">Sender Address</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody *ngIf="!isLoading">
-            <tr *ngFor="let transaction of transactions"> -->
-  <!-- TODO Display right badge -->
-  <!--<td>
-                <span class="badge badge-pill badge-success"><i class="fas fa-check"></i></span>
-              </td> -->
-  <!-- TODO Clip text if is too long -->
-  <!-- <td>
-                <a [routerLink]="['/transaction-info', transaction.hash]">{{ transaction.hash }}</a>
-              </td>
-              <td>{{ transaction.blockNumber }}</td>
-              <td>
-                <a [routerLink]="['/address-info', transaction.senderAddress]">{{ transaction.senderAddress }}</a>
-              </td>
-              <td>{{ transaction.numberOfActions }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div> -->
-  <app-table-card title="Transactions" [headers]="headers" [data]="transactions"></app-table-card>
+  <app-table-card
+    title="Transactions"
+    [loading]="isLoading"
+    [headers]="headers"
+    [data]="transactions | async"
+    (loadMore)="onLoadMore($event)"
+  ></app-table-card>
 </div>

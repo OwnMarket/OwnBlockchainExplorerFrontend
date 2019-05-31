@@ -1,5 +1,5 @@
 <!-- TODO Set hardcoded values to translation file -->
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="transactionInfo | async as transaction">
   <!-- TITLE -->
   <div class="row justify-content-md-center">
     <div class="col-sm-12 col-md-8">
@@ -8,10 +8,7 @@
   </div>
   <app-loader [isLoading]="isLoading"></app-loader>
   <!-- BASIC INFORMATION SECTION -->
-  <div
-    class="row justify-content-md-center"
-    [hidden]="isLoading && !transactionInfo"
-  >
+  <div class="row justify-content-md-center" [hidden]="isLoading">
     <div class="col-sm-12 col-md-4">
       <app-labeled-card
         title="Basic information"
@@ -29,7 +26,7 @@
             <div class="col-sm-8 col-md-9">
               <div class="row"><strong>From</strong></div>
               <div class="row">
-                <div class="clip-text">{{ transactionInfo.senderAddress }}</div>
+                <div class="clip-text">{{ transaction.senderAddress }}</div>
               </div>
             </div>
           </div>
@@ -47,19 +44,19 @@
               <strong>Expiration time</strong>
             </div>
             <div class="col-sm-6 col-md-6 border-right">
-              {{ transactionInfo.expirationTime }}
+              {{ transaction.expirationTime }}
             </div>
           </div>
           <div class="row details-row-item">
             <div class="col-sm-6 col-md-6"><strong>Nonce</strong></div>
             <div class="col-sm-6 col-md-6 border-right">
-              {{ transactionInfo.nonce }}
+              {{ transaction.nonce }}
             </div>
           </div>
           <div class="row details-row-item">
             <div class="col-sm-6 col-md-6"><strong>Total fee</strong></div>
             <div class="col-sm-6 col-md-6 border-right">
-              {{ transactionInfo.actionFee }} CHX
+              {{ transaction.actionFee }} CHX
             </div>
           </div>
         </div>
@@ -67,20 +64,18 @@
           <div class="row details-row-item">
             <div class="col-sm-5 col-md-3"><strong>Passed time</strong></div>
             <div class="col-sm-7 col-md-9">
-              {{ transactionInfo.expirationTime }}
+              {{ transaction.expirationTime }}
             </div>
           </div>
           <div class="row details-row-item">
             <div class="col-sm-5 col-md-3"><strong>Actions</strong></div>
             <div class="col-sm-7 col-md-9">
-              {{ transactionInfo.actions.length }}
+              {{ transaction.actions ? transaction.actions.length : 0 }}
             </div>
           </div>
           <div class="row details-row-item">
             <div class="col-sm-5 col-md-3"><strong>Action fee</strong></div>
-            <div class="col-sm-7 col-md-9">
-              {{ transactionInfo.actionFee }} CHX
-            </div>
+            <div class="col-sm-7 col-md-9">{{ transaction.actionFee }} CHX</div>
           </div>
         </div>
       </div>
@@ -93,7 +88,7 @@
             expandable="true"
             title="Actions"
             [headers]="actionsConfig"
-            [data]="transactionInfo.actions"
+            [data]="transaction.actions ? transaction.actions : []"
           ></app-table-card>
         </div>
       </div>

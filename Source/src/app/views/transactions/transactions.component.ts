@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TransactionsService } from './transactions.service';
+import { TransactionService } from './transaction.service';
 import { finalize } from 'rxjs/operators';
 import { Logger, untilDestroyed } from '@app/core';
+import { Observable } from 'rxjs';
+import { TransactionStoreService } from './transaction-store.service';
 
 const log = new Logger('Transactions');
 @Component({
@@ -10,12 +12,15 @@ const log = new Logger('Transactions');
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
+  pageLimit = 20;
+  currentPage = 1;
+
   // TODO: make models
-  transactions: any[];
+  transactions: Observable<any[]>;
   // TODO: make general loader
   isLoading = false;
 
-  // TODO Add table header module
+  // TODO: Add table header module
   headers: any[] = [
     // TODO Use models for items, in this case Transaction
     {
@@ -47,28 +52,40 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     { label: 'Action', key: 'numberOfActions' }
   ];
 
-  constructor(private transactionsService: TransactionsService) {}
+  constructor(private transactionStoreService: TransactionStoreService) {}
 
   ngOnInit() {
+    this.transactions = this.transactionStoreService.transactions$;
     this.getTransactions();
   }
 
   ngOnDestroy() {}
 
   getTransactions() {
+    this.transactionStoreService.getTransactions(
+      this.currentPage,
+      this.pageLimit,
+      true
+    );
     // TODO: add pagination
-    this.isLoading = true;
-    this.transactionsService
-      .getTransactions({ page: 1, limit: 50 })
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe(list => {
-        log.debug(list);
-        this.transactions = list;
-      });
+    // this.isLoading = true;
+    // this.transactionService.getTransactions({ page: this.currentPage, limit: this.pageLimit }, true);
+    // .pipe(
+    //   finalize(() => {
+    //     this.isLoading = false;
+    //   }),
+    //   untilDestroyed(this)
+    // )
+    // .subscribe(list => {
+    //   log.debug(list);
+    //   this.transactions = list;
+    // });
+  }
+
+  onLoadMore(shouldLoad: boolean) {
+    if (shouldLoad) {
+      this.currentPage++;
+      this.getTransactions();
+    }
   }
 }

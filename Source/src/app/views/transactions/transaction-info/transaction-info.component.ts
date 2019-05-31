@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { switchMap, finalize } from 'rxjs/operators';
 import { Logger, untilDestroyed } from '@app/core';
-import { TransactionsService } from '../transactions.service';
+import { Observable } from 'rxjs';
+import { TransactionStoreService } from '../transaction-store.service';
 
 const log = new Logger('TransactionInfo');
 
@@ -16,7 +17,7 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
   // TODO: make general loader
   isLoading = false;
   // TODO: make models
-  transactionInfo: any;
+  transactionInfo: Observable<any>;
 
   basicInformationConfig: any;
 
@@ -24,7 +25,7 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private transactionsService: TransactionsService
+    private transactionStoreService: TransactionStoreService
   ) {}
 
   ngOnInit() {
@@ -34,22 +35,28 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
         // this.isLoading = true;
         log.debug(params);
         this.transactionHash = params.get('hash');
+        this.transactionInfo = this.transactionStoreService.transactionInfo$;
         this.getTransactionInfo();
+        this.transactionStoreService.transactionInfo$.subscribe(res =>
+          this.init()
+        );
       });
   }
 
   init() {
+    const txInfo = this.transactionStoreService.transactionInfo;
     this.basicInformationConfig = [
-      { label: 'Transaction Hash', value: this.transactionInfo.txHash },
+      { label: 'Transaction Hash', value: txInfo.txHash },
       {
         label: 'Block number',
-        value: this.transactionInfo.blockNumber || '-',
+        value: txInfo.blockNumber || '-',
         url: (item: any) => ({
           route: '/block/',
           params: [item.value]
         })
       }
     ];
+
     this.actionsConfig = [
       { label: 'Action type', key: 'actionType' },
       {
@@ -64,40 +71,7 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
 
   getTransactionInfo() {
     if (this.transactionHash) {
-      this.transactionsService
-        .getTransactionInfo(this.transactionHash)
-        .pipe(
-          finalize(() => {
-            this.isLoading = false;
-          }),
-          untilDestroyed(this)
-        )
-        .subscribe(info => {
-          log.debug(info);
-          this.transactionInfo = info;
-          this.init();
-        });
+      this.transactionStoreService.getAddressInfo(this.transactionHash);
     }
-    // this.transactionInfo = {
-    //   txHash: 'CRjqV3DLh7jyCKZqj2pCdfw3s3ynXxEf5JMVm1rCYjmp',
-    //   senderAddress: 'CHLsVaYSPJGFi8BNGd6tP1VvB8UdKbVRDKD',
-    //   nonce: 1,
-    //   expirationTime: 0,
-    //   actionFee: 0.001,
-    //   actions: [
-    //     {
-    //       actionType: 'TransferChx',
-    //       actionData: {
-    //         recipientAddress: 'CHfDeuB1y1eJnWd6aWfYaRvpS9Qgrh1eqe7',
-    //         amount: 100
-    //       }
-    //     }
-    //   ],
-    //   status: 'Pending',
-    //   errorCode: null,
-    //   failedActionNumber: null,
-    //   blockNumber: null
-    // };
-    // this.init();
   }
 }
