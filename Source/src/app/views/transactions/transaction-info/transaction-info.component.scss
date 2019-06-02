@@ -37,3 +37,31 @@
     border-right: 1px solid #d6d6d6;
   }
 }
+
+.transaction-status {
+  position: absolute;
+  right: 14px;
+  z-index: 1000;
+  .transaction-status-text {
+    height: 31px;
+    border-radius: 30px;
+    background-color: #dfdfdf;
+    padding: 5px 42px 5px 15px;
+
+    .fas {
+      width: 35px;
+      height: 35px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+      background-color: #1ec163;
+      border-radius: 50%;
+      float: right;
+      color: white;
+      line-height: 2;
+      text-align: center;
+      font-size: 18px;
+      position: absolute;
+      right: 0;
+      top: -2px;
+    }
+  }
+}

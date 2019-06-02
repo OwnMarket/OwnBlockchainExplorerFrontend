@@ -46,7 +46,7 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
   init() {
     const txInfo = this.transactionStoreService.transactionInfo;
     this.basicInformationConfig = [
-      { label: 'Transaction Hash', value: txInfo.txHash },
+      { label: 'Transaction Hash', value: txInfo.hash },
       {
         label: 'Block number',
         value: txInfo.blockNumber || '-',

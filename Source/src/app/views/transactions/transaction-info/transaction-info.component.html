@@ -10,6 +10,12 @@
   <!-- BASIC INFORMATION SECTION -->
   <div class="row justify-content-md-center" [hidden]="isLoading">
     <div class="col-sm-12 col-md-4">
+      <div class="transaction-status">
+        <div class="transaction-status-text text-uppercase">
+          {{ transaction.status }}
+          <i class="fas fa-check"></i>
+        </div>
+      </div>
       <app-labeled-card
         title="Basic information"
         [config]="basicInformationConfig"
