@@ -1,0 +1,21 @@
+{
+  "generator-ngx-rocket": {
+    "version": "6.1.0",
+    "props": {
+      "location": "path",
+      "target": ["web"],
+      "pwa": true,
+      "ui": "bootstrap",
+      "auth": false,
+      "lazy": false,
+      "angulartics": false,
+      "tools": ["prettier", "hads"],
+      "utility": [],
+      "appName": "blockchain-explorer",
+      "projectName": "blockchain-explorer",
+      "packageManager": "npm",
+      "mobile": [],
+      "desktop": []
+    }
+  }
+}

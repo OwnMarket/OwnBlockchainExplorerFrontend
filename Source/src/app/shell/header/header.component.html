@@ -10,11 +10,7 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div
-      id="navbar-menu"
-      class="collapse navbar-collapse float-xs-none"
-      [ngbCollapse]="menuHidden"
-    >
+    <div id="navbar-menu" class="collapse navbar-collapse float-xs-none" [ngbCollapse]="menuHidden">
       <div class="col-sm-4 col-md-4">
         <a class="navbar-brand" routerLink="/">Navbar</a>
       </div>
@@ -23,20 +19,12 @@
           <div class="col-sm-7 col-md-6 text-right border-right">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0 float-right">
               <li class="nav-item">
-                <a
-                  class="nav-item nav-link"
-                  routerLink="/blocks"
-                  routerLinkActive="active"
-                >
+                <a class="nav-item nav-link" routerLink="/blocks" routerLinkActive="active">
                   <span translate>Blocks</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-item nav-link"
-                  routerLink="/transactions"
-                  routerLinkActive="active"
-                >
+                <a class="nav-item nav-link" routerLink="/transactions" routerLinkActive="active">
                   <span translate>Transactions</span>
                 </a>
               </li>

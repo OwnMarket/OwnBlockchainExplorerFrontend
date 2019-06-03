@@ -7,6 +7,7 @@ export class BlockStoreService {
   // - Create one BehaviorSubject per store entity,
   //   create a new BehaviorSubject for it, as well as the observable$, and getters/setters
   private readonly _blocks = new BehaviorSubject<any[]>([]);
+  private readonly _loadingBlocks = new BehaviorSubject<boolean>(false);
   private readonly _blockInfo = new BehaviorSubject<any>({});
   private readonly _transactions = new BehaviorSubject<any[]>([]);
   private readonly _equivocations = new BehaviorSubject<any[]>([]);
@@ -17,6 +18,8 @@ export class BlockStoreService {
   // Expose the observable$ part of the _blocks subject (read only stream)
   // tslint:disable-next-line: member-ordering
   readonly blocks$ = this._blocks.asObservable();
+  // tslint:disable-next-line: member-ordering
+  readonly loadingBlocks$ = this._loadingBlocks.asObservable();
   // tslint:disable-next-line: member-ordering
   readonly blockInfo$ = this._blockInfo.asObservable();
   // tslint:disable-next-line: member-ordering
@@ -50,9 +53,13 @@ export class BlockStoreService {
   }
 
   // assigning a value to this.blocks will push it onto the observable
-  // and down to all of its subsribers (ex: this.blocks = [])
+  // and down to all of its subscribers (ex: this.blocks = [])
   set blocks(val: any[]) {
     this._blocks.next(val);
+  }
+
+  set loadingBlocks(val: boolean) {
+    this._loadingBlocks.next(val);
   }
 
   set appendBlocks(val: any[]) {
@@ -88,13 +95,16 @@ export class BlockStoreService {
   // }
 
   getBlocks(page: number, limit: number, shouldAppend: boolean = false) {
+    this.loadingBlocks = true;
+    // TODO: catch error
     this.blockService.getBlocks({ page, limit }).subscribe(res => {
-      console.log(res);
       if (shouldAppend) {
         this.appendBlocks = res;
       } else {
         this.blocks = res;
       }
+      console.log(this.blocks);
+      this.loadingBlocks = false;
     });
   }
 

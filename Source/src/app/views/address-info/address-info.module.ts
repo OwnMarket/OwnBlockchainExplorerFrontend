@@ -9,13 +9,7 @@ import { AddressInfoService } from './address.service';
 
 @NgModule({
   declarations: [AddressInfoComponent],
-  imports: [
-    CommonModule,
-    TranslateModule,
-    CoreModule,
-    SharedModule,
-    AddressInfoRoutingModule
-  ],
+  imports: [CommonModule, TranslateModule, CoreModule, SharedModule, AddressInfoRoutingModule],
   providers: [AddressInfoService]
 })
 export class AddressInfoModule {}

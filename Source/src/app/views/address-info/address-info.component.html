@@ -16,9 +16,7 @@
     <div class="col col-lg-4">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">
-            Total balance : {{ address.chxBalanceInfo?.totalBalance }}
-          </h5>
+          <h5 class="card-title">Total balance : {{ address.chxBalanceInfo?.totalBalance }}</h5>
         </div>
       </div>
     </div>
@@ -27,8 +25,11 @@
     <div class="col-12">
       <app-table-card
         title="Events"
-        [headers]="eventsHeaders"
-        [data]="events | async"
+        [tableHeight]="tableHeight"
+        [columns]="eventColumns"
+        [loading]="loadingEvents | async"
+        [source]="events | async"
+        [canLoadMore]="canLoadMore"
       ></app-table-card>
     </div>
   </div>
@@ -37,8 +38,11 @@
     <div class="col-12">
       <app-table-card
         title="Accounts"
-        [headers]="accountsHeaders"
-        [data]="accounts | async"
+        [tableHeight]="tableHeight"
+        [columns]="accountColumns"
+        [loading]="loadingAccounts | async"
+        [source]="accounts | async"
+        [canLoadMore]="canLoadMore"
       ></app-table-card>
     </div>
   </div>
@@ -47,8 +51,11 @@
     <div class="col-12">
       <app-table-card
         title="Assets"
-        [headers]="assetsHeaders"
-        [data]="accounts | async"
+        [tableHeight]="tableHeight"
+        [columns]="accountColumns"
+        [loading]="loadingAssets | async"
+        [source]="assets | async"
+        [canLoadMore]="canLoadMore"
       ></app-table-card>
     </div>
   </div>
@@ -57,16 +64,22 @@
     <div class="col-6">
       <app-table-card
         title="Stakes delegated by this address"
-        [headers]="receivedStakesHeaders"
-        [data]="receivedStakes | async"
+        [tableHeight]="tableHeight"
+        [columns]="receivedStakeColumns"
+        [loading]="loadingReceivedStakes | async"
+        [source]="receivedStakes | async"
+        [canLoadMore]="canLoadMore"
       ></app-table-card>
     </div>
 
     <div class="col-6">
       <app-table-card
         title="Stakes delegated to this address"
-        [headers]="delegatedStakesHeaders"
-        [data]="delegatedStakes | async"
+        [tableHeight]="tableHeight"
+        [columns]="delegatedStakeColumns"
+        [loading]="loadingDelegatedStakes | async"
+        [source]="delegatedStakes | async"
+        [canLoadMore]="canLoadMore"
       ></app-table-card>
     </div>
   </div>

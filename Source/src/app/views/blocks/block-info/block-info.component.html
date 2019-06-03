@@ -1,33 +1,103 @@
 <div class="container" *ngIf="blockInfo | async as block">
+  <!-- TITLE -->
+  <div class="row justify-content-md-center">
+    <div class="col-sm-12 col-md-8">
+      <app-page-title title="Block info"></app-page-title>
+    </div>
+  </div>
   <app-loader [isLoading]="isLoading"></app-loader>
   <div class="row justify-content-md-center" [hidden]="isLoading">
-    <div class="col col-lg-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Block number : {{ block.blockNumber }}</h5>
-          <h5 class="card-title">Hash : {{ block.hash }}</h5>
-        </div>
-      </div>
+    <div class="col-sm-12 col-md-4">
+      <app-labeled-card title="Basic information" [config]="basicInfoConfig"></app-labeled-card>
     </div>
-    <div class="col col-lg-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">
-            Previous block number : {{ block.previousBlockNumber }}
-          </h5>
-          <h5 class="card-title">Hash : {{ block.previousBlockHash }}</h5>
-          <!-- TODO: Remove below line -->
-          <span class="card-title"
-            >Previous Hash (just for testing):<a
-              [routerLink]="['/block', 46731]"
-              >46731</a
-            ></span
-          >
+    <div class="col-sm-12 col-md-4">
+      <h6>&nbsp;</h6>
+      <!-- TODO Add configuration for previous block -->
+      <app-labeled-card [config]="previousBlockConfig" height="92px"></app-labeled-card>
+    </div>
+  </div>
+  <!-- BLOCK DETAILS -->
+  <div class="row justify-content-md-center mt-3">
+    <div class="col-sm-12 col-md-8">
+      <div class="row">
+        <div class="col-sm-6 col-md-5">
+          <div class="row details-row-item">
+            <div class="col-sm-6 col-md-5"><strong>Time created</strong></div>
+            <!-- TODO Add pipe for time -->
+            <div class="col-sm-6 col-md-7 border-right">block.createdTime</div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-7">
+          <div class="row details-row-item">
+            <div class="col-sm-6 col-md-3"><strong>Passed time</strong></div>
+            <div class="col-sm-6 col-md-9">block.passedTime</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="row">
+  <!-- ADDITIONAL INFORMATIONS -->
+  <div class="row justify-content-md-center mt-4">
+    <div class="col-sm-12 col-md-8">
+      <div class="additional-info-card">
+        <div class="card-header transparent">
+          <strong>Additional Info</strong>
+          <i class="fas fa-angle-down float-right" *ngIf="!additionalInfoExpanded" (click)="expandAdditionalInfo()"></i>
+          <i class="fas fa-angle-up float-right" *ngIf="additionalInfoExpanded" (click)="expandAdditionalInfo()"></i>
+        </div>
+        <div class="card-body" *ngIf="additionalInfoExpanded">
+          <div class="table">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="label"><strong>Proposer address</strong></td>
+                  <td class="value">Value</td>
+                </tr>
+                <tr>
+                  <td class="label"><strong>txSetRoot</strong></td>
+                  <td class="value">Value</td>
+                </tr>
+                <tr>
+                  <td class="label"><strong>tcResultRoot</strong></td>
+                  <td class="value">Value</td>
+                </tr>
+                <tr>
+                  <td class="label"><strong>equivocationRoot</strong></td>
+                  <td class="value">Value</td>
+                </tr>
+                <tr>
+                  <td class="label"><strong>equivocationProofResultRoot</strong></td>
+                  <td class="value">Value</td>
+                </tr>
+                <tr>
+                  <td class="label"><strong>stateRoot</strong></td>
+                  <td class="value">Value</td>
+                </tr>
+                <tr>
+                  <td class="label"><strong>stakingRewardsRoot</strong></td>
+                  <td class="value">Value</td>
+                </tr>
+                <tr>
+                  <td class="label"><strong>configurationRoot</strong></td>
+                  <td class="value">Value</td>
+                </tr>
+                <tr>
+                  <td class="label"><strong>Configuration block number</strong></td>
+                  <td class="value">Value</td>
+                </tr>
+                <tr>
+                  <td class="label"><strong>Consensus round</strong></td>
+                  <td class="value">Value</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="row">
     <div class="col-12">
       <p>
         <button
@@ -57,36 +127,36 @@
         </ul>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="row mt-5">
     <div class="col-12">
-      <app-table-card
+      <!-- <app-table-card
         title="Transactions"
         [loading]="isLoading"
         [headers]="transactionsHeaders"
         [data]="transactions | async"
-      ></app-table-card>
+      ></app-table-card> -->
     </div>
   </div>
 
   <div class="row mt-5">
     <div class="col-12">
-      <app-table-card
+      <!-- <app-table-card
         title="EQUIVOCATION PROOFS"
         [loading]="isLoading"
         [headers]="equivocationsHeaders"
         [data]="equivocations | async"
-      ></app-table-card>
+      ></app-table-card> -->
     </div>
   </div>
   <div class="row mt-5">
     <div class="col-12">
-      <app-table-card
+      <!-- <app-table-card
         title="Staking Rewards"
         [loading]="isLoading"
         [headers]="stakingRewardsHeaders"
         [data]="stakingRewards | async"
-      ></app-table-card>
+      ></app-table-card> -->
     </div>
   </div>
 </div>

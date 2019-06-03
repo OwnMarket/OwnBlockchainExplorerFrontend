@@ -7,12 +7,15 @@ export class TransactionStoreService {
   // - Create one BehaviorSubject per store entity,
   //   create a new BehaviorSubject for it, as well as the observable$, and getters/setters
   private readonly _transactions = new BehaviorSubject<any[]>([]);
+  private readonly _loadingTransactions = new BehaviorSubject<boolean>(false);
   private readonly _transactionInfo = new BehaviorSubject<any>({});
   // TODO: LOADING INDICATOR AS ARRAY FOR EACH ACTION
 
   // Expose the observable$ part of the _transactions subject (read only stream)
   // tslint:disable-next-line: member-ordering
   readonly transactions$ = this._transactions.asObservable();
+  // tslint:disable-next-line: member-ordering
+  readonly loadingTransactions$ = this._loadingTransactions.asObservable();
   // tslint:disable-next-line: member-ordering
   readonly transactionInfo$ = this._transactionInfo.asObservable();
 
@@ -33,6 +36,10 @@ export class TransactionStoreService {
     this._transactions.next(val);
   }
 
+  set loadingTransactions(val: boolean) {
+    this._loadingTransactions.next(val);
+  }
+
   set transactionInfo(val: any) {
     this._transactionInfo.next(val);
   }
@@ -42,14 +49,13 @@ export class TransactionStoreService {
   }
 
   getAddressInfo(transactionHash: string) {
-    this.transactionService
-      .getTransactionInfo(transactionHash)
-      .subscribe(res => {
-        this.transactionInfo = res;
-      });
+    this.transactionService.getTransactionInfo(transactionHash).subscribe(res => {
+      this.transactionInfo = res;
+    });
   }
 
   getTransactions(page: number, limit: number, shouldAppend: boolean = false) {
+    this.loadingTransactions = true;
     this.transactionService.getTransactions({ page, limit }).subscribe(res => {
       console.log(res);
       if (shouldAppend) {
@@ -57,6 +63,7 @@ export class TransactionStoreService {
       } else {
         this.transactions = res;
       }
+      this.loadingTransactions = false;
     });
   }
 }

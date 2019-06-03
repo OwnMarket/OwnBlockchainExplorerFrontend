@@ -1,94 +1,58 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { finalize } from 'rxjs/operators';
-
-import { Logger, untilDestroyed } from '@app/core';
-
-import { BlockService } from './block.service';
+import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, Input } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Logger, untilDestroyed } from '@app/core';
 import { BlockStoreService } from './block-store.service';
 
 const log = new Logger('Blocks');
-
 @Component({
   selector: 'app-blocks',
   templateUrl: './blocks.component.html',
   styleUrls: ['./blocks.component.scss']
 })
 export class BlocksComponent implements OnInit, OnDestroy {
+  @ViewChild('linkBlock') linkBlock: TemplateRef<any>;
   // TODO: make models
   blocks: Observable<any[]>;
-  // TODO: make general loader
-  isLoading = false;
-  pageLimit = 20;
+  isLoading: Observable<boolean>;
+
+  @Input() tableHeight = '500px';
+  @Input() pageLimit = 20;
   currentPage = 1;
 
-  // TODO: Add table header module
-  headers: any[] = [
-    {
-      label: 'Block Number',
-      key: 'blockNumber',
-      // TODO Use models for urls and Transaction
-      url: (block: any) => ({
-        route: '/block/',
-        params: [block.blockNumber]
-      })
-    },
-    {
-      label: 'Block hash',
-      key: 'hash'
-    }
-  ];
+  columns: any[];
 
   constructor(private blockStoreService: BlockStoreService) {}
 
   ngOnInit() {
-    this.blocks = this.blockStoreService.blocks$;
+    this.columns = [
+      {
+        name: 'Block Number',
+        prop: 'blockNumber',
+        sortable: false,
+        maxWidth: 150,
+        cellTemplate: this.linkBlock
+      },
+      {
+        name: 'Block hash',
+        prop: 'hash',
+        sortable: false
+      }
+    ];
+
+    this.blocks = this.blockStoreService.blocks$.pipe(untilDestroyed(this));
+    this.isLoading = this.blockStoreService.loadingBlocks$.pipe(untilDestroyed(this));
     this.getBlocks();
   }
   ngOnDestroy() {}
 
-  getBlocks() {
-    this.blockStoreService.getBlocks(this.currentPage, this.pageLimit, true);
-
-    // this.isLoading = true;
-    // TODO: use params from pagination
-    // const blocks$ = this.blocksService.getBlocks({ page: 1, limit: 50 });
-    // blocks$
-    //   .pipe(
-    //     finalize(() => {
-    //       this.isLoading = false;
-    //     }),
-    //     untilDestroyed(this)
-    //   )
-    //   .subscribe(
-    //     list => {
-    //       log.debug(list);
-    //       this.blocks = list;
-    //     },
-    //     error => {
-    //       log.debug(`Login error: ${error}`);
-    //       this.error = error;
-    //     }
-    //   );
-
-    // TODO: use params from pagination
-    // this.blockService
-    //   .getBlocks({ page: 1, limit: 50 })
-    //   .pipe(
-    //     finalize(() => {
-    //       this.isLoading = false;
-    //     }),
-    //     untilDestroyed(this)
-    //   )
-    //   .subscribe(list => {
-    //     this.blocks = list;
-    //   });
+  getBlocks(shouldAppend: boolean = false) {
+    this.blockStoreService.getBlocks(this.currentPage, this.pageLimit, shouldAppend);
   }
 
   onLoadMore(shouldLoad: boolean) {
     if (shouldLoad) {
       this.currentPage++;
-      this.getBlocks();
+      this.getBlocks(true);
     }
   }
 }

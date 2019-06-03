@@ -23,24 +23,17 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
 
   actionsConfig: any;
 
-  constructor(
-    private route: ActivatedRoute,
-    private transactionStoreService: TransactionStoreService
-  ) {}
+  constructor(private route: ActivatedRoute, private transactionStoreService: TransactionStoreService) {}
 
   ngOnInit() {
-    this.route.paramMap
-      .pipe(untilDestroyed(this))
-      .subscribe((params: ParamMap) => {
-        // this.isLoading = true;
-        log.debug(params);
-        this.transactionHash = params.get('hash');
-        this.transactionInfo = this.transactionStoreService.transactionInfo$;
-        this.getTransactionInfo();
-        this.transactionStoreService.transactionInfo$.subscribe(res =>
-          this.init()
-        );
-      });
+    this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params: ParamMap) => {
+      // this.isLoading = true;
+      log.debug(params);
+      this.transactionHash = params.get('hash');
+      this.transactionInfo = this.transactionStoreService.transactionInfo$;
+      this.getTransactionInfo();
+      this.transactionStoreService.transactionInfo$.subscribe(res => this.init());
+    });
   }
 
   init() {

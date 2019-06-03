@@ -5,16 +5,11 @@ import { map, catchError } from 'rxjs/operators';
 
 const routes = {
   addressInfo: (blockchainAddress: string) => `/address/${blockchainAddress}`,
-  addressAccounts: (blockchainAddress: string) =>
-    `/address/${blockchainAddress}/accounts`,
-  addressAssets: (blockchainAddress: string) =>
-    `/address/${blockchainAddress}/assets`,
-  addressDelegatedStakes: (blockchainAddress: string) =>
-    `/address/${blockchainAddress}/delegated-stakes`,
-  addressReceivedStakes: (blockchainAddress: string) =>
-    `/address/${blockchainAddress}/received-stakes`,
-  addressEvents: (blockchainAddress: string) =>
-    `/address/${blockchainAddress}/events`
+  addressAccounts: (blockchainAddress: string) => `/address/${blockchainAddress}/accounts`,
+  addressAssets: (blockchainAddress: string) => `/address/${blockchainAddress}/assets`,
+  addressDelegatedStakes: (blockchainAddress: string) => `/address/${blockchainAddress}/delegated-stakes`,
+  addressReceivedStakes: (blockchainAddress: string) => `/address/${blockchainAddress}/received-stakes`,
+  addressEvents: (blockchainAddress: string) => `/address/${blockchainAddress}/events`
 };
 
 //TODO: make common modal
@@ -60,26 +55,22 @@ export class AddressInfoService {
   }
   // TODO: add models
   getAddressDelegatedStakes(blockchainAddress: string): Observable<[]> {
-    return this.httpClient
-      .get(routes.addressDelegatedStakes(blockchainAddress))
-      .pipe(
-        // TODO: make GENERIC api model!!
-        map((response: any) => response.data),
-        // TODO: make common error logger
-        catchError(() => of('Error, could not get address assets'))
-      );
+    return this.httpClient.get(routes.addressDelegatedStakes(blockchainAddress)).pipe(
+      // TODO: make GENERIC api model!!
+      map((response: any) => response.data),
+      // TODO: make common error logger
+      catchError(() => of('Error, could not get address assets'))
+    );
   }
 
   // TODO: add models
   getAddressReceivedStakes(blockchainAddress: string): Observable<[]> {
-    return this.httpClient
-      .get(routes.addressReceivedStakes(blockchainAddress))
-      .pipe(
-        // TODO: make GENERIC api model!!
-        map((response: any) => response.data),
-        // TODO: make common error logger
-        catchError(() => of('Error, could not get address assets'))
-      );
+    return this.httpClient.get(routes.addressReceivedStakes(blockchainAddress)).pipe(
+      // TODO: make GENERIC api model!!
+      map((response: any) => response.data),
+      // TODO: make common error logger
+      catchError(() => of('Error, could not get address assets'))
+    );
   }
 
   // TODO: add models

@@ -11,14 +11,7 @@ import { BlockInfoComponent } from './block-info/block-info.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    TranslateModule,
-    NgbModule,
-    CoreModule,
-    SharedModule,
-    BlocksRoutingModule
-  ],
+  imports: [CommonModule, TranslateModule, NgbModule, CoreModule, SharedModule, BlocksRoutingModule],
   declarations: [BlocksComponent, BlockInfoComponent],
   providers: [BlockService],
   exports: [BlocksComponent]

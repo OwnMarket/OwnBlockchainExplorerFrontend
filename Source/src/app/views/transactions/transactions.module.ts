@@ -11,13 +11,7 @@ import { TransactionInfoComponent } from './transaction-info/transaction-info.co
 
 @NgModule({
   declarations: [TransactionsComponent, TransactionInfoComponent],
-  imports: [
-    CommonModule,
-    TranslateModule,
-    CoreModule,
-    SharedModule,
-    TransactionsRoutingModule
-  ],
+  imports: [CommonModule, TranslateModule, CoreModule, SharedModule, TransactionsRoutingModule],
   providers: [TransactionService],
   exports: [TransactionsComponent]
 })

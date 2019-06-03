@@ -1,8 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TransactionService } from './transaction.service';
-import { finalize } from 'rxjs/operators';
-import { Logger, untilDestroyed } from '@app/core';
+import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, Input } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Logger, untilDestroyed } from '@app/core';
 import { TransactionStoreService } from './transaction-store.service';
 
 const log = new Logger('Transactions');
@@ -12,80 +10,66 @@ const log = new Logger('Transactions');
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
-  pageLimit = 20;
-  currentPage = 1;
-
+  @ViewChild('txHash') txHash: TemplateRef<any>;
+  @ViewChild('txBlock') txBlock: TemplateRef<any>;
+  @ViewChild('txAddress') txAddress: TemplateRef<any>;
+  @ViewChild('txBadge') txBadge: TemplateRef<any>;
   // TODO: make models
   transactions: Observable<any[]>;
-  // TODO: make general loader
-  isLoading = false;
+  isLoading: Observable<boolean>;
 
-  // TODO: Add table header module
-  headers: any[] = [
-    // TODO Use models for items, in this case Transaction
-    {
-      label: '',
-      render: (transaction: any) =>
-        `<span class="badge badge-pill ${
-          transaction.numberOfActions >= 3 ? 'badge-success' : 'badge-danger'
-        }"><i class="fas fa-check"></i></span>`
-    },
-    {
-      label: 'Transaction Hash',
-      key: 'hash',
-      // TODO Use models for urls and Transaction
-      url: (transaction: any) => ({
-        route: '/transaction-info/',
-        params: [transaction.hash]
-      })
-    },
-    { label: 'Block Number', key: 'blockNumber' },
-    {
-      label: 'Sender Address',
-      key: 'senderAddress',
-      // TODO Use models for urls and Transaction
-      url: (transaction: any) => ({
-        route: '/address-info/',
-        params: [transaction.senderAddress]
-      })
-    },
-    { label: 'Action', key: 'numberOfActions' }
-  ];
+  @Input() tableHeight = '500px';
+  @Input() pageLimit = 20;
+  currentPage = 1;
+
+  columns: any[];
 
   constructor(private transactionStoreService: TransactionStoreService) {}
 
   ngOnInit() {
-    this.transactions = this.transactionStoreService.transactions$;
+    this.columns = [
+      {
+        name: '',
+        prop: 'numberOfActions',
+        maxWidth: 50,
+        sortable: false,
+        cellTemplate: this.txBadge
+      },
+      {
+        name: 'Transaction Hash',
+        prop: 'hash',
+        cellTemplate: this.txHash
+      },
+      {
+        name: 'Block Number',
+        prop: 'blockNumber',
+        maxWidth: 150,
+        sortable: false,
+        cellTemplate: this.txBlock
+      },
+      {
+        name: 'Sender Address',
+        prop: 'senderAddress',
+        sortable: false,
+        cellTemplate: this.txAddress
+      }
+    ];
+
+    this.transactions = this.transactionStoreService.transactions$.pipe(untilDestroyed(this));
+    this.isLoading = this.transactionStoreService.loadingTransactions$.pipe(untilDestroyed(this));
     this.getTransactions();
   }
 
   ngOnDestroy() {}
 
-  getTransactions() {
-    this.transactionStoreService.getTransactions(
-      this.currentPage,
-      this.pageLimit,
-      true
-    );
-    // TODO: add pagination
-    // this.isLoading = true;
-    // this.transactionService.getTransactions({ page: this.currentPage, limit: this.pageLimit }, true);
-    // .pipe(
-    //   finalize(() => {
-    //     this.isLoading = false;
-    //   }),
-    //   untilDestroyed(this)
-    // )
-    // .subscribe(list => {
-    //   log.debug(list);
-    //   this.transactions = list;
-    // });
+  getTransactions(shouldAppend: boolean = false) {
+    this.transactionStoreService.getTransactions(this.currentPage, this.pageLimit, shouldAppend);
   }
 
   onLoadMore(shouldLoad: boolean) {
     if (shouldLoad) {
       this.currentPage++;
-      this.getTransactions();
+      this.getTransactions(true);
     }
   }
 }
