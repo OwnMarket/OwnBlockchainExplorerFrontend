@@ -130,33 +130,39 @@
   </div> -->
   <div class="row mt-5">
     <div class="col-12">
-      <!-- <app-table-card
+      <app-table-card
         title="Transactions"
-        [loading]="isLoading"
-        [headers]="transactionsHeaders"
-        [data]="transactions | async"
-      ></app-table-card> -->
+        [tableHeight]="tableHeight"
+        [columns]="transactionColumns"
+        [loading]="loadingTransactions | async"
+        [source]="transactions | async"
+        [canLoadMore]="canLoadMore"
+      ></app-table-card>
     </div>
   </div>
 
   <div class="row mt-5">
     <div class="col-12">
-      <!-- <app-table-card
+      <app-table-card
         title="EQUIVOCATION PROOFS"
-        [loading]="isLoading"
-        [headers]="equivocationsHeaders"
-        [data]="equivocations | async"
-      ></app-table-card> -->
+        [tableHeight]="tableHeight"
+        [columns]="equivocationColumns"
+        [loading]="loadingEquivocations | async"
+        [source]="equivocations | async"
+        [canLoadMore]="canLoadMore"
+      ></app-table-card>
     </div>
   </div>
   <div class="row mt-5">
     <div class="col-12">
-      <!-- <app-table-card
+      <app-table-card
         title="Staking Rewards"
-        [loading]="isLoading"
-        [headers]="stakingRewardsHeaders"
-        [data]="stakingRewards | async"
-      ></app-table-card> -->
+        [tableHeight]="tableHeight"
+        [columns]="stakingRewardColumns"
+        [loading]="loadingStakingRewards | async"
+        [source]="stakingRewards | async"
+        [canLoadMore]="canLoadMore"
+      ></app-table-card>
     </div>
   </div>
 </div>

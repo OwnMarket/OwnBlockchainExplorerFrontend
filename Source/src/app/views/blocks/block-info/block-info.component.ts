@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 
 import { Logger, untilDestroyed } from '@app/core';
@@ -14,63 +14,34 @@ const log = new Logger('BlockInfo');
   styleUrls: ['./block-info.component.scss']
 })
 export class BlockInfoComponent implements OnInit, OnDestroy {
+  @Input() tableHeight = '500px';
+  @Input() pageLimit = 20;
+
   blockNumber: number;
   // TODO: make general loader
   isLoading = false;
+  canLoadMore = false;
+
   // TODO: make models
   blockInfo: Observable<any>;
   basicInfoConfig: any;
   previousBlockConfig: any;
+  additionalInfoExpanded: boolean = false;
 
   // TODO: make models
   transactions: Observable<any[]>;
-  additionalInfoExpanded: boolean = false;
-
-  // TODO: Add table header module
-  transactionsHeaders: any[] = [
-    {
-      label: 'Transaction Hash',
-      key: 'hash'
-    },
-    {
-      label: 'Sender Address',
-      key: 'senderAddress'
-    },
-    {
-      label: 'Action',
-      key: 'numberOfActions'
-    }
-  ];
+  loadingTransactions: Observable<boolean>;
+  transactionColumns: any[];
 
   // TODO: make models
   equivocations: Observable<any[]>;
-  equivocationsHeaders: any[] = [
-    {
-      label: 'EQ Hash',
-      key: 'equivocationProofHash'
-    },
-    // {
-    //   label: 'EQ validator address',
-    //   key: 'senderAddress',
-    // },
-    {
-      label: 'Slashed amount',
-      key: 'takenDeposit.amount'
-    }
-  ];
+  loadingEquivocations: Observable<boolean>;
+  equivocationColumns: any[];
 
   // TODO: make models
   stakingRewards: Observable<any[]>;
-  stakingRewardsHeaders: any[] = [
-    {
-      label: 'Staker Address',
-      key: 'stakerAddress'
-    },
-    {
-      label: 'Amount',
-      key: 'amount'
-    }
-  ];
+  loadingStakingRewards: Observable<boolean>;
+  stakingRewardColumns: any[];
 
   public isAddCollapsed = true;
 
@@ -79,11 +50,19 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params: ParamMap) => {
       log.debug(params);
+      this.setupColumns();
       this.blockNumber = +params.get('number');
-      this.blockInfo = this.blockStoreService.blockInfo$;
-      this.transactions = this.blockStoreService.transactions$;
-      this.equivocations = this.blockStoreService.equivocations$;
-      this.stakingRewards = this.blockStoreService.stakingRewards$;
+
+      this.blockInfo = this.blockStoreService.blockInfo$.pipe(untilDestroyed(this));
+
+      this.transactions = this.blockStoreService.transactions$.pipe(untilDestroyed(this));
+      this.loadingTransactions = this.blockStoreService.loadingTransactions$.pipe(untilDestroyed(this));
+
+      this.equivocations = this.blockStoreService.equivocations$.pipe(untilDestroyed(this));
+      this.loadingEquivocations = this.blockStoreService.loadingEquivocations$.pipe(untilDestroyed(this));
+
+      this.stakingRewards = this.blockStoreService.stakingRewards$.pipe(untilDestroyed(this));
+      this.loadingStakingRewards = this.blockStoreService.loadingStakingRewards$.pipe(untilDestroyed(this));
 
       this.getBlockInfo();
       this.getTransactions();
@@ -95,6 +74,53 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {}
+
+  setupColumns() {
+    this.transactionColumns = [
+      {
+        name: 'Transaction Hash',
+        prop: 'hash',
+        sortable: false
+      },
+      {
+        name: 'Sender Address',
+        prop: 'senderAddress',
+        sortable: false
+      },
+      {
+        name: 'Action',
+        prop: 'numberOfActions',
+        maxWidth: 50,
+        sortable: false
+      }
+    ];
+
+    this.equivocationColumns = [
+      {
+        name: 'EQ Hash',
+        prop: 'equivocationProofHash',
+        sortable: false
+      },
+      {
+        name: 'Slashed amount',
+        prop: 'takenDeposit.amount',
+        sortable: false
+      }
+    ];
+
+    this.stakingRewardColumns = [
+      {
+        name: 'Staker Address',
+        prop: 'stakerAddress',
+        sortable: false
+      },
+      {
+        name: 'Amount',
+        prop: 'amount',
+        sortable: false
+      }
+    ];
+  }
 
   init() {
     // TODO Add real data
