@@ -1,74 +1,34 @@
 <div [ngClass]="class" class="card">
   <div class="card-header">
-    {{ title }}
-    <i
-      class="fas fa-angle-down float-right"
-      *ngIf="!expanded && expandable"
-      (click)="expand()"
-    ></i>
-    <i
-      class="fas fa-angle-up float-right"
-      *ngIf="expanded && expandable"
-      (click)="expand()"
-    ></i>
+    <h3>{{ title }}</h3>
+    <i class="fas fa-angle-down float-right" *ngIf="!expanded && expandable" (click)="expand()"></i>
+    <i class="fas fa-angle-up float-right" *ngIf="expanded && expandable" (click)="expand()"></i>
 
     <!-- TODO Need to find better way for filters handler -->
     <div *ngIf="filterable" class="filters-wrapper float-right">
       <div class="custom-control custom-switch float-right">
         <input type="checkbox" class="custom-control-input" id="previous" />
-        <label class="custom-control-label uppercase" for="previous"
-          >previous</label
-        >
+        <label class="custom-control-label uppercase" for="previous">previous</label>
       </div>
       <div class="custom-control custom-switch float-right">
         <input type="checkbox" class="custom-control-input" id="current" />
-        <label class="custom-control-label uppercase" for="current"
-          >current</label
-        >
+        <label class="custom-control-label uppercase" for="current">current</label>
       </div>
     </div>
   </div>
-  <!-- <app-loader [isLoading]="loading"></app-loader> -->
-  <div
-    class="card-body"
-    *ngIf="expanded"
-    appScrollEnd
-    (endReached)="endReached($event)"
-  >
-    <div class="table" [hidden]="loading">
-      <!-- TODO: infinitive scroll -->
-      <table class="table">
-        <thead *ngIf="headers">
-          <tr>
-            <th *ngFor="let header of headers" scope="col">
-              {{ header.label }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of data">
-            <!-- TODO Implement pipe for html transform -->
-            <td *ngFor="let header of headers">
-              <!-- TODO Find better way to handle routerLinks -->
-              <div
-                *ngIf="!header.url"
-                [innerHTML]="
-                  (header.render ? header.render(item) : item[header.key])
-                    | htmlRender: 'html'
-                "
-              ></div>
-              <!-- TODO Find better way to handle routerLinks -->
-              <a
-                class="link"
-                tabindex=""
-                *ngIf="header.url"
-                (click)="navigate(header.url(item))"
-                >{{ item[header.key] }}</a
-              >
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+
+  <div class="card-body" *ngIf="expanded">
+    <ngx-datatable
+      [ngStyle]="{ height: tableHeight }"
+      class="table-card"
+      [rows]="source"
+      [columns]="columns"
+      [columnMode]="'force'"
+      [headerHeight]="headerHeight"
+      [rowHeight]="rowHeight"
+      [loadingIndicator]="loading"
+      [scrollbarV]="true"
+      (scroll)="onScroll($event.offsetY)"
+    ></ngx-datatable>
   </div>
 </div>

@@ -1,12 +1,11 @@
 .card {
   max-height: calc(100vh - 100px);
-  height: 100%;
-  overflow: hidden;
   box-shadow: 2px 8px 15px rgba(0, 0, 0, 0.07);
   background-color: #ffffff;
   border: none;
 
   .card-header {
+    padding: 15px;
     background-color: white;
     color: #1e1e1e;
 
@@ -17,8 +16,90 @@
   }
 
   .card-body {
-    overflow-y: scroll;
-    scroll-behavior: auto;
+    padding: 2%;
+
+    .table-card {
+      min-height: 30vh;
+
+      .progress-linear {
+        display: block;
+        position: relative;
+        width: 100%;
+        max-width: 95%;
+        height: 5px;
+
+        position: fixed;
+        bottom: 0px;
+
+        .container {
+          display: block;
+          position: relative;
+          overflow: hidden;
+          width: 100%;
+          height: 5px;
+          -webkit-transform: translate(0, 0) scale(1, 1);
+          transform: translate(0, 0) scale(1, 1);
+          background-color: #aad1f9;
+
+          .bar {
+            transition: all 0.2s linear;
+            -webkit-animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
+            animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
+            transition: -webkit-transform 0.2s linear;
+            transition: transform 0.2s linear;
+            background-color: #106cc8;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 5px;
+          }
+        }
+      }
+
+      .datatable-header {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+        .datatable-header-cell-template-wrap {
+          margin-top: 5px;
+        }
+      }
+
+      .datatable-body {
+        font-size: 11px;
+
+        .datatable-row-wrapper {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+          .datatable-body-cell {
+            margin-top: 20px;
+
+            .datatable-body-cell-label {
+              width: 95%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+        }
+      }
+
+      /**
+       * Progress bar animations
+       */
+      @keyframes query {
+        0% {
+          opacity: 1;
+          transform: translateX(35%) scale(0.3, 1);
+        }
+
+        100% {
+          opacity: 0;
+          transform: translateX(-50%) scale(0, 1);
+        }
+      }
+    }
   }
 }
 
@@ -33,38 +114,5 @@
 
   label {
     line-height: 2em;
-  }
-}
-
-.table {
-  font-size: 11px;
-
-  thead {
-    th {
-      border-top: none;
-      color: #ababab;
-      width: 1%;
-      max-width: 200px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      min-width: 1px;
-    }
-  }
-
-  tbody {
-    td {
-      width: 1%;
-      max-width: 200px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      min-width: 1px;
-
-      .link {
-        cursor: pointer;
-        color: #0073dd;
-      }
-    }
   }
 }

@@ -9,9 +9,10 @@ import { PageTitleComponent } from './page-title/page-title.component';
 import { LabeledCardComponent } from './labeled-card/labeled-card.component';
 import { HtmlRenderPipe } from './pipes/html-render.pipe';
 import { ScrollEndDirective } from './directives/scroll-end.directive';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NgxDatatableModule],
   declarations: [
     LoaderComponent,
     SearchInputComponent,
@@ -21,12 +22,6 @@ import { ScrollEndDirective } from './directives/scroll-end.directive';
     LabeledCardComponent,
     ScrollEndDirective
   ],
-  exports: [
-    LoaderComponent,
-    SearchInputComponent,
-    TableCardComponent,
-    PageTitleComponent,
-    LabeledCardComponent
-  ]
+  exports: [LoaderComponent, SearchInputComponent, TableCardComponent, PageTitleComponent, LabeledCardComponent]
 })
 export class SharedModule {}

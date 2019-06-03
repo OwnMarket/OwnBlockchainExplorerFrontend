@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewEncapsulation,
-  Output,
-  EventEmitter
-} from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter, ElementRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -13,7 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   selector: 'app-table-card',
   templateUrl: './table-card.component.html',
   styleUrls: ['./table-card.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated
+  // encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.None
 })
 export class TableCardComponent implements OnInit {
   expanded: boolean = true;
@@ -21,11 +15,17 @@ export class TableCardComponent implements OnInit {
 
   // Inputs
   @Input() title: string;
-  @Input() loading = false;
-  @Input() headers: any[];
-  @Input() data: any[];
   @Input() expandable = false;
   @Input() defaultExpand: any;
+  @Input() headerHeight = 50;
+  @Input() rowHeight = 50;
+  @Input() tableHeight = 500;
+  @Input() pageLimit = 10;
+  @Input() loading: boolean;
+  @Input() canLoadMore = true;
+  @Input() columns: any[];
+  @Input() source: any[];
+
   // TODO Need to find better way for filters handler
   @Input() filters: any[];
   @Input() filterable = false;
@@ -33,14 +33,24 @@ export class TableCardComponent implements OnInit {
 
   @Output() loadMore: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private el: ElementRef) {}
 
   ngOnInit() {
-    console.log(this.data);
-    console.log(this.loading);
-
+    this.onScroll(0);
     // TODO Find a way to send immediately boolean values instead strings
     this.expanded = this.defaultExpand !== 'false';
+  }
+
+  onScroll(offsetY: number) {
+    if (this.canLoadMore) {
+      // total height of all rows in the viewport
+      const viewHeight = this.el.nativeElement.getBoundingClientRect().height - this.headerHeight;
+
+      // check if we scrolled to the end of the viewport
+      if (!this.loading && offsetY + viewHeight >= this.source.length * this.rowHeight) {
+        this.loadMore.emit(true);
+      }
+    }
   }
 
   // TODO Use url model
@@ -51,11 +61,6 @@ export class TableCardComponent implements OnInit {
 
   expand() {
     this.expanded = !this.expanded;
-  }
-
-  endReached(isReached: boolean) {
-    console.log(isReached);
-    this.loadMore.emit(isReached);
   }
 
   // TODO: Use url model
