@@ -18,27 +18,22 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   @Input() pageLimit = 20;
 
   blockNumber: number;
-  // TODO: make general loader
-  isLoading = false;
   canLoadMore = false;
 
-  // TODO: make models
   blockInfo: Observable<any>;
-  basicInfoConfig: any;
-  previousBlockConfig: any;
-  additionalInfoExpanded: boolean = false;
+  loadingBlockInfo: Observable<boolean>;
 
-  // TODO: make models
+  previousBlockConfig: any;
+  additionalInfoExpanded = false;
+
   transactions: Observable<any[]>;
   loadingTransactions: Observable<boolean>;
   transactionColumns: any[];
 
-  // TODO: make models
   equivocations: Observable<any[]>;
   loadingEquivocations: Observable<boolean>;
   equivocationColumns: any[];
 
-  // TODO: make models
   stakingRewards: Observable<any[]>;
   loadingStakingRewards: Observable<boolean>;
   stakingRewardColumns: any[];
@@ -49,11 +44,11 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params: ParamMap) => {
-      log.debug(params);
       this.setupColumns();
       this.blockNumber = +params.get('number');
 
       this.blockInfo = this.blockStoreService.blockInfo$.pipe(untilDestroyed(this));
+      this.loadingBlockInfo = this.blockStoreService.loadingBlockInfo$.pipe(untilDestroyed(this));
 
       this.transactions = this.blockStoreService.transactions$.pipe(untilDestroyed(this));
       this.loadingTransactions = this.blockStoreService.loadingTransactions$.pipe(untilDestroyed(this));
@@ -68,8 +63,6 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
       this.getTransactions();
       this.getEquivocations();
       this.getStakingRewards();
-
-      this.init();
     });
   }
 
@@ -122,28 +115,28 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
     ];
   }
 
-  init() {
-    // TODO Add real data
-    this.basicInfoConfig = [
-      {
-        label: 'Block number',
-        render: (item: any) => `<span style="color: #eb6723;"><strong>block.blockNumber</strong></span>`
-      },
-      {
-        label: 'Hash',
-        value: 'block.hash',
-        url: (item: any) => ({
-          route: '/transaction-info/',
-          params: [item.value]
-        })
-      }
-    ];
+  // init() {
+  //   // TODO: Add real data
+  //   this.basicInfoConfig = [
+  //     {
+  //       label: 'Block number',
+  //       render: (item: any) => `<span style="color: #eb6723;"><strong>block.blockNumber</strong></span>`
+  //     },
+  //     {
+  //       label: 'Hash',
+  //       value: 'block.hash',
+  //       url: (item: any) => ({
+  //         route: '/transaction-info/',
+  //         params: [item.value]
+  //       })
+  //     }
+  //   ];
 
-    this.previousBlockConfig = [
-      { label: 'Previous block', value: 'previousBlock.blockNumber' },
-      { label: 'Hash', value: 'previousBlock.hash' }
-    ];
-  }
+  //   this.previousBlockConfig = [
+  //     { label: 'Previous block', value: 'previousBlock.blockNumber' },
+  //     { label: 'Hash', value: 'previousBlock.hash' }
+  //   ];
+  // }
 
   expandAdditionalInfo() {
     this.additionalInfoExpanded = !this.additionalInfoExpanded;

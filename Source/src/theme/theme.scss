@@ -11,11 +11,33 @@ body {
   background-color: #f4f4f4;
 }
 
-// TODO Extract css to some .scsss and import here
 .clip-text {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.card {
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.11);
+  background-color: #ffffff;
+  border: none;
+  border-radius: 15px;
+
+  // font-size: 11px;
+  .card-header {
+    &:last-child {
+      border-radius: 15px;
+    }
+
+    margin-top: 10px;
+    background-color: white;
+    color: #1e1e1e;
+
+    i {
+      color: #fa591f;
+      font-size: 25px;
+    }
+  }
 }
 
 .card-transparent {

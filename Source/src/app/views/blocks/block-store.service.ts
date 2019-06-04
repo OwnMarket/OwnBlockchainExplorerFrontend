@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { BlockService } from './block.service';
+import { Logger } from '@app/core';
+
+const log = new Logger('Block-Store');
 
 @Injectable({ providedIn: 'root' })
 export class BlockStoreService {
   // - Create one BehaviorSubject per store entity,
   //   create a new BehaviorSubject for it, as well as the observable$, and getters/setters
   private readonly _blockInfo = new BehaviorSubject<any>({});
+  private readonly _loadingBlockInfo = new BehaviorSubject<boolean>(false);
   private readonly _blocks = new BehaviorSubject<any[]>([]);
   private readonly _loadingBlocks = new BehaviorSubject<boolean>(false);
   private readonly _transactions = new BehaviorSubject<any[]>([]);
@@ -16,11 +20,11 @@ export class BlockStoreService {
   private readonly _stakingRewards = new BehaviorSubject<any[]>([]);
   private readonly _loadingStakingRewards = new BehaviorSubject<boolean>(false);
 
-  // TODO: LOADING INDICATOR AS ARRAY FOR EACH ACTION
-
   // Expose the observable$ part of the _blocks subject (read only stream)
   // tslint:disable-next-line: member-ordering
   readonly blockInfo$ = this._blockInfo.asObservable();
+  // tslint:disable-next-line: member-ordering
+  readonly loadingBlockInfo$ = this._loadingBlockInfo.asObservable();
   // tslint:disable-next-line: member-ordering
   readonly blocks$ = this._blocks.asObservable();
   // tslint:disable-next-line: member-ordering
@@ -79,6 +83,10 @@ export class BlockStoreService {
     this._blockInfo.next(val);
   }
 
+  set loadingBlockInfo(val: boolean) {
+    this._loadingBlockInfo.next(val);
+  }
+
   set transactions(val: any[]) {
     this._transactions.next(val);
   }
@@ -87,6 +95,7 @@ export class BlockStoreService {
     this._loadingTransactions.next(val);
   }
 
+  // enable this for pagination
   // set appendTransactions(val: any[]) {
   //   this._transactions.next([...this.transactions, ...val]);
   // }
@@ -99,6 +108,7 @@ export class BlockStoreService {
     this._loadingEquivocations.next(val);
   }
 
+  // enable this for pagination
   // set appendEquivocations(val: any[]) {
   //   this._equivocations.next([...this.equivocations, ...val]);
   // }
@@ -111,6 +121,7 @@ export class BlockStoreService {
     this._loadingStakingRewards.next(val);
   }
 
+  // enable this for pagination
   // set appendStakingRewards(val: any[]) {
   //   this._stakingRewards.next([...this.stakingRewards, ...val]);
   // }
@@ -124,14 +135,15 @@ export class BlockStoreService {
       } else {
         this.blocks = res;
       }
-      console.log(this.blocks);
       this.loadingBlocks = false;
     });
   }
 
   getBlockInfo(blockNumber: number) {
+    this.loadingBlockInfo = true;
     this.blockService.getBlockInfo(blockNumber).subscribe(res => {
       this.blockInfo = res;
+      this.loadingBlockInfo = false;
     });
   }
 

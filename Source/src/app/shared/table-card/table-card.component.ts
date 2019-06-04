@@ -10,13 +10,15 @@ import { Router, ActivatedRoute } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class TableCardComponent implements OnInit {
-  expanded: boolean = true;
+  expanded = true;
   lodash = _;
 
   // Inputs
   @Input() title: string;
   @Input() expandable = false;
-  @Input() defaultExpand: any;
+  @Input() set defaultExpand(value: boolean) {
+    this.expanded = value;
+  }
   @Input() headerHeight = 50;
   @Input() rowHeight = 50;
   @Input() tableHeight = 500;
@@ -37,8 +39,6 @@ export class TableCardComponent implements OnInit {
 
   ngOnInit() {
     this.onScroll(0);
-    // TODO Find a way to send immediately boolean values instead strings
-    this.expanded = this.defaultExpand !== 'false';
   }
 
   onScroll(offsetY: number) {

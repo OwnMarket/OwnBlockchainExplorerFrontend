@@ -1,8 +1,15 @@
-<div [ngClass]="class" class="card">
+<div class="card">
   <div class="card-header">
-    <h3>{{ title }}</h3>
-    <i class="fas fa-angle-down float-right" *ngIf="!expanded && expandable" (click)="expand()"></i>
-    <i class="fas fa-angle-up float-right" *ngIf="expanded && expandable" (click)="expand()"></i>
+    <div class="row">
+      <div class="col-8">
+        <h3>{{ title }}</h3>
+      </div>
+      <div class="col-4">
+        <div class="float-right" *ngIf="expandable">
+          <i [ngClass]="expanded ? 'fa-angle-up' : 'fa-angle-down'" class="fas" (click)="expand()"></i>
+        </div>
+      </div>
+    </div>
 
     <!-- TODO Need to find better way for filters handler -->
     <div *ngIf="filterable" class="filters-wrapper float-right">
@@ -19,6 +26,7 @@
 
   <div class="card-body" *ngIf="expanded">
     <ngx-datatable
+      *ngIf="source && source.length > 0; else noDataSource"
       [ngStyle]="{ height: tableHeight }"
       class="table-card"
       [rows]="source"
@@ -30,5 +38,8 @@
       [scrollbarV]="true"
       (scroll)="onScroll($event.offsetY)"
     ></ngx-datatable>
+    <ng-template #noDataSource>
+      <p class="mx-auto empty-row">No data to display</p>
+    </ng-template>
   </div>
 </div>

@@ -1,96 +1,150 @@
-<div class="container" *ngIf="blockInfo | async as block">
+<div class="container mb-5" *ngIf="blockInfo | async as block">
   <!-- TITLE -->
   <div class="row justify-content-md-center">
-    <div class="col-sm-12 col-md-8">
+    <div class="col-sm-12 col-md-10 ml-3">
       <app-page-title title="Block info"></app-page-title>
     </div>
   </div>
-  <app-loader [isLoading]="isLoading"></app-loader>
-  <div class="row justify-content-md-center" [hidden]="isLoading">
-    <div class="col-sm-12 col-md-4">
-      <app-labeled-card title="Basic information" [config]="basicInfoConfig"></app-labeled-card>
-    </div>
-    <div class="col-sm-12 col-md-4">
-      <h6>&nbsp;</h6>
-      <!-- TODO Add configuration for previous block -->
-      <app-labeled-card [config]="previousBlockConfig" height="92px"></app-labeled-card>
-    </div>
-  </div>
-  <!-- BLOCK DETAILS -->
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-sm-12 col-md-8">
-      <div class="row">
-        <div class="col-sm-6 col-md-5">
-          <div class="row details-row-item">
-            <div class="col-sm-6 col-md-5"><strong>Time created</strong></div>
-            <!-- TODO Add pipe for time -->
-            <div class="col-sm-6 col-md-7 border-right">block.createdTime</div>
+
+  <!-- LOADER -->
+  <app-loader [isLoading]="loadingBlockInfo | async"></app-loader>
+
+  <div [hidden]="loadingBlockInfo | async" class="block-info">
+    <div class="row justify-content-md-center">
+      <div class="col-sm-12 col-md-10">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <p class="title-card ml-3">Basic information</p>
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-6 col-md-4">
+                    <p class="info-label">Block number</p>
+                  </div>
+                  <div class="col-sm-6 col-md-8 text-right">
+                    <p class="info-orange">{{ block.blockNumber }}</p>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-sm-6 col-md-4">
+                    <p class="info-label">Hash</p>
+                  </div>
+                  <div class="col-sm-6 col-md-8 text-right">
+                    <p class="info-value">{{ block.hash }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col-sm-6 col-md-7">
-          <div class="row details-row-item">
-            <div class="col-sm-6 col-md-3"><strong>Passed time</strong></div>
-            <div class="col-sm-6 col-md-9">block.passedTime</div>
+
+          <div class="col-sm-12 col-md-6">
+            <h6>&nbsp;</h6>
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-6 col-md-6">
+                    <p class="info-label">Previous block number</p>
+                  </div>
+                  <div class="col-sm-6 col-md-6 text-right">
+                    <p class="info-bold">
+                      <a class="text-secondary" [routerLink]="['/block', block.configurationBlockNumber]">{{
+                        block.configurationBlockNumber
+                      }}</a>
+                    </p>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-sm-6 col-md-4 info-label">
+                    <p>Hash</p>
+                  </div>
+                  <div class="col-sm-6 col-md-8 text-right">
+                    <p class="info-value">{{ block.previousBlockHash }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- ADDITIONAL INFORMATIONS -->
-  <div class="row justify-content-md-center mt-4">
-    <div class="col-sm-12 col-md-8">
-      <div class="additional-info-card">
-        <div class="card-header transparent">
-          <strong>Additional Info</strong>
-          <i class="fas fa-angle-down float-right" *ngIf="!additionalInfoExpanded" (click)="expandAdditionalInfo()"></i>
-          <i class="fas fa-angle-up float-right" *ngIf="additionalInfoExpanded" (click)="expandAdditionalInfo()"></i>
-        </div>
-        <div class="card-body" *ngIf="additionalInfoExpanded">
-          <div class="table">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td class="label"><strong>Proposer address</strong></td>
-                  <td class="value">Value</td>
-                </tr>
-                <tr>
-                  <td class="label"><strong>txSetRoot</strong></td>
-                  <td class="value">Value</td>
-                </tr>
-                <tr>
-                  <td class="label"><strong>tcResultRoot</strong></td>
-                  <td class="value">Value</td>
-                </tr>
-                <tr>
-                  <td class="label"><strong>equivocationRoot</strong></td>
-                  <td class="value">Value</td>
-                </tr>
-                <tr>
-                  <td class="label"><strong>equivocationProofResultRoot</strong></td>
-                  <td class="value">Value</td>
-                </tr>
-                <tr>
-                  <td class="label"><strong>stateRoot</strong></td>
-                  <td class="value">Value</td>
-                </tr>
-                <tr>
-                  <td class="label"><strong>stakingRewardsRoot</strong></td>
-                  <td class="value">Value</td>
-                </tr>
-                <tr>
-                  <td class="label"><strong>configurationRoot</strong></td>
-                  <td class="value">Value</td>
-                </tr>
-                <tr>
-                  <td class="label"><strong>Configuration block number</strong></td>
-                  <td class="value">Value</td>
-                </tr>
-                <tr>
-                  <td class="label"><strong>Consensus round</strong></td>
-                  <td class="value">Value</td>
-                </tr>
-              </tbody>
-            </table>
+
+          <div class="col-12 mt-3">
+            <div class="row details-row-item">
+              <div class="col-sm-2">
+                <p class="info-label">Time created</p>
+              </div>
+
+              <!-- TODO: Add pipe for time -->
+              <div class="col-sm-2 border-right">
+                <p class="info-value">{{ block.createdTime }}</p>
+              </div>
+
+              <div class="col-sm-2">
+                <p class="info-label">Passed time</p>
+              </div>
+              <div class="col-sm-2">
+                <p class="info-value">{{ block.passedTime }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ADDITIONAL INFORMATIONS -->
+          <div class="col-12 mt-3">
+            <div class="card-header transparent">
+              <span class="additional-label">Additional Info</span>
+              <div class="float-right">
+                <i
+                  [ngClass]="additionalInfoExpanded ? 'fa-angle-up' : 'fa-angle-down'"
+                  class="fas"
+                  (click)="expandAdditionalInfo()"
+                ></i>
+              </div>
+            </div>
+            <div class="card-body" *ngIf="additionalInfoExpanded">
+              <div class="table">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td class="label"><strong>Proposer address</strong></td>
+                      <td class="value">{{ block.validatorAddress }}</td>
+                    </tr>
+                    <tr>
+                      <td class="label"><strong>txSetRoot</strong></td>
+                      <td class="value">{{ block.txSetRoot }}</td>
+                    </tr>
+                    <tr>
+                      <td class="label"><strong>tcResultRoot</strong></td>
+                      <td class="value">{{ block.txResultSetRoot }}</td>
+                    </tr>
+                    <tr>
+                      <td class="label"><strong>equivocationRoot</strong></td>
+                      <td class="value">{{ block.equivocationProofsRoot }}</td>
+                    </tr>
+                    <tr>
+                      <td class="label"><strong>equivocationProofResultRoot</strong></td>
+                      <td class="value">{{ block.equivocationProofResultsRoot }}</td>
+                    </tr>
+                    <tr>
+                      <td class="label"><strong>stateRoot</strong></td>
+                      <td class="value">{{ block.stateRoot }}</td>
+                    </tr>
+                    <tr>
+                      <td class="label"><strong>stakingRewardsRoot</strong></td>
+                      <td class="value">{{ block.stakingRewardsRoot }}</td>
+                    </tr>
+                    <tr>
+                      <td class="label"><strong>configurationRoot</strong></td>
+                      <td class="value">Value</td>
+                    </tr>
+                    <tr>
+                      <td class="label"><strong>Configuration block number</strong></td>
+                      <td class="value">{{ block.configurationRoot }}</td>
+                    </tr>
+                    <tr>
+                      <td class="label"><strong>Consensus round</strong></td>
+                      <td class="value">{{ block.consensusRound }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -137,7 +191,8 @@
         [loading]="loadingTransactions | async"
         [source]="transactions | async"
         [canLoadMore]="canLoadMore"
-      ></app-table-card>
+      >
+      </app-table-card>
     </div>
   </div>
 
@@ -147,22 +202,29 @@
         title="EQUIVOCATION PROOFS"
         [tableHeight]="tableHeight"
         [columns]="equivocationColumns"
+        [expandable]="true"
+        [defaultExpand]="false"
         [loading]="loadingEquivocations | async"
         [source]="equivocations | async"
         [canLoadMore]="canLoadMore"
-      ></app-table-card>
+      >
+      </app-table-card>
     </div>
   </div>
+
   <div class="row mt-5">
     <div class="col-12">
       <app-table-card
         title="Staking Rewards"
         [tableHeight]="tableHeight"
         [columns]="stakingRewardColumns"
+        [expandable]="true"
+        [defaultExpand]="false"
         [loading]="loadingStakingRewards | async"
         [source]="stakingRewards | async"
         [canLoadMore]="canLoadMore"
-      ></app-table-card>
+      >
+      </app-table-card>
     </div>
   </div>
 </div>

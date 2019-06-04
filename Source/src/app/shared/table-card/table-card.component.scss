@@ -1,22 +1,27 @@
 .card {
   max-height: calc(100vh - 100px);
-  box-shadow: 2px 8px 15px rgba(0, 0, 0, 0.07);
-  background-color: #ffffff;
-  border: none;
+  // box-shadow: 2px 8px 15px rgba(0, 0, 0, 0.07);
+  // background-color: #ffffff;
+  // border: none;
 
   .card-header {
-    padding: 15px;
+    margin-top: 10px;
     background-color: white;
     color: #1e1e1e;
 
     i {
       color: #fa591f;
-      font-size: 22px;
+      font-size: 25px;
     }
   }
 
   .card-body {
     padding: 2%;
+
+    .empty-row {
+      text-align: center;
+      font-weight: bold;
+    }
 
     .table-card {
       min-height: 30vh;
