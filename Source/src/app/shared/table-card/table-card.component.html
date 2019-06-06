@@ -1,45 +1,44 @@
-<div class="card">
-  <div class="card-header">
-    <div class="row">
-      <div class="col-8">
-        <h3>{{ title }}</h3>
+<div class="table-card">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-8">
+          <h4>{{ title }}</h4>
+        </div>
+        <div class="col-4">
+          <div class="float-right" *ngIf="expandable">
+            <i [ngClass]="expanded ? 'fa-angle-up' : 'fa-angle-down'" class="fas" (click)="expand()"></i>
+          </div>
+        </div>
       </div>
-      <div class="col-4">
-        <div class="float-right" *ngIf="expandable">
-          <i [ngClass]="expanded ? 'fa-angle-up' : 'fa-angle-down'" class="fas" (click)="expand()"></i>
+
+      <!-- TODO Need to find better way for filters handler -->
+      <div *ngIf="filterable" class="filters-wrapper float-right">
+        <div class="custom-control custom-switch float-right">
+          <input type="checkbox" class="custom-control-input" id="previous" />
+          <label class="custom-control-label uppercase" for="previous">previous</label>
+        </div>
+        <div class="custom-control custom-switch float-right">
+          <input type="checkbox" class="custom-control-input" id="current" />
+          <label class="custom-control-label uppercase" for="current">current</label>
         </div>
       </div>
     </div>
 
-    <!-- TODO Need to find better way for filters handler -->
-    <div *ngIf="filterable" class="filters-wrapper float-right">
-      <div class="custom-control custom-switch float-right">
-        <input type="checkbox" class="custom-control-input" id="previous" />
-        <label class="custom-control-label uppercase" for="previous">previous</label>
-      </div>
-      <div class="custom-control custom-switch float-right">
-        <input type="checkbox" class="custom-control-input" id="current" />
-        <label class="custom-control-label uppercase" for="current">current</label>
-      </div>
+    <div class="card-body" *ngIf="expanded">
+      <ngx-datatable
+        [ngStyle]="{ height: source && source.length > 0 ? tableHeight : '25px' }"
+        class="table-card"
+        [rows]="source"
+        [columns]="columns"
+        [columnMode]="'force'"
+        [headerHeight]="source && source.length > 0 ? headerHeight : 0"
+        [rowHeight]="rowHeight"
+        [loadingIndicator]="loading"
+        [footerHeight]="falsey"
+        [scrollbarV]="true"
+        (scroll)="onScroll($event.offsetY)"
+      ></ngx-datatable>
     </div>
-  </div>
-
-  <div class="card-body" *ngIf="expanded">
-    <ngx-datatable
-      *ngIf="source && source.length > 0; else noDataSource"
-      [ngStyle]="{ height: tableHeight }"
-      class="table-card"
-      [rows]="source"
-      [columns]="columns"
-      [columnMode]="'force'"
-      [headerHeight]="headerHeight"
-      [rowHeight]="rowHeight"
-      [loadingIndicator]="loading"
-      [scrollbarV]="true"
-      (scroll)="onScroll($event.offsetY)"
-    ></ngx-datatable>
-    <ng-template #noDataSource>
-      <p class="mx-auto empty-row">No data to display</p>
-    </ng-template>
   </div>
 </div>

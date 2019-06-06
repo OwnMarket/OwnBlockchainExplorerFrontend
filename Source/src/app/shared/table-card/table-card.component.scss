@@ -1,123 +1,121 @@
-.card {
-  max-height: calc(100vh - 100px);
-  // box-shadow: 2px 8px 15px rgba(0, 0, 0, 0.07);
-  // background-color: #ffffff;
-  // border: none;
+.table-card {
+  .card {
+    .card-header {
+      margin-top: 10px;
+      background-color: white;
+      color: #1e1e1e;
 
-  .card-header {
-    margin-top: 10px;
-    background-color: white;
-    color: #1e1e1e;
-
-    i {
-      color: #fa591f;
-      font-size: 25px;
-    }
-  }
-
-  .card-body {
-    padding: 2%;
-
-    .empty-row {
-      text-align: center;
-      font-weight: bold;
+      i {
+        color: #fa591f;
+        font-size: 25px;
+      }
     }
 
-    .table-card {
-      min-height: 30vh;
+    .card-body {
+      padding: 2%;
+      margin-left: 1em;
 
-      .progress-linear {
-        display: block;
-        position: relative;
-        width: 100%;
-        max-width: 95%;
-        height: 5px;
+      .empty-row {
+        text-align: center;
+        font-weight: bold;
+      }
 
-        position: fixed;
-        bottom: 0px;
+      .table-card {
+        // min-height: 30vh;
 
-        .container {
+        .progress-linear {
           display: block;
           position: relative;
-          overflow: hidden;
           width: 100%;
+          max-width: 95%;
           height: 5px;
-          -webkit-transform: translate(0, 0) scale(1, 1);
-          transform: translate(0, 0) scale(1, 1);
-          background-color: #aad1f9;
 
-          .bar {
-            transition: all 0.2s linear;
-            -webkit-animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
-            animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
-            transition: -webkit-transform 0.2s linear;
-            transition: transform 0.2s linear;
-            background-color: #106cc8;
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
+          position: fixed;
+          bottom: 0px;
+
+          .container {
+            display: block;
+            position: relative;
+            overflow: hidden;
             width: 100%;
             height: 5px;
-          }
-        }
-      }
+            -webkit-transform: translate(0, 0) scale(1, 1);
+            transform: translate(0, 0) scale(1, 1);
+            background-color: #f4f4f4;
 
-      .datatable-header {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-
-        .datatable-header-cell-template-wrap {
-          margin-top: 5px;
-        }
-      }
-
-      .datatable-body {
-        font-size: 11px;
-
-        .datatable-row-wrapper {
-          border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-
-          .datatable-body-cell {
-            margin-top: 20px;
-
-            .datatable-body-cell-label {
-              width: 95%;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
+            .bar {
+              transition: all 0.2s linear;
+              -webkit-animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
+              animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
+              transition: -webkit-transform 0.2s linear;
+              transition: transform 0.2s linear;
+              background-color: #ea6723;
+              position: absolute;
+              left: 0;
+              top: 0;
+              bottom: 0;
+              width: 100%;
+              height: 5px;
             }
           }
         }
-      }
 
-      /**
-       * Progress bar animations
-       */
-      @keyframes query {
-        0% {
-          opacity: 1;
-          transform: translateX(35%) scale(0.3, 1);
+        .datatable-header {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+          .datatable-header-cell-template-wrap {
+            margin-top: 5px;
+          }
         }
 
-        100% {
-          opacity: 0;
-          transform: translateX(-50%) scale(0, 1);
+        .datatable-body {
+          font-size: 11px;
+
+          .datatable-row-wrapper {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+            .datatable-body-cell {
+              margin-top: 20px;
+
+              .datatable-body-cell-label {
+                width: 95%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+            }
+          }
+        }
+
+        /**
+         * Progress bar animations
+         */
+        @keyframes query {
+          0% {
+            opacity: 1;
+            transform: translateX(35%) scale(0.3, 1);
+          }
+
+          100% {
+            opacity: 0;
+            transform: translateX(-50%) scale(0, 1);
+          }
         }
       }
     }
   }
-}
 
-.filters-wrapper {
-  display: inline-flex;
-}
+  .filters-wrapper {
+    display: inline-flex;
+  }
 
-.custom-control.custom-switch {
-  margin-right: 1em;
-  text-transform: uppercase;
-  font-size: 12px;
+  .custom-control.custom-switch {
+    margin-right: 1em;
+    text-transform: uppercase;
+    font-size: 12px;
 
-  label {
-    line-height: 2em;
+    label {
+      line-height: 2em;
+    }
   }
 }

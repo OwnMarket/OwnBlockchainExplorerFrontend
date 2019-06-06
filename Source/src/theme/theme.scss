@@ -3,7 +3,8 @@
  * Framework overrides and customization goes here.
  */
 * {
-  font-family: "Averta Std";
+  // TODO: CHECK FONT AVERTA
+  // font-family: "Open Sans";
   font-size: 14px;
 }
 
@@ -48,5 +49,101 @@ body {
     background-color: transparent !important;
     border: none;
     border-bottom: 2px solid #999999;
+  }
+}
+
+.detail-info {
+  font-size: 14px;
+  line-height: 12px;
+  letter-spacing: 0.07px;
+
+  .title-card {
+    color: #3c3b3b;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.09px;
+  }
+
+  .info-label {
+    color: #28272e;
+    font-weight: 600;
+  }
+
+  .info-value {
+    color: #3c3c3c;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0.07px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .info-bold {
+    color: #3c3c3c;
+    font-weight: 600;
+
+    .text-secondary {
+      color: #3c3c3c !important;
+    }
+  }
+
+  .additional-label {
+    width: 50%;
+    color: #3c3b3b;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.09px;
+    line-height: 12px;
+  }
+
+  .border-right {
+    border-right: 1px solid #d6d6d6;
+  }
+
+  .card-header {
+    border-bottom: 2px solid #d6d6d6;
+
+    i {
+      color: #fa591f;
+      font-size: 22px;
+    }
+  }
+
+  .card-body {
+    padding: 2em;
+  }
+
+  .transparent {
+    background-color: transparent;
+  }
+
+  .no-shadow {
+    box-shadow: none;
+  }
+
+  .table {
+    tbody {
+      tr:first-child {
+        td {
+          border-top: none;
+        }
+      }
+
+      .label {
+        max-width: 200px;
+        width: 40%;
+        color: #28272e;
+        font-weight: 600;
+      }
+
+      .value {
+        color: #484848;
+        font-weight: 400;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
   }
 }
