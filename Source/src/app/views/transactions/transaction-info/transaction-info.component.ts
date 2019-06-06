@@ -13,58 +13,34 @@ const log = new Logger('TransactionInfo');
   styleUrls: ['./transaction-info.component.scss']
 })
 export class TransactionInfoComponent implements OnInit, OnDestroy {
-  transactionHash: any;
-  // TODO: make general loader
-  isLoading = false;
-  // TODO: make models
+  transactionHash: string;
+  actionsExpanded = false;
   transactionInfo: Observable<any>;
-
-  basicInformationConfig: any;
-
-  actionsConfig: any;
+  loadingTransactionInfo: Observable<boolean>;
 
   constructor(private route: ActivatedRoute, private transactionStoreService: TransactionStoreService) {}
 
   ngOnInit() {
     this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params: ParamMap) => {
-      // this.isLoading = true;
       log.debug(params);
       this.transactionHash = params.get('hash');
-      this.transactionInfo = this.transactionStoreService.transactionInfo$;
+
+      this.transactionInfo = this.transactionStoreService.transactionInfo$.pipe(untilDestroyed(this));
+      this.loadingTransactionInfo = this.transactionStoreService.loadingTransactionInfo$.pipe(untilDestroyed(this));
+
       this.getTransactionInfo();
-      this.transactionStoreService.transactionInfo$.subscribe(res => this.init());
     });
-  }
-
-  init() {
-    const txInfo = this.transactionStoreService.transactionInfo;
-    this.basicInformationConfig = [
-      { label: 'Transaction Hash', value: txInfo.hash },
-      {
-        label: 'Block number',
-        value: txInfo.blockNumber || '-',
-        url: (item: any) => ({
-          route: '/block/',
-          params: [item.value]
-        })
-      }
-    ];
-
-    this.actionsConfig = [
-      { label: 'Action type', key: 'actionType' },
-      {
-        label: 'Recipient address',
-        render: (action: any) => action.actionData.recipientAddress
-      },
-      { label: 'Amount', render: (action: any) => action.actionData.amount }
-    ];
   }
 
   ngOnDestroy() {}
 
+  expandActions() {
+    this.actionsExpanded = !this.actionsExpanded;
+  }
+
   getTransactionInfo() {
     if (this.transactionHash) {
-      this.transactionStoreService.getAddressInfo(this.transactionHash);
+      this.transactionStoreService.getTransactionInfo(this.transactionHash);
     }
   }
 }

@@ -7,12 +7,6 @@
   .transparent {
     .col-sm-12 {
       display: inline-flex;
-      .clip-text {
-        line-height: 34px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
     }
   }
 
@@ -25,28 +19,24 @@
   }
 }
 
-.transparent {
-  background-color: transparent;
-  border: none;
-}
-
 .details-row-item {
   padding: 1em;
   font-size: 11px;
-  .border-right {
-    border-right: 1px solid #d6d6d6;
-  }
+  // .border-right {
+  //   border-right: 1px solid #d6d6d6;
+  // }
 }
 
 .transaction-status {
   position: absolute;
-  right: 14px;
+  right: 0;
+  top: 10px;
   z-index: 1000;
   .transaction-status-text {
     height: 31px;
     border-radius: 30px;
     background-color: #dfdfdf;
-    padding: 5px 42px 5px 15px;
+    padding: 10px 42px 5px 15px;
 
     .fas {
       width: 35px;

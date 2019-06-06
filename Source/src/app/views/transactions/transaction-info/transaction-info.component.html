@@ -1,86 +1,156 @@
-<!-- TODO Set hardcoded values to translation file -->
-<div class="container-fluid" *ngIf="transactionInfo | async as transaction">
+<div *ngIf="transactionInfo | async as transaction">
   <!-- TITLE -->
   <div class="row justify-content-md-center">
-    <div class="col-sm-12 col-md-8">
+    <div class="col-sm-12 col-md-10 ml-3">
       <app-page-title title="Transaction info"></app-page-title>
     </div>
   </div>
-  <app-loader [isLoading]="isLoading"></app-loader>
-  <!-- BASIC INFORMATION SECTION -->
-  <div class="row justify-content-md-center" [hidden]="isLoading">
-    <div class="col-sm-12 col-md-4">
-      <div class="transaction-status">
-        <div class="transaction-status-text text-uppercase">
-          {{ transaction.status }}
-          <i class="fas fa-check"></i>
-        </div>
-      </div>
-      <app-labeled-card title="Basic information" [config]="basicInformationConfig"></app-labeled-card>
-    </div>
-    <div class="col-sm-12 col-md-4 from-card-section">
-      <h6></h6>
-      <div class="card transparent">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-4 col-md-3">
-              <div class="from-image"></div>
+
+  <!-- LOADER -->
+  <app-loader [isLoading]="loadingTransactionInfo | async"></app-loader>
+
+  <div [hidden]="loadingTransactionInfo | async" class="detail-info">
+    <div class="row justify-content-md-center">
+      <div class="col-sm-12 col-md-10">
+        <div class="row">
+          <div class="col-sm-12 col-md-8">
+            <p class="title-card ml-3">Basic information</p>
+            <div class="transaction-status">
+              <div class="transaction-status-text text-uppercase">
+                {{ transaction.status }}
+                <i class="fas fa-check"></i>
+              </div>
             </div>
-            <div class="col-sm-8 col-md-9">
-              <div class="row"><strong>From</strong></div>
-              <div class="row">
-                <div class="clip-text">{{ transaction.senderAddress }}</div>
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-6 col-md-4">
+                    <p class="info-label">Transaction Hash</p>
+                  </div>
+                  <div class="col-sm-6 col-md-8 text-right">
+                    <p class="info-value">{{ transaction.hash }}</p>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-sm-6 col-md-4">
+                    <p class="info-label">Block number</p>
+                  </div>
+                  <div class="col-sm-6 col-md-8 text-right">
+                    <p class="info-value">{{ transaction.blockNumber }}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- TRANSACTION DETAILS -->
-  <div class="row justify-content-md-center">
-    <div class="col-sm-12 col-md-8">
-      <div class="row">
-        <div class="col-sm-5 col-md-4">
-          <div class="row details-row-item">
-            <div class="col-sm-6 col-md-6"><strong>Expiration time</strong></div>
-            <div class="col-sm-6 col-md-6 border-right">{{ transaction.expirationTime }}</div>
+
+          <div class="col-sm-12 col-md-4 from-card-section">
+            <h6>&nbsp;</h6>
+            <div class="card transparent">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-4 col-md-3">
+                    <div class="from-image"></div>
+                  </div>
+                  <div class="col-sm-8 col-md-9">
+                    <p class="info-label">From</p>
+                    <div class="clip-text">
+                      <a class="text-secondary" [routerLink]="['/address-info', transaction.senderAddress]">{{
+                        transaction.senderAddress
+                      }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="row details-row-item">
-            <div class="col-sm-6 col-md-6"><strong>Nonce</strong></div>
-            <div class="col-sm-6 col-md-6 border-right">{{ transaction.nonce }}</div>
+
+          <div class="col-12 mt-5">
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <div class="row details-row-item">
+                  <div class="col-sm-6">
+                    <p class="info-label">Expiration time</p>
+                  </div>
+                  <div class="col-sm-6 border-right">
+                    <p class="info-value">{{ transaction.expirationTime | date: 'hh:mm:ss' }}</p>
+                  </div>
+                </div>
+
+                <div class="row details-row-item">
+                  <div class="col-sm-6">
+                    <p class="info-label">Nonce</p>
+                  </div>
+                  <div class="col-sm-6 border-right">
+                    <p class="info-value">{{ transaction.nonce }}</p>
+                  </div>
+                </div>
+
+                <div class="row details-row-item">
+                  <div class="col-sm-6">
+                    <p class="info-label">Total fee</p>
+                  </div>
+                  <div class="col-sm-6 border-right">
+                    <p class="info-value">{{ transaction.actionFee }} CHX</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-md-6">
+                <div class="row details-row-item">
+                  <div class="col-sm-6">
+                    <p class="info-label">Passed time</p>
+                  </div>
+                  <div class="col-sm-6">
+                    <p class="info-value">{{ transaction.expirationTime }}</p>
+                  </div>
+                </div>
+
+                <div class="row details-row-item">
+                  <div class="col-sm-6">
+                    <p class="info-label">Actions</p>
+                  </div>
+                  <div class="col-sm-6">
+                    <p class="info-value">{{ transaction.actions ? transaction.actions.length : 0 }}</p>
+                  </div>
+                </div>
+
+                <div class="row details-row-item">
+                  <div class="col-sm-6">
+                    <p class="info-label">Action fee</p>
+                  </div>
+                  <div class="col-sm-6">
+                    <p class="info-value">{{ transaction.actionFee }} CHX</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="row details-row-item">
-            <div class="col-sm-6 col-md-6"><strong>Total fee</strong></div>
-            <div class="col-sm-6 col-md-6 border-right">{{ transaction.actionFee }} CHX</div>
+
+          <!-- ACTIONS INFORMATION -->
+          <div class="col-12 mt-3">
+            <div class="card-header transparent">
+              <span class="additional-label">Actions</span>
+              <div class="float-right">
+                <i
+                  [ngClass]="actionsExpanded ? 'fa-angle-up' : 'fa-angle-down'"
+                  class="fas"
+                  (click)="expandActions()"
+                ></i>
+              </div>
+            </div>
+            <div class="card-body" *ngIf="actionsExpanded">
+              <div class="table">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td class="label"><strong>Action 1</strong></td>
+                      <td class="value">Action 1</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col-sm-7 col-md-8">
-          <div class="row details-row-item">
-            <div class="col-sm-5 col-md-3"><strong>Passed time</strong></div>
-            <div class="col-sm-7 col-md-9">{{ transaction.expirationTime }}</div>
-          </div>
-          <div class="row details-row-item">
-            <div class="col-sm-5 col-md-3"><strong>Actions</strong></div>
-            <div class="col-sm-7 col-md-9">{{ transaction.actions ? transaction.actions.length : 0 }}</div>
-          </div>
-          <div class="row details-row-item">
-            <div class="col-sm-5 col-md-3"><strong>Action fee</strong></div>
-            <div class="col-sm-7 col-md-9">{{ transaction.actionFee }} CHX</div>
-          </div>
-        </div>
-      </div>
-      <!-- ACTIONS -->
-      <div class="row justify-content-md-center">
-        <div class="col-sm-12 col-md-12 actions-section">
-          <!-- <app-table-card
-            class="card-transparent"
-            defaultExpand="false"
-            expandable="true"
-            title="Actions"
-            [headers]="actionsConfig"
-            [data]="transaction.actions ? transaction.actions : []"
-          ></app-table-card> -->
         </div>
       </div>
     </div>

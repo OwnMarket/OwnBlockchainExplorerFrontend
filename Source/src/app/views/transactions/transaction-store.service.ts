@@ -9,7 +9,7 @@ export class TransactionStoreService {
   private readonly _transactions = new BehaviorSubject<any[]>([]);
   private readonly _loadingTransactions = new BehaviorSubject<boolean>(false);
   private readonly _transactionInfo = new BehaviorSubject<any>({});
-  // TODO: LOADING INDICATOR AS ARRAY FOR EACH ACTION
+  private readonly _loadingTransactionInfo = new BehaviorSubject<boolean>(false);
 
   // Expose the observable$ part of the _transactions subject (read only stream)
   // tslint:disable-next-line: member-ordering
@@ -18,6 +18,8 @@ export class TransactionStoreService {
   readonly loadingTransactions$ = this._loadingTransactions.asObservable();
   // tslint:disable-next-line: member-ordering
   readonly transactionInfo$ = this._transactionInfo.asObservable();
+  // tslint:disable-next-line: member-ordering
+  readonly loadingTransactionInfo$ = this._loadingTransactionInfo.asObservable();
 
   constructor(private transactionService: TransactionService) {}
 
@@ -44,13 +46,19 @@ export class TransactionStoreService {
     this._transactionInfo.next(val);
   }
 
+  set loadingTransactionInfo(val: boolean) {
+    this._loadingTransactionInfo.next(val);
+  }
+
   set appendTransactions(val: any[]) {
     this._transactions.next([...this.transactions, ...val]);
   }
 
-  getAddressInfo(transactionHash: string) {
+  getTransactionInfo(transactionHash: string) {
+    this.loadingTransactionInfo = true;
     this.transactionService.getTransactionInfo(transactionHash).subscribe(res => {
       this.transactionInfo = res;
+      this.loadingTransactionInfo = false;
     });
   }
 

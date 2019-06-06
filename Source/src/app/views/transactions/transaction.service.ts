@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { TransactionStoreService } from './transaction-store.service';
 
 const routes = {
   transactions: (c: PageLimitContext) => `/txs?page=${c.page}&limit=${c.limit}`,
   transactionInfo: (hash: string) => `/tx/${hash}`
 };
 
-//TODO: make common modal
 export interface PageLimitContext {
   page: number;
   limit: number;
@@ -38,9 +36,5 @@ export class TransactionService {
       // TODO: make common error logger
       catchError(() => of('Error, could not get transaction info'))
     );
-    // .subscribe((res: any) => {
-    //   // this.transactionStoreService.transactionInfo = res;
-    //   return res;
-    // });
   }
 }

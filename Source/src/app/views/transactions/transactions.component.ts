@@ -4,6 +4,7 @@ import { Logger, untilDestroyed } from '@app/core';
 import { TransactionStoreService } from './transaction-store.service';
 
 const log = new Logger('Transactions');
+
 @Component({
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
@@ -14,7 +15,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   @ViewChild('txBlock') txBlock: TemplateRef<any>;
   @ViewChild('txAddress') txAddress: TemplateRef<any>;
   @ViewChild('txBadge') txBadge: TemplateRef<any>;
-  // TODO: make models
+
   transactions: Observable<any[]>;
   isLoading: Observable<boolean>;
 
