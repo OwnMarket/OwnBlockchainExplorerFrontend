@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,6 +25,7 @@ import { AddressInfoModule } from './views/address-info/address-info.module';
       enabled: environment.production
     }),
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     TranslateModule.forRoot(),
     NgbModule,

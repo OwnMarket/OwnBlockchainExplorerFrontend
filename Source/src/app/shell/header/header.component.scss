@@ -21,3 +21,38 @@ header .navbar {
 .nav-link.dropdown-toggle {
   cursor: pointer;
 }
+
+.input-group {
+  border: 3px solid #eb6723;
+  border-radius: 0.5em;
+  margin-left: 1.5em;
+
+  input {
+    border: none;
+    box-shadow: none;
+  }
+
+  input:focus input:active {
+    outline: 0;
+    -webkit-appearance: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  button {
+    border: none;
+
+    i {
+      font-size: 18px;
+    }
+  }
+
+  .btn-outline-secondary:focus {
+    box-shadow: none;
+    background-color: white;
+
+    i {
+      color: #868e96;
+    }
+  }
+}

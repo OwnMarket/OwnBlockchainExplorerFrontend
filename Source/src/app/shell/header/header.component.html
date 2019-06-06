@@ -12,7 +12,7 @@
     </button>
     <div id="navbar-menu" class="collapse navbar-collapse float-xs-none" [ngbCollapse]="menuHidden">
       <div class="col-sm-4 col-md-4">
-        <a class="navbar-brand" routerLink="/">Navbar</a>
+        <a class="navbar-brand" routerLink="/">Home</a>
       </div>
       <div class="col-sm-8 col-md-8">
         <div class="row align-items-center">
@@ -31,7 +31,26 @@
             </ul>
           </div>
           <div class="col-sm-5 col-md-6">
-            <app-search-input></app-search-input>
+            <div class="input-group">
+              <input
+                type="text"
+                (keyup.enter)="searchByHash()"
+                [formControl]="searchField"
+                class="form-control"
+                placeholder="Search by Address, Transaction, Block..."
+                aria-label="Search"
+                aria-describedby="button-addon2"
+              />
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchByHash()">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+            <!-- <ul class="list-group">
+                <li class="list-group-item">Cras justo odio</li>
+              </ul> -->
+            <!-- <app-search-input></app-search-input> -->
           </div>
         </div>
       </div>

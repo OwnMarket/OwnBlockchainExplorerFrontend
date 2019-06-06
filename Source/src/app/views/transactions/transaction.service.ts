@@ -29,7 +29,7 @@ export class TransactionService {
   }
 
   // TODO: add models
-  getTransactionInfo(hash: string) {
+  getTransactionInfo(hash: string): Observable<{}> {
     return this.httpClient.get<any>(routes.transactionInfo(hash)).pipe(
       // TODO: make GENERIC api model!!
       map((response: any) => response.data),
