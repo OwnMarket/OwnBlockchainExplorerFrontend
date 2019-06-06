@@ -1,26 +1,73 @@
-<div class="container-fluid">
-  <!-- <app-loader [isLoading]="isLoading"></app-loader> -->
-  <div
-    class="row justify-content-md-center"
-    [hidden]="isLoading && !blockchainAddress"
-    *ngIf="addressInfo | async as address"
-  >
-    <div class="col col-lg-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Address : {{ address.blockchainAddress }}</h5>
-          <h5 class="card-title">Nonce : {{ address.nonce }}</h5>
-        </div>
-      </div>
+<div class="" *ngIf="addressInfo | async as address">
+  <!-- TITLE -->
+  <div class="row justify-content-md-center">
+    <div class="col-sm-12 col-md-10 ml-3">
+      <app-page-title title="Address info"></app-page-title>
     </div>
-    <div class="col col-lg-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Total balance : {{ address.chxBalanceInfo?.totalBalance }}</h5>
+  </div>
+
+  <!-- LOADER -->
+  <app-loader [isLoading]="loadingAddressInfo | async"></app-loader>
+
+  <div [hidden]="loadingAddressInfo | async" class="detail-info">
+    <div class="row justify-content-md-center">
+      <div class="col-sm-12 col-md-10">
+        <div class="row">
+          <div class="col-sm-12 col-md-8">
+            <p class="title-card ml-3">Basic information</p>
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-12 col-md-10 border-right">
+                    <p class="info-label">Address</p>
+                    <p class="info-value">{{ address.blockchainAddress }}</p>
+                  </div>
+                  <div class="col-sm-12 col-md-2 text-center">
+                    <p class="info-label">None</p>
+                    <p class="info-value">{{ address.nonce }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-4">
+            <p class="title-card">&nbsp;</p>
+            <div class="card no-shadow">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col col-12 text-center">
+                    <p class="info-bold">{{ address.chxBalanceInfo?.totalBalance }} CHX</p>
+                    <p class="info-label">Total balance</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 mt-5">
+            <div class="row details-row-item text-center">
+              <div class="col-sm-12 col-md-4 border-right">
+                <p class="info-bold">{{ address.chxBalanceInfo?.delegatedStakes }} CHX</p>
+                <p class="info-value">Staked</p>
+              </div>
+
+              <div class="col-sm-12 col-md-4 border-right">
+                <p class="info-bold">{{ address.chxBalanceInfo?.validatorDeposit }} CHX</p>
+                <p class="info-value">Deposit</p>
+              </div>
+
+              <div class="col-sm-12 col-md-4">
+                <p class="info-bold-orange">{{ address.chxBalanceInfo?.availableBalance }} CHX</p>
+                <p class="info-value">Available</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
   <div class="row mt-5">
     <div class="col-12">
       <app-table-card
@@ -42,6 +89,8 @@
         [columns]="accountColumns"
         [loading]="loadingAccounts | async"
         [source]="accounts | async"
+        [expandable]="true"
+        [defaultExpand]="true"
         [canLoadMore]="canLoadMore"
       ></app-table-card>
     </div>
@@ -55,6 +104,8 @@
         [columns]="accountColumns"
         [loading]="loadingAssets | async"
         [source]="assets | async"
+        [expandable]="true"
+        [defaultExpand]="true"
         [canLoadMore]="canLoadMore"
       ></app-table-card>
     </div>

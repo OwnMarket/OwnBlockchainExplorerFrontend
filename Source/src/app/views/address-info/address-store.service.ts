@@ -7,6 +7,7 @@ export class AddressInfoStoreService {
   // - Create one BehaviorSubject per store entity,
   //   create a new BehaviorSubject for it, as well as the observable$, and getters/setters
   private readonly _addressInfo = new BehaviorSubject<any>({});
+  private readonly _loadingAddressInfo = new BehaviorSubject<boolean>(false);
   private readonly _accounts = new BehaviorSubject<any[]>([]);
   private readonly _loadingAccounts = new BehaviorSubject<boolean>(false);
   private readonly _assets = new BehaviorSubject<any[]>([]);
@@ -23,6 +24,8 @@ export class AddressInfoStoreService {
   // Expose the observable$ part of the _blocks subject (read only stream)
   // tslint:disable-next-line: member-ordering
   readonly addressInfo$ = this._addressInfo.asObservable();
+  // tslint:disable-next-line: member-ordering
+  readonly loadingAddressInfo$ = this._loadingAddressInfo.asObservable();
   // tslint:disable-next-line: member-ordering
   readonly accounts$ = this._accounts.asObservable();
   // tslint:disable-next-line: member-ordering
@@ -77,6 +80,10 @@ export class AddressInfoStoreService {
     this._addressInfo.next(val);
   }
 
+  set loadingAddressInfo(val: boolean) {
+    this._loadingAddressInfo.next(val);
+  }
+
   set accounts(val: any[]) {
     this._accounts.next(val);
   }
@@ -118,9 +125,11 @@ export class AddressInfoStoreService {
   }
 
   getAddressInfo(blockchainAddress: string) {
+    this.loadingAddressInfo = true;
     this.addressService.getAddressInfo(blockchainAddress).subscribe(res => {
       console.log(res);
       this.addressInfo = res;
+      this.loadingAddressInfo = false;
     });
   }
 

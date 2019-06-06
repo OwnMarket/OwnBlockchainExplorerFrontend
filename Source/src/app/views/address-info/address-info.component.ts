@@ -17,11 +17,10 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   currentPage = 1;
 
   blockchainAddress: string;
-  // TODO: make general loader
-  isLoading = false;
   canLoadMore = false;
-  // TODO: make models
+
   addressInfo: Observable<any>;
+  loadingAddressInfo: Observable<boolean>;
 
   // Events data set
   events: Observable<any[]>;
@@ -56,6 +55,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       this.setupColumns();
       this.blockchainAddress = params.get('address');
       this.addressInfo = this.addressStoreService.addressInfo$.pipe(untilDestroyed(this));
+      this.loadingAddressInfo = this.addressStoreService.loadingAddressInfo$.pipe(untilDestroyed(this));
 
       this.events = this.addressStoreService.events$.pipe(untilDestroyed(this));
       this.loadingEvents = this.addressStoreService.loadingEvents$.pipe(untilDestroyed(this));
