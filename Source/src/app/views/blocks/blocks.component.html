@@ -1,14 +1,15 @@
-<div class="container-fluid">
-  <app-table-card
-    title="Blocks"
-    [tableHeight]="tableHeight"
-    [loading]="isLoading | async"
-    [columns]="columns"
-    [source]="blocks | async"
-    (loadMore)="onLoadMore($event)"
-  ></app-table-card>
-
-  <ng-template #linkBlock let-row="row" let-value="value">
-    <a [routerLink]="['/block', value]">{{ value }}</a>
-  </ng-template>
+<div class="row">
+  <div class="col-12">
+    <app-table-card
+      title="Blocks"
+      [tableHeight]="tableHeight"
+      [loading]="isLoading | async"
+      [columns]="columns"
+      [source]="blocks | async"
+      (loadMore)="onLoadMore($event)"
+    ></app-table-card>
+    <ng-template #linkBlock let-row="row" let-value="value">
+      <a [routerLink]="['/block', value]">{{ value }}</a>
+    </ng-template>
+  </div>
 </div>

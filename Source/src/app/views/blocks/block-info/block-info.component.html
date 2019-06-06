@@ -1,4 +1,4 @@
-<div class="container mb-5" *ngIf="blockInfo | async as block">
+<div *ngIf="blockInfo | async as block">
   <!-- TITLE -->
   <div class="row justify-content-md-center">
     <div class="col-sm-12 col-md-10 ml-3">
@@ -9,7 +9,7 @@
   <!-- LOADER -->
   <app-loader [isLoading]="loadingBlockInfo | async"></app-loader>
 
-  <div [hidden]="loadingBlockInfo | async" class="block-info">
+  <div [hidden]="loadingBlockInfo | async" class="detail-info">
     <div class="row justify-content-md-center">
       <div class="col-sm-12 col-md-10">
         <div class="row">
@@ -39,7 +39,7 @@
 
           <div class="col-sm-12 col-md-6">
             <h6>&nbsp;</h6>
-            <div class="card">
+            <div class="card no-shadow">
               <div class="card-body">
                 <div class="row">
                   <div class="col-sm-6 col-md-6">
@@ -65,27 +65,26 @@
             </div>
           </div>
 
-          <div class="col-12 mt-3">
+          <div class="col-12 mt-5">
             <div class="row details-row-item">
               <div class="col-sm-2">
                 <p class="info-label">Time created</p>
               </div>
 
-              <!-- TODO: Add pipe for time -->
               <div class="col-sm-2 border-right">
-                <p class="info-value">{{ block.createdTime }}</p>
+                <p class="info-value">{{ block.timestamp | date: 'd MMMM - hh:mm' }}</p>
               </div>
 
               <div class="col-sm-2">
                 <p class="info-label">Passed time</p>
               </div>
               <div class="col-sm-2">
-                <p class="info-value">{{ block.passedTime }}</p>
+                <p class="info-value">{{ block.timestamp | date: 'd MMMM - hh:mm' }}</p>
               </div>
             </div>
           </div>
 
-          <!-- ADDITIONAL INFORMATIONS -->
+          <!-- ADDITIONAL INFORMATION -->
           <div class="col-12 mt-3">
             <div class="card-header transparent">
               <span class="additional-label">Additional Info</span>
@@ -131,11 +130,11 @@
                     </tr>
                     <tr>
                       <td class="label"><strong>configurationRoot</strong></td>
-                      <td class="value">Value</td>
+                      <td class="value">{{ block.configurationRoot }}</td>
                     </tr>
                     <tr>
                       <td class="label"><strong>Configuration block number</strong></td>
-                      <td class="value">{{ block.configurationRoot }}</td>
+                      <td class="value">{{ block.configurationBlockNumber }}</td>
                     </tr>
                     <tr>
                       <td class="label"><strong>Consensus round</strong></td>
@@ -199,7 +198,7 @@
   <div class="row mt-5">
     <div class="col-12">
       <app-table-card
-        title="EQUIVOCATION PROOFS"
+        title="Equivocation Proofs"
         [tableHeight]="tableHeight"
         [columns]="equivocationColumns"
         [expandable]="true"
