@@ -39,6 +39,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       {
         name: 'Transaction Hash',
         prop: 'hash',
+        sortable: false,
         cellTemplate: this.txHash
       },
       {

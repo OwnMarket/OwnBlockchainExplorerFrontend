@@ -10,6 +10,8 @@ export class TransactionStoreService {
   private readonly _loadingTransactions = new BehaviorSubject<boolean>(false);
   private readonly _transactionInfo = new BehaviorSubject<any>({});
   private readonly _loadingTransactionInfo = new BehaviorSubject<boolean>(false);
+  private readonly _transactionActions = new BehaviorSubject<any[]>([]);
+  private readonly _loadingTransactionActions = new BehaviorSubject<boolean>(false);
 
   // Expose the observable$ part of the _transactions subject (read only stream)
   // tslint:disable-next-line: member-ordering
@@ -20,6 +22,10 @@ export class TransactionStoreService {
   readonly transactionInfo$ = this._transactionInfo.asObservable();
   // tslint:disable-next-line: member-ordering
   readonly loadingTransactionInfo$ = this._loadingTransactionInfo.asObservable();
+  // tslint:disable-next-line: member-ordering
+  readonly transactionActions$ = this._transactionActions.asObservable();
+  // tslint:disable-next-line: member-ordering
+  readonly loadingTransactionActions$ = this._loadingTransactionActions.asObservable();
 
   constructor(private transactionService: TransactionService) {}
 
@@ -30,6 +36,10 @@ export class TransactionStoreService {
 
   get transactionInfo(): any {
     return this._transactionInfo.getValue();
+  }
+
+  get transactionActions(): any[] {
+    return this._transactionActions.getValue();
   }
 
   // assigning a value to this.transactions will push it onto the observable
@@ -48,6 +58,18 @@ export class TransactionStoreService {
 
   set loadingTransactionInfo(val: boolean) {
     this._loadingTransactionInfo.next(val);
+  }
+
+  set transactionActions(val: any[]) {
+    this._transactionActions.next(val);
+  }
+
+  set loadingTransactionActions(val: boolean) {
+    this._loadingTransactionActions.next(val);
+  }
+
+  set appendTransactionActions(val: any[]) {
+    this._transactionActions.next([...this.transactionActions, ...val]);
   }
 
   set appendTransactions(val: any[]) {
@@ -72,6 +94,19 @@ export class TransactionStoreService {
         this.transactions = res;
       }
       this.loadingTransactions = false;
+    });
+  }
+
+  getTransactionActions(hash: string, page: number, limit: number, shouldAppend: boolean = false) {
+    this.loadingTransactionActions = true;
+    this.transactionService.getTransactionActions(hash, { page, limit }).subscribe(res => {
+      console.log(res);
+      if (shouldAppend) {
+        this.appendTransactionActions = res;
+      } else {
+        this.transactionActions = res;
+      }
+      this.loadingTransactionActions = false;
     });
   }
 }

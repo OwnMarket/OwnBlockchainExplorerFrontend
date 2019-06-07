@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Logger, untilDestroyed } from '@app/core';
 import { Observable } from 'rxjs';
@@ -13,6 +13,8 @@ const log = new Logger('BlockInfo');
   styleUrls: ['./block-info.component.scss']
 })
 export class BlockInfoComponent implements OnInit, OnDestroy {
+  @ViewChild('txHash') txHash: TemplateRef<any>;
+  @ViewChild('txAddress') txAddress: TemplateRef<any>;
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;
 
@@ -77,12 +79,14 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Transaction Hash',
         prop: 'hash',
-        sortable: false
+        sortable: false,
+        cellTemplate: this.txHash
       },
       {
         name: 'Sender Address',
         prop: 'senderAddress',
-        sortable: false
+        sortable: false,
+        cellTemplate: this.txAddress
       },
       {
         name: 'Action',

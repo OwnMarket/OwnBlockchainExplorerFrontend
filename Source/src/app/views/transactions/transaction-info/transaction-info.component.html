@@ -18,7 +18,12 @@
             <div class="transaction-status">
               <div class="transaction-status-text text-uppercase">
                 {{ transaction.status }}
-                <i class="fas fa-check"></i>
+                <i
+                  class="fas "
+                  [class.fa-check]="transaction.status === 'Success'"
+                  [class.fa-history]="transaction.status === 'Pending'"
+                  [class.fa-exclamation-triangle]="transaction.status === 'Failure'"
+                ></i>
               </div>
             </div>
             <div class="card">
@@ -31,12 +36,47 @@
                     <p class="info-value">{{ transaction.hash }}</p>
                   </div>
                 </div>
-                <div class="row mt-3">
+                <div class="row mt-3" *ngIf="transaction.status === 'Success'; else failureTransaction">
                   <div class="col-sm-6 col-md-4">
                     <p class="info-label">Block number</p>
                   </div>
                   <div class="col-sm-6 col-md-8 text-right">
-                    <p class="info-value">{{ transaction.blockNumber }}</p>
+                    <p class="info-value">
+                      <a class="text-secondary" [routerLink]="['/block', transaction.blockNumber]">{{
+                        transaction.blockNumber
+                      }}</a>
+                    </p>
+                  </div>
+                </div>
+                <ng-template #failureTransaction>
+                  <div class="row mt-3">
+                    <div class="col-sm-6 col-md-4">
+                      <p class="info-label">Error message</p>
+                    </div>
+                    <div class="col-sm-6 col-md-8 text-right">
+                      <p class="info-value">{{ transaction.errorMessage }}</p>
+                    </div>
+                  </div>
+                  <div class="row mt-3" *ngIf="transaction.failedActionNumber">
+                    <div class="col-sm-6 col-md-4">
+                      <p class="info-label">Failed action number</p>
+                    </div>
+                    <div class="col-sm-6 col-md-8 text-right">
+                      <p class="info-value">{{ transaction.failedActionNumber }}</p>
+                    </div>
+                  </div>
+                </ng-template>
+
+                <div class="row mt-3" *ngIf="transaction.status === 'Fa'">
+                  <div class="col-sm-6 col-md-4">
+                    <p class="info-label">Block number</p>
+                  </div>
+                  <div class="col-sm-6 col-md-8 text-right">
+                    <p class="info-value">
+                      <a class="text-secondary" [routerLink]="['/block', transaction.blockNumber]">{{
+                        transaction.blockNumber
+                      }}</a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -101,7 +141,7 @@
                     <p class="info-label">Passed time</p>
                   </div>
                   <div class="col-sm-6">
-                    <p class="info-value">{{ transaction.expirationTime }}</p>
+                    <p class="info-value">{{ transaction.timestamp | date | timeago }}</p>
                   </div>
                 </div>
 

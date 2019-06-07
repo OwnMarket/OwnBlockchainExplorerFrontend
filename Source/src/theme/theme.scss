@@ -54,7 +54,7 @@ body {
 
 .detail-info {
   font-size: 14px;
-  line-height: 12px;
+  line-height: 16px;
   letter-spacing: 0.07px;
 
   .title-card {
@@ -72,8 +72,6 @@ body {
   .info-value {
     color: #3c3c3c;
     font-weight: 400;
-    line-height: 14px;
-    letter-spacing: 0.07px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

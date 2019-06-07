@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { TimeagoModule } from 'ngx-timeago';
 
 import { LoaderComponent } from './components/loader/loader.component';
 import { SearchInputComponent } from './components/search-input/search-input.component';
@@ -14,7 +15,7 @@ import { ScrollEndDirective } from './directives/scroll-end.directive';
 import { SearchService } from './services/search.service';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, NgxDatatableModule],
+  imports: [CommonModule, RouterModule, NgxDatatableModule, TimeagoModule.forRoot()],
   declarations: [
     LoaderComponent,
     SearchInputComponent,
@@ -25,6 +26,13 @@ import { SearchService } from './services/search.service';
     ScrollEndDirective
   ],
   providers: [SearchService],
-  exports: [LoaderComponent, SearchInputComponent, TableCardComponent, PageTitleComponent, LabeledCardComponent]
+  exports: [
+    LoaderComponent,
+    SearchInputComponent,
+    TableCardComponent,
+    PageTitleComponent,
+    LabeledCardComponent,
+    TimeagoModule
+  ]
 })
 export class SharedModule {}

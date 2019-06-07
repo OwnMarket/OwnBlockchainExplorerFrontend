@@ -161,6 +161,12 @@
         (loadMore)="onLoadMoreTransactions($event)"
       >
       </app-table-card>
+      <ng-template #txHash let-row="row" let-value="value">
+        <a [routerLink]="['/transaction-info', value]">{{ value }}</a>
+      </ng-template>
+      <ng-template #txAddress let-row="row" let-value="value">
+        <a [routerLink]="['/address-info', value]">{{ value }}</a>
+      </ng-template>
     </div>
   </div>
 
