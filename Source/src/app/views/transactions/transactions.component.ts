@@ -31,13 +31,13 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     this.columns = [
       {
         name: '',
-        prop: 'numberOfActions',
+        prop: 'status',
         maxWidth: 50,
         sortable: false,
         cellTemplate: this.txBadge
       },
       {
-        name: 'Transaction Hash',
+        name: 'Transaction hash',
         prop: 'hash',
         sortable: false,
         cellTemplate: this.txHash

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="160" height="60" viewBox="0 0 160 60">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-Artboard_3);
+      }
+
+      .cls-2 {
+        fill: #dfdfdf;
+      }
+
+      .cls-3 {
+        fill: #565656;
+        font-size: 14px;
+        font-family: AvertaStd-Bold, Averta Std;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .cls-4 {
+        fill: #f8333b;
+      }
+
+      .cls-5 {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-width: 6px;
+      }
+
+      .cls-6 {
+        fill: transparent;
+      }
+
+      .cls-7 {
+        filter: url(#Ellipse_20);
+      }
+    </style>
+    <filter id="Ellipse_20" x="99.378" y="1.949" width="61.792" height="61.792" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-Artboard_3">
+      <rect width="160" height="60"/>
+    </clipPath>
+  </defs>
+  <g id="Artboard_3" data-name="Artboard – 3" class="cls-1">
+    <rect class="cls-6" width="160" height="60"/>
+    <g id="Group_294" data-name="Group 294" transform="translate(-1264 -809)">
+      <rect id="Rectangle_66" data-name="Rectangle 66" class="cls-2" width="144.17" height="29.523" rx="14.761" transform="translate(1272 823.837)"/>
+      <text id="FAILED" class="cls-3" transform="translate(1327.015 843.742)"><tspan x="-24.654" y="0">FAILED</tspan></text>
+      <g id="Group_71" data-name="Group 71" transform="translate(1372.378 816.949)">
+        <g id="Group_67" data-name="Group 67" transform="translate(0 0)">
+          <g class="cls-7" transform="matrix(1, 0, 0, 1, -108.38, -7.95)">
+            <ellipse id="Ellipse_20-2" data-name="Ellipse 20" class="cls-4" cx="21.896" cy="21.896" rx="21.896" ry="21.896" transform="translate(108.38 7.95)"/>
+          </g>
+          <g id="Group_65" data-name="Group 65" transform="translate(15.746 15.254)">
+            <g id="Group_66" data-name="Group 66" transform="translate(0 0)">
+              <line id="Line_7" data-name="Line 7" class="cls-5" x1="12.296" y2="13.715"/>
+              <line id="Line_8" data-name="Line 8" class="cls-5" x2="12.296" y2="13.715"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

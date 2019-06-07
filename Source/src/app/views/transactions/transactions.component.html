@@ -10,9 +10,9 @@
     ></app-table-card>
 
     <ng-template #txBadge let-row="row" let-value="value">
-      <span class="badge badge-pill" [ngClass]="value >= 3 ? 'badge-success' : 'badge-danger'"
-        ><i class="fas fa-check"></i
-      ></span>
+      <img *ngIf="value === 'Success'" src="assets/images/success-icon.svg" />
+      <img *ngIf="value === 'Pending'" src="assets/images/pending-icon.svg" />
+      <img *ngIf="value === 'Failure'" src="assets/images/failed-icon.svg" />
     </ng-template>
 
     <ng-template #txHash let-row="row" let-value="value">

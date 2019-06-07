@@ -16,15 +16,9 @@
           <div class="col-sm-12 col-md-8">
             <p class="title-card ml-3">Basic information</p>
             <div class="transaction-status">
-              <div class="transaction-status-text text-uppercase">
-                {{ transaction.status }}
-                <i
-                  class="fas "
-                  [class.fa-check]="transaction.status === 'Success'"
-                  [class.fa-history]="transaction.status === 'Pending'"
-                  [class.fa-exclamation-triangle]="transaction.status === 'Failure'"
-                ></i>
-              </div>
+              <img *ngIf="transaction.status === 'Success'" src="assets/images/success-text.svg" />
+              <img *ngIf="transaction.status === 'Pending'" src="assets/images/pending-text.svg" />
+              <img *ngIf="transaction.status === 'Failure'" src="assets/images/failed-text.svg" />
             </div>
             <div class="card">
               <div class="card-body">
@@ -36,7 +30,7 @@
                     <p class="info-value">{{ transaction.hash }}</p>
                   </div>
                 </div>
-                <div class="row mt-3" *ngIf="transaction.status === 'Success'; else failureTransaction">
+                <div class="row mt-3">
                   <div class="col-sm-6 col-md-4">
                     <p class="info-label">Block number</p>
                   </div>
@@ -85,7 +79,7 @@
 
           <div class="col-sm-12 col-md-4 from-card-section">
             <h6>&nbsp;</h6>
-            <div class="card transparent">
+            <div class="card-transparent">
               <div class="card-body">
                 <div class="row">
                   <div class="col-sm-4 col-md-3">
