@@ -20,7 +20,7 @@
     "generate": "ng generate"
   },
   "dependencies": {
-    "@angular/animations": "^7.2.3",
+    "@angular/animations": "^7.2.15",
     "@angular/common": "^7.2.3",
     "@angular/compiler": "^7.2.3",
     "@angular/core": "^7.2.3",
@@ -37,6 +37,8 @@
     "bootstrap": "^4.1.1",
     "core-js": "^2.6.3",
     "lodash": "^4.17.11",
+    "ngx-timeago": "^1.0.1",
+    "ngx-toastr": "^10.0.4",
     "rxjs": "^6.4.0",
     "zone.js": "^0.9.0"
   },
