@@ -91,27 +91,25 @@ export class BlockStoreService {
     this._transactions.next(val);
   }
 
+  set appendTransactions(val: any[]) {
+    this._transactions.next([...this.transactions, ...val]);
+  }
+
   set loadingTransactions(val: boolean) {
     this._loadingTransactions.next(val);
   }
-
-  // enable this for pagination
-  // set appendTransactions(val: any[]) {
-  //   this._transactions.next([...this.transactions, ...val]);
-  // }
 
   set equivocations(val: any[]) {
     this._equivocations.next(val);
   }
 
+  set appendEquivocations(val: any[]) {
+    this._equivocations.next([...this.equivocations, ...val]);
+  }
+
   set loadingEquivocations(val: boolean) {
     this._loadingEquivocations.next(val);
   }
-
-  // enable this for pagination
-  // set appendEquivocations(val: any[]) {
-  //   this._equivocations.next([...this.equivocations, ...val]);
-  // }
 
   set stakingRewards(val: any[]) {
     this._stakingRewards.next(val);
@@ -121,10 +119,9 @@ export class BlockStoreService {
     this._loadingStakingRewards.next(val);
   }
 
-  // enable this for pagination
-  // set appendStakingRewards(val: any[]) {
-  //   this._stakingRewards.next([...this.stakingRewards, ...val]);
-  // }
+  set appendStakingRewards(val: any[]) {
+    this._stakingRewards.next([...this.stakingRewards, ...val]);
+  }
 
   getBlocks(page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingBlocks = true;
@@ -147,26 +144,38 @@ export class BlockStoreService {
     });
   }
 
-  getTransactions(blockNumber: number) {
+  getTransactions(blockNumber: number, page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingTransactions = true;
-    this.blockService.getTransactions(blockNumber).subscribe(res => {
-      this.transactions = res;
+    this.blockService.getTransactions(blockNumber, { page, limit }).subscribe(res => {
+      if (shouldAppend) {
+        this.appendTransactions = res;
+      } else {
+        this.transactions = res;
+      }
       this.loadingTransactions = false;
     });
   }
 
-  getEquivocations(blockNumber: number) {
+  getEquivocations(blockNumber: number, page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingEquivocations = true;
-    this.blockService.getEquivocations(blockNumber).subscribe(res => {
-      this.equivocations = res;
+    this.blockService.getEquivocations(blockNumber, { page, limit }).subscribe(res => {
+      if (shouldAppend) {
+        this.appendEquivocations = res;
+      } else {
+        this.equivocations = res;
+      }
       this.loadingEquivocations = false;
     });
   }
 
-  getStakingRewards(blockNumber: number) {
+  getStakingRewards(blockNumber: number, page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingStakingRewards = true;
-    this.blockService.getStakingRewards(blockNumber).subscribe(res => {
-      this.stakingRewards = res;
+    this.blockService.getStakingRewards(blockNumber, { page, limit }).subscribe(res => {
+      if (shouldAppend) {
+        this.stakingRewards = res;
+      } else {
+        this.stakingRewards = res;
+      }
       this.loadingStakingRewards = false;
     });
   }

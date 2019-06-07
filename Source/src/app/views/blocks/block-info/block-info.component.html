@@ -79,7 +79,7 @@
                 <p class="info-label">Passed time</p>
               </div>
               <div class="col-sm-2">
-                <p class="info-value">{{ block.timestamp | date: 'd MMMM - hh:mm' }}</p>
+                <p class="info-value">{{ block.timestamp | date | timeago }}</p>
               </div>
             </div>
           </div>
@@ -150,37 +150,6 @@
     </div>
   </div>
 
-  <!-- <div class="row">
-    <div class="col-12">
-      <p>
-        <button
-          type="button"
-          class="btn btn-outline-primary pull-right"
-          (click)="isAddCollapsed = !isAddCollapsed"
-          [attr.aria-expanded]="!isAddCollapsed"
-          aria-controls="collapseAdditional"
-        >
-          Additional Information
-        </button>
-      </p>
-      <div id="collapseAdditional" [ngbCollapse]="isAddCollapsed">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-6">TxSetRoot :</div>
-              <div class="col-6">{{ block.TxSetRoot }}</div>
-            </div>
-          </li>
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-6">Consensus Round :</div>
-              <div class="col-6">{{ block.consensusRound }}</div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div> -->
   <div class="row mt-5">
     <div class="col-12">
       <app-table-card
@@ -189,7 +158,7 @@
         [columns]="transactionColumns"
         [loading]="loadingTransactions | async"
         [source]="transactions | async"
-        [canLoadMore]="canLoadMore"
+        (loadMore)="onLoadMoreTransactions($event)"
       >
       </app-table-card>
     </div>
@@ -205,7 +174,7 @@
         [defaultExpand]="false"
         [loading]="loadingEquivocations | async"
         [source]="equivocations | async"
-        [canLoadMore]="canLoadMore"
+        (loadMore)="onLoadMoreEquivocations($event)"
       >
       </app-table-card>
     </div>
@@ -221,7 +190,7 @@
         [defaultExpand]="false"
         [loading]="loadingStakingRewards | async"
         [source]="stakingRewards | async"
-        [canLoadMore]="canLoadMore"
+        (loadMore)="onLoadMoreStakingRewards($event)"
       >
       </app-table-card>
     </div>

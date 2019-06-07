@@ -16,8 +16,13 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;
 
+  currentPage = {
+    tx: 1,
+    eq: 1,
+    sr: 1
+  };
+
   blockNumber: number;
-  canLoadMore = false;
 
   blockInfo: Observable<any>;
   loadingBlockInfo: Observable<boolean>;
@@ -125,24 +130,45 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
     this.blockStoreService.getBlockInfo(this.blockNumber);
   }
 
-  getTransactions() {
+  getTransactions(shouldAppend: boolean = false) {
     if (!this.blockNumber) {
       return;
     }
-    this.blockStoreService.getTransactions(this.blockNumber);
+    this.blockStoreService.getTransactions(this.blockNumber, this.currentPage.tx, this.pageLimit, shouldAppend);
   }
 
-  getEquivocations() {
-    if (!this.blockNumber) {
-      return;
+  onLoadMoreTransactions(shouldLoad: boolean) {
+    if (shouldLoad) {
+      this.currentPage.tx++;
+      this.getTransactions(shouldLoad);
     }
-    this.blockStoreService.getEquivocations(this.blockNumber);
   }
 
-  getStakingRewards() {
+  getEquivocations(shouldAppend: boolean = false) {
     if (!this.blockNumber) {
       return;
     }
-    this.blockStoreService.getStakingRewards(this.blockNumber);
+    this.blockStoreService.getEquivocations(this.blockNumber, this.currentPage.eq, this.pageLimit, shouldAppend);
+  }
+
+  onLoadMoreEquivocations(shouldLoad: boolean) {
+    if (shouldLoad) {
+      this.currentPage.eq++;
+      this.getEquivocations(shouldLoad);
+    }
+  }
+
+  getStakingRewards(shouldAppend: boolean = false) {
+    if (!this.blockNumber) {
+      return;
+    }
+    this.blockStoreService.getStakingRewards(this.blockNumber, this.currentPage.sr, this.pageLimit, shouldAppend);
+  }
+
+  onLoadMoreStakingRewards(shouldLoad: boolean) {
+    if (shouldLoad) {
+      this.currentPage.sr++;
+      this.getStakingRewards(shouldLoad);
+    }
   }
 }

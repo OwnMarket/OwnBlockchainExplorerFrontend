@@ -5,11 +5,16 @@ import { map, catchError } from 'rxjs/operators';
 
 const routes = {
   addressInfo: (blockchainAddress: string) => `/address/${blockchainAddress}`,
-  addressAccounts: (blockchainAddress: string) => `/address/${blockchainAddress}/accounts`,
-  addressAssets: (blockchainAddress: string) => `/address/${blockchainAddress}/assets`,
-  addressDelegatedStakes: (blockchainAddress: string) => `/address/${blockchainAddress}/delegated-stakes`,
-  addressReceivedStakes: (blockchainAddress: string) => `/address/${blockchainAddress}/received-stakes`,
-  addressEvents: (blockchainAddress: string) => `/address/${blockchainAddress}/events`
+  addressAccounts: (blockchainAddress: string, c: PageLimitContext) =>
+    `/address/${blockchainAddress}/accounts?page=${c.page}&limit=${c.limit}`,
+  addressAssets: (blockchainAddress: string, c: PageLimitContext) =>
+    `/address/${blockchainAddress}/assets?page=${c.page}&limit=${c.limit}`,
+  addressDelegatedStakes: (blockchainAddress: string, c: PageLimitContext) =>
+    `/address/${blockchainAddress}/delegated-stakes?page=${c.page}&limit=${c.limit}`,
+  addressReceivedStakes: (blockchainAddress: string, c: PageLimitContext) =>
+    `/address/${blockchainAddress}/received-stakes?page=${c.page}&limit=${c.limit}`,
+  addressEvents: (blockchainAddress: string, c: PageLimitContext) =>
+    `/address/${blockchainAddress}/events?page=${c.page}&limit=${c.limit}`
 };
 
 //TODO: make common modal
@@ -35,8 +40,8 @@ export class AddressInfoService {
   }
 
   // TODO: add models
-  getAddressAccounts(blockchainAddress: string): Observable<[]> {
-    return this.httpClient.get(routes.addressAccounts(blockchainAddress)).pipe(
+  getAddressAccounts(blockchainAddress: string, context: PageLimitContext): Observable<[]> {
+    return this.httpClient.get(routes.addressAccounts(blockchainAddress, context)).pipe(
       // TODO: make GENERIC api model!!
       map((response: any) => response.data),
       // TODO: make common error logger
@@ -45,8 +50,8 @@ export class AddressInfoService {
   }
 
   // TODO: add models
-  getAddressAssets(blockchainAddress: string): Observable<[]> {
-    return this.httpClient.get(routes.addressAssets(blockchainAddress)).pipe(
+  getAddressAssets(blockchainAddress: string, context: PageLimitContext): Observable<[]> {
+    return this.httpClient.get(routes.addressAssets(blockchainAddress, context)).pipe(
       // TODO: make GENERIC api model!!
       map((response: any) => response.data),
       // TODO: make common error logger
@@ -54,18 +59,8 @@ export class AddressInfoService {
     );
   }
   // TODO: add models
-  getAddressDelegatedStakes(blockchainAddress: string): Observable<[]> {
-    return this.httpClient.get(routes.addressDelegatedStakes(blockchainAddress)).pipe(
-      // TODO: make GENERIC api model!!
-      map((response: any) => response.data),
-      // TODO: make common error logger
-      catchError(() => of('Error, could not get address assets'))
-    );
-  }
-
-  // TODO: add models
-  getAddressReceivedStakes(blockchainAddress: string): Observable<[]> {
-    return this.httpClient.get(routes.addressReceivedStakes(blockchainAddress)).pipe(
+  getAddressDelegatedStakes(blockchainAddress: string, context: PageLimitContext): Observable<[]> {
+    return this.httpClient.get(routes.addressDelegatedStakes(blockchainAddress, context)).pipe(
       // TODO: make GENERIC api model!!
       map((response: any) => response.data),
       // TODO: make common error logger
@@ -74,8 +69,18 @@ export class AddressInfoService {
   }
 
   // TODO: add models
-  getAddressEvents(blockchainAddress: string): Observable<[]> {
-    return this.httpClient.get(routes.addressEvents(blockchainAddress)).pipe(
+  getAddressReceivedStakes(blockchainAddress: string, context: PageLimitContext): Observable<[]> {
+    return this.httpClient.get(routes.addressReceivedStakes(blockchainAddress, context)).pipe(
+      // TODO: make GENERIC api model!!
+      map((response: any) => response.data),
+      // TODO: make common error logger
+      catchError(() => of('Error, could not get address assets'))
+    );
+  }
+
+  // TODO: add models
+  getAddressEvents(blockchainAddress: string, context: PageLimitContext): Observable<[]> {
+    return this.httpClient.get(routes.addressEvents(blockchainAddress, context)).pipe(
       // TODO: make GENERIC api model!!
       map((response: any) => response.data),
       // TODO: make common error logger

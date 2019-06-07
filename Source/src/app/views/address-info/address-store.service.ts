@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AddressInfoService } from './address.service';
+import { thisTypeAnnotation } from 'babel-types';
 
 @Injectable({ providedIn: 'root' })
 export class AddressInfoStoreService {
@@ -92,12 +93,20 @@ export class AddressInfoStoreService {
     this._loadingAccounts.next(val);
   }
 
+  set appendAccounts(val: any[]) {
+    this._accounts.next([...this.accounts, ...val]);
+  }
+
   set assets(val: any[]) {
     this._assets.next(val);
   }
 
   set loadingAssets(val: boolean) {
     this._loadingAssets.next(val);
+  }
+
+  set appendAssets(val: any[]) {
+    this._assets.next([...this.assets, ...val]);
   }
 
   set delegatedStakes(val: any[]) {
@@ -108,8 +117,16 @@ export class AddressInfoStoreService {
     this._loadingDelegatedStakes.next(val);
   }
 
+  set appendDelegatedStakes(val: any[]) {
+    this._delegatedStakes.next([...this.delegatedStakes, ...val]);
+  }
+
   set receivedStakes(val: any[]) {
     this._receivedStakes.next(val);
+  }
+
+  set appendReceivedStakes(val: any[]) {
+    this._receivedStakes.next([...this.receivedStakes, ...val]);
   }
 
   set loadingReceivedStakes(val: boolean) {
@@ -124,6 +141,10 @@ export class AddressInfoStoreService {
     this._loadingEvents.next(val);
   }
 
+  set appendEvents(val: any[]) {
+    this._events.next([...this.events, ...val]);
+  }
+
   getAddressInfo(blockchainAddress: string) {
     this.loadingAddressInfo = true;
     this.addressService.getAddressInfo(blockchainAddress).subscribe(res => {
@@ -133,42 +154,61 @@ export class AddressInfoStoreService {
     });
   }
 
-  getAccounts(blockchainAddress: string) {
+  getAccounts(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingAccounts = true;
-    this.addressService.getAddressAccounts(blockchainAddress).subscribe(res => {
-      this.accounts = res;
+    this.addressService.getAddressAccounts(blockchainAddress, { page, limit }).subscribe(res => {
+      if (shouldAppend) {
+        this.appendAccounts = res;
+      } else {
+        this.accounts = res;
+      }
       this.loadingAccounts = false;
     });
   }
 
-  getAssets(blockchainAddress: string) {
+  getAssets(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingAssets = true;
-    this.addressService.getAddressAssets(blockchainAddress).subscribe(res => {
-      this.accounts = res;
+    this.addressService.getAddressAssets(blockchainAddress, { page, limit }).subscribe(res => {
+      if (shouldAppend) {
+        this.appendAssets = res;
+      } else {
+        this.assets = res;
+      }
       this.loadingAssets = false;
     });
   }
 
-  getDelegatedStakes(blockchainAddress: string) {
+  getDelegatedStakes(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingDelegatedStakes = true;
-    this.addressService.getAddressDelegatedStakes(blockchainAddress).subscribe(res => {
+    this.addressService.getAddressDelegatedStakes(blockchainAddress, { page, limit }).subscribe(res => {
+      if (shouldAppend) {
+        this.appendDelegatedStakes = res;
+      }
       this.delegatedStakes = res;
       this.loadingDelegatedStakes = false;
     });
   }
 
-  getReceivedStakes(blockchainAddress: string) {
+  getReceivedStakes(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingReceivedStakes = true;
-    this.addressService.getAddressReceivedStakes(blockchainAddress).subscribe(res => {
-      this.receivedStakes = res;
+    this.addressService.getAddressReceivedStakes(blockchainAddress, { page, limit }).subscribe(res => {
+      if (shouldAppend) {
+        this.appendReceivedStakes = res;
+      } else {
+        this.receivedStakes = res;
+      }
       this.loadingReceivedStakes = false;
     });
   }
 
-  getEvents(blockchainAddress: string) {
+  getEvents(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingEvents = true;
-    this.addressService.getAddressEvents(blockchainAddress).subscribe(res => {
-      this.receivedStakes = res;
+    this.addressService.getAddressEvents(blockchainAddress, { page, limit }).subscribe(res => {
+      if (shouldAppend) {
+        this.appendEvents = res;
+      } else {
+        this.receivedStakes = res;
+      }
       this.loadingEvents = false;
     });
   }

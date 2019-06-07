@@ -14,10 +14,16 @@ const log = new Logger('AdressInfo');
 export class AddressInfoComponent implements OnInit, OnDestroy {
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;
-  currentPage = 1;
+
+  currentPage = {
+    events: 1,
+    accounts: 1,
+    assets: 1,
+    receivedStakes: 1,
+    delegatedStakes: 1
+  };
 
   blockchainAddress: string;
-  canLoadMore = false;
 
   addressInfo: Observable<any>;
   loadingAddressInfo: Observable<boolean>;
@@ -176,33 +182,83 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     }
   }
 
-  getAddressAssets() {
+  getAddressAssets(shouldAppend: boolean = false) {
     if (this.blockchainAddress) {
-      this.addressStoreService.getAssets(this.blockchainAddress);
+      this.addressStoreService.getAssets(this.blockchainAddress, this.currentPage.assets, this.pageLimit, shouldAppend);
     }
   }
 
-  getAddressAccounts() {
-    if (this.blockchainAddress) {
-      this.addressStoreService.getAccounts(this.blockchainAddress);
+  onLoadMoreAddressAssets(shouldLoad: boolean) {
+    if (shouldLoad) {
+      this.currentPage.assets++;
+      this.getAddressAssets(shouldLoad);
     }
   }
 
-  getAddressDelegatedStakes() {
+  getAddressAccounts(shouldAppend: boolean = false) {
     if (this.blockchainAddress) {
-      this.addressStoreService.getDelegatedStakes(this.blockchainAddress);
+      this.addressStoreService.getAccounts(
+        this.blockchainAddress,
+        this.currentPage.accounts,
+        this.pageLimit,
+        shouldAppend
+      );
     }
   }
 
-  getAddressReceivedStakes() {
-    if (this.blockchainAddress) {
-      this.addressStoreService.getReceivedStakes(this.blockchainAddress);
+  onLoadMoreAddressAccounts(shouldLoad: boolean) {
+    if (shouldLoad) {
+      this.currentPage.accounts++;
+      this.getAddressAccounts(shouldLoad);
     }
   }
 
-  getAddressEvents() {
+  getAddressDelegatedStakes(shouldAppend: boolean = false) {
     if (this.blockchainAddress) {
-      this.addressStoreService.getEvents(this.blockchainAddress);
+      this.addressStoreService.getDelegatedStakes(
+        this.blockchainAddress,
+        this.currentPage.delegatedStakes,
+        this.pageLimit,
+        shouldAppend
+      );
+    }
+  }
+
+  onLoadMoreAddressDelegatedStakes(shouldLoad: boolean) {
+    if (shouldLoad) {
+      this.currentPage.delegatedStakes++;
+      this.getAddressDelegatedStakes(shouldLoad);
+    }
+  }
+
+  getAddressReceivedStakes(shouldAppend: boolean = false) {
+    if (this.blockchainAddress) {
+      this.addressStoreService.getReceivedStakes(
+        this.blockchainAddress,
+        this.currentPage.receivedStakes,
+        this.pageLimit,
+        shouldAppend
+      );
+    }
+  }
+
+  onLoadMoreAddressReceivedStakes(shouldLoad: boolean) {
+    if (shouldLoad) {
+      this.currentPage.receivedStakes++;
+      this.getAddressReceivedStakes(shouldLoad);
+    }
+  }
+
+  getAddressEvents(shouldAppend: boolean = false) {
+    if (this.blockchainAddress) {
+      this.addressStoreService.getEvents(this.blockchainAddress, this.currentPage.events, this.pageLimit, shouldAppend);
+    }
+  }
+
+  onLoadMoreAddressEvents(shouldLoad: boolean) {
+    if (shouldLoad) {
+      this.currentPage.events++;
+      this.getAddressEvents(shouldLoad);
     }
   }
 }

@@ -6,9 +6,12 @@ import { map, catchError } from 'rxjs/operators';
 const routes = {
   blocks: (c: PageLimitContext) => `/blocks?page=${c.page}&limit=${c.limit}`,
   blockInfo: (blockNumber: number) => `/block/${blockNumber}`,
-  transactionsByBlockNumber: (blockNumber: number) => `/block/${blockNumber}/transactions`,
-  equivocationsByBlockNumber: (blockNumber: number) => `/block/${blockNumber}/equivocations`,
-  stakingRewardsByBlockNumber: (blockNumber: number) => `/block/${blockNumber}/staking-rewards`
+  transactionsByBlockNumber: (blockNumber: number, c: PageLimitContext) =>
+    `/block/${blockNumber}/transactions?page=${c.page}&limit=${c.limit}`,
+  equivocationsByBlockNumber: (blockNumber: number, c: PageLimitContext) =>
+    `/block/${blockNumber}/equivocations?page=${c.page}&limit=${c.limit}`,
+  stakingRewardsByBlockNumber: (blockNumber: number, c: PageLimitContext) =>
+    `/block/${blockNumber}/staking-rewards?page=${c.page}&limit=${c.limit}`
 };
 
 // TODO: Make common modal for PageLimitContext
@@ -44,8 +47,8 @@ export class BlockService {
   }
 
   // TODO: add models
-  getTransactions(context: number): Observable<[]> {
-    return this.httpClient.get(routes.transactionsByBlockNumber(context)).pipe(
+  getTransactions(blockNumber: number, context: PageLimitContext): Observable<[]> {
+    return this.httpClient.get(routes.transactionsByBlockNumber(blockNumber, context)).pipe(
       // TODO: make GENERIC api model!!
       map((response: any) => response.data),
       // TODO: make common error logger
@@ -54,8 +57,8 @@ export class BlockService {
   }
 
   // TODO: add models
-  getEquivocations(context: number): Observable<[]> {
-    return this.httpClient.get(routes.equivocationsByBlockNumber(context)).pipe(
+  getEquivocations(blockNumber: number, context: PageLimitContext): Observable<[]> {
+    return this.httpClient.get(routes.equivocationsByBlockNumber(blockNumber, context)).pipe(
       // TODO: make GENERIC api model!!
       map((response: any) => response.data),
       // TODO: make common error logger
@@ -64,8 +67,8 @@ export class BlockService {
   }
 
   // TODO: add models
-  getStakingRewards(context: number): Observable<[]> {
-    return this.httpClient.get(routes.stakingRewardsByBlockNumber(context)).pipe(
+  getStakingRewards(blockNumber: number, context: PageLimitContext): Observable<[]> {
+    return this.httpClient.get(routes.stakingRewardsByBlockNumber(blockNumber, context)).pipe(
       // TODO: make GENERIC api model!!
       map((response: any) => response.data),
       // TODO: make common error logger

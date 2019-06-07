@@ -76,7 +76,7 @@
         [columns]="eventColumns"
         [loading]="loadingEvents | async"
         [source]="events | async"
-        [canLoadMore]="canLoadMore"
+        (loadMore)="onLoadMoreAccounts($event)"
       ></app-table-card>
     </div>
   </div>
@@ -91,7 +91,7 @@
         [source]="accounts | async"
         [expandable]="true"
         [defaultExpand]="true"
-        [canLoadMore]="canLoadMore"
+        (loadMore)="onLoadMoreAddressAccounts($event)"
       ></app-table-card>
     </div>
   </div>
@@ -106,7 +106,7 @@
         [source]="assets | async"
         [expandable]="true"
         [defaultExpand]="true"
-        [canLoadMore]="canLoadMore"
+        (loadMore)="onLoadMoreAddressAssets($event)"
       ></app-table-card>
     </div>
   </div>
@@ -119,7 +119,7 @@
         [columns]="receivedStakeColumns"
         [loading]="loadingReceivedStakes | async"
         [source]="receivedStakes | async"
-        [canLoadMore]="canLoadMore"
+        (loadMore)="onLoadMoreAddressReceivedStakes($event)"
       ></app-table-card>
     </div>
 
@@ -130,7 +130,7 @@
         [columns]="delegatedStakeColumns"
         [loading]="loadingDelegatedStakes | async"
         [source]="delegatedStakes | async"
-        [canLoadMore]="canLoadMore"
+        (loadMore)="onLoadMoreAddressDelegatedStakes($event)"
       ></app-table-card>
     </div>
   </div>
