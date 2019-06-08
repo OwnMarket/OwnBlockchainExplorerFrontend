@@ -49,6 +49,10 @@ export class BlockStoreService {
     return this._blocks.getValue();
   }
 
+  get lastBlock(): any {
+    return this.blocks && this.blocks[0];
+  }
+
   get blockInfo(): any {
     return this._blockInfo.getValue();
   }
