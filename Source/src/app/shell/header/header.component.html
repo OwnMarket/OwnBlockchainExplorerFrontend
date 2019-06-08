@@ -8,15 +8,16 @@
       (click)="toggleMenu()"
       [attr.aria-expanded]="!menuHidden"
     >
-      <span class="navbar-toggler-icon"></span>
+      <span *ngIf="menuHidden" class="fas fa-bars"></span>
+      <span *ngIf="!menuHidden" class="fa fa-window-minimize"></span>
     </button>
     <div id="navbar-menu" class="collapse navbar-collapse float-xs-none" [ngbCollapse]="menuHidden">
-      <div class="col-sm-4 col-md-4">
+      <div class="col-sm-12 col-md-12 col-lg-4">
         <a class="navbar-brand" routerLink="/"><img src="assets/images/logo.png" alt="Logo"/></a>
       </div>
-      <div class="col-sm-8 col-md-8">
+      <div class="col-sm-12 col-md-12 col-lg-8">
         <div class="row align-items-center">
-          <div class="col-sm-7 col-md-6 text-right border-right">
+          <div class="col-sm-12 col-md-12 col-lg-6 text-right border-right">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0 float-right">
               <li class="nav-item">
                 <a class="nav-item nav-link" routerLink="/blocks" routerLinkActive="active">
@@ -30,7 +31,7 @@
               </li>
             </ul>
           </div>
-          <div class="col-sm-5 col-md-6">
+          <div class="col-sm-12 col-md-12 col-lg-6" *ngIf="menuHidden">
             <div class="input-group">
               <input
                 type="text"
@@ -51,6 +52,24 @@
                 <li class="list-group-item">Cras justo odio</li>
               </ul> -->
             <!-- <app-search-input></app-search-input> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-6" *ngIf="!menuHidden">
+        <div class="input-group">
+          <input
+            type="text"
+            (keyup.enter)="searchByHash()"
+            [formControl]="searchField"
+            class="form-control"
+            placeholder="Search by Address, Transaction, Block..."
+            aria-label="Search"
+            aria-describedby="button-addon2"
+          />
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchByHash()">
+              <i class="fas fa-search"></i>
+            </button>
           </div>
         </div>
       </div>
