@@ -1,14 +1,18 @@
 @import "src/theme/theme-variables";
 
-header .navbar {
+header {
   background-color: white;
-  padding-bottom: 1em;
+
+  .search-on-mobile {
+    padding-bottom: 1em;
+  }
+}
+.navbar {
+  background-color: white;
   margin-bottom: 0;
 }
 
 .navbar {
-  margin-bottom: $spacer;
-
   .nav-item {
     color: #373737;
     margin: 0.2em 1em 0.2em 0;
@@ -59,4 +63,8 @@ header .navbar {
       color: #868e96;
     }
   }
+}
+
+.white-background {
+  background: white;
 }

@@ -1,5 +1,5 @@
 <div class="table-card">
-  <div class="card">
+  <div [class.card]="!isTransparent" [class.card-transparent]="isTransparent">
     <div class="card-header">
       <div class="row">
         <div class="col-8">
@@ -27,8 +27,8 @@
 
     <div class="card-body" *ngIf="expanded">
       <ngx-datatable
-        [ngStyle]="{ height: source && source.length > 0 ? tableHeight : '25px' }"
         class="table-card"
+        [ngStyle]="{ height: source && source.length > 0 ? tableHeight : '25px' }"
         [rows]="source"
         [columns]="columns"
         [columnMode]="'force'"
@@ -38,7 +38,8 @@
         [footerHeight]="falsey"
         [scrollbarV]="true"
         (scroll)="onScroll($event.offsetY)"
-      ></ngx-datatable>
+      >
+      </ngx-datatable>
     </div>
   </div>
 </div>

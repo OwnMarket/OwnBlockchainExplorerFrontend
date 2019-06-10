@@ -31,7 +31,7 @@
               </li>
             </ul>
           </div>
-          <div class="col-sm-12 col-md-12 col-lg-6" *ngIf="menuHidden">
+          <div class="d-sm-none d-md-none d-lg-block col-lg-6">
             <div class="input-group">
               <input
                 type="text"
@@ -48,31 +48,27 @@
                 </button>
               </div>
             </div>
-            <!-- <ul class="list-group">
-                <li class="list-group-item">Cras justo odio</li>
-              </ul> -->
-            <!-- <app-search-input></app-search-input> -->
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-12 col-lg-6" *ngIf="!menuHidden">
-        <div class="input-group">
-          <input
-            type="text"
-            (keyup.enter)="searchByHash()"
-            [formControl]="searchField"
-            class="form-control"
-            placeholder="Search by Address, Transaction, Block..."
-            aria-label="Search"
-            aria-describedby="button-addon2"
-          />
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchByHash()">
-              <i class="fas fa-search"></i>
-            </button>
           </div>
         </div>
       </div>
     </div>
   </nav>
+  <div class="d-lg-none d-xl-none col-sm-12 col-md-12 search-on-mobile">
+    <div class="input-group">
+      <input
+        type="text"
+        (keyup.enter)="searchByHash()"
+        [formControl]="searchField"
+        class="form-control"
+        placeholder="Search by Address, Transaction, Block..."
+        aria-label="Search"
+        aria-describedby="button-addon2"
+      />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchByHash()">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 </header>

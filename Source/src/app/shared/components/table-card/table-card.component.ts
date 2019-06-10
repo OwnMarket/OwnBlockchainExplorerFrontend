@@ -1,4 +1,13 @@
-import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewEncapsulation,
+  Output,
+  EventEmitter,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
 import * as _ from 'lodash';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -12,10 +21,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class TableCardComponent implements OnInit {
   expanded = true;
   lodash = _;
+  expandedRow: any = {};
 
   // Inputs
   @Input() title: string;
   @Input() expandable = false;
+  @Input() isTransparent = false;
   @Input() set defaultExpand(value: boolean) {
     this.expanded = value;
   }
@@ -34,6 +45,7 @@ export class TableCardComponent implements OnInit {
   @Input() class = '';
 
   @Output() loadMore: EventEmitter<boolean> = new EventEmitter();
+  @Output() expandClicked: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private el: ElementRef) {}
 
@@ -53,18 +65,8 @@ export class TableCardComponent implements OnInit {
     }
   }
 
-  // TODO Use url model
-  navigate(url: any) {
-    console.log(url);
-    this.router.navigate([url.route, this.generateRouteParams(url)]);
-  }
-
   expand() {
     this.expanded = !this.expanded;
-  }
-
-  // TODO: Use url model
-  private generateRouteParams(url: any): string {
-    return url.params.join(',');
+    this.expandClicked.emit(this.expanded);
   }
 }
