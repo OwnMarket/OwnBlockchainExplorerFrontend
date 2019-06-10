@@ -14,7 +14,7 @@ import { TransactionStoreService } from '../transactions/transaction-store.servi
 })
 export class HomeComponent implements OnInit, OnDestroy {
   lastBlock: number;
-  view: any[] = [800, 200];
+  view: any[] = [800, 100];
 
   // options
   showXAxis = false;

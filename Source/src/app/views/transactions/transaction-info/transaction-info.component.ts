@@ -73,12 +73,15 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
     }
   }
 
-  expandActionData(action: any, index: any) {
-    if (!this.expandedTransactionActions || this.expandedTransactionActions.index !== index) {
-      this.expandedTransactionActions = JSON.parse(action.actionData);
-      this.expandedTransactionActions['custom_index'] = index;
-    } else {
-      this.expandedTransactionActions = {};
+  expandActionData(action: any, index: number) {
+    if (action && action.actionData) {
+      try {
+        this.expandedTransactionActions = JSON.parse(action.actionData);
+      } catch (error) {
+        console.error(error);
+        return;
+      }
+      this.expandedTransactionActions.custom_index = index;
     }
   }
 }

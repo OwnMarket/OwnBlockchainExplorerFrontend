@@ -193,7 +193,7 @@
                   <div
                     class="row detail-info mt-3"
                     *ngFor="let action of transactionActions | async; let i = index"
-                    [attr.data-index]="i"
+                    [attr.data-custom_index]="i"
                     appScrollEnd
                     (endReached)="onLoadMoreTransactionActions($event)"
                   >
@@ -201,7 +201,7 @@
                       <div class="float-left">
                         <i
                           [ngClass]="
-                            expandedTransactionActions && expandedTransactionActions.index === i
+                            expandedTransactionActions && expandedTransactionActions.custom_index === i
                               ? 'fa-angle-up'
                               : 'fa-angle-right'
                           "
