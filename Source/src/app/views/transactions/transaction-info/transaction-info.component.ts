@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { switchMap, finalize } from 'rxjs/operators';
 import { Logger, untilDestroyed } from '@app/core';
@@ -23,6 +23,7 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
   loadingTransactionInfo: Observable<boolean>;
   transactionActions: Observable<any[]>;
   loadingTransactionActions: Observable<boolean>;
+  expandedTransactionActions: any;
 
   constructor(private route: ActivatedRoute, private transactionStoreService: TransactionStoreService) {}
 
@@ -45,10 +46,10 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {}
 
-  expandActions() {
+  expandActions(val: boolean) {
     this.actionsExpanded = !this.actionsExpanded;
     if (this.actionsExpanded) {
-      this.getTransactionActions();
+      this.getTransactionActions(false);
     }
   }
 
@@ -62,18 +63,22 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
     if (!this.transactionHash) {
       return;
     }
-    this.transactionStoreService.getTransactionActions(
-      this.transactionHash,
-      this.currentPage,
-      this.pageLimit,
-      shouldAppend
-    );
+    this.transactionStoreService.getTransactionActions(this.transactionHash, this.currentPage, 50, shouldAppend);
   }
 
   onLoadMoreTransactionActions(shouldLoad: boolean) {
     if (shouldLoad) {
       this.currentPage++;
       this.getTransactionActions(shouldLoad);
+    }
+  }
+
+  expandActionData(action: any, index: any) {
+    if (!this.expandedTransactionActions || this.expandedTransactionActions.index !== index) {
+      this.expandedTransactionActions = JSON.parse(action.actionData);
+      this.expandedTransactionActions['custom_index'] = index;
+    } else {
+      this.expandedTransactionActions = {};
     }
   }
 }

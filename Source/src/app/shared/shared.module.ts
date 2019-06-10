@@ -13,6 +13,7 @@ import { LabeledCardComponent } from './components/labeled-card/labeled-card.com
 import { HtmlRenderPipe } from './pipes/html-render.pipe';
 import { ScrollEndDirective } from './directives/scroll-end.directive';
 import { SearchService } from './services/search.service';
+import { CamelCaseToSpace } from './pipes/camelcase-to-space.pipe';
 
 @NgModule({
   imports: [CommonModule, RouterModule, NgxDatatableModule, TimeagoModule.forRoot()],
@@ -21,6 +22,7 @@ import { SearchService } from './services/search.service';
     SearchInputComponent,
     TableCardComponent,
     HtmlRenderPipe,
+    CamelCaseToSpace,
     PageTitleComponent,
     LabeledCardComponent,
     ScrollEndDirective
@@ -32,7 +34,8 @@ import { SearchService } from './services/search.service';
     TableCardComponent,
     PageTitleComponent,
     LabeledCardComponent,
-    TimeagoModule
+    TimeagoModule,
+    CamelCaseToSpace
   ]
 })
 export class SharedModule {}

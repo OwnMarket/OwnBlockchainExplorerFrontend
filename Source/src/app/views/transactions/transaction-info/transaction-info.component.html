@@ -1,7 +1,7 @@
 <div *ngIf="transactionInfo | async as transaction">
   <!-- TITLE -->
   <div class="row justify-content-md-center">
-    <div class="col-sm-12 col-md-10 ml-3">
+    <div class="col-12 col-md-10 ml-3">
       <app-page-title title="Transaction info"></app-page-title>
     </div>
   </div>
@@ -11,9 +11,9 @@
 
   <div [hidden]="loadingTransactionInfo | async" class="detail-info">
     <div class="row justify-content-md-center">
-      <div class="col-sm-12 col-md-10">
+      <div class="col-12 col-md-10">
         <div class="row">
-          <div class="col-sm-12 col-md-8">
+          <div class="col-12 col-lg-8">
             <p class="title-card ml-3">Basic information</p>
             <div class="transaction-status">
               <img *ngIf="transaction.status === 'Success'" src="assets/images/success-text.svg" />
@@ -23,18 +23,18 @@
             <div class="card">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-sm-6 col-md-4">
+                  <div class="col-6 col-md-4">
                     <p class="info-label">Transaction Hash</p>
                   </div>
-                  <div class="col-sm-6 col-md-8 text-right">
+                  <div class="col-6 col-md-8 text-right">
                     <p class="info-value">{{ transaction.hash }}</p>
                   </div>
                 </div>
                 <div class="row mt-3">
-                  <div class="col-sm-6 col-md-4">
+                  <div class="col-6 col-md-4">
                     <p class="info-label">Block number</p>
                   </div>
-                  <div class="col-sm-6 col-md-8 text-right">
+                  <div class="col-6 col-md-8 text-right">
                     <p class="info-value">
                       <a class="text-secondary" [routerLink]="['/block', transaction.blockNumber]">{{
                         transaction.blockNumber
@@ -44,28 +44,28 @@
                 </div>
                 <ng-template #failureTransaction>
                   <div class="row mt-3">
-                    <div class="col-sm-6 col-md-4">
+                    <div class="col-6 col-md-4">
                       <p class="info-label">Error message</p>
                     </div>
-                    <div class="col-sm-6 col-md-8 text-right">
+                    <div class="col-6 col-md-8 text-right">
                       <p class="info-value">{{ transaction.errorMessage }}</p>
                     </div>
                   </div>
                   <div class="row mt-3" *ngIf="transaction.failedActionNumber">
-                    <div class="col-sm-6 col-md-4">
+                    <div class="col-6 col-md-4">
                       <p class="info-label">Failed action number</p>
                     </div>
-                    <div class="col-sm-6 col-md-8 text-right">
+                    <div class="col-6 col-md-8 text-right">
                       <p class="info-value">{{ transaction.failedActionNumber }}</p>
                     </div>
                   </div>
                 </ng-template>
 
                 <div class="row mt-3" *ngIf="transaction.status === 'Fa'">
-                  <div class="col-sm-6 col-md-4">
+                  <div class="col-6 col-md-4">
                     <p class="info-label">Block number</p>
                   </div>
-                  <div class="col-sm-6 col-md-8 text-right">
+                  <div class="col-6 col-md-8 text-right">
                     <p class="info-value">
                       <a class="text-secondary" [routerLink]="['/block', transaction.blockNumber]">{{
                         transaction.blockNumber
@@ -77,15 +77,15 @@
             </div>
           </div>
 
-          <div class="col-sm-12 col-md-4 from-card-section">
+          <div class="col-12 col-lg-4 from-card-section">
             <h6>&nbsp;</h6>
             <div class="card-transparent">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-sm-4 col-md-3">
+                  <div class="col-4 col-md-3">
                     <div class="from-image"></div>
                   </div>
-                  <div class="col-sm-8 col-md-9">
+                  <div class="col-8 col-md-9">
                     <p class="info-label">From</p>
                     <div class="clip-text">
                       <a class="text-secondary" [routerLink]="['/address-info', transaction.senderAddress]">{{
@@ -100,59 +100,59 @@
 
           <div class="col-12 mt-5">
             <div class="row">
-              <div class="col-sm-12 col-md-6">
+              <div class="col-12 col-md-6">
                 <div class="row details-row-item">
-                  <div class="col-sm-6">
+                  <div class="col-6">
                     <p class="info-label">Expiration time</p>
                   </div>
-                  <div class="col-sm-6 border-right">
+                  <div class="col-6 border-right">
                     <p class="info-value">{{ transaction.expirationTime | date: 'hh:mm:ss' }}</p>
                   </div>
                 </div>
 
                 <div class="row details-row-item">
-                  <div class="col-sm-6">
+                  <div class="col-6">
                     <p class="info-label">Nonce</p>
                   </div>
-                  <div class="col-sm-6 border-right">
+                  <div class="col-6 border-right">
                     <p class="info-value">{{ transaction.nonce }}</p>
                   </div>
                 </div>
 
                 <div class="row details-row-item">
-                  <div class="col-sm-6">
+                  <div class="col-6">
                     <p class="info-label">Total fee</p>
                   </div>
-                  <div class="col-sm-6 border-right">
+                  <div class="col-6 border-right">
                     <p class="info-value">{{ transaction.actionFee }} CHX</p>
                   </div>
                 </div>
               </div>
 
-              <div class="col-sm-12 col-md-6">
+              <div class="col-12 col-md-6">
                 <div class="row details-row-item">
-                  <div class="col-sm-6">
+                  <div class="col-6">
                     <p class="info-label">Passed time</p>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-6">
                     <p class="info-value">{{ transaction.timestamp | date | timeago }}</p>
                   </div>
                 </div>
 
                 <div class="row details-row-item">
-                  <div class="col-sm-6">
+                  <div class="col-6">
                     <p class="info-label">Actions</p>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-6">
                     <p class="info-value">{{ transaction.actions ? transaction.actions.length : 0 }}</p>
                   </div>
                 </div>
 
                 <div class="row details-row-item">
-                  <div class="col-sm-6">
+                  <div class="col-6">
                     <p class="info-label">Action fee</p>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-6">
                     <p class="info-value">{{ transaction.actionFee }} CHX</p>
                   </div>
                 </div>
@@ -173,15 +173,69 @@
               </div>
             </div>
             <div class="card-body" *ngIf="actionsExpanded">
-              <div class="table">
-                <table class="table">
-                  <tbody>
-                    <tr>
-                      <td class="label"><strong>Action 1</strong></td>
-                      <td class="value">Action 1</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <!-- LOADER -->
+              <app-loader [isLoading]="loadingTransactionActions | async"></app-loader>
+
+              <div id="actions-lit" class="row" [hidden]="loadingTransactionActions | async">
+                <div class="col-12 head">
+                  <div class="row">
+                    <div class="col-12 col-md-2"></div>
+                    <div class="col-12 col-md-5">
+                      <b>Type</b>
+                    </div>
+                    <div class="col-12 col-md-5">
+                      <b>Number</b>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div
+                    class="row detail-info mt-3"
+                    *ngFor="let action of transactionActions | async; let i = index"
+                    [attr.data-index]="i"
+                    appScrollEnd
+                    (endReached)="onLoadMoreTransactionActions($event)"
+                  >
+                    <div class="col-2">
+                      <div class="float-left">
+                        <i
+                          [ngClass]="
+                            expandedTransactionActions && expandedTransactionActions.index === i
+                              ? 'fa-angle-up'
+                              : 'fa-angle-right'
+                          "
+                          class="fas"
+                          (click)="expandActionData(action, i)"
+                        ></i>
+                      </div>
+                    </div>
+
+                    <div class="col-5">
+                      <p class="info-value">{{ action.actionType }}</p>
+                    </div>
+
+                    <div class="col-5">
+                      <p class="info-value">{{ action.actionNumber }}</p>
+                    </div>
+
+                    <div
+                      class="col-12"
+                      *ngIf="expandedTransactionActions && expandedTransactionActions.custom_index === i"
+                    >
+                      <div *ngFor="let item of expandedTransactionActions | keyvalue">
+                        <div class="row details-row-item" *ngIf="item.key != 'custom_index'">
+                          <div class="col-4">
+                            <p class="info-label">{{ item.key | camelCaseToSpace | titlecase }}</p>
+                          </div>
+                          <div class="col-8">
+                            <p class="info-value">{{ item.value }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
