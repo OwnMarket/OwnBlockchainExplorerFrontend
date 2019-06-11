@@ -5,10 +5,14 @@ import { map, catchError } from 'rxjs/operators';
 
 const routes = {
   addressInfo: (blockchainAddress: string) => `/address/${blockchainAddress}`,
-  addressAccounts: (blockchainAddress: string, c: PageLimitContext) =>
-    `/address/${blockchainAddress}/accounts?page=${c.page}&limit=${c.limit}`,
-  addressAssets: (blockchainAddress: string, c: PageLimitContext) =>
-    `/address/${blockchainAddress}/assets?page=${c.page}&limit=${c.limit}`,
+  addressAccounts: (blockchainAddress: string, c: PageLimitContext, status?: boolean) =>
+    `/address/${blockchainAddress}/accounts?page=${c.page}&limit=${c.limit}${
+      status != null ? '&isActive=' + status : ''
+    }`,
+  addressAssets: (blockchainAddress: string, c: PageLimitContext, status?: boolean) =>
+    `/address/${blockchainAddress}/assets?page=${c.page}&limit=${c.limit}${
+      status != null ? '&isActive=' + status : ''
+    }`,
   addressDelegatedStakes: (blockchainAddress: string, c: PageLimitContext) =>
     `/address/${blockchainAddress}/delegated-stakes?page=${c.page}&limit=${c.limit}`,
   addressReceivedStakes: (blockchainAddress: string, c: PageLimitContext) =>
@@ -40,8 +44,8 @@ export class AddressInfoService {
   }
 
   // TODO: add models
-  getAddressAccounts(blockchainAddress: string, context: PageLimitContext): Observable<[]> {
-    return this.httpClient.get(routes.addressAccounts(blockchainAddress, context)).pipe(
+  getAddressAccounts(blockchainAddress: string, context: PageLimitContext, status?: boolean): Observable<[]> {
+    return this.httpClient.get(routes.addressAccounts(blockchainAddress, context, status)).pipe(
       // TODO: make GENERIC api model!!
       map((response: any) => response.data),
       // TODO: make common error logger
@@ -50,8 +54,8 @@ export class AddressInfoService {
   }
 
   // TODO: add models
-  getAddressAssets(blockchainAddress: string, context: PageLimitContext): Observable<[]> {
-    return this.httpClient.get(routes.addressAssets(blockchainAddress, context)).pipe(
+  getAddressAssets(blockchainAddress: string, context: PageLimitContext, status?: boolean): Observable<[]> {
+    return this.httpClient.get(routes.addressAssets(blockchainAddress, context, status)).pipe(
       // TODO: make GENERIC api model!!
       map((response: any) => response.data),
       // TODO: make common error logger

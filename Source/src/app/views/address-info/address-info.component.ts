@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap, finalize } from 'rxjs/operators';
 import { Logger, untilDestroyed } from '@app/core';
@@ -12,6 +12,7 @@ const log = new Logger('AdressInfo');
   styleUrls: ['./address-info.component.scss']
 })
 export class AddressInfoComponent implements OnInit, OnDestroy {
+  @ViewChild('addressStatus') addressStatus: TemplateRef<any>;
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;
 
@@ -127,7 +128,9 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Status',
         prop: 'isActive',
-        sortable: false
+        maxWidth: 150,
+        sortable: false,
+        cellTemplate: this.addressStatus
       }
     ];
 
@@ -145,7 +148,9 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Status',
         prop: 'isActive',
-        sortable: false
+        maxWidth: 150,
+        sortable: false,
+        cellTemplate: this.addressStatus
       }
     ];
 
@@ -182,9 +187,15 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     }
   }
 
-  getAddressAssets(shouldAppend: boolean = false) {
+  getAddressAssets(shouldAppend: boolean = false, status?: boolean) {
     if (this.blockchainAddress) {
-      this.addressStoreService.getAssets(this.blockchainAddress, this.currentPage.assets, this.pageLimit, shouldAppend);
+      this.addressStoreService.getAssets(
+        this.blockchainAddress,
+        this.currentPage.assets,
+        this.pageLimit,
+        shouldAppend,
+        status
+      );
     }
   }
 
@@ -195,13 +206,24 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     }
   }
 
-  getAddressAccounts(shouldAppend: boolean = false) {
+  onAddressAccountsFilter(status: boolean) {
+    this.currentPage.accounts = 1;
+    this.getAddressAccounts(false, status);
+  }
+
+  onAddressAssetsFilter(status: boolean) {
+    this.currentPage.assets = 1;
+    this.getAddressAssets(false, status);
+  }
+
+  getAddressAccounts(shouldAppend: boolean = false, status?: boolean) {
     if (this.blockchainAddress) {
       this.addressStoreService.getAccounts(
         this.blockchainAddress,
         this.currentPage.accounts,
         this.pageLimit,
-        shouldAppend
+        shouldAppend,
+        status
       );
     }
   }

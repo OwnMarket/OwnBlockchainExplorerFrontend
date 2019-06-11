@@ -92,6 +92,8 @@
         [expandable]="true"
         [defaultExpand]="true"
         (loadMore)="onLoadMoreAddressAccounts($event)"
+        filterable="true"
+        (filter)="onAddressAccountsFilter($event)"
       ></app-table-card>
     </div>
   </div>
@@ -101,12 +103,14 @@
       <app-table-card
         title="Assets"
         [tableHeight]="tableHeight"
-        [columns]="accountColumns"
+        [columns]="assetColumns"
         [loading]="loadingAssets | async"
         [source]="assets | async"
         [expandable]="true"
         [defaultExpand]="true"
         (loadMore)="onLoadMoreAddressAssets($event)"
+        filterable="true"
+        (filter)="onAddressAssetsFilter($event)"
       ></app-table-card>
     </div>
   </div>
@@ -135,3 +139,6 @@
     </div>
   </div>
 </div>
+<ng-template #addressStatus let-row="row" let-value="value">
+  <span [class.info-value-orange]="value"> {{ value ? 'CURRENT' : 'PAST' }}</span>
+</ng-template>

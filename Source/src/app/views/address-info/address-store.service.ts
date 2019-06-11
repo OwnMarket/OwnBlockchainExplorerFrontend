@@ -154,9 +154,9 @@ export class AddressInfoStoreService {
     });
   }
 
-  getAccounts(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false) {
+  getAccounts(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false, status?: boolean) {
     this.loadingAccounts = true;
-    this.addressService.getAddressAccounts(blockchainAddress, { page, limit }).subscribe(res => {
+    this.addressService.getAddressAccounts(blockchainAddress, { page, limit }, status).subscribe(res => {
       if (shouldAppend) {
         this.appendAccounts = res;
       } else {
@@ -166,9 +166,9 @@ export class AddressInfoStoreService {
     });
   }
 
-  getAssets(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false) {
+  getAssets(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false, status?: boolean) {
     this.loadingAssets = true;
-    this.addressService.getAddressAssets(blockchainAddress, { page, limit }).subscribe(res => {
+    this.addressService.getAddressAssets(blockchainAddress, { page, limit }, status).subscribe(res => {
       if (shouldAppend) {
         this.appendAssets = res;
       } else {
@@ -207,7 +207,7 @@ export class AddressInfoStoreService {
       if (shouldAppend) {
         this.appendEvents = res;
       } else {
-        this.receivedStakes = res;
+        this.events = res;
       }
       this.loadingEvents = false;
     });
