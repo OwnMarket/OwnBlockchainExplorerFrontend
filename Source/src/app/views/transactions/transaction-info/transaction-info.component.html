@@ -135,7 +135,7 @@
                     <p class="info-label">Passed time</p>
                   </div>
                   <div class="col-6">
-                    <p class="info-value">{{ transaction.timestamp | date | timeago }}</p>
+                    <p class="info-value">{{ transaction.timestamp | timeago: true }}</p>
                   </div>
                 </div>
 
@@ -144,7 +144,7 @@
                     <p class="info-label">Actions</p>
                   </div>
                   <div class="col-6">
-                    <p class="info-value">{{ transaction.actions ? transaction.actions.length : 0 }}</p>
+                    <p class="info-value">{{ transaction.numberOfActions }}</p>
                   </div>
                 </div>
 
@@ -153,7 +153,7 @@
                     <p class="info-label">Action fee</p>
                   </div>
                   <div class="col-6">
-                    <p class="info-value">{{ transaction.actionFee }} CHX</p>
+                    <p class="info-value">{{ transaction.actionFee * transaction.numberOfActions }} CHX</p>
                   </div>
                 </div>
               </div>
@@ -212,7 +212,7 @@
                     </div>
 
                     <div class="col-5">
-                      <p class="info-value">{{ action.actionType }}</p>
+                      <p class="info-value" (click)="expandActionData(action, i)">{{ action.actionType }}</p>
                     </div>
 
                     <div class="col-5">
@@ -224,12 +224,22 @@
                       *ngIf="expandedTransactionActions && expandedTransactionActions.custom_index === i"
                     >
                       <div *ngFor="let item of expandedTransactionActions | keyvalue">
-                        <div class="row details-row-item" *ngIf="item.key != 'custom_index'">
+                        <div
+                          class="row details-row-item"
+                          *ngIf="!(item.key === 'custom_index' || item.key === 'isEmpty')"
+                        >
                           <div class="col-4">
                             <p class="info-label">{{ item.key | camelCaseToSpace | titlecase }}</p>
                           </div>
                           <div class="col-8">
                             <p class="info-value">{{ item.value }}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="expandedTransactionActions.isEmpty">
+                        <div class="row details-row-item">
+                          <div class="col-8">
+                            <p class="info-value">No action data</p>
                           </div>
                         </div>
                       </div>

@@ -24,6 +24,7 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
   transactionActions: Observable<any[]>;
   loadingTransactionActions: Observable<boolean>;
   expandedTransactionActions: any;
+  selectedActions: any;
 
   constructor(private route: ActivatedRoute, private transactionStoreService: TransactionStoreService) {}
 
@@ -74,6 +75,8 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
   }
 
   expandActionData(action: any, index: number) {
+    this.expandedTransactionActions = {};
+
     if (action && action.actionData) {
       try {
         this.expandedTransactionActions = JSON.parse(action.actionData);
@@ -81,7 +84,13 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
         console.error(error);
         return;
       }
-      this.expandedTransactionActions.custom_index = index;
+      if (this.selectedActions !== action) {
+        this.expandedTransactionActions.custom_index = index;
+        this.expandedTransactionActions.isEmpty = Object.keys(this.expandedTransactionActions).length === 1;
+        this.selectedActions = action;
+      } else {
+        this.selectedActions = {};
+      }
     }
   }
 }
