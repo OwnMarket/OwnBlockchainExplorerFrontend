@@ -48,7 +48,7 @@
                   <div class="col-sm-6 col-md-6 text-right">
                     <p class="info-bold">
                       <a class="text-secondary" [routerLink]="['/block', block.configurationBlockNumber]">{{
-                        block.configurationBlockNumber
+                        block.previousBlockNumber
                       }}</a>
                     </p>
                   </div>
@@ -67,19 +67,19 @@
 
           <div class="col-12 mt-5">
             <div class="row details-row-item">
-              <div class="col-sm-2">
+              <div class="col-6 col-md-3">
                 <p class="info-label">Time created</p>
               </div>
 
-              <div class="col-sm-2 border-right">
+              <div class="col-6 col-md-3 border-right">
                 <p class="info-value">{{ block.timestamp | date: 'd MMMM - hh:mm' }}</p>
               </div>
 
-              <div class="col-sm-2">
+              <div class="col-6 col-md-3">
                 <p class="info-label">Passed time</p>
               </div>
-              <div class="col-sm-2">
-                <p class="info-value">{{ block.timestamp | date | timeago }}</p>
+              <div class="col-6 col-md-3">
+                <p class="info-value">{{ block.timestamp | timeago: true }}</p>
               </div>
             </div>
           </div>
@@ -97,7 +97,7 @@
               </div>
             </div>
             <div class="card-body" *ngIf="additionalInfoExpanded">
-              <div class="table">
+              <div class="table-responsive">
                 <table class="table">
                   <tbody>
                     <tr>
@@ -105,39 +105,43 @@
                       <td class="value">{{ block.validatorAddress }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>txSetRoot</strong></td>
+                      <td class="label"><strong>TX Set Root</strong></td>
                       <td class="value">{{ block.txSetRoot }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>tcResultRoot</strong></td>
+                      <td class="label"><strong>TX Result Root</strong></td>
                       <td class="value">{{ block.txResultSetRoot }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>equivocationRoot</strong></td>
+                      <td class="label"><strong>Equivocation Proofs Root</strong></td>
                       <td class="value">{{ block.equivocationProofsRoot }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>equivocationProofResultRoot</strong></td>
+                      <td class="label"><strong>Equivocation Proof Result Root</strong></td>
                       <td class="value">{{ block.equivocationProofResultsRoot }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>stateRoot</strong></td>
+                      <td class="label"><strong>State Root</strong></td>
                       <td class="value">{{ block.stateRoot }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>stakingRewardsRoot</strong></td>
+                      <td class="label"><strong>Staking Rewards Root</strong></td>
                       <td class="value">{{ block.stakingRewardsRoot }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>configurationRoot</strong></td>
+                      <td class="label"><strong>Configuration Root</strong></td>
                       <td class="value">{{ block.configurationRoot }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>Configuration block number</strong></td>
-                      <td class="value">{{ block.configurationBlockNumber }}</td>
+                      <td class="label"><strong>Configuration Block Number</strong></td>
+                      <td class="value">
+                        <a [routerLink]="['/block', block.configurationBlockNumber]">{{
+                          block.configurationBlockNumber
+                        }}</a>
+                      </td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>Consensus round</strong></td>
+                      <td class="label"><strong>Consensus Round</strong></td>
                       <td class="value">{{ block.consensusRound }}</td>
                     </tr>
                   </tbody>
@@ -161,12 +165,6 @@
         (loadMore)="onLoadMoreTransactions($event)"
       >
       </app-table-card>
-      <ng-template #txHash let-row="row" let-value="value">
-        <a [routerLink]="['/transaction-info', value]">{{ value }}</a>
-      </ng-template>
-      <ng-template #txAddress let-row="row" let-value="value">
-        <a [routerLink]="['/address-info', value]">{{ value }}</a>
-      </ng-template>
     </div>
   </div>
 
@@ -202,3 +200,10 @@
     </div>
   </div>
 </div>
+
+<ng-template #txHash let-row="row" let-value="value">
+  <a [routerLink]="['/transaction-info', value]">{{ value }}</a>
+</ng-template>
+<ng-template #txAddress let-row="row" let-value="value">
+  <a [routerLink]="['/address-info', value]">{{ value }}</a>
+</ng-template>

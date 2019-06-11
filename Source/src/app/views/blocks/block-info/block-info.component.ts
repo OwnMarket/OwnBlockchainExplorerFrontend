@@ -15,6 +15,7 @@ const log = new Logger('BlockInfo');
 export class BlockInfoComponent implements OnInit, OnDestroy {
   @ViewChild('txHash') txHash: TemplateRef<any>;
   @ViewChild('txAddress') txAddress: TemplateRef<any>;
+
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;
 
@@ -91,7 +92,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Action',
         prop: 'numberOfActions',
-        maxWidth: 50,
+        maxWidth: 70,
         sortable: false
       }
     ];

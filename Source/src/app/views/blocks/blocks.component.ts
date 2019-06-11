@@ -11,9 +11,12 @@ const log = new Logger('Blocks');
 })
 export class BlocksComponent implements OnInit, OnDestroy {
   @ViewChild('linkBlock') linkBlock: TemplateRef<any>;
+  @ViewChild('passedTime') passedTime: TemplateRef<any>;
   // TODO: make models
   blocks: Observable<any[]>;
   isLoading: Observable<boolean>;
+
+  apiTimer: any;
 
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;
@@ -36,14 +39,28 @@ export class BlocksComponent implements OnInit, OnDestroy {
         name: 'Block hash',
         prop: 'hash',
         sortable: false
+      },
+      {
+        name: 'Passed time',
+        prop: 'timestamp',
+        maxWidth: 100,
+        sortable: false,
+        cellTemplate: this.passedTime
       }
     ];
 
     this.blocks = this.blockStoreService.blocks$.pipe(untilDestroyed(this));
     this.isLoading = this.blockStoreService.loadingBlocks$.pipe(untilDestroyed(this));
     this.getBlocks();
+
+    this.apiTimer = setInterval(() => {
+      this.getBlocks();
+    }, 30000);
   }
-  ngOnDestroy() {}
+
+  ngOnDestroy() {
+    clearInterval(this.apiTimer);
+  }
 
   getBlocks(shouldAppend: boolean = false) {
     this.blockStoreService.getBlocks(this.currentPage, this.pageLimit, shouldAppend);
