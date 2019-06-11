@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 
 import { BlockStoreService } from '../blocks/block-store.service';
-import { TransactionStoreService } from '../transactions/transaction-store.service';
+import { HomeStoreService } from './home-store.service';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public chartData: any[] = [];
 
-  constructor(private blockStoreService: BlockStoreService, private transactionStoreService: TransactionStoreService) {}
+  constructor(private blockStoreService: BlockStoreService, private homeStoreService: HomeStoreService) {}
 
   ngOnInit() {
     this.blockStoreService.blocks$.pipe(untilDestroyed(this)).subscribe(res => {
@@ -43,20 +43,18 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.transactionStoreService.transactions$.pipe(untilDestroyed(this)).subscribe(res => {
-      res = _.sortBy(res, 'timestamp');
-      const date = (item: any) => moment(item.timestamp).format('YYYY-MM-DD');
-      const groupToDay = (tx: any, day: any) => {
+    this.homeStoreService.transactionsByDay$.pipe(untilDestroyed(this)).subscribe(res => {
+      const groupToDay = (item: any) => {
         return {
-          name: moment(day, 'YYYY-MM-DD').format('MM-DD'),
-          value: tx ? tx.length : 0
+          name: moment(item.key, 'YYYY-MM-DD').format('DD'),
+          value: item.value
         };
       };
       const result = _(res)
-        .groupBy(date)
+        .sortBy('key')
         .map(groupToDay)
         .value();
-
+      console.log(result);
       this.chartData = [
         {
           name: '',
@@ -64,6 +62,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       ];
     });
+
+    this.getTxByDay();
+  }
+
+  getTxByDay() {
+    this.homeStoreService.getTransactionsByDay();
   }
 
   ngOnDestroy() {}
