@@ -9,18 +9,20 @@
           <div class="float-right" *ngIf="expandable">
             <i [ngClass]="expanded ? 'fa-angle-up' : 'fa-angle-down'" class="fas" (click)="expand()"></i>
           </div>
-        </div>
-      </div>
-
-      <!-- TODO Need to find better way for filters handler -->
-      <div *ngIf="filterable" class="filters-wrapper float-right">
-        <div class="custom-control custom-switch float-right">
-          <input type="checkbox" class="custom-control-input" id="previous" />
-          <label class="custom-control-label uppercase" for="previous">previous</label>
-        </div>
-        <div class="custom-control custom-switch float-right">
-          <input type="checkbox" class="custom-control-input" id="current" />
-          <label class="custom-control-label uppercase" for="current">current</label>
+          <!-- TODO Need to find better way for filters handler -->
+          <div *ngIf="filterable" class="filters-wrapper float-right">
+            <div class="custom-control custom-switch float-right">
+              <span class="mr-5">PAST</span>
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                [attr.id]="title"
+                (change)="onFilter(activeFilter !== 'current' ? 'current' : 'past')"
+                [checked]="activeFilter === 'current'"
+              />
+              <label class="custom-control-label uppercase" [attr.for]="title">current</label>
+            </div>
+          </div>
         </div>
       </div>
     </div>

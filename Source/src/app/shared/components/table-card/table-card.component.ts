@@ -23,6 +23,7 @@ export class TableCardComponent implements OnInit {
   lodash = _;
   expandedRow: any = {};
 
+  activeFilter: string;
   // Inputs
   @Input() title: string;
   @Input() expandable = false;
@@ -46,6 +47,7 @@ export class TableCardComponent implements OnInit {
 
   @Output() loadMore: EventEmitter<boolean> = new EventEmitter();
   @Output() expandClicked: EventEmitter<boolean> = new EventEmitter();
+  @Output() filter: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private el: ElementRef) {}
 
@@ -68,5 +70,10 @@ export class TableCardComponent implements OnInit {
   expand() {
     this.expanded = !this.expanded;
     this.expandClicked.emit(this.expanded);
+  }
+
+  onFilter(filter: string) {
+    this.activeFilter = filter;
+    this.filter.emit(this.activeFilter === 'current');
   }
 }
