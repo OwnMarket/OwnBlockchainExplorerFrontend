@@ -102,7 +102,9 @@
                   <tbody>
                     <tr>
                       <td class="label"><strong>Proposer address</strong></td>
-                      <td class="value">{{ block.validatorAddress }}</td>
+                      <td class="value">
+                        <a [routerLink]="['/address-info', block.validatorAddress]">{{ block.validatorAddress }}</a>
+                      </td>
                     </tr>
                     <tr>
                       <td class="label"><strong>TX Set Root</strong></td>

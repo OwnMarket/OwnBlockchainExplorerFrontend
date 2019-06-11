@@ -42,7 +42,8 @@
                     </p>
                   </div>
                 </div>
-                <ng-template #failureTransaction>
+
+                <div *ngIf="transaction.status === 'Failure'">
                   <div class="row mt-3">
                     <div class="col-6 col-md-4">
                       <p class="info-label">Error message</p>
@@ -59,7 +60,7 @@
                       <p class="info-value">{{ transaction.failedActionNumber }}</p>
                     </div>
                   </div>
-                </ng-template>
+                </div>
 
                 <div class="row mt-3" *ngIf="transaction.status === 'Fa'">
                   <div class="col-6 col-md-4">
@@ -124,7 +125,7 @@
                     <p class="info-label">Total fee</p>
                   </div>
                   <div class="col-6 border-right">
-                    <p class="info-value">{{ transaction.actionFee }} CHX</p>
+                    <p class="info-value">{{ transaction.actionFee * transaction.numberOfActions }} CHX</p>
                   </div>
                 </div>
               </div>
@@ -153,7 +154,7 @@
                     <p class="info-label">Action fee</p>
                   </div>
                   <div class="col-6">
-                    <p class="info-value">{{ transaction.actionFee * transaction.numberOfActions }} CHX</p>
+                    <p class="info-value">{{ transaction.actionFee }} CHX</p>
                   </div>
                 </div>
               </div>

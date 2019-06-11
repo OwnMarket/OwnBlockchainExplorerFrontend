@@ -114,11 +114,13 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Staker Address',
         prop: 'stakerAddress',
-        sortable: false
+        sortable: false,
+        cellTemplate: this.txAddress
       },
       {
         name: 'Amount',
         prop: 'amount',
+        maxWidth: 250,
         sortable: false
       }
     ];

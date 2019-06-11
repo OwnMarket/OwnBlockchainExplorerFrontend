@@ -13,6 +13,9 @@ const log = new Logger('AdressInfo');
 })
 export class AddressInfoComponent implements OnInit, OnDestroy {
   @ViewChild('addressStatus') addressStatus: TemplateRef<any>;
+  @ViewChild('blockLink') blockLink: TemplateRef<any>;
+  @ViewChild('txLink') txLink: TemplateRef<any>;
+
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;
 
@@ -67,11 +70,11 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       this.events = this.addressStoreService.events$.pipe(untilDestroyed(this));
       this.loadingEvents = this.addressStoreService.loadingEvents$.pipe(untilDestroyed(this));
 
-      this.receivedStakes = this.addressStoreService.receivedStakes$.pipe(untilDestroyed(this));
-      this.loadingReceivedStakes = this.addressStoreService.loadingReceivedStakes$.pipe(untilDestroyed(this));
-
-      this.delegatedStakes = this.addressStoreService.delegatedStakes$.pipe(untilDestroyed(this));
+      this.delegatedStakes = this.addressStoreService.receivedStakes$.pipe(untilDestroyed(this));
       this.loadingDelegatedStakes = this.addressStoreService.loadingReceivedStakes$.pipe(untilDestroyed(this));
+
+      this.receivedStakes = this.addressStoreService.delegatedStakes$.pipe(untilDestroyed(this));
+      this.loadingReceivedStakes = this.addressStoreService.loadingReceivedStakes$.pipe(untilDestroyed(this));
 
       this.assets = this.addressStoreService.assets$.pipe(untilDestroyed(this));
       this.loadingAssets = this.addressStoreService.loadingAssets$.pipe(untilDestroyed(this));
@@ -95,12 +98,15 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Block number',
         prop: 'blockNumber',
-        sortable: false
+        sortable: false,
+        maxWidth: 150,
+        cellTemplate: this.blockLink
       },
       {
         name: 'Tx',
         prop: 'transactionHash',
-        sortable: false
+        sortable: false,
+        cellTemplate: this.txLink
       },
       {
         name: 'Event info',
@@ -110,11 +116,13 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Amount',
         prop: 'amount',
-        sortable: false
+        sortable: false,
+        maxWidth: 250
       },
       {
         name: 'Fee',
-        prop: 'amount',
+        prop: 'fee',
+        maxWidth: 150,
         sortable: false
       }
     ];
