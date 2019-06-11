@@ -78,13 +78,13 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   setupColumns() {
     this.transactionColumns = [
       {
-        name: 'Transaction Hash',
+        name: 'Transaction hash',
         prop: 'hash',
         sortable: false,
         cellTemplate: this.txHash
       },
       {
-        name: 'Sender Address',
+        name: 'Sender address',
         prop: 'senderAddress',
         sortable: false,
         cellTemplate: this.txAddress
@@ -99,7 +99,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
 
     this.equivocationColumns = [
       {
-        name: 'EQ Hash',
+        name: 'EQ hash',
         prop: 'equivocationProofHash',
         sortable: false
       },
@@ -112,7 +112,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
 
     this.stakingRewardColumns = [
       {
-        name: 'Staker Address',
+        name: 'Staker address',
         prop: 'stakerAddress',
         sortable: false,
         cellTemplate: this.txAddress

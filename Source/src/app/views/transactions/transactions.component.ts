@@ -44,14 +44,14 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         cellTemplate: this.txHash
       },
       {
-        name: 'Block Number',
+        name: 'Block number',
         prop: 'blockNumber',
         maxWidth: 150,
         sortable: false,
         cellTemplate: this.txBlock
       },
       {
-        name: 'Sender Address',
+        name: 'Sender address',
         prop: 'senderAddress',
         sortable: false,
         cellTemplate: this.txAddress

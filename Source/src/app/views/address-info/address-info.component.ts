@@ -129,7 +129,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
 
     this.accountColumns = [
       {
-        name: 'Account Hash',
+        name: 'Account hash',
         prop: 'hash',
         sortable: false
       },
@@ -144,7 +144,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
 
     this.assetColumns = [
       {
-        name: 'Asset Hash',
+        name: 'Asset hash',
         prop: 'hash',
         sortable: false
       },

@@ -29,7 +29,7 @@ export class BlocksComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.columns = [
       {
-        name: 'Block Number',
+        name: 'Block number',
         prop: 'blockNumber',
         sortable: false,
         maxWidth: 150,
