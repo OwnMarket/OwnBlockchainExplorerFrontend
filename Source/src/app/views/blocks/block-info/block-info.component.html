@@ -87,7 +87,7 @@
           <!-- ADDITIONAL INFORMATION -->
           <div class="col-12 mt-3">
             <div class="card-header transparent">
-              <span class="additional-label">Additional Info</span>
+              <span class="additional-label">Additional info</span>
               <div class="float-right">
                 <i
                   [ngClass]="additionalInfoExpanded ? 'fa-angle-up' : 'fa-angle-down'"
@@ -107,35 +107,35 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>TX Set Root</strong></td>
+                      <td class="label"><strong>TX set root</strong></td>
                       <td class="value">{{ block.txSetRoot }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>TX Result Root</strong></td>
+                      <td class="label"><strong>TX result root</strong></td>
                       <td class="value">{{ block.txResultSetRoot }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>Equivocation Proofs Root</strong></td>
+                      <td class="label"><strong>Equivocation proofs root</strong></td>
                       <td class="value">{{ block.equivocationProofsRoot }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>Equivocation Proof Result Root</strong></td>
+                      <td class="label"><strong>Equivocation proof result root</strong></td>
                       <td class="value">{{ block.equivocationProofResultsRoot }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>State Root</strong></td>
+                      <td class="label"><strong>State root</strong></td>
                       <td class="value">{{ block.stateRoot }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>Staking Rewards Root</strong></td>
+                      <td class="label"><strong>Staking rewards root</strong></td>
                       <td class="value">{{ block.stakingRewardsRoot }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>Configuration Root</strong></td>
+                      <td class="label"><strong>Configuration root</strong></td>
                       <td class="value">{{ block.configurationRoot }}</td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>Configuration Block Number</strong></td>
+                      <td class="label"><strong>Configuration block number</strong></td>
                       <td class="value">
                         <a [routerLink]="['/block', block.configurationBlockNumber]">{{
                           block.configurationBlockNumber
@@ -143,7 +143,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="label"><strong>Consensus Round</strong></td>
+                      <td class="label"><strong>Consensus round</strong></td>
                       <td class="value">{{ block.consensusRound }}</td>
                     </tr>
                   </tbody>
@@ -173,7 +173,7 @@
   <div class="row mt-5">
     <div class="col-12">
       <app-table-card
-        title="Equivocation Proofs"
+        title="Equivocation proofs"
         [tableHeight]="tableHeight"
         [columns]="equivocationColumns"
         [expandable]="true"
@@ -189,7 +189,7 @@
   <div class="row mt-5">
     <div class="col-12">
       <app-table-card
-        title="Staking Rewards"
+        title="Staking rewards"
         [tableHeight]="tableHeight"
         [columns]="stakingRewardColumns"
         [expandable]="true"
