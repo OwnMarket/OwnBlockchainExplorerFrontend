@@ -18,6 +18,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   transactions: Observable<any[]>;
   isLoading: Observable<boolean>;
+  apiTimer: any;
 
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;
@@ -54,15 +55,26 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         prop: 'senderAddress',
         sortable: false,
         cellTemplate: this.txAddress
+      },
+      {
+        name: 'Actions',
+        prop: 'numberOfActions',
+        maxWidth: 70,
+        sortable: false
       }
     ];
 
     this.transactions = this.transactionStoreService.transactions$.pipe(untilDestroyed(this));
     this.isLoading = this.transactionStoreService.loadingTransactions$.pipe(untilDestroyed(this));
     this.getTransactions();
+    this.apiTimer = setInterval(() => {
+      this.getTransactions();
+    }, 30000);
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    clearInterval(this.apiTimer);
+  }
 
   getTransactions(shouldAppend: boolean = false) {
     this.transactionStoreService.getTransactions(this.currentPage, this.pageLimit, shouldAppend);
