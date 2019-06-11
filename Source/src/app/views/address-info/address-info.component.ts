@@ -84,8 +84,8 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
 
       this.getAddressInfo();
       this.getAddressEvents();
-      this.getAddressAccounts();
-      this.getAddressAssets();
+      this.getAddressAccounts(false, true);
+      this.getAddressAssets(false, true);
       this.getAddressDelegatedStakes();
       this.getAddressReceivedStakes();
     });

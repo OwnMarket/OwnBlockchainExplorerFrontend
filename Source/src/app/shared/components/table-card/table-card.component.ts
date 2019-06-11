@@ -23,7 +23,7 @@ export class TableCardComponent implements OnInit {
   lodash = _;
   expandedRow: any = {};
 
-  activeFilter: string;
+  activeFilter: string = 'current';
   // Inputs
   @Input() title: string;
   @Input() expandable = false;
