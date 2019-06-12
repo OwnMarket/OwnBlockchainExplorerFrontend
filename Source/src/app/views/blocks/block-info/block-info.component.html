@@ -79,7 +79,7 @@
                 <p class="info-label">Passed time</p>
               </div>
               <div class="col-6 col-md-3">
-                <p class="info-value">{{ block.timestamp | timeago: true }}</p>
+                <p class="info-value">{{ block.timestamp + 'Z' | timeago: true }}</p>
               </div>
             </div>
           </div>

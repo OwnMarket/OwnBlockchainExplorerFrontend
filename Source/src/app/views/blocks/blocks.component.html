@@ -14,5 +14,5 @@
   <a [routerLink]="['/block', value]">{{ value }}</a>
 </ng-template>
 <ng-template #passedTime let-row="row" let-value="value">
-  <span [attr.title]="value | date">{{ value | timeago: true }}</span>
+  <span [attr.title]="value | date">{{ value + 'Z' | timeago: live }}</span>
 </ng-template>

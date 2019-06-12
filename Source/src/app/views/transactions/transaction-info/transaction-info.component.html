@@ -136,7 +136,7 @@
                     <p class="info-label">Passed time</p>
                   </div>
                   <div class="col-6">
-                    <p class="info-value">{{ transaction.timestamp | timeago: true }}</p>
+                    <p class="info-value">{{ transaction.timestamp + 'Z' | timeago: true }}</p>
                   </div>
                 </div>
 

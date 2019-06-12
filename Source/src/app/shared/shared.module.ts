@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { TimeagoModule } from 'ngx-timeago';
+import { TimeagoModule, TimeagoClock } from 'ngx-timeago';
 
 import { LoaderComponent } from './components/loader/loader.component';
 import { SearchInputComponent } from './components/search-input/search-input.component';
@@ -14,9 +14,15 @@ import { HtmlRenderPipe } from './pipes/html-render.pipe';
 import { ScrollEndDirective } from './directives/scroll-end.directive';
 import { SearchService } from './services/search.service';
 import { CamelCaseToSpace } from './pipes/camelcase-to-space.pipe';
+import { CustomClock } from './clock';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, NgxDatatableModule, TimeagoModule.forRoot()],
+  imports: [
+    CommonModule,
+    RouterModule,
+    NgxDatatableModule,
+    TimeagoModule.forRoot({ clock: { provide: TimeagoClock, useClass: CustomClock } })
+  ],
   declarations: [
     LoaderComponent,
     SearchInputComponent,

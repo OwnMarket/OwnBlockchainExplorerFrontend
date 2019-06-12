@@ -43,7 +43,7 @@ export class BlocksComponent implements OnInit, OnDestroy {
       {
         name: 'Passed time',
         prop: 'timestamp',
-        maxWidth: 100,
+        maxWidth: 150,
         sortable: false,
         cellTemplate: this.passedTime
       }
