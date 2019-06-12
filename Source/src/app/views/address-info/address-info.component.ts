@@ -284,7 +284,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     }
   }
 
-  onLoadMoreAddressEvents(shouldLoad: boolean) {
+  onLoadMoreEvents(shouldLoad: boolean) {
     if (shouldLoad) {
       this.currentPage.events++;
       this.getAddressEvents(shouldLoad);
