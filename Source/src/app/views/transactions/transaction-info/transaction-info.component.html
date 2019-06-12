@@ -107,7 +107,7 @@
                     <p class="info-label">Expiration time</p>
                   </div>
                   <div class="col-6 border-right">
-                    <p class="info-value">{{ transaction.expirationTime | date: 'hh:mm:ss' }}</p>
+                    <p class="info-value">{{ transaction.expirationTime + 'Z' | date: 'hh:mm:ss' }}</p>
                   </div>
                 </div>
 
