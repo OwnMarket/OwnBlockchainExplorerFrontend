@@ -33,7 +33,6 @@ export class SearchStoreService {
   searchByHash(hash: string) {
     this.loadingSearch = true;
     this.searchService.searchByHash(hash).subscribe(res => {
-      console.log(res);
       this.searchResult = res;
       this.loadingSearch = false;
     });

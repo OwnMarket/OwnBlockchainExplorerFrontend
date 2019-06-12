@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { I18nService, untilDestroyed } from '@app/core';
+import { I18nService, untilDestroyed, Logger } from '@app/core';
 import { Observable } from 'rxjs';
 import { SearchStoreService } from '@app/shared/services/search-store.service';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
+const log = new Logger('App');
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -46,7 +47,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   checkType(type: string, hash: string) {
-    console.log(type, hash);
     switch (type) {
       case 'Address':
         this.router.navigate(['address-info', hash]);

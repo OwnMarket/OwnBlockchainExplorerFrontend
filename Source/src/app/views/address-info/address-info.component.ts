@@ -61,7 +61,6 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params: ParamMap) => {
-      log.debug(params);
       this.setupColumns();
       this.blockchainAddress = params.get('address');
       this.addressInfo = this.addressStoreService.addressInfo$.pipe(untilDestroyed(this));
@@ -74,7 +73,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       this.loadingDelegatedStakes = this.addressStoreService.loadingReceivedStakes$.pipe(untilDestroyed(this));
 
       this.receivedStakes = this.addressStoreService.delegatedStakes$.pipe(untilDestroyed(this));
-      this.loadingReceivedStakes = this.addressStoreService.loadingReceivedStakes$.pipe(untilDestroyed(this));
+      this.loadingReceivedStakes = this.addressStoreService.loadingDelegatedStakes$.pipe(untilDestroyed(this));
 
       this.assets = this.addressStoreService.assets$.pipe(untilDestroyed(this));
       this.loadingAssets = this.addressStoreService.loadingAssets$.pipe(untilDestroyed(this));

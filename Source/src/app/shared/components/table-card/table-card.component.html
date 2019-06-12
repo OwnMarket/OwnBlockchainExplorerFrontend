@@ -30,7 +30,7 @@
     <div class="card-body" *ngIf="expanded">
       <ngx-datatable
         class="table-card"
-        [ngStyle]="{ height: source && source.length > 0 ? tableHeight : '25px' }"
+        [ngStyle]="{ height: tableHeight }"
         [rows]="source"
         [columns]="columns"
         [columnMode]="'force'"

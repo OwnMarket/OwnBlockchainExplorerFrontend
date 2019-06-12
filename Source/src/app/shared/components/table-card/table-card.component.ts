@@ -1,16 +1,9 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewEncapsulation,
-  Output,
-  EventEmitter,
-  ElementRef,
-  ViewChild
-} from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter, ElementRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Logger } from '@app/core';
 
+const log = new Logger('Table-Card');
 @Component({
   selector: 'app-table-card',
   templateUrl: './table-card.component.html',
@@ -33,12 +26,23 @@ export class TableCardComponent implements OnInit {
   }
   @Input() headerHeight = 50;
   @Input() rowHeight = 50;
-  @Input() tableHeight = 500;
+  @Input() tableHeight = '500px';
   @Input() pageLimit = 10;
   @Input() loading: boolean;
   @Input() canLoadMore = true;
   @Input() columns: any[];
-  @Input() source: any[];
+  // @Input() source: any[];
+  source: any[];
+  @Input('source') set _source(value: any[]) {
+    if (!this.loading) {
+      if (value.length == 0) {
+        this.tableHeight = '25px';
+      } else if (value.length < 10) {
+        this.tableHeight = value.length * 50 + 100 + 'px';
+      }
+      this.source = value;
+    }
+  }
 
   // TODO Need to find better way for filters handler
   @Input() filters: any[];

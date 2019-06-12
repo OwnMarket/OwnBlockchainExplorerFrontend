@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { TransactionStoreService } from '../transaction-store.service';
 
 const log = new Logger('TransactionInfo');
-
 @Component({
   selector: 'app-transaction-info',
   templateUrl: './transaction-info.component.html',
@@ -30,7 +29,6 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params: ParamMap) => {
-      log.debug(params);
       this.transactionHash = params.get('hash');
 
       this.transactionInfo = this.transactionStoreService.transactionInfo$.pipe(untilDestroyed(this));
@@ -81,7 +79,7 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
       try {
         this.expandedTransactionActions = JSON.parse(action.actionData);
       } catch (error) {
-        console.error(error);
+        log.error(error);
         return;
       }
       if (this.selectedActions !== action) {

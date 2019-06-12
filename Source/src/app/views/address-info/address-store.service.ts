@@ -148,7 +148,6 @@ export class AddressInfoStoreService {
   getAddressInfo(blockchainAddress: string) {
     this.loadingAddressInfo = true;
     this.addressService.getAddressInfo(blockchainAddress).subscribe(res => {
-      console.log(res);
       this.addressInfo = res;
       this.loadingAddressInfo = false;
     });

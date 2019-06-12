@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { finalize } from 'rxjs/operators';
-import { untilDestroyed } from '@app/core';
+import { untilDestroyed, Logger } from '@app/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
 import { BlockStoreService } from '../blocks/block-store.service';
 import { HomeStoreService } from './home-store.service';
 
+const log = new Logger('Home');
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -54,7 +55,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         .sortBy('key')
         .map(groupToDay)
         .value();
-      console.log(result);
+
       this.chartData = [
         {
           name: '',

@@ -87,7 +87,6 @@ export class TransactionStoreService {
   getTransactions(page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingTransactions = true;
     this.transactionService.getTransactions({ page, limit }).subscribe(res => {
-      console.log(res);
       if (shouldAppend) {
         this.appendTransactions = res;
       } else {
@@ -100,7 +99,6 @@ export class TransactionStoreService {
   getTransactionActions(hash: string, page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingTransactionActions = true;
     this.transactionService.getTransactionActions(hash, { page, limit }).subscribe(res => {
-      console.log(res);
       if (shouldAppend) {
         this.appendTransactionActions = res;
       } else {
