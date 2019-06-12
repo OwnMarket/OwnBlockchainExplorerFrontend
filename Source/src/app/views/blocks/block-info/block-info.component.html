@@ -72,7 +72,7 @@
               </div>
 
               <div class="col-6 col-md-3 border-right">
-                <p class="info-value">{{ block.timestamp + 'Z' | date: 'd MMMM - hh:mm' }}</p>
+                <p class="info-value" *ngIf="block.timestamp">{{ block.timestamp + 'Z' | date: 'd MMMM - hh:mm' }}</p>
               </div>
 
               <div class="col-6 col-md-3">

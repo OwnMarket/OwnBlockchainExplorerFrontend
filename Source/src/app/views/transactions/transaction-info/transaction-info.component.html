@@ -107,7 +107,9 @@
                     <p class="info-label">Expiration time</p>
                   </div>
                   <div class="col-6 border-right">
-                    <p class="info-value">{{ transaction.expirationTime + 'Z' | date: 'hh:mm:ss' }}</p>
+                    <p class="info-value" *ngIf="transaction.expirationTime">
+                      {{ transaction.expirationTime + 'Z' | date: 'hh:mm:ss' }}
+                    </p>
                   </div>
                 </div>
 
@@ -136,7 +138,9 @@
                     <p class="info-label">Passed time</p>
                   </div>
                   <div class="col-6">
-                    <p class="info-value">{{ transaction.timestamp + 'Z' | timeago: true }}</p>
+                    <p class="info-value" *ngIf="transaction.timestamp">
+                      {{ transaction.timestamp + 'Z' | timeago: true }}
+                    </p>
                   </div>
                 </div>
 
