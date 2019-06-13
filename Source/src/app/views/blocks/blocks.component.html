@@ -14,5 +14,7 @@
   <a [routerLink]="['/block', value]">{{ value }}</a>
 </ng-template>
 <ng-template #passedTime let-row="row" let-value="value">
-  <span [attr.title]="value + 'Z' | date" *ngIf="value">{{ value + 'Z' | timeago: live }}</span>
+  <span placement="bottom" ngbTooltip="{{ value + 'Z' | date: 'd MMMM - hh:mm' }}" *ngIf="value">{{
+    value + 'Z' | timeago: live
+  }}</span>
 </ng-template>
