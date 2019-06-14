@@ -120,7 +120,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Amount',
         prop: 'amount',
-        maxWidth: 250,
+        maxWidth: 150,
         sortable: false
       }
     ];

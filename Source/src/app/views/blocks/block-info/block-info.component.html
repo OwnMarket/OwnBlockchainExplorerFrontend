@@ -13,23 +13,23 @@
     <div class="row justify-content-md-center">
       <div class="col-sm-12 col-md-10">
         <div class="row">
-          <div class="col-sm-12 col-md-6">
+          <div class="col-12 col-lg-6">
             <p class="title-card ml-3">Basic information</p>
             <div class="card">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-sm-6 col-md-4">
+                  <div class="col-6 col-sm-5 col-lg-5 col-xl-4">
                     <p class="info-label">Block number</p>
                   </div>
-                  <div class="col-sm-6 col-md-8 text-right">
+                  <div class="col-6 col-sm-7 col-lg-7 col-xl-8 text-right">
                     <p class="info-orange">{{ block.blockNumber }}</p>
                   </div>
                 </div>
                 <div class="row mt-3">
-                  <div class="col-sm-6 col-md-4">
+                  <div class="col-4">
                     <p class="info-label">Hash</p>
                   </div>
-                  <div class="col-sm-6 col-md-8 text-right">
+                  <div class="col-8 text-right">
                     <p class="info-value">{{ block.hash }}</p>
                   </div>
                 </div>
@@ -37,15 +37,15 @@
             </div>
           </div>
 
-          <div class="col-sm-12 col-md-6">
+          <div class="col-sm-12 col-lg-6">
             <h6>&nbsp;</h6>
             <div class="card no-shadow">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-sm-6 col-md-6">
+                  <div class="col-8 col-md-7 col-xl-5">
                     <p class="info-label">Previous block number</p>
                   </div>
-                  <div class="col-sm-6 col-md-6 text-right">
+                  <div class="col-4 col-md-5 col-xl-7 text-right">
                     <p class="info-bold">
                       <a class="text-secondary" [routerLink]="['/block', block.configurationBlockNumber]">{{
                         block.previousBlockNumber
@@ -54,10 +54,10 @@
                   </div>
                 </div>
                 <div class="row mt-3">
-                  <div class="col-sm-6 col-md-4 info-label">
+                  <div class="col-4 info-label">
                     <p>Hash</p>
                   </div>
-                  <div class="col-sm-6 col-md-8 text-right">
+                  <div class="col-8 text-right">
                     <p class="info-value">{{ block.previousBlockHash }}</p>
                   </div>
                 </div>
@@ -76,7 +76,7 @@
               </div>
 
               <div class="col-6 col-md-3">
-                <p class="info-label">Passed time</p>
+                <p class="info-label">Timestamp</p>
               </div>
               <div class="col-6 col-md-3">
                 <p class="info-value" *ngIf="block.timestamp">{{ block.timestamp + 'Z' | timeago: true }}</p>

@@ -41,7 +41,7 @@ export class BlocksComponent implements OnInit, OnDestroy {
         sortable: false
       },
       {
-        name: 'Passed time',
+        name: 'Timestamp',
         prop: 'timestamp',
         maxWidth: 150,
         sortable: false,

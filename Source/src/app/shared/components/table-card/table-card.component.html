@@ -2,10 +2,10 @@
   <div [class.card]="!isTransparent" [class.card-transparent]="isTransparent">
     <div class="card-header">
       <div class="row">
-        <div class="col-8">
+        <div class="col-6">
           <h4>{{ title }}</h4>
         </div>
-        <div class="col-4">
+        <div class="col-6">
           <div class="float-right" *ngIf="expandable">
             <i [ngClass]="expanded ? 'fa-angle-up' : 'fa-angle-down'" class="fas" (click)="expand()"></i>
           </div>

@@ -135,7 +135,7 @@
               <div class="col-12 col-md-6">
                 <div class="row details-row-item">
                   <div class="col-6">
-                    <p class="info-label">Passed time</p>
+                    <p class="info-label">Timestamp</p>
                   </div>
                   <div class="col-6">
                     <p class="info-value" *ngIf="transaction.timestamp">
@@ -184,11 +184,11 @@
               <div id="actions-lit" class="row" [hidden]="loadingTransactionActions | async">
                 <div class="col-12 head">
                   <div class="row">
-                    <div class="col-12 col-md-2"></div>
-                    <div class="col-12 col-md-5">
+                    <div class="col-2"></div>
+                    <div class="col-5">
                       <b>Type</b>
                     </div>
-                    <div class="col-12 col-md-5">
+                    <div class="col-5">
                       <b>Number</b>
                     </div>
                   </div>
@@ -233,10 +233,10 @@
                           class="row details-row-item"
                           *ngIf="!(item.key === 'custom_index' || item.key === 'isEmpty')"
                         >
-                          <div class="col-4">
+                          <div class="col-12 col-md-4">
                             <p class="info-label">{{ item.key | camelCaseToSpace | titlecase }}</p>
                           </div>
-                          <div class="col-8">
+                          <div class="col-12 col-md-8">
                             <p class="info-value">{{ item.value }}</p>
                           </div>
                         </div>
