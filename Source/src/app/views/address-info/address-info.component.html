@@ -116,25 +116,25 @@
   </div>
 
   <div class="row mt-5">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
       <app-table-card
         title="Stakes delegated by this address"
-        [tableHeight]="tableHeight"
-        [columns]="receivedStakeColumns"
-        [loading]="loadingReceivedStakes | async"
-        [source]="receivedStakes | async"
-        (loadMore)="onLoadMoreAddressReceivedStakes($event)"
-      ></app-table-card>
-    </div>
-
-    <div class="col-6">
-      <app-table-card
-        title="Stakes delegated to this address"
         [tableHeight]="tableHeight"
         [columns]="delegatedStakeColumns"
         [loading]="loadingDelegatedStakes | async"
         [source]="delegatedStakes | async"
         (loadMore)="onLoadMoreAddressDelegatedStakes($event)"
+      ></app-table-card>
+    </div>
+
+    <div class="col-12 col-md-6 mt-5 mt-md-0">
+      <app-table-card
+        title="Stakes delegated to this address"
+        [tableHeight]="tableHeight"
+        [columns]="receivedStakeColumns"
+        [loading]="loadingReceivedStakes | async"
+        [source]="receivedStakes | async"
+        (loadMore)="onLoadMoreAddressReceivedStakes($event)"
       ></app-table-card>
     </div>
   </div>

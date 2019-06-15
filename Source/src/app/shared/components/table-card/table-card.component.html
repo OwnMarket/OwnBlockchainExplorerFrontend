@@ -2,10 +2,10 @@
   <div [class.card]="!isTransparent" [class.card-transparent]="isTransparent">
     <div class="card-header">
       <div class="row">
-        <div class="col-6">
+        <div [ngClass]="{ 'col-6 col-lg-8': expandable || filterable, 'col-12': !(expandable || filterable) }">
           <h4>{{ title }}</h4>
         </div>
-        <div class="col-6">
+        <div [ngClass]="{ 'col-6 col-lg-4': expandable || filterable }">
           <div class="float-right" *ngIf="expandable">
             <i [ngClass]="expanded ? 'fa-angle-up' : 'fa-angle-down'" class="fas" (click)="expand()"></i>
           </div>
