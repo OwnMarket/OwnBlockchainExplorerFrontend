@@ -182,8 +182,9 @@ export class AddressInfoStoreService {
     this.addressService.getAddressDelegatedStakes(blockchainAddress, { page, limit }).subscribe(res => {
       if (shouldAppend) {
         this.appendDelegatedStakes = res;
+      } else {
+        this.delegatedStakes = res;
       }
-      this.delegatedStakes = res;
       this.loadingDelegatedStakes = false;
     });
   }

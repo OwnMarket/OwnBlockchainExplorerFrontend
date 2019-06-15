@@ -69,11 +69,11 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       this.events = this.addressStoreService.events$.pipe(untilDestroyed(this));
       this.loadingEvents = this.addressStoreService.loadingEvents$.pipe(untilDestroyed(this));
 
-      this.delegatedStakes = this.addressStoreService.receivedStakes$.pipe(untilDestroyed(this));
-      this.loadingDelegatedStakes = this.addressStoreService.loadingReceivedStakes$.pipe(untilDestroyed(this));
+      this.receivedStakes = this.addressStoreService.receivedStakes$.pipe(untilDestroyed(this));
+      this.loadingReceivedStakes = this.addressStoreService.loadingReceivedStakes$.pipe(untilDestroyed(this));
 
-      this.receivedStakes = this.addressStoreService.delegatedStakes$.pipe(untilDestroyed(this));
-      this.loadingReceivedStakes = this.addressStoreService.loadingDelegatedStakes$.pipe(untilDestroyed(this));
+      this.delegatedStakes = this.addressStoreService.delegatedStakes$.pipe(untilDestroyed(this));
+      this.loadingDelegatedStakes = this.addressStoreService.loadingDelegatedStakes$.pipe(untilDestroyed(this));
 
       this.assets = this.addressStoreService.assets$.pipe(untilDestroyed(this));
       this.loadingAssets = this.addressStoreService.loadingAssets$.pipe(untilDestroyed(this));
@@ -161,7 +161,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       }
     ];
 
-    this.receivedStakeColumns = [
+    this.delegatedStakeColumns = [
       {
         name: 'Validator address',
         prop: 'validatorAddress',
@@ -170,11 +170,12 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Amount',
         prop: 'amount',
+        maxWidth: 150,
         sortable: false
       }
     ];
 
-    this.delegatedStakeColumns = [
+    this.receivedStakeColumns = [
       {
         name: 'Staker address',
         prop: 'stakerAddress',
@@ -183,6 +184,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Amount',
         prop: 'amount',
+        maxWidth: 150,
         sortable: false
       }
     ];
