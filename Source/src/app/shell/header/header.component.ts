@@ -49,17 +49,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   checkType(type: string, hash: string) {
     switch (type) {
       case 'Address':
-        this.router.navigate(['address-info', hash]);
+        this.router.navigate(['address', hash]);
         break;
       case 'Transaction':
-        this.router.navigate(['transaction-info', hash]);
+        this.router.navigate(['tx', hash]);
         break;
       case 'Block':
         this.router.navigate(['block', hash]);
         break;
-      // case 'Account': this.router.navigate(['address-info', hash]); break;
-      // case 'Asset': this.router.navigate(['address-info', hash]); break;
-      // case 'Equivocation': this.router.navigate(['address-info', hash]); break;
       default:
         break;
     }

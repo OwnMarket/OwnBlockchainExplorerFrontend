@@ -16,7 +16,7 @@
     </ng-template>
 
     <ng-template #txHash let-row="row" let-value="value">
-      <a [routerLink]="['/transaction-info', value]">{{ value }}</a>
+      <a [routerLink]="['/tx', value]">{{ value }}</a>
     </ng-template>
 
     <ng-template #txBlock let-row="row" let-value="value">
@@ -24,7 +24,7 @@
     </ng-template>
 
     <ng-template #txAddress let-row="row" let-value="value">
-      <a [routerLink]="['/address-info', value]">{{ value }}</a>
+      <a [routerLink]="['/address', value]">{{ value }}</a>
     </ng-template>
   </div>
 </div>

@@ -14,7 +14,7 @@ const routes: Routes = [
       data: { title: extract('Transactions') }
     },
     {
-      path: 'transaction-info/:hash',
+      path: 'tx/:hash',
       component: TransactionInfoComponent,
       data: { title: extract('Transaction info') }
     }

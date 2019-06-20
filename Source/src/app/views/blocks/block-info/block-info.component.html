@@ -47,7 +47,7 @@
                   </div>
                   <div class="col-4 col-md-5 col-xl-7 text-right">
                     <p class="info-bold">
-                      <a class="text-secondary" [routerLink]="['/block', block.configurationBlockNumber]">{{
+                      <a class="text-secondary" [routerLink]="['/block', block.previousBlockNumber]">{{
                         block.previousBlockNumber
                       }}</a>
                     </p>
@@ -103,7 +103,7 @@
                     <tr>
                       <td class="label"><strong>Proposer address</strong></td>
                       <td class="value">
-                        <a [routerLink]="['/address-info', block.validatorAddress]">{{ block.validatorAddress }}</a>
+                        <a [routerLink]="['/address', block.validatorAddress]">{{ block.validatorAddress }}</a>
                       </td>
                     </tr>
                     <tr>
@@ -204,8 +204,8 @@
 </div>
 
 <ng-template #txHash let-row="row" let-value="value">
-  <a [routerLink]="['/transaction-info', value]">{{ value }}</a>
+  <a [routerLink]="['/tx', value]">{{ value }}</a>
 </ng-template>
 <ng-template #txAddress let-row="row" let-value="value">
-  <a [routerLink]="['/address-info', value]">{{ value }}</a>
+  <a [routerLink]="['/address', value]">{{ value }}</a>
 </ng-template>
