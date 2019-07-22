@@ -104,6 +104,15 @@
               <div class="col-12 col-md-6">
                 <div class="row details-row-item">
                   <div class="col-6">
+                    <p class="info-label">Nonce</p>
+                  </div>
+                  <div class="col-6 border-right">
+                    <p class="info-value">{{ transaction.nonce }}</p>
+                  </div>
+                </div>
+
+                <div class="row details-row-item">
+                  <div class="col-6">
                     <p class="info-label">Expiration time</p>
                   </div>
                   <div class="col-6 border-right">
@@ -115,35 +124,17 @@
 
                 <div class="row details-row-item">
                   <div class="col-6">
-                    <p class="info-label">Nonce</p>
-                  </div>
-                  <div class="col-6 border-right">
-                    <p class="info-value">{{ transaction.nonce }}</p>
-                  </div>
-                </div>
-
-                <div class="row details-row-item">
-                  <div class="col-6">
-                    <p class="info-label">Total fee</p>
-                  </div>
-                  <div class="col-6 border-right">
-                    <p class="info-value">{{ transaction.actionFee * transaction.numberOfActions }} CHX</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-12 col-md-6">
-                <div class="row details-row-item">
-                  <div class="col-6">
                     <p class="info-label">Timestamp</p>
                   </div>
-                  <div class="col-6">
+                  <div class="col-6 border-right">
                     <p class="info-value" *ngIf="transaction.timestamp">
                       {{ transaction.timestamp + 'Z' | timeago: true }}
                     </p>
                   </div>
                 </div>
+              </div>
 
+              <div class="col-12 col-md-6">
                 <div class="row details-row-item">
                   <div class="col-6">
                     <p class="info-label">Actions</p>
@@ -159,6 +150,15 @@
                   </div>
                   <div class="col-6">
                     <p class="info-value">{{ transaction.actionFee }} CHX</p>
+                  </div>
+                </div>
+
+                <div class="row details-row-item">
+                  <div class="col-6">
+                    <p class="info-label">Total fee</p>
+                  </div>
+                  <div class="col-6">
+                    <p class="info-value">{{ transaction.actionFee * transaction.numberOfActions }} CHX</p>
                   </div>
                 </div>
               </div>
