@@ -30,7 +30,7 @@
               "src/assets"
             ],
             "styles": ["src/main.scss"],
-            "scripts": []
+            "scripts": ["src/app/core/lib/own-blockchain-sdk.js"]
           },
           "configurations": {
             "production": {

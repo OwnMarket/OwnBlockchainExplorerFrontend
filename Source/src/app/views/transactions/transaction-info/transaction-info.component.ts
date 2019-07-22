@@ -4,6 +4,7 @@ import { switchMap, finalize } from 'rxjs/operators';
 import { Logger, untilDestroyed } from '@app/core';
 import { Observable } from 'rxjs';
 import { TransactionStoreService } from '../transaction-store.service';
+import { CryptoService } from '@app/shared/services/crypto.service';
 
 const log = new Logger('TransactionInfo');
 @Component({
@@ -25,7 +26,11 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
   expandedTransactionActions: any;
   selectedActions: any;
 
-  constructor(private route: ActivatedRoute, private transactionStoreService: TransactionStoreService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private transactionStoreService: TransactionStoreService,
+    private cryptoService: CryptoService
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params: ParamMap) => {
@@ -52,6 +57,10 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
     }
   }
 
+  deriveHash(address: string, nonce: number, txActionNumber: number) {
+    return this.cryptoService.deriveHash(address, nonce, txActionNumber);
+  }
+
   getTransactionInfo() {
     if (this.transactionHash) {
       this.transactionStoreService.getTransactionInfo(this.transactionHash);
@@ -74,7 +83,16 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
 
   expandActionData(action: any, index: number) {
     this.expandedTransactionActions = {};
-
+    if (action.actionType == 'CreateAsset' || action.actionType == 'CreateAccount') {
+      this.expandedTransactionActions.isEmpty = false;
+      let tx = null;
+      this.transactionInfo.subscribe(response => {
+        tx = response;
+        let hash = this.cryptoService.deriveHash(tx.senderAddress, tx.nonce, index + 1);
+        let label = action.actionType == 'CreateAsset' ? 'Asset' : 'Account';
+        action.actionData = `{"${label}": "${hash}"}`;
+      });
+    }
     if (action && action.actionData) {
       try {
         this.expandedTransactionActions = JSON.parse(action.actionData);
