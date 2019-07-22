@@ -89,7 +89,7 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
       this.transactionInfo.subscribe(response => {
         tx = response;
         let hash = this.cryptoService.deriveHash(tx.senderAddress, tx.nonce, index + 1);
-        let label = action.actionType == 'CreateAsset' ? 'Asset' : 'Account';
+        let label = action.actionType == 'CreateAsset' ? 'assetHash' : 'accountHash';
         action.actionData = `{"${label}": "${hash}"}`;
       });
     }
