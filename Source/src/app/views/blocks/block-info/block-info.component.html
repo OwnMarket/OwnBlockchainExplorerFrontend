@@ -72,14 +72,17 @@
               </div>
 
               <div class="col-6 col-md-3 border-right">
-                <p class="info-value" *ngIf="block.timestamp">{{ block.timestamp + 'Z' | date: 'd MMMM - hh:mm' }}</p>
+                <p class="info-value" *ngIf="block.timestamp">
+                  {{ block.timestamp + 'Z' | date: 'd MMMM - hh:mm' }}
+                  ({{ block.timestamp + 'Z' | timeago: true }})
+                </p>
               </div>
 
               <div class="col-6 col-md-3">
-                <p class="info-label">Timestamp</p>
+                <p class="info-label">Proposer</p>
               </div>
               <div class="col-6 col-md-3">
-                <p class="info-value" *ngIf="block.timestamp">{{ block.timestamp + 'Z' | timeago: true }}</p>
+                <p class="info-value" *ngIf="block.timestamp">{{ block.validatorAddress }}</p>
               </div>
             </div>
           </div>
@@ -91,7 +94,7 @@
               <div class="float-right">
                 <i
                   [ngClass]="additionalInfoExpanded ? 'fa-angle-up' : 'fa-angle-down'"
-                  class="fas"
+                  class="fas icon-pointer"
                   (click)="expandAdditionalInfo()"
                 ></i>
               </div>
@@ -100,41 +103,35 @@
               <div class="table-responsive">
                 <table class="table">
                   <tbody>
-                    <tr>
-                      <td class="label"><strong>Proposer address</strong></td>
-                      <td class="value">
-                        <a [routerLink]="['/address', block.validatorAddress]">{{ block.validatorAddress }}</a>
-                      </td>
-                    </tr>
-                    <tr>
+                    <tr *ngIf="block.txSetRoot">
                       <td class="label"><strong>TX set root</strong></td>
                       <td class="value">{{ block.txSetRoot }}</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="block.txResultSetRoot">
                       <td class="label"><strong>TX result root</strong></td>
                       <td class="value">{{ block.txResultSetRoot }}</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="block.equivocationProofsRoot">
                       <td class="label"><strong>Equivocation proofs root</strong></td>
                       <td class="value">{{ block.equivocationProofsRoot }}</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="block.equivocationProofResultsRoot">
                       <td class="label"><strong>Equivocation proof result root</strong></td>
                       <td class="value">{{ block.equivocationProofResultsRoot }}</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="block.stateRoot">
                       <td class="label"><strong>State root</strong></td>
                       <td class="value">{{ block.stateRoot }}</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="block.stakingRewardsRoot">
                       <td class="label"><strong>Staking rewards root</strong></td>
                       <td class="value">{{ block.stakingRewardsRoot }}</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="block.configurationRoot">
                       <td class="label"><strong>Configuration root</strong></td>
                       <td class="value">{{ block.configurationRoot }}</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="block.configurationBlockNumber">
                       <td class="label"><strong>Configuration block number</strong></td>
                       <td class="value">
                         <a [routerLink]="['/block', block.configurationBlockNumber]">{{
@@ -142,7 +139,7 @@
                         }}</a>
                       </td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="block.consensusRound">
                       <td class="label"><strong>Consensus round</strong></td>
                       <td class="value">{{ block.consensusRound }}</td>
                     </tr>
@@ -170,7 +167,7 @@
     </div>
   </div>
 
-  <div class="row mt-5">
+  <div class="row mt-5" *ngIf="(equivocations | async).length > 0">
     <div class="col-12">
       <app-table-card
         title="Equivocation proofs"
@@ -186,7 +183,7 @@
     </div>
   </div>
 
-  <div class="row mt-5">
+  <div class="row mt-5" *ngIf="(stakingRewards | async).length > 0">
     <div class="col-12">
       <app-table-card
         title="Staking rewards"
