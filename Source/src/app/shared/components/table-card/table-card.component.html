@@ -7,7 +7,7 @@
         </div>
         <div [ngClass]="{ 'col-6 col-lg-4': expandable || filterable }">
           <div class="float-right" *ngIf="expandable">
-            <i [ngClass]="expanded ? 'fa-angle-up' : 'fa-angle-down'" class="fas" (click)="expand()"></i>
+            <i [ngClass]="expanded ? 'fa-angle-up' : 'fa-angle-down'" class="fas icon-pointer" (click)="expand()"></i>
           </div>
           <!-- TODO Need to find better way for filters handler -->
           <div *ngIf="filterable" class="filters-wrapper float-right">
