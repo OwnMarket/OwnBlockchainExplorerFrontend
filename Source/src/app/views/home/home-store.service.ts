@@ -32,7 +32,7 @@ export class HomeStoreService {
     this._loadingTransactionsByDay.next(val);
   }
 
-  getTransactionsByDay(numberOfDay: number = 30) {
+  getTransactionsByDay(numberOfDay: number = 14) {
     this.loadingTransactionsByDay = true;
     this.homeService.getTxPerDay(numberOfDay).subscribe(res => {
       this.transactionsByDay = res;
