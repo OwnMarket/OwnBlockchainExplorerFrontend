@@ -15,6 +15,7 @@ import { ScrollEndDirective } from './directives/scroll-end.directive';
 import { SearchService } from './services/search.service';
 import { CamelCaseToSpace } from './pipes/camelcase-to-space.pipe';
 import { CustomClock } from './clock';
+import { DisplayTimestampPipe } from './pipes/display-timestamp.pipe';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { CustomClock } from './clock';
     CamelCaseToSpace,
     PageTitleComponent,
     LabeledCardComponent,
-    ScrollEndDirective
+    ScrollEndDirective,
+    DisplayTimestampPipe
   ],
   providers: [SearchService],
   exports: [
@@ -41,7 +43,8 @@ import { CustomClock } from './clock';
     PageTitleComponent,
     LabeledCardComponent,
     TimeagoModule,
-    CamelCaseToSpace
+    CamelCaseToSpace,
+    DisplayTimestampPipe
   ]
 })
 export class SharedModule {}

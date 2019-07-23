@@ -83,17 +83,17 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
 
   expandActionData(action: any, index: number) {
     this.expandedTransactionActions = {};
-    if (action.actionType == 'CreateAsset' || action.actionType == 'CreateAccount') {
-      this.expandedTransactionActions.isEmpty = false;
-      let tx = null;
-      this.transactionInfo.subscribe(response => {
-        tx = response;
-        let hash = this.cryptoService.deriveHash(tx.senderAddress, tx.nonce, index + 1);
-        let label = action.actionType == 'CreateAsset' ? 'assetHash' : 'accountHash';
-        action.actionData = `{"${label}": "${hash}"}`;
-      });
-    }
     if (action && action.actionData) {
+      if (action.actionType == 'CreateAsset' || action.actionType == 'CreateAccount') {
+        this.expandedTransactionActions.isEmpty = false;
+        let tx = null;
+        this.transactionInfo.subscribe(response => {
+          tx = response;
+          let hash = this.cryptoService.deriveHash(tx.senderAddress, tx.nonce, index + 1);
+          let label = action.actionType == 'CreateAsset' ? 'assetHash' : 'accountHash';
+          action.actionData = `{"${label}": "${hash}"}`;
+        });
+      }
       try {
         this.expandedTransactionActions = JSON.parse(action.actionData);
       } catch (error) {

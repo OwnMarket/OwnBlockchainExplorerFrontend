@@ -131,7 +131,7 @@
                   </div>
                   <div class="col-8 border-right">
                     <p class="info-value" *ngIf="transaction.timestamp">
-                      {{ transaction.timestamp }}
+                      {{ transaction.timestamp | displayTimestamp }}
                       ({{ transaction.timestamp + 'Z' | timeago: true }})
                     </p>
                   </div>

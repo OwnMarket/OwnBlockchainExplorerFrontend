@@ -71,7 +71,7 @@
 
               <div class="col-10 col-md-4 border-right">
                 <p class="info-value" *ngIf="block.timestamp">
-                  {{ block.timestamp }}
+                  {{ block.timestamp | displayTimestamp }}
                   ({{ block.timestamp + 'Z' | timeago: true }})
                 </p>
               </div>
