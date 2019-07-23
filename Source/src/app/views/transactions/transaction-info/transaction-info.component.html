@@ -23,10 +23,10 @@
             <div class="card">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-6 col-md-4">
+                  <div class="col-5 col-md-3">
                     <p class="info-label">Transaction Hash</p>
                   </div>
-                  <div class="col-6 col-md-8 text-right">
+                  <div class="col-7 col-md-9 text-right">
                     <p class="info-value">{{ transaction.hash }}</p>
                   </div>
                 </div>
@@ -119,16 +119,20 @@
                     <p class="info-value" *ngIf="transaction.expirationTime">
                       {{ transaction.expirationTime + 'Z' | date: 'hh:mm:ss' }}
                     </p>
+                    <p class="info-value" *ngIf="!transaction.expirationTime">
+                      -
+                    </p>
                   </div>
                 </div>
 
                 <div class="row details-row-item">
-                  <div class="col-6">
+                  <div class="col-4">
                     <p class="info-label">Timestamp</p>
                   </div>
-                  <div class="col-6 border-right">
+                  <div class="col-8 border-right">
                     <p class="info-value" *ngIf="transaction.timestamp">
-                      {{ transaction.timestamp + 'Z' | timeago: true }}
+                      {{ transaction.timestamp }}
+                      ({{ transaction.timestamp + 'Z' | timeago: true }})
                     </p>
                   </div>
                 </div>
