@@ -180,6 +180,10 @@ export class BlockStoreService {
       } else {
         this.stakingRewards = res;
       }
+      //filter out staking rewards with zero amount
+      this.stakingRewards = this.stakingRewards.filter(function(reward) {
+        return reward.amount > 0;
+      });
       this.loadingStakingRewards = false;
     });
   }
