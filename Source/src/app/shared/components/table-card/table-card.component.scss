@@ -9,6 +9,11 @@
         color: #fa591f;
         font-size: 25px;
       }
+
+      .title {
+        display: flex;
+        justify-content: space-between;
+      }
     }
 
     .card-body {

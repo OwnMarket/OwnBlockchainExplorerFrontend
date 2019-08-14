@@ -15,6 +15,7 @@ export class TableCardComponent implements OnInit {
   expanded = true;
   lodash = _;
   expandedRow: any = {};
+  count: number;
 
   activeFilter: string = 'current';
   // Inputs
@@ -31,6 +32,7 @@ export class TableCardComponent implements OnInit {
   @Input() loading: boolean;
   @Input() canLoadMore = true;
   @Input() columns: any[];
+  @Input() stakesDelegated: boolean;
   // @Input() source: any[];
   source: any[];
   @Input('source') set _source(value: any[]) {
@@ -43,6 +45,7 @@ export class TableCardComponent implements OnInit {
         this.tableHeight = '500px';
       }
       this.source = value;
+      this.count = this.source.length;
     }
   }
 
