@@ -24,9 +24,6 @@ import { AddressInfoModule } from './views/address-info/address-info.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('./ngsw-worker.js', {
-      enabled: environment.production
-    }),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -40,7 +37,10 @@ import { AddressInfoModule } from './views/address-info/address-info.module';
     BlockModule,
     TransactionsModule,
     AddressInfoModule,
-    AppRoutingModule // must be imported as the last module as it contains the fallback route
+    AppRoutingModule, // must be imported as the last module as it contains the fallback route
+    ServiceWorkerModule.register('./ngsw-worker.js', {
+      enabled: environment.production
+    })
   ],
   declarations: [AppComponent],
   providers: [],

@@ -1,6 +1,7 @@
 {
-  "name": "blockchain-explorer",
+  "name": "Own Blockchain Explorer",
   "short_name": "blockchain-explorer",
+  "description": "OWN Blockchain Explorer",
   "theme_color": "#488aff",
   "background_color": "#488aff",
   "scope": "/",
