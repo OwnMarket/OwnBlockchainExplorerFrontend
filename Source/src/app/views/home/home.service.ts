@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 const routes = {
-  txPerDay: (numberOfDays: number) => `/stat/tx-per-day?numberOfDays=${numberOfDays}`
+  txPerDay: (numberOfDays: number) => `/stats/txs-per-day?numberOfDays=${numberOfDays}`
 };
 
 @Injectable({
