@@ -9,11 +9,8 @@ describe('HtmlRenderPipe', () => {
     });
   });
 
-  it('create an instance', inject(
-    [DomSanitizer],
-    (domSanitizer: DomSanitizer) => {
-      const pipe = new HtmlRenderPipe(domSanitizer);
-      expect(pipe).toBeTruthy();
-    }
-  ));
+  it('create an instance', inject([DomSanitizer], (domSanitizer: DomSanitizer) => {
+    const pipe = new HtmlRenderPipe(domSanitizer);
+    expect(pipe).toBeTruthy();
+  }));
 });
