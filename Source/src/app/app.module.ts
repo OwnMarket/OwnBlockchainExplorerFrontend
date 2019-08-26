@@ -19,6 +19,8 @@ import { HomeModule } from './views/home/home.module';
 import { BlockModule } from './views/blocks/block.module';
 import { TransactionsModule } from './views/transactions/transactions.module';
 import { AddressInfoModule } from './views/address-info/address-info.module';
+import { AddressesComponent } from './views/addresses/addresses.component';
+import { AddressesModule } from './views/addresses/addresses.module';
 
 @NgModule({
   imports: [
@@ -37,6 +39,7 @@ import { AddressInfoModule } from './views/address-info/address-info.module';
     BlockModule,
     TransactionsModule,
     AddressInfoModule,
+    AddressesModule,
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
     ServiceWorkerModule.register('./ngsw-worker.js', {
       enabled: environment.production

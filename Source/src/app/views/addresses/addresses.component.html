@@ -1,0 +1,13 @@
+<div class="row" *ngIf="addresses | async as items">
+  <div class="col-12">
+    <app-table-card title="Addresses" [tableHeight]="tableHeight" [columns]="columns" [source]="items"></app-table-card>
+  </div>
+</div>
+
+<ng-template #addKey let-row="row" let-value="value">
+  <a [routerLink]="['/address', value]">{{ value }}</a>
+</ng-template>
+
+<ng-template #addValue let-row="row" let-value="value">
+  {{ value }}
+</ng-template>
