@@ -31,13 +31,13 @@ export class AddressesComponent implements OnInit {
         name: 'Address',
         prop: 'key',
         sortable: false,
-        width: 250,
         cellTemplate: this.addKey
       },
       {
         name: 'Total Balance',
         prop: 'value',
         sortable: false,
+        maxWidth: 150,
         cellTemplate: this.addValue
       }
     ];

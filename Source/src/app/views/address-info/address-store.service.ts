@@ -3,6 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { AddressInfoService } from './address.service';
 import { thisTypeAnnotation } from 'babel-types';
 
+import { Stake } from '../../core/models/stake.model';
+
 @Injectable({ providedIn: 'root' })
 export class AddressInfoStoreService {
   // - Create one BehaviorSubject per store entity,
@@ -14,9 +16,11 @@ export class AddressInfoStoreService {
   private readonly _assets = new BehaviorSubject<any[]>([]);
   private readonly _loadingAssets = new BehaviorSubject<boolean>(false);
   private readonly _delegatedStakes = new BehaviorSubject<any[]>([]);
+  private readonly _delegatedStakesTotal = new BehaviorSubject<number>(0);
   private readonly _loadingDelegatedStakes = new BehaviorSubject<boolean>(false);
   private readonly _receivedStakes = new BehaviorSubject<any[]>([]);
   private readonly _loadingReceivedStakes = new BehaviorSubject<boolean>(false);
+  private readonly _receivedStakesTotal = new BehaviorSubject<number>(0);
   private readonly _events = new BehaviorSubject<any[]>([]);
   private readonly _loadingEvents = new BehaviorSubject<boolean>(false);
 
@@ -40,9 +44,13 @@ export class AddressInfoStoreService {
   // tslint:disable-next-line: member-ordering
   readonly loadingDelegatedStakes$ = this._loadingDelegatedStakes.asObservable();
   // tslint:disable-next-line: member-ordering
+  readonly totalDelegatedStakes$ = this._delegatedStakesTotal.asObservable();
+  // tslint:disable-next-line: member-ordering
   readonly receivedStakes$ = this._receivedStakes.asObservable();
   // tslint:disable-next-line: member-ordering
   readonly loadingReceivedStakes$ = this._loadingReceivedStakes.asObservable();
+  // tslint:disable-next-line: member-ordering
+  readonly totalReceivedStakes$ = this._receivedStakesTotal.asObservable();
   // tslint:disable-next-line: member-ordering
   readonly events$ = this._events.asObservable();
   // tslint:disable-next-line: member-ordering
@@ -67,8 +75,16 @@ export class AddressInfoStoreService {
     return this._delegatedStakes.getValue();
   }
 
+  get delegatedStakesTotal(): number {
+    return this._delegatedStakesTotal.getValue();
+  }
+
   get receivedStakes(): any[] {
     return this._receivedStakes.getValue();
+  }
+
+  get receivedStakesTotal(): number {
+    return this._receivedStakesTotal.getValue();
   }
 
   get events(): any[] {
@@ -117,6 +133,10 @@ export class AddressInfoStoreService {
     this._loadingDelegatedStakes.next(val);
   }
 
+  set delegatedStakesTotal(val: number) {
+    this._delegatedStakesTotal.next(val);
+  }
+
   set appendDelegatedStakes(val: any[]) {
     this._delegatedStakes.next([...this.delegatedStakes, ...val]);
   }
@@ -131,6 +151,10 @@ export class AddressInfoStoreService {
 
   set loadingReceivedStakes(val: boolean) {
     this._loadingReceivedStakes.next(val);
+  }
+
+  set receivedStakesTotal(val: number) {
+    this._receivedStakesTotal.next(val);
   }
 
   set events(val: any[]) {
@@ -184,8 +208,13 @@ export class AddressInfoStoreService {
         this.appendDelegatedStakes = res;
       } else {
         this.delegatedStakes = res;
+        this.delegatedStakesTotal = 0;
       }
       this.loadingDelegatedStakes = false;
+      // calculate total amount of delegated stakes
+      this.delegatedStakesTotal = res
+        .map((item: Stake) => item.amount)
+        .reduce((current: number, total: number) => current + total, this.delegatedStakesTotal);
     });
   }
 
@@ -196,8 +225,13 @@ export class AddressInfoStoreService {
         this.appendReceivedStakes = res;
       } else {
         this.receivedStakes = res;
+        this.receivedStakesTotal = 0;
       }
       this.loadingReceivedStakes = false;
+      // calculate total amount of received stakes
+      this.receivedStakesTotal = res
+        .map((item: Stake) => item.amount)
+        .reduce((current: number, total: number) => current + total, this.receivedStakesTotal);
     });
   }
 

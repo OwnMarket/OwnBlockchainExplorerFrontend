@@ -50,11 +50,13 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   // Received stakes data set
   receivedStakes: Observable<any[]>;
   loadingReceivedStakes: Observable<boolean>;
+  receivedStakesTotal: Observable<number>;
   receivedStakeColumns: any[];
 
   // Delegated stakes data set
   delegatedStakes: Observable<any[]>;
   loadingDelegatedStakes: Observable<boolean>;
+  delegatedStakesTotal: Observable<number>;
   delegatedStakeColumns: any[];
 
   constructor(private route: ActivatedRoute, private addressStoreService: AddressInfoStoreService) {}
@@ -71,9 +73,11 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
 
       this.receivedStakes = this.addressStoreService.receivedStakes$.pipe(untilDestroyed(this));
       this.loadingReceivedStakes = this.addressStoreService.loadingReceivedStakes$.pipe(untilDestroyed(this));
+      this.receivedStakesTotal = this.addressStoreService.totalReceivedStakes$.pipe(untilDestroyed(this));
 
       this.delegatedStakes = this.addressStoreService.delegatedStakes$.pipe(untilDestroyed(this));
       this.loadingDelegatedStakes = this.addressStoreService.loadingDelegatedStakes$.pipe(untilDestroyed(this));
+      this.delegatedStakesTotal = this.addressStoreService.totalDelegatedStakes$.pipe(untilDestroyed(this));
 
       this.assets = this.addressStoreService.assets$.pipe(untilDestroyed(this));
       this.loadingAssets = this.addressStoreService.loadingAssets$.pipe(untilDestroyed(this));

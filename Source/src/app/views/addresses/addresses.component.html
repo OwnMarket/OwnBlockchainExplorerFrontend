@@ -1,6 +1,7 @@
 <div class="row" *ngIf="addresses | async as items">
   <div class="col-12">
-    <app-table-card title="Addresses" [tableHeight]="tableHeight" [columns]="columns" [source]="items"></app-table-card>
+    <app-table-card title="Addresses" [tableHeight]="tableHeight" [columns]="columns" [source]="items">
+    </app-table-card>
   </div>
 </div>
 

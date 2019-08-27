@@ -4,7 +4,7 @@
       <div class="row">
         <div [ngClass]="{ 'col-6 col-lg-8': expandable || filterable, 'col-12': !(expandable || filterable) }">
           <h4 class="float-left">{{ title }}</h4>
-          <h4 *ngIf="stakesDelegated" class="float-right">{{ count }}</h4>
+          <h4 *ngIf="stakes" class="float-right">{{ stakes }}</h4>
         </div>
         <div [ngClass]="{ 'col-6 col-lg-4': expandable || filterable }">
           <div class="float-right" *ngIf="expandable">
@@ -38,7 +38,7 @@
         [headerHeight]="source && source.length > 0 ? headerHeight : 0"
         [rowHeight]="rowHeight"
         [loadingIndicator]="loading"
-        [footerHeight]="falsey"
+        [footerHeight]="false"
         [scrollbarV]="true"
         (scroll)="onScroll($event.offsetY)"
       >

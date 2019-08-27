@@ -124,7 +124,7 @@
         [loading]="loadingDelegatedStakes | async"
         [source]="delegatedStakes | async"
         (loadMore)="onLoadMoreAddressDelegatedStakes($event)"
-        stakesDelegated="true"
+        [stakes]="delegatedStakesTotal | async"
       ></app-table-card>
     </div>
 
@@ -136,7 +136,7 @@
         [loading]="loadingReceivedStakes | async"
         [source]="receivedStakes | async"
         (loadMore)="onLoadMoreAddressReceivedStakes($event)"
-        stakesDelegated="true"
+        [stakes]="receivedStakesTotal | async"
       ></app-table-card>
     </div>
   </div>
