@@ -1,0 +1,19 @@
+<div class="dropdown" [class.show]="open" class="filter-selector">
+  <button
+    (click)="togglePopup()"
+    class="btn btn-light dropdown-toggle"
+    type="button"
+    id="dropdownMenuButton"
+    data-toggle="dropdown"
+    aria-haspopup="true"
+    [attr.aria-expanded]="open"
+  >
+    Filter
+  </button>
+  <div class="dropdown-menu dropdown-menu-right" [class.show]="open" aria-labelledby="dropdownMenuButton">
+    <label *ngFor="let option of options" [for]="option" class="dropdown-item">
+      <input type="checkbox" [value]="option" [name]="option" (change)="onChangeFilter($event, option)" />
+      {{ option }}
+    </label>
+  </div>
+</div>

@@ -235,9 +235,9 @@ export class AddressInfoStoreService {
     });
   }
 
-  getEvents(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false) {
+  getEvents(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false, filter?: string) {
     this.loadingEvents = true;
-    this.addressService.getAddressEvents(blockchainAddress, { page, limit }).subscribe(res => {
+    this.addressService.getAddressEvents(blockchainAddress, { page, limit }, filter).subscribe(res => {
       if (shouldAppend) {
         this.appendEvents = res;
       } else {

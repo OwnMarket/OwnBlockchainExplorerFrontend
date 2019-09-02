@@ -16,6 +16,7 @@ import { SearchService } from './services/search.service';
 import { CamelCaseToSpace } from './pipes/camelcase-to-space.pipe';
 import { CustomClock } from './clock';
 import { DisplayTimestampPipe } from './pipes/display-timestamp.pipe';
+import { FilterSelectorComponent } from './components/filter-selector/filter-selector.component';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { DisplayTimestampPipe } from './pipes/display-timestamp.pipe';
     PageTitleComponent,
     LabeledCardComponent,
     ScrollEndDirective,
-    DisplayTimestampPipe
+    DisplayTimestampPipe,
+    FilterSelectorComponent
   ],
   providers: [SearchService],
   exports: [
@@ -44,7 +46,8 @@ import { DisplayTimestampPipe } from './pipes/display-timestamp.pipe';
     LabeledCardComponent,
     TimeagoModule,
     CamelCaseToSpace,
-    DisplayTimestampPipe
+    DisplayTimestampPipe,
+    FilterSelectorComponent
   ]
 })
 export class SharedModule {}

@@ -17,8 +17,10 @@ const routes = {
     `/address/${blockchainAddress}/delegated-stakes?page=${c.page}&limit=${c.limit}`,
   addressReceivedStakes: (blockchainAddress: string, c: PageLimitContext) =>
     `/address/${blockchainAddress}/received-stakes?page=${c.page}&limit=${c.limit}`,
-  addressEvents: (blockchainAddress: string, c: PageLimitContext) =>
-    `/address/${blockchainAddress}/events?page=${c.page}&limit=${c.limit}`
+  addressEvents: (blockchainAddress: string, c: PageLimitContext, filter?: string) =>
+    filter
+      ? `/address/${blockchainAddress}/events?page=${c.page}&limit=${c.limit}&filter=${filter}`
+      : `/address/${blockchainAddress}/events?page=${c.page}&limit=${c.limit}`
 };
 
 //TODO: make common modal
@@ -83,8 +85,8 @@ export class AddressInfoService {
   }
 
   // TODO: add models
-  getAddressEvents(blockchainAddress: string, context: PageLimitContext): Observable<[]> {
-    return this.httpClient.get(routes.addressEvents(blockchainAddress, context)).pipe(
+  getAddressEvents(blockchainAddress: string, context: PageLimitContext, filter?: string): Observable<[]> {
+    return this.httpClient.get(routes.addressEvents(blockchainAddress, context, filter)).pipe(
       // TODO: make GENERIC api model!!
       map((response: any) => response.data),
       // TODO: make common error logger

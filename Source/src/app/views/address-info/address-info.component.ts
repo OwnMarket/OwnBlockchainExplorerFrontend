@@ -59,6 +59,9 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   delegatedStakesTotal: Observable<number>;
   delegatedStakeColumns: any[];
 
+  // Filter
+  currentFilter: string;
+
   constructor(private route: ActivatedRoute, private addressStoreService: AddressInfoStoreService) {}
 
   ngOnInit() {
@@ -95,6 +98,17 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {}
+
+  filterEvents(event: string) {
+    if (event !== '') {
+      this.currentFilter = event;
+    } else {
+      this.currentFilter = null;
+    }
+    this.currentPage.events = 1;
+    this.addressStoreService.events = [];
+    this.getAddressEvents();
+  }
 
   setupColumns() {
     this.eventColumns = [
@@ -286,7 +300,13 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
 
   getAddressEvents(shouldAppend: boolean = false) {
     if (this.blockchainAddress) {
-      this.addressStoreService.getEvents(this.blockchainAddress, this.currentPage.events, this.pageLimit, shouldAppend);
+      this.addressStoreService.getEvents(
+        this.blockchainAddress,
+        this.currentPage.events,
+        this.pageLimit,
+        shouldAppend,
+        this.currentFilter
+      );
     }
   }
 
