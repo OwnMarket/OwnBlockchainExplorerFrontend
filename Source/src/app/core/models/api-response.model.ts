@@ -1,5 +1,5 @@
-export interface ApiResponse {
+export interface ApiResponse<T> {
   alerts: any[];
-  data: any[];
+  data: T[];
   successfull: boolean;
 }
