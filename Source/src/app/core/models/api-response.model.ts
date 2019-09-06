@@ -1,5 +1,6 @@
+import { Alert } from './alert.model';
 export interface ApiResponse<T> {
-  alerts: any[];
+  alerts: Alert[];
   data: T[];
   successfull: boolean;
 }

@@ -29,7 +29,7 @@
               "src/manifest.json",
               "src/assets"
             ],
-            "styles": ["src/main.scss"],
+            "styles": ["src/main.scss", "./node_modules/leaflet/dist/leaflet.css"],
             "scripts": ["src/app/core/lib/own-blockchain-sdk.js"]
           },
           "configurations": {
