@@ -16,6 +16,6 @@ export class ValidatorsService {
   }
 
   fetchValidatorGeo(): Observable<ApiResponse<ValidatorGeo>> {
-    return this.http.get<ApiResponse<ValidatorGeo>>('https://test.explorer-api.weown.com/validators-geo');
+    return this.http.get<ApiResponse<ValidatorGeo>>('/validators-geo');
   }
 }
