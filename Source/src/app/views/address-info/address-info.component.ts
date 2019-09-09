@@ -36,6 +36,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   events: Observable<any[]>;
   loadingEvents: Observable<boolean>;
   eventColumns: any[];
+  eventsCount: Observable<number>;
 
   // Accounts data set
   accounts: Observable<any[]>;
@@ -73,6 +74,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
 
       this.events = this.addressStoreService.events$.pipe(untilDestroyed(this));
       this.loadingEvents = this.addressStoreService.loadingEvents$.pipe(untilDestroyed(this));
+      this.eventsCount = this.addressStoreService.eventsCount$.pipe(untilDestroyed(this));
 
       this.receivedStakes = this.addressStoreService.receivedStakes$.pipe(untilDestroyed(this));
       this.loadingReceivedStakes = this.addressStoreService.loadingReceivedStakes$.pipe(untilDestroyed(this));

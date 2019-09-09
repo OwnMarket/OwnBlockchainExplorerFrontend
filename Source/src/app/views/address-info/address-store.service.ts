@@ -23,6 +23,7 @@ export class AddressInfoStoreService {
   private readonly _receivedStakesTotal = new BehaviorSubject<number>(0);
   private readonly _events = new BehaviorSubject<any[]>([]);
   private readonly _loadingEvents = new BehaviorSubject<boolean>(false);
+  private readonly _eventsCount = new BehaviorSubject<number>(0);
 
   // TODO: LOADING INDICATOR AS ARRAY FOR EACH ACTION
 
@@ -55,6 +56,7 @@ export class AddressInfoStoreService {
   readonly events$ = this._events.asObservable();
   // tslint:disable-next-line: member-ordering
   readonly loadingEvents$ = this._loadingEvents.asObservable();
+  readonly eventsCount$ = this._eventsCount.asObservable();
 
   constructor(private addressService: AddressInfoService) {}
 
@@ -89,6 +91,10 @@ export class AddressInfoStoreService {
 
   get events(): any[] {
     return this._events.getValue();
+  }
+
+  get eventsCount(): number {
+    return this._eventsCount.getValue();
   }
 
   // assigning a value to this.blocks will push it onto the observable
@@ -165,6 +171,10 @@ export class AddressInfoStoreService {
     this._loadingEvents.next(val);
   }
 
+  set eventsCount(val: number) {
+    this._eventsCount.next(val);
+  }
+
   set appendEvents(val: any[]) {
     this._events.next([...this.events, ...val]);
   }
@@ -237,12 +247,13 @@ export class AddressInfoStoreService {
 
   getEvents(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false, filter?: string) {
     this.loadingEvents = true;
-    this.addressService.getAddressEvents(blockchainAddress, { page, limit }, filter).subscribe(res => {
+    this.addressService.getAddressEvents(blockchainAddress, { page, limit }, filter).subscribe((res: any) => {
       if (shouldAppend) {
-        this.appendEvents = res;
+        this.appendEvents = res.events;
       } else {
-        this.events = res;
+        this.events = res.events;
       }
+      this.eventsCount = res.eventsCount;
       this.loadingEvents = false;
     });
   }
