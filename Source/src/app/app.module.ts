@@ -41,10 +41,7 @@ import { ValidatorsModule } from './views/validators/validators.module';
     AddressInfoModule,
     AddressesModule,
     ValidatorsModule,
-    AppRoutingModule, // must be imported as the last module as it contains the fallback route
-    ServiceWorkerModule.register('./ngsw-worker.js', {
-      enabled: environment.production
-    })
+    AppRoutingModule
   ],
   declarations: [AppComponent],
   providers: [],

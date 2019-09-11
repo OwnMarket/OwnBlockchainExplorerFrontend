@@ -50,7 +50,6 @@
                   "maximumError": "5mb"
                 }
               ],
-              "serviceWorker": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
