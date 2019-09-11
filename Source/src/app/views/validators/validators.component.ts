@@ -15,11 +15,13 @@ export class ValidatorsComponent implements OnInit {
 
   validators: Observable<ValidatorStat[]>;
   isLoading: Observable<boolean>;
+  totalValidators: number;
+  totalStakes: number;
+  totalDeposits: number;
+  info: string;
 
-  @Input() tableHeight = '500px';
-  @Input() pageLimit = 20;
-  currentPage = 1;
-
+  // table config
+  tableHeight = '600px';
   columns: any[];
 
   constructor(private service: ValidatorsService) {}
@@ -39,10 +41,10 @@ export class ValidatorsComponent implements OnInit {
         cellTemplate: this.addValue
       },
       {
-        name: 'Reward Percent',
+        name: 'Reward %',
         prop: 'sharedRewardPercent',
         sortable: true,
-        maxWidth: 100
+        maxWidth: 70
       },
       {
         name: 'Collected',
@@ -60,22 +62,25 @@ export class ValidatorsComponent implements OnInit {
         name: 'Total Stake',
         prop: 'totalStake',
         sortable: true,
-        cellTemplate: this.addValue
+        cellTemplate: this.addValue,
+        maxWidth: 100
       },
       {
         name: 'Deposit',
         prop: 'deposit',
         sortable: true,
-        cellTemplate: this.addValue
+        cellTemplate: this.addValue,
+        maxWidth: 70
       },
       {
         name: 'Blocks Proposed',
         prop: 'blocksProposed',
         sortable: true,
-        cellTemplate: this.addValue
+        cellTemplate: this.addValue,
+        maxWidth: 120
       },
       {
-        name: 'Txs Proposed',
+        name: 'TXs Proposed',
         prop: 'txsProposed',
         sortable: true,
         cellTemplate: this.addValue,
@@ -87,6 +92,20 @@ export class ValidatorsComponent implements OnInit {
     this.validators = this.service.getValidatorStats().pipe(
       map(resp => {
         if (resp.data) {
+          this.totalValidators = resp.data.length;
+
+          this.totalStakes = resp.data
+            .map((item: ValidatorStat) => item.totalStake)
+            .reduce((total: number, current: number) => total + current, 0);
+
+          this.totalDeposits = resp.data
+            .map((item: ValidatorStat) => item.deposit)
+            .reduce((total: number, current: number) => total + current, 0);
+
+          this.info = `${this.totalValidators} validators have ${this.totalStakes} CHX at stake and ${
+            this.totalDeposits
+          } CHX locked in deposits.`;
+
           this.isLoading = of(false);
           return resp.data;
         }

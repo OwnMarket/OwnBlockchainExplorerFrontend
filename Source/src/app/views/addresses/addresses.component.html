@@ -12,7 +12,7 @@
 </div>
 
 <ng-template #addKey let-row="row" let-value="value">
-  <a [routerLink]="['/address', value]">{{ value }}</a>
+  <a [routerLink]="['/address', value]" [title]="value">{{ value }}</a>
 </ng-template>
 
 <ng-template #addValue let-row="row" let-value="value">

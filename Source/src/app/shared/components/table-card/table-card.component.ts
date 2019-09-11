@@ -41,7 +41,7 @@ export class TableCardComponent implements OnInit {
       } else if (value.length < 10) {
         this.tableHeight = value.length * 50 + 100 + 'px';
       } else {
-        this.tableHeight = '500px';
+        // this.tableHeight = '500px';
       }
       this.source = value;
     }
