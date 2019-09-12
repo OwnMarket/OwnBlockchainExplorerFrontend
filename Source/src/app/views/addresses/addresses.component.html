@@ -6,6 +6,7 @@
       [columns]="columns"
       [source]="addresses | async"
       [loading]="isLoading | async"
+      (loadMore)="onLoadMore($event)"
     >
     </app-table-card>
   </div>

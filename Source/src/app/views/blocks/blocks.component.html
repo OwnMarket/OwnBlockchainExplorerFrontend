@@ -15,6 +15,6 @@
 </ng-template>
 <ng-template #passedTime let-row="row" let-value="value">
   <span placement="bottom" ngbTooltip="{{ value + 'Z' | date: 'd MMMM - hh:mm' }}" *ngIf="value">{{
-    value + 'Z' | timeago: live
+    value + 'Z' | timeago: 'live'
   }}</span>
 </ng-template>

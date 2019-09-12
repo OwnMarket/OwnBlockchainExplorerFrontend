@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input, OnDestroy } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { AddressesService } from './addresses.service';
 import { AddressStat } from '@app/core/models/address-stat.model';
-import { map } from 'rxjs/operators';
+import { AddressesStoreService } from './addresses-store.service';
+import { untilDestroyed } from '@app/core';
 
 @Component({
   selector: 'app-addresses',
   templateUrl: './addresses.component.html',
   styleUrls: ['./addresses.component.scss']
 })
-export class AddressesComponent implements OnInit {
+export class AddressesComponent implements OnInit, OnDestroy {
   @ViewChild('addKey') addKey: TemplateRef<any>;
   @ViewChild('addValue') addValue: TemplateRef<any>;
 
@@ -22,7 +22,7 @@ export class AddressesComponent implements OnInit {
 
   columns: any[];
 
-  constructor(private service: AddressesService) {}
+  constructor(private addressesStoreService: AddressesStoreService) {}
 
   ngOnInit() {
     this.columns = [
@@ -41,18 +41,19 @@ export class AddressesComponent implements OnInit {
       }
     ];
 
+    this.addresses = this.addressesStoreService.addresses$.pipe(untilDestroyed(this));
+    this.isLoading = this.addressesStoreService.loadingAddresses$.pipe(untilDestroyed(this));
     this.getAddresses();
   }
 
+  ngOnDestroy(): void {}
+
   getAddresses(shouldAppend: boolean = false) {
-    this.isLoading = of(true);
-    this.addresses = this.service.getAddresses(this.currentPage, this.pageLimit, shouldAppend).pipe(
-      map(resp => {
-        if (resp.data) {
-          this.isLoading = of(false);
-          return resp.data;
-        }
-      })
-    );
+    this.addressesStoreService.getAddresses(this.currentPage, this.pageLimit, shouldAppend);
+  }
+
+  onLoadMore(event: any) {
+    this.currentPage++;
+    this.getAddresses(true);
   }
 }

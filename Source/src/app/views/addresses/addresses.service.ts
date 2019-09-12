@@ -10,7 +10,7 @@ import { pipe } from '@angular/core/src/render3';
 export class AddressesService {
   constructor(private http: HttpClient) {}
 
-  getAddresses(currentPage: number, pageLimit: number, shouldAppend: boolean): Observable<ApiResponse<AddressStat>> {
+  getAddresses(currentPage: number, pageLimit: number): Observable<ApiResponse<AddressStat>> {
     return this.http.get<ApiResponse<AddressStat>>(`/stats/top-addresses?page=${currentPage}&limit=${pageLimit}`);
   }
 }
