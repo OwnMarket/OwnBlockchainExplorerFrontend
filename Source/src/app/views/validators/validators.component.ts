@@ -119,7 +119,7 @@ export class ValidatorsComponent implements OnInit {
           <strong>${this.totalDeposits}</strong> CHX locked in deposits.`;
 
           this.isLoading = of(false);
-          return resp.data.sort((a: ValidatorStat, b: ValidatorStat) => a.totalStake - b.totalStake);
+          return resp.data;
         }
       })
     );
