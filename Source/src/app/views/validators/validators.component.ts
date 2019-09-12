@@ -44,7 +44,7 @@ export class ValidatorsComponent implements OnInit {
         name: 'Reward %',
         prop: 'sharedRewardPercent',
         sortable: true,
-        maxWidth: 70
+        maxWidth: 100
       },
       {
         name: 'Collected',
@@ -59,11 +59,11 @@ export class ValidatorsComponent implements OnInit {
         maxWidth: 100
       },
       {
-        name: 'Total Stake',
+        name: 'Stake',
         prop: 'totalStake',
         sortable: true,
         cellTemplate: this.addValue,
-        maxWidth: 100
+        maxWidth: 70
       },
       {
         name: 'Deposit',
@@ -73,14 +73,14 @@ export class ValidatorsComponent implements OnInit {
         maxWidth: 70
       },
       {
-        name: 'Blocks Proposed',
+        name: 'Blocks*',
         prop: 'blocksProposed',
         sortable: true,
         cellTemplate: this.addValue,
-        maxWidth: 120
+        maxWidth: 70
       },
       {
-        name: 'TXs Proposed',
+        name: 'TXs*',
         prop: 'txsProposed',
         sortable: true,
         cellTemplate: this.addValue,
