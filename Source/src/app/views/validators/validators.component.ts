@@ -41,22 +41,11 @@ export class ValidatorsComponent implements OnInit {
         cellTemplate: this.addValue
       },
       {
-        name: 'Reward %',
-        prop: 'sharedRewardPercent',
+        name: 'Deposit',
+        prop: 'deposit',
         sortable: true,
-        maxWidth: 100
-      },
-      {
-        name: 'Collected',
-        prop: 'rewardsCollected',
-        sortable: true,
-        maxWidth: 100
-      },
-      {
-        name: 'Distributed',
-        prop: 'rewardsDistributed',
-        sortable: true,
-        maxWidth: 100
+        cellTemplate: this.addValue,
+        maxWidth: 70
       },
       {
         name: 'Stake',
@@ -66,11 +55,22 @@ export class ValidatorsComponent implements OnInit {
         maxWidth: 70
       },
       {
-        name: 'Deposit',
-        prop: 'deposit',
+        name: 'Reward %',
+        prop: 'sharedRewardPercent',
         sortable: true,
-        cellTemplate: this.addValue,
-        maxWidth: 70
+        maxWidth: 100
+      },
+      {
+        name: 'Collected*',
+        prop: 'rewardsCollected',
+        sortable: true,
+        maxWidth: 100
+      },
+      {
+        name: 'Distributed*',
+        prop: 'rewardsDistributed',
+        sortable: true,
+        maxWidth: 100
       },
       {
         name: 'Blocks*',
@@ -102,9 +102,10 @@ export class ValidatorsComponent implements OnInit {
             .map((item: ValidatorStat) => item.deposit)
             .reduce((total: number, current: number) => total + current, 0);
 
-          this.info = `${this.totalValidators} validators have ${this.totalStakes} CHX at stake and ${
-            this.totalDeposits
-          } CHX locked in deposits.`;
+          this.info = `
+          <strong>${this.totalValidators}</strong> validators have 
+          <strong>${this.totalStakes}</strong> CHX at stake and 
+          <strong>${this.totalDeposits}</strong> CHX locked in deposits.`;
 
           this.isLoading = of(false);
           return resp.data.sort((a: ValidatorStat, b: ValidatorStat) => a.totalStake - b.totalStake);

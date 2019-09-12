@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   // options
   showXAxis = false;
   showYAxis = false;
-  gradient = false;
+  gradient = true;
   showLegend = false;
   showXAxisLabel = false;
   xAxisLabel = 'Number';
