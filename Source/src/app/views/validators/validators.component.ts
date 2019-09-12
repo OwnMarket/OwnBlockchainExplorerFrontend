@@ -10,12 +10,14 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./validators.component.scss']
 })
 export class ValidatorsComponent implements OnInit {
+  @ViewChild('txStatus') txStatus: TemplateRef<any>;
   @ViewChild('addKey') addKey: TemplateRef<any>;
   @ViewChild('addValue') addValue: TemplateRef<any>;
 
   validators: Observable<ValidatorStat[]>;
   isLoading: Observable<boolean>;
   totalValidators: number;
+  activeValidators: number;
   totalStakes: number;
   totalDeposits: number;
   info: string;
@@ -28,6 +30,13 @@ export class ValidatorsComponent implements OnInit {
 
   ngOnInit() {
     this.columns = [
+      {
+        name: '',
+        prop: 'isActive',
+        sortable: true,
+        cellTemplate: this.txStatus,
+        maxWidth: 50
+      },
       {
         name: 'Blockchain Address',
         prop: 'blockchainAddress',
@@ -93,6 +102,7 @@ export class ValidatorsComponent implements OnInit {
       map(resp => {
         if (resp.data) {
           this.totalValidators = resp.data.length;
+          this.activeValidators = resp.data.filter(validator => validator.isActive === true).length;
 
           this.totalStakes = resp.data
             .map((item: ValidatorStat) => item.totalStake)
@@ -103,7 +113,8 @@ export class ValidatorsComponent implements OnInit {
             .reduce((total: number, current: number) => total + current, 0);
 
           this.info = `
-          <strong>${this.totalValidators}</strong> validators have 
+          <strong>${this.totalValidators}</strong> validators 
+          (<strong>${this.activeValidators}</strong> active) have 
           <strong>${this.totalStakes}</strong> CHX at stake and 
           <strong>${this.totalDeposits}</strong> CHX locked in deposits.`;
 

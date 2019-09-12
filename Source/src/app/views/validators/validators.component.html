@@ -16,6 +16,11 @@
   </div>
 </div>
 
+<ng-template #txStatus let-row="row" let-value="value">
+  <img *ngIf="value === true" src="assets/images/success-icon.svg" />
+  <img *ngIf="value === false" src="assets/images/failed-icon.svg" />
+</ng-template>
+
 <ng-template #addKey let-row="row" let-value="value">
   <a [routerLink]="['/address', value]" [title]="value">{{ value }}</a>
 </ng-template>

@@ -8,4 +8,5 @@ export interface ValidatorStat {
   txsProposed: number;
   rewardsCollected: number;
   rewardsDistributed: number;
+  isActive: boolean;
 }
