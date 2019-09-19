@@ -32,6 +32,7 @@ export class TableCardComponent implements OnInit {
   @Input() canLoadMore = true;
   @Input() columns: any[];
   @Input() stakes: number;
+
   // @Input() source: any[];
   source: any[];
   @Input('source') set _source(value: any[]) {

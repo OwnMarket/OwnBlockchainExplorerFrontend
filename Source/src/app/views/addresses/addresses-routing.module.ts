@@ -9,7 +9,8 @@ const routes: Routes = [
   Shell.childRoutes([
     {
       path: 'addresses',
-      component: AddressesComponent
+      component: AddressesComponent,
+      data: { title: extract('Addresses') }
     }
   ])
 ];

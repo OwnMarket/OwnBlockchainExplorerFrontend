@@ -5,6 +5,8 @@
     <app-table-card
       title="Validators"
       [tableHeight]="tableHeight"
+      [headerHeight]="40"
+      [rowHeight]="70"
       [columns]="columns"
       [source]="validators | async"
       [loading]="isLoading | async"
@@ -22,9 +24,26 @@
 </ng-template>
 
 <ng-template #addKey let-row="row" let-value="value">
-  <a [routerLink]="['/address', value]" [title]="value">{{ value }}</a>
+  <a [routerLink]="['/address', value.blockchainAddress]" [title]="value">{{ value.blockchainAddress }}</a>
+  <br />
+  <span>{{ value.networkAddress }}</span>
 </ng-template>
 
 <ng-template #addValue let-row="row" let-value="value">
   <a [title]="value">{{ value }}</a>
+</ng-template>
+
+<ng-template #rewardPerc let-row="row" let-value="value">
+  <div class="progress" style="height: 15px; margin-right: 25px;">
+    <div
+      class="progress-bar"
+      role="progressbar"
+      [ngStyle]="{ width: value + '%' }"
+      [attr.aria-valuenow]="value"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      {{ value }}%
+    </div>
+  </div>
 </ng-template>

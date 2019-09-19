@@ -9,4 +9,8 @@ export interface ValidatorStat {
   rewardsCollected: number;
   rewardsDistributed: number;
   isActive: boolean;
+  fullAddress?: {
+    blockchainAddress: string;
+    networkAddress: string;
+  };
 }

@@ -13,6 +13,7 @@ export class ValidatorsComponent implements OnInit {
   @ViewChild('txStatus') txStatus: TemplateRef<any>;
   @ViewChild('addKey') addKey: TemplateRef<any>;
   @ViewChild('addValue') addValue: TemplateRef<any>;
+  @ViewChild('rewardPerc') rewardPerc: TemplateRef<any>;
 
   validators: Observable<ValidatorStat[]>;
   isLoading: Observable<boolean>;
@@ -38,35 +39,27 @@ export class ValidatorsComponent implements OnInit {
         maxWidth: 50
       },
       {
-        name: 'Blockchain Address',
-        prop: 'blockchainAddress',
-        sortable: true,
+        name: 'Validator Address',
+        prop: 'fullAddress',
         cellTemplate: this.addKey
-      },
-      {
-        name: 'Network Address',
-        prop: 'networkAddress',
-        sortable: true,
-        cellTemplate: this.addValue
       },
       {
         name: 'Deposit',
         prop: 'deposit',
         sortable: true,
-        cellTemplate: this.addValue,
         maxWidth: 70
       },
       {
         name: 'Stake',
         prop: 'totalStake',
         sortable: true,
-        cellTemplate: this.addValue,
-        maxWidth: 70
+        maxWidth: 150
       },
       {
         name: 'Reward %',
         prop: 'sharedRewardPercent',
         sortable: true,
+        cellTemplate: this.rewardPerc,
         maxWidth: 100
       },
       {
@@ -85,14 +78,12 @@ export class ValidatorsComponent implements OnInit {
         name: 'Blocks*',
         prop: 'blocksProposed',
         sortable: true,
-        cellTemplate: this.addValue,
         maxWidth: 70
       },
       {
         name: 'TXs*',
         prop: 'txsProposed',
         sortable: true,
-        cellTemplate: this.addValue,
         maxWidth: 50
       }
     ];
@@ -104,21 +95,34 @@ export class ValidatorsComponent implements OnInit {
           this.totalValidators = resp.data.length;
           this.activeValidators = resp.data.filter(validator => validator.isActive === true).length;
 
-          this.totalStakes = resp.data
-            .map((item: ValidatorStat) => item.totalStake)
-            .reduce((total: number, current: number) => total + current, 0);
+          this.totalStakes = Math.floor(
+            resp.data
+              .map((item: ValidatorStat) => item.totalStake)
+              .reduce((total: number, current: number) => total + current, 0)
+          );
 
-          this.totalDeposits = resp.data
-            .map((item: ValidatorStat) => item.deposit)
-            .reduce((total: number, current: number) => total + current, 0);
+          this.totalDeposits = Math.floor(
+            resp.data
+              .map((item: ValidatorStat) => item.deposit)
+              .reduce((total: number, current: number) => total + current, 0)
+          );
 
           this.info = `
-          <strong>${this.totalValidators}</strong> validators 
-          (<strong>${this.activeValidators}</strong> active) have 
-          <strong>${this.totalStakes}</strong> CHX at stake and 
-          <strong>${this.totalDeposits}</strong> CHX locked in deposits.`;
+            <strong>${this.totalValidators}</strong> validators 
+            (<strong>${this.activeValidators}</strong> active) have 
+            <strong>${this.totalStakes}</strong> CHX at stake and 
+            <strong>${this.totalDeposits}</strong> CHX locked in deposits.
+          `;
 
           this.isLoading = of(false);
+          resp.data.forEach((item: ValidatorStat) => {
+            item.fullAddress = {
+              blockchainAddress: item.blockchainAddress,
+              networkAddress: item.networkAddress
+            };
+
+            item.totalStake = Math.floor(item.totalStake);
+          });
           return resp.data;
         }
       })
