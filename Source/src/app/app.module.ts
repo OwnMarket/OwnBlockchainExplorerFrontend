@@ -20,6 +20,7 @@ import { TransactionsModule } from './views/transactions/transactions.module';
 import { AddressInfoModule } from './views/address-info/address-info.module';
 import { AddressesModule } from './views/addresses/addresses.module';
 import { ValidatorsModule } from './views/validators/validators.module';
+import { EquivocationModule } from './views/equivocation/equivocation.module';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { ValidatorsModule } from './views/validators/validators.module';
     AddressInfoModule,
     AddressesModule,
     ValidatorsModule,
+    EquivocationModule,
     AppRoutingModule
   ],
   declarations: [AppComponent],

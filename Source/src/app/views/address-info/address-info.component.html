@@ -71,6 +71,7 @@
   <div class="row mt-5">
     <div class="col-12">
       <app-filter-selector (onFilterChange)="filterEvents($event)"> </app-filter-selector>
+
       <app-table-card
         [title]="'Events (Total: ' + (eventsCount | async) + ')'"
         [tableHeight]="tableHeight"

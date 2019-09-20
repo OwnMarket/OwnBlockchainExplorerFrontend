@@ -122,7 +122,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
         cellTemplate: this.blockLink
       },
       {
-        name: 'Tx',
+        name: 'TX',
         prop: 'transactionHash',
         sortable: false,
         cellTemplate: this.txLink

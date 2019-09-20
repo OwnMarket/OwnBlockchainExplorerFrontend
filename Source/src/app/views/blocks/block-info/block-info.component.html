@@ -199,8 +199,13 @@
 </div>
 
 <ng-template #txHash let-row="row" let-value="value">
-  <a [routerLink]="['/tx', value]">{{ value }}</a>
+  <a [routerLink]="['/tx', value]" [title]="value">{{ value }}</a>
 </ng-template>
+
 <ng-template #txAddress let-row="row" let-value="value">
-  <a [routerLink]="['/address', value]">{{ value }}</a>
+  <a [routerLink]="['/address', value]" [title]="value">{{ value }}</a>
+</ng-template>
+
+<ng-template #txEquivocation let-row="row" let-value="value">
+  <a [routerLink]="['/equivocation', value]" [title]="value">{{ value }}</a>
 </ng-template>

@@ -15,6 +15,7 @@ const log = new Logger('BlockInfo');
 export class BlockInfoComponent implements OnInit, OnDestroy {
   @ViewChild('txHash') txHash: TemplateRef<any>;
   @ViewChild('txAddress') txAddress: TemplateRef<any>;
+  @ViewChild('txEquivocation') txEquivocation: TemplateRef<any>;
 
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;
@@ -101,7 +102,8 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
       {
         name: 'EQ hash',
         prop: 'equivocationProofHash',
-        sortable: false
+        sortable: false,
+        cellTemplate: this.txEquivocation
       },
       {
         name: 'Slashed amount',

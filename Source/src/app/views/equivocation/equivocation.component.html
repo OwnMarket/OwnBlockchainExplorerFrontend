@@ -1,0 +1,47 @@
+<div *ngIf="equivocation$ | async as equivocation">
+  <!-- TITLE -->
+  <div class="row justify-content-md-center">
+    <div class="col-12 col-md-10 ml-3">
+      <app-page-title title="Equivocation"></app-page-title>
+    </div>
+  </div>
+
+  <!-- LOADER -->
+  <app-loader [isLoading]="loading$ | async"></app-loader>
+
+  <div [hidden]="loading$ | async" class="detail-info">
+    <div class="row justify-content-md-center">
+      <div class="col-12 col-md-10">
+        <div class="row">
+          <div class="col-12 col-lg-8">
+            <p class="title-card ml-3">&nbsp;</p>
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-5 col-md-3">
+                    <p class="info-label">Transaction Hash</p>
+                  </div>
+                  <div class="col-7 col-md-9 text-right">
+                    <p class="info-value">{{ equivocation.equivocationProofHash }}</p>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-6 col-md-4">
+                    <p class="info-label">Block number</p>
+                  </div>
+                  <div class="col-6 col-md-8 text-right">
+                    <p class="info-value">
+                      <a class="text-secondary" [routerLink]="['/block', equivocation.blockNumber]">{{
+                        equivocation.blockNumber
+                      }}</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

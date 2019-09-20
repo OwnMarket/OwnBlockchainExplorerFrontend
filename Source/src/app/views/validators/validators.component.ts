@@ -17,10 +17,6 @@ export class ValidatorsComponent implements OnInit {
 
   validators: Observable<ValidatorStat[]>;
   isLoading: Observable<boolean>;
-  totalValidators: number;
-  activeValidators: number;
-  totalStakes: number;
-  totalDeposits: number;
   info: string;
 
   // table config
@@ -89,29 +85,30 @@ export class ValidatorsComponent implements OnInit {
     ];
 
     this.isLoading = of(true);
+
     this.validators = this.service.getValidatorStats().pipe(
       map(resp => {
         if (resp.data) {
-          this.totalValidators = resp.data.length;
-          this.activeValidators = resp.data.filter(validator => validator.isActive === true).length;
+          const totalValidators = resp.data.length;
+          const activeValidators = resp.data.filter(validator => validator.isActive === true).length;
 
-          this.totalStakes = Math.floor(
+          const totalStakes = Math.floor(
             resp.data
               .map((item: ValidatorStat) => item.totalStake)
               .reduce((total: number, current: number) => total + current, 0)
           );
 
-          this.totalDeposits = Math.floor(
+          const totalDeposits = Math.floor(
             resp.data
               .map((item: ValidatorStat) => item.deposit)
               .reduce((total: number, current: number) => total + current, 0)
           );
 
           this.info = `
-            <strong>${this.totalValidators}</strong> validators 
-            (<strong>${this.activeValidators}</strong> active) have 
-            <strong>${this.totalStakes}</strong> CHX at stake and 
-            <strong>${this.totalDeposits}</strong> CHX locked in deposits.
+            <strong>${totalValidators}</strong> validators 
+            (<strong>${activeValidators}</strong> active) have 
+            <strong>${totalStakes}</strong> CHX at stake and 
+            <strong>${totalDeposits}</strong> CHX locked in deposits.
           `;
 
           this.isLoading = of(false);
@@ -123,6 +120,7 @@ export class ValidatorsComponent implements OnInit {
 
             item.totalStake = Math.floor(item.totalStake);
           });
+
           return resp.data;
         }
       })
