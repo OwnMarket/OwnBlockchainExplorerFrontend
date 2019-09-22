@@ -7,13 +7,13 @@ import { AddressesService } from './addresses.service';
   providedIn: 'root'
 })
 export class AddressesStoreService {
-  private readonly _addresses = new BehaviorSubject<AddressStat[]>([]);
-  private readonly _loadingAddresses = new BehaviorSubject<boolean>(false);
+  private _addresses = new BehaviorSubject<AddressStat[]>([]);
+  private _loadingAddresses = new BehaviorSubject<boolean>(false);
+  private _canLoadMore = new BehaviorSubject<boolean>(true);
 
-  // tslint:disable-next-line: member-ordering
   readonly addresses$ = this._addresses.asObservable();
-  // tslint:disable-next-line: member-ordering
   readonly loadingAddresses$ = this._loadingAddresses.asObservable();
+  readonly canLoadMore$ = this._canLoadMore.asObservable();
 
   constructor(private service: AddressesService) {}
 
@@ -23,6 +23,10 @@ export class AddressesStoreService {
 
   get loadingAddresses(): boolean {
     return this._loadingAddresses.getValue();
+  }
+
+  get canLoadMore(): boolean {
+    return this._canLoadMore.getValue();
   }
 
   set addresses(value: AddressStat[]) {
@@ -37,6 +41,10 @@ export class AddressesStoreService {
     this._addresses.next([...this.addresses, ...value]);
   }
 
+  set canLoadMore(value: boolean) {
+    this._canLoadMore.next(value);
+  }
+
   getAddresses(page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingAddresses = true;
     this.service.getAddresses(page, limit).subscribe(res => {
@@ -46,7 +54,12 @@ export class AddressesStoreService {
         } else {
           this.addresses = res.data;
         }
-        this.loadingAddresses = false;
+      }
+
+      this.loadingAddresses = false;
+
+      if (res.data.length === 0) {
+        this.canLoadMore = false;
       }
     });
   }

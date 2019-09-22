@@ -20,7 +20,7 @@ export class ValidatorsComponent implements OnInit {
   info: string;
 
   // table config
-  tableHeight = '600px';
+  tableHeight = '900px';
   columns: any[];
 
   constructor(private service: ValidatorsService) {}
@@ -105,9 +105,9 @@ export class ValidatorsComponent implements OnInit {
           );
 
           this.info = `
-            <strong>${totalValidators}</strong> validators 
-            (<strong>${activeValidators}</strong> active) have 
-            <strong>${totalStakes}</strong> CHX at stake and 
+            <strong>${totalValidators}</strong> validators
+            (<strong>${activeValidators}</strong> active) have
+            <strong>${totalStakes}</strong> CHX at stake and
             <strong>${totalDeposits}</strong> CHX locked in deposits.
           `;
 

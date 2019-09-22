@@ -4,13 +4,14 @@
   <div class="col-12">
     <app-table-card
       title="Validators"
-      [tableHeight]="tableHeight"
+      [tableHeight]="'900px'"
       [headerHeight]="40"
-      [rowHeight]="70"
+      [rowHeight]="80"
       [columns]="columns"
       [source]="validators | async"
       [loading]="isLoading | async"
       [stakes]="info"
+      [showAll]="true"
     >
     </app-table-card>
 

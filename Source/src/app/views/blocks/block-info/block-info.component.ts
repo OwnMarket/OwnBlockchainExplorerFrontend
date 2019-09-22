@@ -44,6 +44,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
 
   stakingRewards: Observable<any[]>;
   loadingStakingRewards: Observable<boolean>;
+  canLoadMoreStakingRewards: Observable<boolean>;
   stakingRewardColumns: any[];
 
   public isAddCollapsed = true;
@@ -66,6 +67,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
 
       this.stakingRewards = this.blockStoreService.stakingRewards$.pipe(untilDestroyed(this));
       this.loadingStakingRewards = this.blockStoreService.loadingStakingRewards$.pipe(untilDestroyed(this));
+      this.canLoadMoreStakingRewards = this.blockStoreService.canLoadMoreStakingRewards$.pipe(untilDestroyed(this));
 
       this.getBlockInfo();
       this.getTransactions();

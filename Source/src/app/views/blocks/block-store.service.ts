@@ -19,6 +19,7 @@ export class BlockStoreService {
   private readonly _loadingEquivocations = new BehaviorSubject<boolean>(false);
   private readonly _stakingRewards = new BehaviorSubject<any[]>([]);
   private readonly _loadingStakingRewards = new BehaviorSubject<boolean>(false);
+  private readonly _canLoadMoreStakingRewards = new BehaviorSubject<boolean>(true);
 
   // Expose the observable$ part of the _blocks subject (read only stream)
   // tslint:disable-next-line: member-ordering
@@ -41,6 +42,8 @@ export class BlockStoreService {
   readonly stakingRewards$ = this._stakingRewards.asObservable();
   // tslint:disable-next-line: member-ordering
   readonly loadingStakingRewards$ = this._loadingStakingRewards.asObservable();
+  // tslint:disable-next-line: member-ordering
+  readonly canLoadMoreStakingRewards$ = this._canLoadMoreStakingRewards.asObservable();
 
   constructor(private blockService: BlockService) {}
 
@@ -67,6 +70,10 @@ export class BlockStoreService {
 
   get stakingRewards(): any[] {
     return this._stakingRewards.getValue();
+  }
+
+  get canLoadMoreStakingRewards(): boolean {
+    return this._canLoadMoreStakingRewards.getValue();
   }
 
   // assigning a value to this.blocks will push it onto the observable
@@ -123,6 +130,10 @@ export class BlockStoreService {
     this._loadingStakingRewards.next(val);
   }
 
+  set canLoadMoreStakingRewards(value: boolean) {
+    this._canLoadMoreStakingRewards.next(false);
+  }
+
   set appendStakingRewards(val: any[]) {
     this._stakingRewards.next([...this.stakingRewards, ...val]);
   }
@@ -175,15 +186,18 @@ export class BlockStoreService {
   getStakingRewards(blockNumber: number, page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingStakingRewards = true;
     this.blockService.getStakingRewards(blockNumber, { page, limit }).subscribe(res => {
-      if (shouldAppend) {
-        this.stakingRewards = res;
-      } else {
-        this.stakingRewards = res;
+      if (res.length > 0) {
+        if (shouldAppend) {
+          this.appendStakingRewards = res;
+        } else {
+          this.stakingRewards = res;
+        }
       }
-      //filter out staking rewards with zero amount
-      this.stakingRewards = this.stakingRewards.filter(function(reward) {
-        return reward.amount > 0;
-      });
+
+      if (res.length === 0) {
+        this.canLoadMoreStakingRewards = false;
+      }
+
       this.loadingStakingRewards = false;
     });
   }

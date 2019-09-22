@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter, ElementRef } from '@angular/core';
-import * as _ from 'lodash';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Logger } from '@app/core';
 
@@ -13,10 +12,9 @@ const log = new Logger('Table-Card');
 })
 export class TableCardComponent implements OnInit {
   expanded = true;
-  lodash = _;
   expandedRow: any = {};
 
-  activeFilter: string = 'current';
+  activeFilter = 'current';
   // Inputs
   @Input() title: string;
   @Input() expandable = false;
@@ -32,17 +30,19 @@ export class TableCardComponent implements OnInit {
   @Input() canLoadMore = true;
   @Input() columns: any[];
   @Input() stakes: number;
+  @Input() showAll = false;
 
-  // @Input() source: any[];
   source: any[];
   @Input('source') set _source(value: any[]) {
     if (!this.loading) {
       if (value.length === 0) {
         this.tableHeight = '25px';
       } else if (value.length < 10) {
-        this.tableHeight = value.length * 50 + 100 + 'px';
+        this.tableHeight = value.length * this.rowHeight + 100 + 'px';
+      } else if (value.length > 0 && this.showAll) {
+        this.tableHeight = value.length * this.rowHeight + 100 + 'px';
       } else {
-        this.tableHeight = '600px';
+        this.tableHeight = '500px';
       }
       this.source = value;
     }

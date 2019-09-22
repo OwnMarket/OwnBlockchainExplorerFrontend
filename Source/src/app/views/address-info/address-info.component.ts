@@ -190,7 +190,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Amount',
         prop: 'amount',
-        maxWidth: 150,
+        maxWidth: 80,
         sortable: false
       }
     ];
@@ -204,7 +204,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Amount',
         prop: 'amount',
-        maxWidth: 150,
+        maxWidth: 80,
         sortable: false
       }
     ];

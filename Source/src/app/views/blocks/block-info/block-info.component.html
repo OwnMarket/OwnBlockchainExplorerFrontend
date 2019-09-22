@@ -192,6 +192,7 @@
         [loading]="loadingStakingRewards | async"
         [source]="stakingRewards | async"
         (loadMore)="onLoadMoreStakingRewards($event)"
+        [canLoadMore]="canLoadMoreStakingRewards | async"
       >
       </app-table-card>
     </div>

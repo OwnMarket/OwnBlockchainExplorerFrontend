@@ -15,7 +15,7 @@ mkdir -p "$OUTPUT_DIR"
 echo "--- Building project..."
 cd "../Source"
 npm ci
-npm run build -- --prod
+npm run build
 
 echo "--- Creating package..."
 cd "dist"

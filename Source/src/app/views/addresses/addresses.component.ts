@@ -15,6 +15,7 @@ export class AddressesComponent implements OnInit, OnDestroy {
 
   addresses: Observable<AddressStat[]>;
   isLoading: Observable<boolean>;
+  canLoad: Observable<boolean>;
 
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;
@@ -43,6 +44,7 @@ export class AddressesComponent implements OnInit, OnDestroy {
 
     this.addresses = this.addressesStoreService.addresses$.pipe(untilDestroyed(this));
     this.isLoading = this.addressesStoreService.loadingAddresses$.pipe(untilDestroyed(this));
+    this.canLoad = this.addressesStoreService.canLoadMore$.pipe(untilDestroyed(this));
     this.getAddresses();
   }
 

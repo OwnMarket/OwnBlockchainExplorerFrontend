@@ -117,7 +117,7 @@
                   </div>
                   <div class="col-6 border-right">
                     <p class="info-value" *ngIf="transaction.expirationTime">
-                      {{ transaction.expirationTime + 'Z' | date: 'hh:mm:ss' }}
+                      {{ transaction.expirationTime | displayTimestamp }}
                     </p>
                     <p class="info-value" *ngIf="!transaction.expirationTime">
                       -
