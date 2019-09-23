@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { extract } from '@app/core';
-import { TransactionsComponent } from './transactions.component';
+import { BlockInfoComponent } from './block-info.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: TransactionsComponent,
-    data: { title: extract('Transactions') }
+    path: ':number',
+    component: BlockInfoComponent,
+    data: { title: extract('Block info') }
   }
 ];
 
@@ -16,4 +16,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TransactionsRoutingModule {}
+export class BlockInfoRoutingModule {}

@@ -2,8 +2,7 @@ import { Component, OnInit, OnDestroy, Input, TemplateRef, ViewChild } from '@an
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Logger, untilDestroyed } from '@app/core';
 import { Observable } from 'rxjs';
-
-import { BlockStoreService } from '../block-store.service';
+import { BlockStoreService } from '../blocks/block-store.service';
 
 const log = new Logger('BlockInfo');
 

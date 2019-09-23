@@ -17,12 +17,14 @@ import { CamelCaseToSpace } from './pipes/camelcase-to-space.pipe';
 import { CustomClock } from './clock';
 import { DisplayTimestampPipe } from './pipes/display-timestamp.pipe';
 import { FilterSelectorComponent } from './components/filter-selector/filter-selector.component';
+import { HeaderModule } from './components/header/header.module';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     NgxDatatableModule,
+    HeaderModule,
     TimeagoModule.forRoot({ clock: { provide: TimeagoClock, useClass: CustomClock } })
   ],
   declarations: [
@@ -47,7 +49,8 @@ import { FilterSelectorComponent } from './components/filter-selector/filter-sel
     TimeagoModule,
     CamelCaseToSpace,
     DisplayTimestampPipe,
-    FilterSelectorComponent
+    FilterSelectorComponent,
+    HeaderModule
   ]
 })
 export class SharedModule {}

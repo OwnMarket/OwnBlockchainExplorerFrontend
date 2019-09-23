@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy, Input, ViewChild, TemplateRef } from '@angular/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { switchMap, finalize } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Logger, untilDestroyed } from '@app/core';
 import { Observable } from 'rxjs';
-import { TransactionStoreService } from '../transaction-store.service';
 import { CryptoService } from '@app/shared/services/crypto.service';
+import { TransactionStoreService } from '../transactions/transaction-store.service';
 
 const log = new Logger('TransactionInfo');
 @Component({
