@@ -40,7 +40,189 @@
               </div>
             </div>
           </div>
+          <div class="col-12 col-lg-4 from-card-section">
+            <h6>&nbsp;</h6>
+            <div class="card-transparent">
+              <div class="card-body">
+                <div class="row details-row-item">
+                  <div class="col-6">
+                    <p class="info-label">Round</p>
+                  </div>
+                  <div class="col-6 text-right">
+                    <p class="info-value" *ngIf="equivocation.consensusRound">{{ equivocation.consensusRound }}</p>
+                    <p class="info-value" *ngIf="!equivocation.consensusRound">
+                      -
+                    </p>
+                  </div>
+                </div>
+                <div class="row details-row-item">
+                  <div class="col-6">
+                    <p class="info-label">Step</p>
+                  </div>
+                  <div class="col-6 text-right">
+                    <p class="info-value" *ngIf="equivocation.consensusStep">{{ equivocation.consensusStep }}</p>
+                    <p class="info-value" *ngIf="!equivocation.consensusStep">
+                      -
+                    </p>
+                  </div>
+                </div>
+
+                <div class="row details-row-item">
+                  <div class="col-6">
+                    <p class="info-label">In Block Number</p>
+                  </div>
+                  <div class="col-6 text-right">
+                    <p class="info-value" *ngIf="equivocation.includedInBlockNumber">
+                      {{ equivocation.includedInBlockNumber }}
+                    </p>
+                    <p class="info-value" *ngIf="!equivocation.includedInBlockNumber">
+                      -
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="col-12 mt-5">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <div class="row details-row-item">
+                <div class="col-3">
+                  <p class="info-label">Value 1</p>
+                </div>
+                <div class="col-9 border-right">
+                  <p class="info-value" *ngIf="equivocation.equivocationValue1">
+                    {{ equivocation.equivocationValue1 }}
+                  </p>
+                  <p class="info-value" *ngIf="!equivocation.equivocationValue1">
+                    -
+                  </p>
+                </div>
+              </div>
+
+              <div class="row details-row-item">
+                <div class="col-3">
+                  <p class="info-label">Value 2</p>
+                </div>
+                <div class="col-9 border-right">
+                  <p class="info-value" *ngIf="equivocation.equivocationValue2">
+                    {{ equivocation.equivocationValue2 }}
+                  </p>
+                  <p class="info-value" *ngIf="!equivocation.equivocationValue2">
+                    -
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="row details-row-item">
+                <div class="col-3">
+                  <p class="info-label">Signature 1</p>
+                </div>
+                <div class="col-9">
+                  <p class="info-value" *ngIf="equivocation.signature1">
+                    {{ equivocation.signature1 }}
+                  </p>
+                  <p class="info-value" *ngIf="!equivocation.signature1">
+                    -
+                  </p>
+                </div>
+              </div>
+
+              <div class="row details-row-item">
+                <div class="col-3">
+                  <p class="info-label">Signature 2</p>
+                </div>
+                <div class="col-9">
+                  <p class="info-value" *ngIf="equivocation.signature2">
+                    {{ equivocation.signature2 }}
+                  </p>
+                  <p class="info-value" *ngIf="!equivocation.signature2">
+                    -
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ACTIONS INFORMATION -->
+            <div class="col-12 mt-3">
+              <div class="card-header transparent">
+                <span class="additional-label">Taken Deposit</span>
+                <div class="float-right">
+                  <i
+                    [ngClass]="takenDepositExpanded ? 'fa-angle-up' : 'fa-angle-down'"
+                    class="fas icon-pointer"
+                    (click)="expandTakenDeposit()"
+                  ></i>
+                </div>
+              </div>
+              <div class="card-body" *ngIf="takenDepositExpanded">
+                <div id="actions-lit" class="row">
+                  <div class="col-12 head">
+                    <div class="row">
+                      <div class="col-5">
+                        <b>Address</b>
+                      </div>
+                      <div class="col-5 text-center">
+                        <b>Equivocation Proof Hash</b>
+                      </div>
+                      <div class="col-2 text-right">
+                        <b>Amount</b>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="row detail-info mt-3">
+                      <div class="col-5">
+                        <a
+                          *ngIf="equivocation.takenDeposit.blockchainAddress"
+                          [routerLink]="['/address', equivocation.takenDeposit.blockchainAddress]"
+                        >
+                          {{ equivocation.takenDeposit.blockchainAddress }}
+                        </a>
+                        <p *ngIf="!equivocation.takenDeposit.blockchainAddress">-</p>
+                      </div>
+
+                      <div class="col-5 text-center">
+                        <a
+                          *ngIf="equivocation.takenDeposit.equivocationProofHash"
+                          [routerLink]="['/equivocation', equivocation.takenDeposit.equivocationProofHash]"
+                        >
+                          {{ equivocation.takenDeposit.equivocationProofHash }}
+                        </a>
+                        <p *ngIf="!equivocation.takenDeposit.equivocationProofHash">-</p>
+                      </div>
+
+                      <div class="col-2 text-right">
+                        <p class="info-value">{{ equivocation.takenDeposit.amount }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-5">
+          <div class="col-12">
+            <app-table-card
+              title="Given Deposits"
+              [columns]="columns"
+              [source]="equivocation.givenDeposits"
+              [loading]="loading$ | async"
+            >
+            </app-table-card>
+          </div>
+        </div>
+
+        <ng-template #addKey let-row="row" let-value="value">
+          <a [routerLink]="['/address', value]" [title]="value">{{ value }}</a>
+        </ng-template>
       </div>
     </div>
   </div>

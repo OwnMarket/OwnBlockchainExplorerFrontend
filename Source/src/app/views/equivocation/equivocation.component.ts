@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { EquivocationStoreService } from './equivocation-store.service';
 import { Observable, Subscription } from 'rxjs';
 import { Equivocation } from '@app/core/models/equivocation.model';
@@ -12,9 +12,15 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./equivocation.component.scss']
 })
 export class EquivocationComponent implements OnInit, OnDestroy {
+  @ViewChild('addKey') addKey: TemplateRef<any>;
+
   equivocation$: Observable<Equivocation>;
   loading$: Observable<boolean>;
   subscription: Subscription;
+  columns: any[];
+
+  takenDepositExpanded = false;
+  takenDepositsExpanded = false;
 
   constructor(private route: ActivatedRoute, private equivocationStoreService: EquivocationStoreService) {}
 
@@ -28,6 +34,21 @@ export class EquivocationComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+
+    this.columns = [
+      {
+        name: 'Address',
+        prop: 'blockchainAddress',
+        sortable: true,
+        cellTemplate: this.addKey
+      },
+      {
+        name: 'Amount',
+        prop: 'amount',
+        sortable: true,
+        maxWidth: 100
+      }
+    ];
   }
 
   ngOnDestroy() {
@@ -36,5 +57,9 @@ export class EquivocationComponent implements OnInit, OnDestroy {
 
   getEquivocation(equivocationHash: string) {
     this.equivocationStoreService.getEquivocation(equivocationHash);
+  }
+
+  expandTakenDeposit() {
+    this.takenDepositExpanded = !this.takenDepositExpanded;
   }
 }

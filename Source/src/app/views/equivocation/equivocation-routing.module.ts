@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: ':hash',
     component: EquivocationComponent,
-    data: { title: extract('Transactions') }
+    data: { title: extract('Equivocation Info') }
   }
 ];
 
