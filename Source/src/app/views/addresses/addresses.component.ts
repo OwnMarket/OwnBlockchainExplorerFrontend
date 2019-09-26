@@ -16,6 +16,7 @@ export class AddressesComponent implements OnInit, OnDestroy {
   addresses: Observable<AddressStat[]>;
   isLoading: Observable<boolean>;
   canLoad: Observable<boolean>;
+  addressCount: Observable<number>;
 
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;
@@ -29,13 +30,13 @@ export class AddressesComponent implements OnInit, OnDestroy {
     this.columns = [
       {
         name: 'Address',
-        prop: 'key',
+        prop: 'blockchainAddress',
         sortable: true,
         cellTemplate: this.addKey
       },
       {
         name: 'Total Balance',
-        prop: 'value',
+        prop: 'totalBalance',
         sortable: true,
         maxWidth: 150,
         cellTemplate: this.addValue
@@ -45,6 +46,7 @@ export class AddressesComponent implements OnInit, OnDestroy {
     this.addresses = this.addressesStoreService.addresses$.pipe(untilDestroyed(this));
     this.isLoading = this.addressesStoreService.loadingAddresses$.pipe(untilDestroyed(this));
     this.canLoad = this.addressesStoreService.canLoadMore$.pipe(untilDestroyed(this));
+    this.addressCount = this.addressesStoreService.totalAddresses$.pipe(untilDestroyed(this));
     this.getAddresses();
   }
 

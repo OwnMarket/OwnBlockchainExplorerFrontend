@@ -11,11 +11,11 @@ import { ValidatorGeo } from '@app/core/models/validator-geo.model';
 export class ValidatorsService {
   constructor(private http: HttpClient) {}
 
-  getValidatorStats(numberOfDays: number = 7): Observable<ApiResponse<ValidatorStat>> {
-    return this.http.get<ApiResponse<ValidatorStat>>(`/stats/validators?numberOfDays=${numberOfDays}`);
+  getValidatorStats(numberOfDays: number = 7): Observable<ApiResponse<ValidatorStat[]>> {
+    return this.http.get<ApiResponse<ValidatorStat[]>>(`/stats/validators?numberOfDays=${numberOfDays}`);
   }
 
-  fetchValidatorGeo(): Observable<ApiResponse<ValidatorGeo>> {
-    return this.http.get<ApiResponse<ValidatorGeo>>('/validators-geo');
+  fetchValidatorGeo(): Observable<ApiResponse<ValidatorGeo[]>> {
+    return this.http.get<ApiResponse<ValidatorGeo[]>>('/validators-geo');
   }
 }

@@ -1,4 +1,4 @@
 export interface AddressStat {
-  key: string;
-  value: number;
+  blockchainAddress: string;
+  totalBalance: number;
 }

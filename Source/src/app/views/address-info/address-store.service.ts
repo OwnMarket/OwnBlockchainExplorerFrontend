@@ -214,34 +214,38 @@ export class AddressInfoStoreService {
   getDelegatedStakes(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingDelegatedStakes = true;
     this.addressService.getAddressDelegatedStakes(blockchainAddress, { page, limit }).subscribe(res => {
-      if (shouldAppend) {
-        this.appendDelegatedStakes = res;
+      if (res.stakes) {
+        this.delegatedStakesTotal = res.totalAmount;
+        if (shouldAppend) {
+          this.appendDelegatedStakes = res.stakes;
+        } else {
+          this.delegatedStakes = res.stakes;
+        }
+        this.loadingDelegatedStakes = false;
       } else {
-        this.delegatedStakes = res;
+        this.delegatedStakes = [];
         this.delegatedStakesTotal = 0;
+        this.loadingDelegatedStakes = false;
       }
-      this.loadingDelegatedStakes = false;
-      // calculate total amount of delegated stakes
-      this.delegatedStakesTotal = res
-        .map((item: Stake) => item.amount)
-        .reduce((current: number, total: number) => current + total, this.delegatedStakesTotal);
     });
   }
 
   getReceivedStakes(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingReceivedStakes = true;
     this.addressService.getAddressReceivedStakes(blockchainAddress, { page, limit }).subscribe(res => {
-      if (shouldAppend) {
-        this.appendReceivedStakes = res;
+      if (res.stakes) {
+        this.receivedStakesTotal = res.totalAmount;
+        if (shouldAppend) {
+          this.appendReceivedStakes = res.stakes;
+        } else {
+          this.receivedStakes = res.stakes;
+        }
+        this.loadingReceivedStakes = false;
       } else {
-        this.receivedStakes = res;
+        this.receivedStakes = [];
         this.receivedStakesTotal = 0;
+        this.loadingReceivedStakes = false;
       }
-      this.loadingReceivedStakes = false;
-      // calculate total amount of received stakes
-      this.receivedStakesTotal = res
-        .map((item: Stake) => item.amount)
-        .reduce((current: number, total: number) => current + total, this.receivedStakesTotal);
     });
   }
 

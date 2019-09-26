@@ -65,7 +65,7 @@ export class AddressInfoService {
     );
   }
   // TODO: add models
-  getAddressDelegatedStakes(blockchainAddress: string, context: PageLimitContext): Observable<[]> {
+  getAddressDelegatedStakes(blockchainAddress: string, context: PageLimitContext): Observable<any> {
     return this.httpClient.get(routes.addressDelegatedStakes(blockchainAddress, context)).pipe(
       // TODO: make GENERIC api model!!
       map((response: any) => response.data),
@@ -75,7 +75,7 @@ export class AddressInfoService {
   }
 
   // TODO: add models
-  getAddressReceivedStakes(blockchainAddress: string, context: PageLimitContext): Observable<[]> {
+  getAddressReceivedStakes(blockchainAddress: string, context: PageLimitContext): Observable<any> {
     return this.httpClient.get(routes.addressReceivedStakes(blockchainAddress, context)).pipe(
       // TODO: make GENERIC api model!!
       map((response: any) => response.data),

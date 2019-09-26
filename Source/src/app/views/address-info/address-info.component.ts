@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy, Input, ViewChild, TemplateRef } from '@an
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap, finalize } from 'rxjs/operators';
 import { Logger, untilDestroyed } from '@app/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AddressInfoStoreService } from './address-store.service';
+import { Stake } from '@app/core/models/stake.model';
 
 const log = new Logger('AdressInfo');
 @Component({
@@ -27,6 +28,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     delegatedStakes: 1
   };
 
+  subscription: Subscription;
   blockchainAddress: string;
 
   addressInfo: Observable<any>;
@@ -66,7 +68,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private addressStoreService: AddressInfoStoreService) {}
 
   ngOnInit() {
-    this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params: ParamMap) => {
+    this.subscription = this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params: ParamMap) => {
       this.setupColumns();
       this.blockchainAddress = params.get('address');
       this.addressInfo = this.addressStoreService.addressInfo$.pipe(untilDestroyed(this));
@@ -99,7 +101,9 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
   filterEvents(event: string) {
     if (event !== '') {
