@@ -13,10 +13,10 @@ const log = new Logger('AdressInfo');
   styleUrls: ['./address-info.component.scss']
 })
 export class AddressInfoComponent implements OnInit, OnDestroy {
-  @ViewChild('addressStatus') addressStatus: TemplateRef<any>;
-  @ViewChild('blockLink') blockLink: TemplateRef<any>;
-  @ViewChild('addLink') addLink: TemplateRef<any>;
-  @ViewChild('txLink') txLink: TemplateRef<any>;
+  @ViewChild('addressStatus', { static: true }) addressStatus: TemplateRef<any>;
+  @ViewChild('blockLink', { static: true }) blockLink: TemplateRef<any>;
+  @ViewChild('addLink', { static: true }) addLink: TemplateRef<any>;
+  @ViewChild('txLink', { static: true }) txLink: TemplateRef<any>;
 
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;

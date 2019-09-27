@@ -50,9 +50,7 @@ export class ValidatorsMapComponent implements AfterViewInit {
 
     const localValidators = this.validatorsPerAddress(validator.location.latitude, validator.location.longitude);
 
-    let content = `<h4>${localValidators.length} in ${validator.location.city}, ${
-      validator.location.country_name
-    } <img src="${validator.location.country_flag}" width="20" alt="flag" /></h4>`;
+    let content = `<h4>${localValidators.length} in ${validator.location.city}, ${validator.location.country_name} <img src="${validator.location.country_flag}" width="20" alt="flag" /></h4>`;
 
     for (const item of localValidators) {
       content += `

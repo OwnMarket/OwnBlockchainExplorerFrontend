@@ -12,9 +12,9 @@ const log = new Logger('BlockInfo');
   styleUrls: ['./block-info.component.scss']
 })
 export class BlockInfoComponent implements OnInit, OnDestroy {
-  @ViewChild('txHash') txHash: TemplateRef<any>;
-  @ViewChild('txAddress') txAddress: TemplateRef<any>;
-  @ViewChild('txEquivocation') txEquivocation: TemplateRef<any>;
+  @ViewChild('txHash', { static: true }) txHash: TemplateRef<any>;
+  @ViewChild('txAddress', { static: true }) txAddress: TemplateRef<any>;
+  @ViewChild('txEquivocation', { static: true }) txEquivocation: TemplateRef<any>;
 
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;

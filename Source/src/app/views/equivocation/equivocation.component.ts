@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./equivocation.component.scss']
 })
 export class EquivocationComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('addLink') addLink: TemplateRef<any>;
+  @ViewChild('addLink', { static: true }) addLink: TemplateRef<any>;
 
   equivocation$: Observable<Equivocation>;
   loading$: Observable<boolean>;

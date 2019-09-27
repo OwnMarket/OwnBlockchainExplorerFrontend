@@ -11,10 +11,10 @@ const log = new Logger('Transactions');
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
-  @ViewChild('txHash') txHash: TemplateRef<any>;
-  @ViewChild('txBlock') txBlock: TemplateRef<any>;
-  @ViewChild('txAddress') txAddress: TemplateRef<any>;
-  @ViewChild('txBadge') txBadge: TemplateRef<any>;
+  @ViewChild('txHash', { static: true }) txHash: TemplateRef<any>;
+  @ViewChild('txBlock', { static: true }) txBlock: TemplateRef<any>;
+  @ViewChild('txAddress', { static: true }) txAddress: TemplateRef<any>;
+  @ViewChild('txBadge', { static: true }) txBadge: TemplateRef<any>;
 
   transactions: Observable<any[]>;
   isLoading: Observable<boolean>;

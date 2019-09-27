@@ -10,8 +10,8 @@ const log = new Logger('Blocks');
   styleUrls: ['./blocks.component.scss']
 })
 export class BlocksComponent implements OnInit, OnDestroy {
-  @ViewChild('linkBlock') linkBlock: TemplateRef<any>;
-  @ViewChild('passedTime') passedTime: TemplateRef<any>;
+  @ViewChild('linkBlock', { static: true }) linkBlock: TemplateRef<any>;
+  @ViewChild('passedTime', { static: true }) passedTime: TemplateRef<any>;
   // TODO: make models
   blocks: Observable<any[]>;
   isLoading: Observable<boolean>;

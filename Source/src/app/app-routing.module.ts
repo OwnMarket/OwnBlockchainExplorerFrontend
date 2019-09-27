@@ -9,39 +9,39 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: './views/home/home.module#HomeModule'
+    loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'blocks',
-    loadChildren: './views/blocks/block.module#BlockModule'
+    loadChildren: () => import('./views/blocks/block.module').then(m => m.BlockModule)
   },
   {
     path: 'block',
-    loadChildren: './views/block-info/block-info.module#BlockInfoModule'
+    loadChildren: () => import('./views/block-info/block-info.module').then(m => m.BlockInfoModule)
   },
   {
     path: 'transactions',
-    loadChildren: './views/transactions/transactions.module#TransactionsModule'
+    loadChildren: () => import('./views/transactions/transactions.module').then(m => m.TransactionsModule)
   },
   {
     path: 'tx',
-    loadChildren: './views/transaction-info/transaction-info.module#TransactionInfoModule'
+    loadChildren: () => import('./views/transaction-info/transaction-info.module').then(m => m.TransactionInfoModule)
   },
   {
     path: 'addresses',
-    loadChildren: './views/addresses/addresses.module#AddressesModule'
+    loadChildren: () => import('./views/addresses/addresses.module').then(m => m.AddressesModule)
   },
   {
     path: 'address',
-    loadChildren: './views/address-info/address-info.module#AddressInfoModule'
+    loadChildren: () => import('./views/address-info/address-info.module').then(m => m.AddressInfoModule)
   },
   {
     path: 'validators',
-    loadChildren: './views/validators/validators.module#ValidatorsModule'
+    loadChildren: () => import('./views/validators/validators.module').then(m => m.ValidatorsModule)
   },
   {
     path: 'equivocation',
-    loadChildren: './views/equivocation/equivocation.module#EquivocationModule'
+    loadChildren: () => import('./views/equivocation/equivocation.module').then(m => m.EquivocationModule)
   },
   {
     path: '**',

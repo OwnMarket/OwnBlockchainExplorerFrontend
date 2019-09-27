@@ -10,8 +10,8 @@ import { untilDestroyed } from '@app/core';
   styleUrls: ['./addresses.component.scss']
 })
 export class AddressesComponent implements OnInit, OnDestroy {
-  @ViewChild('addKey') addKey: TemplateRef<any>;
-  @ViewChild('addValue') addValue: TemplateRef<any>;
+  @ViewChild('addKey', { static: true }) addKey: TemplateRef<any>;
+  @ViewChild('addValue', { static: true }) addValue: TemplateRef<any>;
 
   addresses: Observable<AddressStat[]>;
   isLoading: Observable<boolean>;

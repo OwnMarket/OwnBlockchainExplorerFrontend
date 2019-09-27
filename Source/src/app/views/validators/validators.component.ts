@@ -10,10 +10,10 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./validators.component.scss']
 })
 export class ValidatorsComponent implements OnInit {
-  @ViewChild('txStatus') txStatus: TemplateRef<any>;
-  @ViewChild('addKey') addKey: TemplateRef<any>;
-  @ViewChild('addValue') addValue: TemplateRef<any>;
-  @ViewChild('rewardPerc') rewardPerc: TemplateRef<any>;
+  @ViewChild('txStatus', { static: true }) txStatus: TemplateRef<any>;
+  @ViewChild('addKey', { static: true }) addKey: TemplateRef<any>;
+  @ViewChild('addValue', { static: true }) addValue: TemplateRef<any>;
+  @ViewChild('rewardPerc', { static: true }) rewardPerc: TemplateRef<any>;
 
   validators: Observable<ValidatorStat[]>;
   isLoading: Observable<boolean>;
