@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: ':number',
     component: BlockInfoComponent,
-    data: { title: extract('Block info') }
+    data: { title: extract('Block') }
   }
 ];
 

@@ -27,7 +27,7 @@
                 </div>
                 <div class="row mt-3">
                   <div class="col-6 col-md-4">
-                    <p class="info-label">In Block number</p>
+                    <p class="info-label">Block number</p>
                   </div>
                   <div class="col-6 col-md-8 text-right">
                     <p class="info-value" *ngIf="equivocation.includedInBlockNumber">
@@ -47,7 +47,13 @@
               <div class="card-body">
                 <div class="row details-row-item">
                   <div class="col-6">
-                    <p class="info-label">Block Number</p>
+                    <p class="info-label">Detected in:</p>
+                  </div>
+                </div>
+
+                <div class="row details-row-item">
+                  <div class="col-6">
+                    <p class="info-label">Block number</p>
                   </div>
                   <div class="col-6 text-right">
                     <p class="info-value" *ngIf="equivocation.blockNumber">
@@ -63,7 +69,7 @@
 
                 <div class="row details-row-item">
                   <div class="col-6">
-                    <p class="info-label">Round</p>
+                    <p class="info-label">Consensus round</p>
                   </div>
                   <div class="col-6 text-right">
                     <p class="info-value" *ngIf="equivocation.consensusRound">{{ equivocation.consensusRound }}</p>
@@ -74,7 +80,7 @@
                 </div>
                 <div class="row details-row-item">
                   <div class="col-6">
-                    <p class="info-label">Step</p>
+                    <p class="info-label">Consensus step</p>
                   </div>
                   <div class="col-6 text-right">
                     <p class="info-value" *ngIf="equivocation.consensusStep">{{ equivocation.consensusStep }}</p>
