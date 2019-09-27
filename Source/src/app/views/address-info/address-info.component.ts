@@ -15,6 +15,7 @@ const log = new Logger('AdressInfo');
 export class AddressInfoComponent implements OnInit, OnDestroy {
   @ViewChild('addressStatus') addressStatus: TemplateRef<any>;
   @ViewChild('blockLink') blockLink: TemplateRef<any>;
+  @ViewChild('addLink') addLink: TemplateRef<any>;
   @ViewChild('txLink') txLink: TemplateRef<any>;
 
   @Input() tableHeight = '500px';
@@ -189,7 +190,8 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Validator address',
         prop: 'validatorAddress',
-        sortable: false
+        sortable: false,
+        cellTemplate: this.addLink
       },
       {
         name: 'Amount',
@@ -203,7 +205,8 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Staker address',
         prop: 'stakerAddress',
-        sortable: false
+        sortable: false,
+        cellTemplate: this.addLink
       },
       {
         name: 'Amount',

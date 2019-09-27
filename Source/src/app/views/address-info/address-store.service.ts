@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AddressInfoService } from './address.service';
-import { thisTypeAnnotation } from 'babel-types';
-
-import { Stake } from '../../core/models/stake.model';
 
 @Injectable({ providedIn: 'root' })
 export class AddressInfoStoreService {
@@ -215,17 +212,16 @@ export class AddressInfoStoreService {
     this.loadingDelegatedStakes = true;
     this.addressService.getAddressDelegatedStakes(blockchainAddress, { page, limit }).subscribe(res => {
       if (res.stakes) {
-        this.delegatedStakesTotal = res.totalAmount;
         if (shouldAppend) {
           this.appendDelegatedStakes = res.stakes;
         } else {
           this.delegatedStakes = res.stakes;
         }
         this.loadingDelegatedStakes = false;
-      } else {
-        this.delegatedStakes = [];
-        this.delegatedStakesTotal = 0;
-        this.loadingDelegatedStakes = false;
+      }
+
+      if (this.delegatedStakesTotal === 0) {
+        this.delegatedStakesTotal = res.totalAmount;
       }
     });
   }
@@ -234,17 +230,16 @@ export class AddressInfoStoreService {
     this.loadingReceivedStakes = true;
     this.addressService.getAddressReceivedStakes(blockchainAddress, { page, limit }).subscribe(res => {
       if (res.stakes) {
-        this.receivedStakesTotal = res.totalAmount;
         if (shouldAppend) {
           this.appendReceivedStakes = res.stakes;
         } else {
           this.receivedStakes = res.stakes;
         }
         this.loadingReceivedStakes = false;
-      } else {
-        this.receivedStakes = [];
-        this.receivedStakesTotal = 0;
-        this.loadingReceivedStakes = false;
+      }
+
+      if (this.receivedStakesTotal === 0) {
+        this.receivedStakesTotal = res.totalAmount;
       }
     });
   }

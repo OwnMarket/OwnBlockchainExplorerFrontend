@@ -152,6 +152,10 @@
   <a [routerLink]="['/block', value]">{{ value }}</a>
 </ng-template>
 
+<ng-template #addLink let-row="row" let-value="value">
+  <a [routerLink]="['/address', value]">{{ value }}</a>
+</ng-template>
+
 <ng-template #txLink let-row="row" let-value="value">
   <span *ngIf="value.equivocationHash">
     <a [routerLink]="['/equivocation', value.equivocationHash]">{{ value.equivocationHash }}</a>

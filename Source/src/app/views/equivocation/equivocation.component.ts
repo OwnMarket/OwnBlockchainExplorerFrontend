@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
 import { EquivocationStoreService } from './equivocation-store.service';
 import { Observable, Subscription } from 'rxjs';
 import { Equivocation } from '@app/core/models/equivocation.model';
@@ -11,8 +11,8 @@ import { map } from 'rxjs/operators';
   templateUrl: './equivocation.component.html',
   styleUrls: ['./equivocation.component.scss']
 })
-export class EquivocationComponent implements OnInit, OnDestroy {
-  @ViewChild('addKey') addKey: TemplateRef<any>;
+export class EquivocationComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('addLink') addLink: TemplateRef<any>;
 
   equivocation$: Observable<Equivocation>;
   loading$: Observable<boolean>;
@@ -22,21 +22,6 @@ export class EquivocationComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private equivocationStoreService: EquivocationStoreService) {}
 
   ngOnInit() {
-    this.columns = [
-      {
-        name: 'Address',
-        prop: 'blockchainAddress',
-        sortable: false,
-        cellTemplate: this.addKey
-      },
-      {
-        name: 'Amount',
-        prop: 'amount',
-        sortable: true,
-        maxWidth: 100
-      }
-    ];
-
     this.subscription = this.route.paramMap
       .pipe(
         map((params: Params) => {
@@ -46,6 +31,25 @@ export class EquivocationComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.columns = [
+        {
+          name: 'Address',
+          prop: 'blockchainAddress',
+          sortable: false,
+          cellTemplate: this.addLink
+        },
+        {
+          name: 'Amount',
+          prop: 'amount',
+          sortable: true,
+          maxWidth: 100
+        }
+      ];
+    }, 1000);
   }
 
   ngOnDestroy() {
