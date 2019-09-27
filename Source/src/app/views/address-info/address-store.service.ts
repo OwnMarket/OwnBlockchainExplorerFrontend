@@ -252,6 +252,13 @@ export class AddressInfoStoreService {
   getEvents(blockchainAddress: string, page: number, limit: number, shouldAppend: boolean = false, filter?: string) {
     this.loadingEvents = true;
     this.addressService.getAddressEvents(blockchainAddress, { page, limit }, filter).subscribe((res: any) => {
+      res.events.forEach((element: any) => {
+        element.hash = {
+          equivocationHash: element.equivocationHash,
+          transactionHash: element.transactionHash
+        };
+      });
+
       if (shouldAppend) {
         this.appendEvents = res.events;
       } else {

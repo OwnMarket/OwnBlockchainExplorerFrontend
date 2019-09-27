@@ -19,27 +19,14 @@ export class EquivocationComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   columns: any[];
 
-  takenDepositExpanded = false;
-  takenDepositsExpanded = false;
-
   constructor(private route: ActivatedRoute, private equivocationStoreService: EquivocationStoreService) {}
 
   ngOnInit() {
-    this.subscription = this.route.paramMap
-      .pipe(
-        map((params: Params) => {
-          this.equivocation$ = this.equivocationStoreService.equivocation$.pipe(untilDestroyed(this));
-          this.loading$ = this.equivocationStoreService.loadingEquivocation$.pipe(untilDestroyed(this));
-          this.getEquivocation(params.get('hash'));
-        })
-      )
-      .subscribe();
-
     this.columns = [
       {
         name: 'Address',
         prop: 'blockchainAddress',
-        sortable: true,
+        sortable: false,
         cellTemplate: this.addKey
       },
       {
@@ -49,6 +36,16 @@ export class EquivocationComponent implements OnInit, OnDestroy {
         maxWidth: 100
       }
     ];
+
+    this.subscription = this.route.paramMap
+      .pipe(
+        map((params: Params) => {
+          this.equivocation$ = this.equivocationStoreService.equivocation$.pipe(untilDestroyed(this));
+          this.loading$ = this.equivocationStoreService.loadingEquivocation$.pipe(untilDestroyed(this));
+          this.getEquivocation(params.get('hash'));
+        })
+      )
+      .subscribe();
   }
 
   ngOnDestroy() {
@@ -57,9 +54,5 @@ export class EquivocationComponent implements OnInit, OnDestroy {
 
   getEquivocation(equivocationHash: string) {
     this.equivocationStoreService.getEquivocation(equivocationHash);
-  }
-
-  expandTakenDeposit() {
-    this.takenDepositExpanded = !this.takenDepositExpanded;
   }
 }
