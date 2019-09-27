@@ -1,6 +1,6 @@
 <div *ngIf="blockInfo | async as block">
   <!-- TITLE -->
-  <div class="row justify-content-md-center">
+  <div class="row justify-content-md-center pb-2">
     <div class="col-sm-12 col-md-10 ml-3">
       <app-page-title title="Block"></app-page-title>
     </div>
@@ -10,7 +10,7 @@
   <app-loader [isLoading]="loadingBlockInfo | async"></app-loader>
 
   <div [hidden]="loadingBlockInfo | async" class="detail-info">
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center mt-4">
       <div class="col-sm-12 col-md-10">
         <div class="row">
           <div class="col-12 col-lg-6">
