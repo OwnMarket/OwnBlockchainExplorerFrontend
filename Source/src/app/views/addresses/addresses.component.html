@@ -8,7 +8,7 @@
       [loading]="isLoading | async"
       (loadMore)="onLoadMore($event)"
       [canLoadMore]="canLoad | async"
-      [stakes]="'Total <strong>' + (addressCount | async) + '</strong> addresses.'"
+      [stakes]="'Total: <strong>' + (addressCount | async) + '</strong> addresses with balance.'"
     >
     </app-table-card>
   </div>
