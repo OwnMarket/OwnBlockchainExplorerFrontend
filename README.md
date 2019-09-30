@@ -1,4 +1,4 @@
-# [![own-explorer-logo](https://github.com/OwnMarket/OwnBlockchainExplorerFrontend/blob/master/Source/src/assets/images/logo.png?raw=true)](https://explorer.weown.com) <span style="float:right">Own Blockchain Explorer Frontend</span>
+# [![own-explorer-logo](https://github.com/OwnMarket/OwnBlockchainExplorerFrontend/blob/master/Source/src/assets/images/logo.png?raw=true)](https://explorer.weown.com) <div style="float:right">Own Blockchain Explorer Frontend</div>
 
 **[Own Blockchain Explorer](https://explorer.weown.com)** is web application powered by [Angular](https://angular.io) framework. By using our **[Blockchain Explorer](https://explorer.weown.com)** you can gain insight into all transactions on the blockchain, check the status of any transaction, and review how many assets you have.
 
