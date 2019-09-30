@@ -158,8 +158,21 @@
 
 <ng-template #txLink let-row="row" let-value="value">
   <span *ngIf="value.equivocationHash">
-    <a [routerLink]="['/equivocation', value.equivocationHash]">{{ value.equivocationHash }}</a>
+    <a [routerLink]="['/equivocation', value.equivocationHash]">
+      {{ value.equivocationHash }}
+    </a>
     {{ ' equivocation' }}
   </span>
-  <a *ngIf="value.transactionHash" [routerLink]="['/tx', value.transactionHash]">{{ value.transactionHash }}</a>
+
+  <a *ngIf="value.transactionHash" [routerLink]="['/tx', value.transactionHash]">
+    {{ value.transactionHash }}
+  </a>
+</ng-template>
+
+<ng-template #eventDate let-row="row" let-value="value">
+  {{ value | date }}
+</ng-template>
+
+<ng-template #eventAmount let-row="row" let-value="value">
+  {{ value === 0 ? '' : value }}
 </ng-template>

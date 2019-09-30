@@ -17,6 +17,8 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   @ViewChild('blockLink', { static: true }) blockLink: TemplateRef<any>;
   @ViewChild('addLink', { static: true }) addLink: TemplateRef<any>;
   @ViewChild('txLink', { static: true }) txLink: TemplateRef<any>;
+  @ViewChild('eventDate', { static: true }) eventDate: TemplateRef<any>;
+  @ViewChild('eventAmount', { static: true }) eventAmount: TemplateRef<any>;
 
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;
@@ -123,7 +125,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
         name: 'Block number',
         prop: 'blockNumber',
         sortable: false,
-        maxWidth: 150,
+        maxWidth: 100,
         cellTemplate: this.blockLink
       },
       {
@@ -135,18 +137,27 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Event info',
         prop: 'eventDetails',
-        sortable: false
+        sortable: false,
+        width: 150
+      },
+      {
+        name: 'Date',
+        prop: 'blockTime',
+        sortable: false,
+        width: 150,
+        cellTemplate: this.eventDate
       },
       {
         name: 'Amount',
         prop: 'amount',
         sortable: false,
-        maxWidth: 250
+        width: 150,
+        cellTemplate: this.eventAmount
       },
       {
         name: 'Fee',
         prop: 'fee',
-        maxWidth: 150,
+        width: 100,
         sortable: false
       }
     ];
