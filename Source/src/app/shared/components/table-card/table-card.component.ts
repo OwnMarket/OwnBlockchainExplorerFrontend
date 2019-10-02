@@ -17,6 +17,7 @@ export class TableCardComponent implements OnInit {
   activeFilter = 'current';
   // Inputs
   @Input() title: string;
+  @Input() info: string;
   @Input() expandable = false;
   @Input() isTransparent = false;
   @Input() set defaultExpand(value: boolean) {

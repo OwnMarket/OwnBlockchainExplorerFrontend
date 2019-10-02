@@ -12,7 +12,11 @@ export class ValidatorsService {
   constructor(private http: HttpClient) {}
 
   getValidatorStats(numberOfDays: number = 7): Observable<ApiResponse<ValidatorStat[]>> {
-    return this.http.get<ApiResponse<ValidatorStat[]>>(`/stats/validators?numberOfDays=${numberOfDays}`);
+    if (numberOfDays > 0) {
+      return this.http.get<ApiResponse<ValidatorStat[]>>(`/stats/validators?numberOfDays=${numberOfDays}`);
+    } else {
+      return this.http.get<ApiResponse<ValidatorStat[]>>(`/stats/validators`);
+    }
   }
 
   fetchValidatorGeo(): Observable<ApiResponse<ValidatorGeo[]>> {

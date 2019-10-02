@@ -6,14 +6,13 @@
       <app-validator-time-filter (valueChanged)="filterValidators($event)"> </app-validator-time-filter>
     </div>
     <app-table-card
-      title=""
+      [info]="info"
       [tableHeight]="'900px'"
       [headerHeight]="40"
       [rowHeight]="80"
       [columns]="columns"
       [source]="validators | async"
       [loading]="isLoading | async"
-      [stakes]="info"
       [showAll]="true"
     >
     </app-table-card>

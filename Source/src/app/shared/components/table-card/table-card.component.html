@@ -3,8 +3,17 @@
     <div class="card-header">
       <div class="row">
         <div [ngClass]="{ 'col-6 col-lg-8': expandable || filterable, 'col-12': !(expandable || filterable) }">
-          <h4 [innerHTML]="title" class="float-left"></h4>
-          <p class="float-right" *ngIf="stakes" [innerHTML]="stakes"></p>
+          <div class="row">
+            <div class="col-12 col-md-8 text-center text-md-left">
+              <h4 *ngIf="title && !info" [innerHTML]="title"></h4>
+              <p *ngIf="info && !title" [innerHTML]="info"></p>
+              <p></p>
+            </div>
+
+            <div class="col-12 col-md-4 text-center text-md-right">
+              <p *ngIf="stakes" [innerHTML]="stakes"></p>
+            </div>
+          </div>
         </div>
         <div [ngClass]="{ 'col-6 col-lg-4': expandable || filterable }">
           <div class="float-right" *ngIf="expandable">

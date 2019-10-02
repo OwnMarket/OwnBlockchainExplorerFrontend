@@ -7,46 +7,17 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class ValidatorTimeFilterComponent {
   values = [
-    {
-      text: '1 day',
-      value: 1
-    },
-    {
-      text: '2 days',
-      value: 2
-    },
-    {
-      text: '3 days',
-      value: 3
-    },
-    {
-      text: '5 days',
-      value: 5
-    },
-    {
-      text: '7 days',
-      value: 7
-    },
-    {
-      text: '10 days',
-      value: 10
-    },
-    {
-      text: '14 days',
-      value: 14
-    },
-    {
-      text: '30 days',
-      value: 30
-    },
-    {
-      text: '60 days',
-      value: 60
-    },
-    {
-      text: '90 days',
-      value: 90
-    }
+    { text: 'Config block', value: 0 },
+    { text: '1 day', value: 1 },
+    { text: '2 days', value: 2 },
+    { text: '3 days', value: 3 },
+    { text: '5 days', value: 5 },
+    { text: '7 days', value: 7 },
+    { text: '10 days', value: 10 },
+    { text: '14 days', value: 14 },
+    { text: '30 days', value: 30 },
+    { text: '60 days', value: 60 },
+    { text: '90 days', value: 90 }
   ];
 
   selected = '7 days';
