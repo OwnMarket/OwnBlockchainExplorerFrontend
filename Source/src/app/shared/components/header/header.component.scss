@@ -2,23 +2,22 @@
 
 header {
   background-color: white;
-
   .search-on-mobile {
     padding-bottom: 1em;
   }
 }
+
 .navbar {
   background-color: white;
   margin-bottom: 0;
-}
-
-.navbar {
   .nav-item {
     color: #373737;
-    margin: 0.2em 1em 0.2em 0;
+    padding-bottom: 20px;
+    margin: 0.2em 1em -16px 0;
   }
   .nav-item.nav-link.active {
     border-bottom: 3px solid #eb6723;
+    font-weight: 700;
   }
 }
 
@@ -67,4 +66,23 @@ header {
 
 .white-background {
   background: white;
+}
+
+@media screen and (max-width: 1000px) {
+  .navbar {
+    .nav-item {
+      padding-bottom: 5px;
+      margin: 0.2em 1em 0.2em 0;
+    }
+    .nav-item.nav-link.active {
+      border: none;
+    }
+    .toggler {
+      width: 100%;
+      text-align: right;
+    }
+    .border-right {
+      border-right: none !important;
+    }
+  }
 }
