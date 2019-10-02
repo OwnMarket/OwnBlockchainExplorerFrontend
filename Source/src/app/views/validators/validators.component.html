@@ -2,8 +2,11 @@
 
 <div class="row mt-5">
   <div class="col-12">
+    <div class="filter">
+      <app-validator-time-filter (valueChanged)="filterValidators($event)"> </app-validator-time-filter>
+    </div>
     <app-table-card
-      title="Validators"
+      title=""
       [tableHeight]="'900px'"
       [headerHeight]="40"
       [rowHeight]="80"
@@ -14,8 +17,6 @@
       [showAll]="true"
     >
     </app-table-card>
-
-    <p class="mt-4">* data for last 7 days</p>
   </div>
 </div>
 

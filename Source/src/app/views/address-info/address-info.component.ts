@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap, finalize } from 'rxjs/operators';
 import { Logger, untilDestroyed } from '@app/core';
 import { Observable, Subscription } from 'rxjs';
 import { AddressInfoStoreService } from './address-store.service';
-import { Stake } from '@app/core/models/stake.model';
 
 const log = new Logger('AdressInfo');
 @Component({
@@ -13,7 +11,6 @@ const log = new Logger('AdressInfo');
   styleUrls: ['./address-info.component.scss']
 })
 export class AddressInfoComponent implements OnInit, OnDestroy {
-  @ViewChild('addressStatus', { static: true }) addressStatus: TemplateRef<any>;
   @ViewChild('blockLink', { static: true }) blockLink: TemplateRef<any>;
   @ViewChild('addLink', { static: true }) addLink: TemplateRef<any>;
   @ViewChild('txLink', { static: true }) txLink: TemplateRef<any>;
@@ -167,13 +164,6 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
         name: 'Account hash',
         prop: 'hash',
         sortable: false
-      },
-      {
-        name: 'Status',
-        prop: 'isActive',
-        maxWidth: 150,
-        sortable: false,
-        cellTemplate: this.addressStatus
       }
     ];
 
@@ -186,14 +176,8 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Asset code',
         prop: 'assetCode',
-        sortable: false
-      },
-      {
-        name: 'Status',
-        prop: 'isActive',
-        maxWidth: 150,
         sortable: false,
-        cellTemplate: this.addressStatus
+        maxWidth: 80
       }
     ];
 

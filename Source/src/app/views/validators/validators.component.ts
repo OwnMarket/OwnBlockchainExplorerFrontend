@@ -59,34 +59,41 @@ export class ValidatorsComponent implements OnInit {
         maxWidth: 100
       },
       {
-        name: 'Collected*',
+        name: 'Collected',
         prop: 'rewardsCollected',
         sortable: true,
         maxWidth: 100
       },
       {
-        name: 'Distributed*',
+        name: 'Distributed',
         prop: 'rewardsDistributed',
         sortable: true,
         maxWidth: 100
       },
       {
-        name: 'Blocks*',
+        name: 'Blocks',
         prop: 'blocksProposed',
         sortable: true,
         maxWidth: 70
       },
       {
-        name: 'TXs*',
+        name: 'TXs',
         prop: 'txsProposed',
         sortable: true,
         maxWidth: 50
       }
     ];
 
-    this.isLoading = of(true);
+    this.fetchValidators();
+  }
 
-    this.validators = this.service.getValidatorStats().pipe(
+  filterValidators(numberOfDays: number) {
+    this.fetchValidators(numberOfDays);
+  }
+
+  fetchValidators(numberOfDays: number = 7) {
+    this.isLoading = of(true);
+    this.validators = this.service.getValidatorStats(numberOfDays).pipe(
       map(resp => {
         if (resp.data) {
           const totalValidators = resp.data.length;
@@ -105,10 +112,10 @@ export class ValidatorsComponent implements OnInit {
           );
 
           this.info = `
-            <strong>${totalValidators}</strong> validators
-            (<strong>${activeValidators}</strong> active) have
-            <strong>${totalStakes}</strong> CHX at stake and
-            <strong>${totalDeposits}</strong> CHX locked in deposits.
+              <strong>${totalValidators}</strong> validators
+              (<strong>${activeValidators}</strong> active) have
+              <strong>${totalStakes}</strong> CHX at stake and
+              <strong>${totalDeposits}</strong> CHX locked in deposits.
           `;
 
           this.isLoading = of(false);

@@ -144,10 +144,6 @@
   </div>
 </div>
 
-<ng-template #addressStatus let-row="row" let-value="value">
-  <span [class.info-value-orange]="value"> {{ value ? 'CURRENT' : 'PAST' }}</span>
-</ng-template>
-
 <ng-template #blockLink let-row="row" let-value="value">
   <a [routerLink]="['/block', value]">{{ value }}</a>
 </ng-template>
