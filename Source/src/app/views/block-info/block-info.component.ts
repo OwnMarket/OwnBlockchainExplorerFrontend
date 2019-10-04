@@ -15,6 +15,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   @ViewChild('txHash', { static: true }) txHash: TemplateRef<any>;
   @ViewChild('txAddress', { static: true }) txAddress: TemplateRef<any>;
   @ViewChild('txEquivocation', { static: true }) txEquivocation: TemplateRef<any>;
+  @ViewChild('rewardPerc', { static: true }) rewardPerc: TemplateRef<any>;
 
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;
@@ -32,6 +33,9 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
 
   previousBlockConfig: any;
   additionalInfoExpanded = false;
+
+  validatorColumns: any[];
+  validatorBlacklistColumns: any[];
 
   transactions: Observable<any[]>;
   loadingTransactions: Observable<boolean>;
@@ -78,6 +82,42 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   setupColumns() {
+    this.validatorColumns = [
+      {
+        name: 'Address',
+        prop: 'validatorAddress',
+        sortable: false,
+        cellTemplate: this.txAddress
+      },
+      {
+        name: 'Network Address',
+        prop: 'networkAddress',
+        sortable: false
+      },
+      {
+        name: 'Shared Reward %',
+        prop: 'sharedRewardPercent',
+        sortable: true,
+        maxWidth: 150,
+        cellTemplate: this.rewardPerc
+      },
+      {
+        name: 'Stake',
+        prop: 'totalStake',
+        sortable: true,
+        maxWidth: 150
+      }
+    ];
+
+    this.validatorBlacklistColumns = [
+      {
+        name: 'Address',
+        prop: 'validatorAddress',
+        sortable: false,
+        cellTemplate: this.txAddress
+      }
+    ];
+
     this.transactionColumns = [
       {
         name: 'Transaction hash',
@@ -127,6 +167,10 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
         sortable: false
       }
     ];
+  }
+
+  formatValidatorsBlacklist(list: string[]): any[] {
+    return list.map(item => ({ validatorAddress: item }));
   }
 
   expandAdditionalInfo() {

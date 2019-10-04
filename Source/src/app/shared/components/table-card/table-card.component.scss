@@ -122,3 +122,13 @@
     font-size: 12px;
   }
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #eb672e;
+}
