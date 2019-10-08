@@ -126,6 +126,13 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
         cellTemplate: this.blockLink
       },
       {
+        name: 'Date/Time',
+        prop: 'blockTime',
+        sortable: false,
+        width: 150,
+        cellTemplate: this.eventDate
+      },
+      {
         name: 'TX',
         prop: 'hash',
         sortable: false,
@@ -136,13 +143,6 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
         prop: 'eventDetails',
         sortable: false,
         width: 150
-      },
-      {
-        name: 'Date',
-        prop: 'blockTime',
-        sortable: false,
-        width: 150,
-        cellTemplate: this.eventDate
       },
       {
         name: 'Amount',

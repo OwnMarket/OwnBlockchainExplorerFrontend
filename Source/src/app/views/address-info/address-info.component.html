@@ -166,7 +166,7 @@
 </ng-template>
 
 <ng-template #eventDate let-row="row" let-value="value">
-  {{ value | date }}
+  {{ value | date: 'yyyy-MM-dd HH:mm:ss' }}
 </ng-template>
 
 <ng-template #eventAmount let-row="row" let-value="value">
