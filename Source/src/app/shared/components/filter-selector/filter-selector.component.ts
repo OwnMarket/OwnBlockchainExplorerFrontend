@@ -12,7 +12,7 @@ export class FilterSelectorComponent {
 
   @Output() onFilterChange: EventEmitter<string> = new EventEmitter<string>();
 
-  open: boolean = false;
+  open = false;
 
   get filter(): string {
     return this.selectedFilters.join(',');
@@ -27,7 +27,11 @@ export class FilterSelectorComponent {
     this.onFilterChange.emit(this.filter);
   }
 
-  togglePopup() {
-    this.open = !this.open;
+  togglePopup(event?: any) {
+    if (event === false) {
+      this.open = false;
+    } else if (event === 'filter') {
+      this.open = !this.open;
+    }
   }
 }

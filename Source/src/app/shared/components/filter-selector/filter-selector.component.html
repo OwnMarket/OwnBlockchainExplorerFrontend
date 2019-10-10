@@ -1,6 +1,6 @@
-<div class="dropdown" [class.show]="open" class="filter-selector">
+<div class="dropdown" [class.show]="open" class="filter-selector" (clickOut)="togglePopup($event)">
   <button
-    (click)="togglePopup()"
+    (click)="togglePopup('filter')"
     class="btn btn-light dropdown-toggle"
     type="button"
     id="dropdownMenuButton"

@@ -18,6 +18,7 @@ import { CustomClock } from './clock';
 import { DisplayTimestampPipe } from './pipes/display-timestamp.pipe';
 import { FilterSelectorComponent } from './components/filter-selector/filter-selector.component';
 import { HeaderModule } from './components/header/header.module';
+import { ClickOutDirective } from './directives/click-out.directive';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { HeaderModule } from './components/header/header.module';
     LabeledCardComponent,
     ScrollEndDirective,
     DisplayTimestampPipe,
-    FilterSelectorComponent
+    FilterSelectorComponent,
+    ClickOutDirective
   ],
   providers: [SearchService],
   exports: [
@@ -50,7 +52,8 @@ import { HeaderModule } from './components/header/header.module';
     CamelCaseToSpace,
     DisplayTimestampPipe,
     FilterSelectorComponent,
-    HeaderModule
+    HeaderModule,
+    ClickOutDirective
   ]
 })
 export class SharedModule {}
