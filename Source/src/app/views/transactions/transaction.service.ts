@@ -5,8 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 
 const routes = {
   transactions: (c: PageLimitContext) => `/txs?page=${c.page}&limit=${c.limit}`,
-  transactionInfo: (hash: string) => `/tx/${hash}`,
-  transactionActions: (hash: string, c: PageLimitContext) => `/tx/${hash}/actions?page=${c.page}&limit=${c.limit}`
+  transactionInfo: (hash: string) => `/tx/${hash}`
 };
 
 export interface PageLimitContext {
@@ -39,8 +38,8 @@ export class TransactionService {
     );
   }
 
-  getTransactionActions(hash: string, context: PageLimitContext): Observable<any[]> {
-    return this.httpClient.get<any>(routes.transactionActions(hash, context)).pipe(
+  getTransactionActions(hash: string): Observable<any[]> {
+    return this.httpClient.get<any>(`/tx/${hash}/actions`).pipe(
       map((response: any) => response.data),
       catchError(() => of('Error, could not get transaction actions'))
     );

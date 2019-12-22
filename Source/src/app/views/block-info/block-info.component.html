@@ -36,8 +36,8 @@
             </div>
           </div>
 
-          <div class="col-sm-12 col-lg-6">
-            <div class="card no-shadow">
+          <div class="col-sm-12 col-lg-6 mt-3 mt-md-0">
+            <div class="card">
               <div class="card-body">
                 <div class="row">
                   <div class="col-9 col-md-8 col-xl-6">
@@ -45,9 +45,9 @@
                   </div>
                   <div class="col-3 col-md-4 col-xl-6 text-right">
                     <p class="info-bold">
-                      <a class="text-secondary" [routerLink]="['/block', block.previousBlockNumber]">{{
-                        block.previousBlockNumber
-                      }}</a>
+                      <a class="text-secondary" [routerLink]="['/block', block.previousBlockNumber]">
+                        {{ block.previousBlockNumber }}</a
+                      >
                     </p>
                   </div>
                 </div>
@@ -76,10 +76,10 @@
                 </p>
               </div>
 
-              <div class="col-2 col-md-2">
+              <div class="col-2 col-md-2 mt-3 mt-md-0">
                 <p class="info-label">Proposer</p>
               </div>
-              <div class="col-10 col-md-4">
+              <div class="col-10 col-md-4 mt-3 mt-md-0">
                 <p class="info-value" *ngIf="block.timestamp">{{ block.validatorAddress }}</p>
               </div>
             </div>
@@ -214,7 +214,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-6 col-sm-5 col-lg-5 col-xl-4">
-                      <p class="info-label">Block delta</p>
+                      <p class="info-label">Configuration block delta:</p>
                     </div>
                     <div class="col-6 col-sm-7 col-lg-7 col-xl-8 text-right">
                       <p class="info-value">{{ block.configuration.configurationBlockDelta }}</p>
@@ -222,7 +222,7 @@
                   </div>
                   <div class="row mt-3">
                     <div class="col-8">
-                      <p class="info-label">Max Transactions per block:</p>
+                      <p class="info-label">Max transactions per block:</p>
                     </div>
                     <div class="col-4 text-right">
                       <p class="info-value">{{ block.configuration.maxTxCountPerBlock }}</p>

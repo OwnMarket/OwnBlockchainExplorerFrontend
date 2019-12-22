@@ -16,7 +16,7 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
   currentPage = 1;
 
   transactionHash: string;
-  actionsExpanded = false;
+  actionsExpanded = true;
 
   transactionInfo: Observable<any>;
   loadingTransactionInfo: Observable<boolean>;
@@ -44,6 +44,7 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
       );
 
       this.getTransactionInfo();
+      this.getTransactionActions(false);
     });
   }
 
@@ -51,9 +52,6 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
 
   expandActions(val: boolean) {
     this.actionsExpanded = !this.actionsExpanded;
-    if (this.actionsExpanded) {
-      this.getTransactionActions(false);
-    }
   }
 
   deriveHash(address: string, nonce: number, txActionNumber: number) {
@@ -70,7 +68,7 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
     if (!this.transactionHash) {
       return;
     }
-    this.transactionStoreService.getTransactionActions(this.transactionHash, this.currentPage, 50, shouldAppend);
+    this.transactionStoreService.getTransactionActions(this.transactionHash, shouldAppend);
   }
 
   onLoadMoreTransactionActions(shouldLoad: boolean) {

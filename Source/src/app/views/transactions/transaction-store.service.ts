@@ -96,9 +96,9 @@ export class TransactionStoreService {
     });
   }
 
-  getTransactionActions(hash: string, page: number, limit: number, shouldAppend: boolean = false) {
+  getTransactionActions(hash: string, shouldAppend: boolean = false) {
     this.loadingTransactionActions = true;
-    this.transactionService.getTransactionActions(hash, { page, limit }).subscribe(res => {
+    this.transactionService.getTransactionActions(hash).subscribe(res => {
       if (shouldAppend) {
         this.appendTransactionActions = res;
       } else {

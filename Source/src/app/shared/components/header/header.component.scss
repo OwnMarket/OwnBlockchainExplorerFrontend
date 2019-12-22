@@ -19,6 +19,12 @@ header {
     border-bottom: 3px solid #eb6723;
     font-weight: 700;
   }
+  .navbar-brand {
+    display: block;
+    svg {
+      width: 120px;
+    }
+  }
 }
 
 .nav-link.dropdown-toggle {

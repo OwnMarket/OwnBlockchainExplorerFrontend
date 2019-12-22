@@ -100,6 +100,12 @@ body {
     border-right: 1px solid #d6d6d6;
   }
 
+  @media (max-width: 760px) {
+    .border-right {
+      border-right: none !important;
+    }
+  }
+
   .card-header {
     border-bottom: 2px solid #d6d6d6;
 

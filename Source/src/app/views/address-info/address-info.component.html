@@ -18,11 +18,11 @@
             <div class="card">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-12 col-lg-10 border-right">
+                  <div class="col-12 col-lg-10 border-right pb-3 pb-md-0">
                     <p class="info-label">Address</p>
                     <p class="info-value">{{ address.blockchainAddress }}</p>
                   </div>
-                  <div class="col-sm-12 col-lg-2 text-lg-center">
+                  <div class="col-sm-12 col-lg-2 text-lg-center pt-3 pt-md-0">
                     <p class="info-label">Nonce</p>
                     <p class="info-value">{{ address.nonce }}</p>
                   </div>
@@ -33,7 +33,7 @@
 
           <div class="col-sm-12 col-md-4">
             <p class="title-card">&nbsp;</p>
-            <div class="card no-shadow">
+            <div class="card">
               <div class="card-body">
                 <div class="row">
                   <div class="col col-12 text-center">
@@ -45,19 +45,19 @@
             </div>
           </div>
 
-          <div class="col-12 mt-5">
-            <div class="row details-row-item text-center">
-              <div class="col-sm-12 col-md-4 border-right">
-                <p class="info-bold">{{ address.chxBalanceInfo?.delegatedStakes }} CHX</p>
-                <p class="info-value">Delegated</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 border-right">
+          <div class="col-12">
+            <div class="row details-row-item text-center mt-5">
+              <div class="col-sm-12 col-md-4 border-right py-5">
                 <p class="info-bold">{{ address.chxBalanceInfo?.validatorDeposit }} CHX</p>
                 <p class="info-value">Deposit</p>
               </div>
 
-              <div class="col-sm-12 col-md-4">
+              <div class="col-sm-12 col-md-4 border-right py-5">
+                <p class="info-bold">{{ address.chxBalanceInfo?.delegatedStakes }} CHX</p>
+                <p class="info-value">Delegated</p>
+              </div>
+
+              <div class="col-sm-12 col-md-4 py-5">
                 <p class="info-bold-orange">{{ address.chxBalanceInfo?.availableBalance }} CHX</p>
                 <p class="info-value">Available</p>
               </div>

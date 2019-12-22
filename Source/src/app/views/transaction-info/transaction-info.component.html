@@ -188,12 +188,8 @@
               <div id="actions-lit" class="row" [hidden]="loadingTransactionActions | async">
                 <div class="col-12 head">
                   <div class="row">
-                    <div class="col-2"></div>
-                    <div class="col-5">
+                    <div class="col-8 col-md-9 offset-4 offset-md-2">
                       <b>Type</b>
-                    </div>
-                    <div class="col-5">
-                      <b>Number</b>
                     </div>
                   </div>
                 </div>
@@ -206,7 +202,7 @@
                     appScrollEnd
                     (endReached)="onLoadMoreTransactionActions($event)"
                   >
-                    <div class="col-2">
+                    <div class="col-2 col-md-1">
                       <div class="float-left">
                         <i
                           [ngClass]="
@@ -220,12 +216,12 @@
                       </div>
                     </div>
 
-                    <div class="col-5">
-                      <p class="info-value" (click)="expandActionData(action, i)">{{ action.actionType }}</p>
+                    <div class="col-2 col-md-1">
+                      <p class="info-value">{{ action.actionNumber }}</p>
                     </div>
 
-                    <div class="col-5">
-                      <p class="info-value">{{ action.actionNumber }}</p>
+                    <div class="col-8 col-md-9">
+                      <p class="info-value" (click)="expandActionData(action, i)">{{ action.actionType }}</p>
                     </div>
 
                     <div
