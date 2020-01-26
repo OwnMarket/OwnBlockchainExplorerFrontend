@@ -162,93 +162,43 @@
                     <p class="info-label">Total fee</p>
                   </div>
                   <div class="col-6">
-                    <p class="info-value">{{ transaction.actionFee * transaction.numberOfActions }} CHX</p>
+                    <p class="info-value">{{ (transaction.actionFee * transaction.numberOfActions).toFixed(1) }} CHX</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- ACTIONS INFORMATION -->
           <div class="col-12 mt-3">
-            <div class="card-header transparent">
-              <span class="additional-label">Actions</span>
-              <div class="float-right">
-                <i
-                  [ngClass]="actionsExpanded ? 'fa-angle-up' : 'fa-angle-down'"
-                  class="fas icon-pointer"
-                  (click)="expandActions()"
-                ></i>
+            <h5>Actions</h5>
+          </div>
+
+          <div class="col-12 head py-3 border-bottom">
+            <div class="row">
+              <div class="col-4">
+                <b>Number</b>
+              </div>
+              <div class="col-8">
+                <b>Type</b>
               </div>
             </div>
-            <div class="card-body" *ngIf="actionsExpanded">
-              <!-- LOADER -->
-              <app-loader [isLoading]="loadingTransactionActions | async"></app-loader>
+          </div>
 
-              <div id="actions-lit" class="row" [hidden]="loadingTransactionActions | async">
-                <div class="col-12 head">
-                  <div class="row">
-                    <div class="col-8 col-md-9 offset-4 offset-md-2">
-                      <b>Type</b>
-                    </div>
+          <div class="col-12 px-2">
+            <div class="row border-bottom" *ngFor="let action of transactionActions | async; let i = index">
+              <div class="col-4 py-3">
+                {{ action.actionNumber }}
+              </div>
+              <div class="col-8 py-3">
+                {{ action.actionType | camelCaseToSpace | titlecase }}
+              </div>
+              <div class="col-12">
+                <div class="row" *ngFor="let item of parseActions(action.actionData) | keyvalue">
+                  <div class="col-12 col-md-4">
+                    <p class="info-label">{{ item.key | camelCaseToSpace | titlecase }}</p>
                   </div>
-                </div>
-
-                <div class="col-12">
-                  <div
-                    class="row detail-info mt-3"
-                    *ngFor="let action of transactionActions | async; let i = index"
-                    [attr.data-custom_index]="i"
-                    appScrollEnd
-                    (endReached)="onLoadMoreTransactionActions($event)"
-                  >
-                    <div class="col-2 col-md-1">
-                      <div class="float-left">
-                        <i
-                          [ngClass]="
-                            expandedTransactionActions && expandedTransactionActions.custom_index === i
-                              ? 'fa-angle-up'
-                              : 'fa-angle-right'
-                          "
-                          class="fas icon-pointer"
-                          (click)="expandActionData(action, i)"
-                        ></i>
-                      </div>
-                    </div>
-
-                    <div class="col-2 col-md-1">
-                      <p class="info-value">{{ action.actionNumber }}</p>
-                    </div>
-
-                    <div class="col-8 col-md-9">
-                      <p class="info-value" (click)="expandActionData(action, i)">{{ action.actionType }}</p>
-                    </div>
-
-                    <div
-                      class="col-12"
-                      *ngIf="expandedTransactionActions && expandedTransactionActions.custom_index === i"
-                    >
-                      <div *ngFor="let item of expandedTransactionActions | keyvalue">
-                        <div
-                          class="row details-row-item"
-                          *ngIf="!(item.key === 'custom_index' || item.key === 'isEmpty')"
-                        >
-                          <div class="col-12 col-md-4">
-                            <p class="info-label">{{ item.key | camelCaseToSpace | titlecase }}</p>
-                          </div>
-                          <div class="col-12 col-md-8">
-                            <p class="info-value">{{ item.value }}</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div *ngIf="expandedTransactionActions.isEmpty">
-                        <div class="row details-row-item">
-                          <div class="col-8">
-                            <p class="info-value">No action data</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <div class="col-12 col-md-8 pb-3 pb-md-0">
+                    {{ item.value }}
                   </div>
                 </div>
               </div>

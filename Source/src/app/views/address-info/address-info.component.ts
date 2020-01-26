@@ -177,7 +177,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
         name: 'Asset code',
         prop: 'assetCode',
         sortable: false,
-        maxWidth: 80
+        maxWidth: 200
       }
     ];
 
