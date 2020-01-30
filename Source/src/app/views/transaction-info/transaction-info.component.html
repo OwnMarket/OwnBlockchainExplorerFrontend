@@ -36,9 +36,9 @@
                   </div>
                   <div class="col-6 col-md-8 text-right">
                     <p class="info-value">
-                      <a class="text-secondary" [routerLink]="['/block', transaction.blockNumber]">{{
-                        transaction.blockNumber
-                      }}</a>
+                      <a class="text-secondary" [routerLink]="['/block', transaction.blockNumber]">
+                        {{ transaction.blockNumber }}
+                      </a>
                     </p>
                   </div>
                 </div>
@@ -68,9 +68,9 @@
                   </div>
                   <div class="col-6 col-md-8 text-right">
                     <p class="info-value">
-                      <a class="text-secondary" [routerLink]="['/block', transaction.blockNumber]">{{
-                        transaction.blockNumber
-                      }}</a>
+                      <a class="text-secondary" [routerLink]="['/block', transaction.blockNumber]">
+                        {{ transaction.blockNumber }}</a
+                      >
                     </p>
                   </div>
                 </div>
@@ -89,9 +89,9 @@
                   <div class="col-8 col-md-9">
                     <p class="info-label">From</p>
                     <div class="clip-text">
-                      <a class="text-secondary" [routerLink]="['/address', transaction.senderAddress]">{{
-                        transaction.senderAddress
-                      }}</a>
+                      <a class="text-secondary" [routerLink]="['/address', transaction.senderAddress]">
+                        {{ transaction.senderAddress }}
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -162,7 +162,7 @@
                     <p class="info-label">Total fee</p>
                   </div>
                   <div class="col-6">
-                    <p class="info-value">{{ (transaction.actionFee * transaction.numberOfActions).toFixed(1) }} CHX</p>
+                    <p class="info-value">{{ transaction.actionFee * transaction.numberOfActions }} CHX</p>
                   </div>
                 </div>
               </div>
@@ -170,35 +170,60 @@
           </div>
 
           <div class="col-12 mt-3">
-            <h5>Actions</h5>
+            <h5 class="border-bottom pb-4">Actions</h5>
           </div>
 
-          <div class="col-12 head py-3 border-bottom">
-            <div class="row">
-              <div class="col-4">
-                <b>Number</b>
-              </div>
-              <div class="col-8">
-                <b>Type</b>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 px-2">
-            <div class="row border-bottom" *ngFor="let action of transactionActions | async; let i = index">
-              <div class="col-4 py-3">
-                {{ action.actionNumber }}
-              </div>
-              <div class="col-8 py-3">
-                {{ action.actionType | camelCaseToSpace | titlecase }}
-              </div>
-              <div class="col-12">
-                <div class="row" *ngFor="let item of parseActions(action.actionData) | keyvalue">
-                  <div class="col-12 col-md-4">
-                    <p class="info-label">{{ item.key | camelCaseToSpace | titlecase }}</p>
+          <div class="row px-4">
+            <div class="col-12">
+              <div
+                class="row detail-info mt-3 border-bottom"
+                *ngFor="let action of transactionActions | async; let i = index"
+              >
+                <div class="col-12 mb-4">
+                  <b>{{ i + 1 }}. {{ action.actionType | camelCaseToSpace }}</b>
+                </div>
+                <div class="col-12">
+                  <div class="row details-row-item mb-1 mb-md-0" *ngIf="action.actionType === 'CreateAsset'">
+                    <div class="col-12 col-md-3">
+                      <span class="ml-3">Asset</span>
+                    </div>
+                    <div class="col-12 col-md-9 ml-1 ml-md-0">
+                      {{ deriveHash(transaction.senderAddress, transaction.nonce, i + 1) }}
+                    </div>
                   </div>
-                  <div class="col-12 col-md-8 pb-3 pb-md-0">
-                    {{ item.value }}
+                  <div class="row details-row-item mb-1 mb-md-0" *ngIf="action.actionType === 'CreateAccount'">
+                    <div class="col-12 col-md-3">
+                      <span class="ml-3">Account</span>
+                    </div>
+                    <div class="col-12 col-md-9 ml-3 ml-md-0">
+                      {{ deriveHash(transaction.senderAddress, transaction.nonce, i + 1) }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 mb-4">
+                  <div
+                    class="row details-row-item mb-1 mb-md-0"
+                    *ngFor="let item of parseActions(action.actionData) | keyvalue"
+                  >
+                    <div class="col-12 col-md-3">
+                      <span class="ml-3">{{ item.key | camelCaseToSpace | titlecase }}</span>
+                    </div>
+                    <div class="col-12 col-md-9 ml-3 ml-md-0 elipsis">
+                      <a
+                        class="link"
+                        *ngIf="
+                          item.key === 'providerAddress' ||
+                          item.key === 'recipientAddress' ||
+                          item.key === 'validatorAddress'
+                        "
+                        routerLink="/address/{{ item.value }}"
+                      >
+                        {{ item.value }}
+                      </a>
+                      <span *ngIf="!item.key.includes('Address')">
+                        {{ item.value }}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
