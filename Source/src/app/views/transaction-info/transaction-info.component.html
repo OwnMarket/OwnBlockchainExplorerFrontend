@@ -162,7 +162,7 @@
                     <p class="info-label">Total fee</p>
                   </div>
                   <div class="col-6">
-                    <p class="info-value">{{ transaction.actionFee * transaction.numberOfActions }} CHX</p>
+                    <p class="info-value">{{ totalFee(transaction.actionFee, transaction.numberOfActions) }} CHX</p>
                   </div>
                 </div>
               </div>

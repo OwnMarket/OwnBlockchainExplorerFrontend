@@ -64,6 +64,11 @@ export class TransactionInfoComponent implements OnInit, OnDestroy {
     }
   }
 
+  totalFee(fee: number, numOfActions: number): any {
+    const totalFee = +(fee * numOfActions).toFixed(7);
+    return totalFee.toString();
+  }
+
   getTransactionActions(shouldAppend: boolean = false) {
     if (!this.transactionHash) {
       return;
