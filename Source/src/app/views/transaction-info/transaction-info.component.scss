@@ -20,11 +20,8 @@
 }
 
 .details-row-item {
-  padding: 1em;
+  padding-bottom: 0.8rem;
   font-size: 11px;
-  // .border-right {
-  //   border-right: 1px solid #d6d6d6;
-  // }
 }
 
 .transaction-status {
@@ -32,14 +29,6 @@
   right: 0;
   top: 0;
   z-index: 1000;
-}
-#actions-lit {
-  // height: 500px;
-  // max-height: 500px;
-  // overflow: scroll;
-  .detail-info {
-    border-bottom: 2px solid #d6d6d6;
-  }
 }
 
 .collapsible-table {

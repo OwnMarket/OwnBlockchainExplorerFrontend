@@ -173,56 +173,60 @@
             <h5 class="border-bottom pb-4">Actions</h5>
           </div>
 
-          <div class="row px-4">
-            <div class="col-12">
-              <div
-                class="row detail-info mt-3 border-bottom"
-                *ngFor="let action of transactionActions | async; let i = index"
-              >
-                <div class="col-12 mb-4">
-                  <b>{{ i + 1 }}. {{ action.actionType | camelCaseToSpace }}</b>
-                </div>
-                <div class="col-12">
-                  <div class="row details-row-item mb-1 mb-md-0" *ngIf="action.actionType === 'CreateAsset'">
-                    <div class="col-12 col-md-3">
-                      <span class="ml-3">Asset</span>
+          <div class="col-12">
+            <div class="row px-4">
+              <div class="col-12">
+                <div
+                  class="row detail-info mt-3 border-bottom"
+                  *ngFor="let action of transactionActions | async; let i = index"
+                >
+                  <div class="col-12 mb-4">
+                    <b>{{ i + 1 }}. {{ action.actionType | camelCaseToSpace }}</b>
+                  </div>
+                  <div class="col-12">
+                    <div class="row details-row-item mb-1 mb-md-0" *ngIf="action.actionType === 'CreateAsset'">
+                      <div class="col-12 col-md-3">
+                        <span class="ml-3">Asset</span>
+                      </div>
+                      <div class="col-12 col-md-9 ml-1 ml-md-0">
+                        {{ deriveHash(transaction.senderAddress, transaction.nonce, i + 1) }}
+                      </div>
                     </div>
-                    <div class="col-12 col-md-9 ml-1 ml-md-0">
-                      {{ deriveHash(transaction.senderAddress, transaction.nonce, i + 1) }}
+                    <div class="row details-row-item mb-1 mb-md-0" *ngIf="action.actionType === 'CreateAccount'">
+                      <div class="col-12 col-md-3">
+                        <span class="ml-3">Account</span>
+                      </div>
+                      <div class="col-12 col-md-9 ml-3 ml-md-0">
+                        {{ deriveHash(transaction.senderAddress, transaction.nonce, i + 1) }}
+                      </div>
                     </div>
                   </div>
-                  <div class="row details-row-item mb-1 mb-md-0" *ngIf="action.actionType === 'CreateAccount'">
-                    <div class="col-12 col-md-3">
-                      <span class="ml-3">Account</span>
-                    </div>
-                    <div class="col-12 col-md-9 ml-3 ml-md-0">
-                      {{ deriveHash(transaction.senderAddress, transaction.nonce, i + 1) }}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 mb-4">
-                  <div
-                    class="row details-row-item mb-1 mb-md-0"
-                    *ngFor="let item of parseActions(action.actionData) | keyvalue"
-                  >
-                    <div class="col-12 col-md-3">
-                      <span class="ml-3">{{ item.key | camelCaseToSpace | titlecase }}</span>
-                    </div>
-                    <div class="col-12 col-md-9 ml-3 ml-md-0 elipsis">
-                      <a
-                        class="link"
-                        *ngIf="
-                          item.key === 'providerAddress' ||
-                          item.key === 'recipientAddress' ||
-                          item.key === 'validatorAddress'
-                        "
-                        routerLink="/address/{{ item.value }}"
-                      >
-                        {{ item.value }}
-                      </a>
-                      <span *ngIf="!item.key.includes('Address')">
-                        {{ item.value }}
-                      </span>
+                  <div class="col-12 mb-4">
+                    <div
+                      class="row details-row-item mb-1 mb-md-0"
+                      *ngFor="let item of parseActions(action.actionData) | keyvalue"
+                    >
+                      <div class="col-12 col-md-3">
+                        <span class="ml-3">{{ item.key | camelCaseToSpace | titlecase }}</span>
+                      </div>
+                      <div class="col-12 col-md-9 ml-3 ml-md-0 elipsis">
+                        <span *ngIf="item.key === 'networkAddress'">
+                          {{ item.value }}
+                        </span>
+                        <a
+                          *ngIf="
+                            item.key === 'providerAddress' ||
+                            item.key === 'recipientAddress' ||
+                            item.key === 'validatorAddress'
+                          "
+                          routerLink="/address/{{ item.value }}"
+                        >
+                          {{ item.value }}
+                        </a>
+                        <span *ngIf="!item.key.includes('Address')">
+                          {{ item.value }}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
