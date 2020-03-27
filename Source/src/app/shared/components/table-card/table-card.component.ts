@@ -33,6 +33,7 @@ export class TableCardComponent implements OnInit {
   @Input() stakes: number;
   @Input() showAll = false;
   @Input() scrollH = false;
+  @Input() rowClass = () => {};
 
   source: any[];
   @Input('source') set _source(value: any[]) {

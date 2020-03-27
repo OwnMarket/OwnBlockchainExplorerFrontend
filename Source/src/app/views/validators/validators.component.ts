@@ -133,4 +133,10 @@ export class ValidatorsComponent implements OnInit {
       })
     );
   }
+
+  getRowClass(row: any) {
+    return {
+      'row-warning': row.blocksProposed === 0 && row.isActive
+    };
+  }
 }
