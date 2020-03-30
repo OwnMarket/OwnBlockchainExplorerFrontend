@@ -128,7 +128,7 @@ export class ValidatorsComponent implements OnInit {
             item.totalStake = Math.floor(item.totalStake);
           });
 
-          return resp.data;
+          return resp.data.sort((a: ValidatorStat, b: ValidatorStat) => b.blocksProposed - a.blocksProposed);
         }
       })
     );
