@@ -39,12 +39,13 @@
 
     <div class="card-body" *ngIf="expanded">
       <ngx-datatable
+        #ngxDatatable
         class="table-card"
         [ngStyle]="{ height: tableHeight }"
         [rows]="source"
         [columns]="columns"
         [columnMode]="'force'"
-        [headerHeight]="source && source.length > 0 ? headerHeight : 0"
+        [headerHeight]="source?.length > 0 ? headerHeight : 0"
         [rowHeight]="rowHeight"
         [loadingIndicator]="loading"
         [footerHeight]="false"

@@ -59,7 +59,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       {
         name: 'Actions',
         prop: 'numberOfActions',
-        maxWidth: 70,
+        maxWidth: 100,
         sortable: false
       }
     ];

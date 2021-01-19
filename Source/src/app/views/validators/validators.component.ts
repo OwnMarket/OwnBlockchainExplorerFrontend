@@ -17,7 +17,11 @@ export class ValidatorsComponent implements OnInit {
 
   validators: Observable<ValidatorStat[]>;
   isLoading: Observable<boolean>;
-  info: string;
+  info: string = 'Validators';
+  totalValidators: number;
+  activeValidators: number;
+  totalStakes: number;
+  totalDeposits: number;
 
   // table config
   tableHeight = '900px';
@@ -96,27 +100,20 @@ export class ValidatorsComponent implements OnInit {
     this.validators = this.service.getValidatorStats(numberOfDays).pipe(
       map(resp => {
         if (resp.data) {
-          const totalValidators = resp.data.length;
-          const activeValidators = resp.data.filter(validator => validator.isActive === true).length;
+          this.totalValidators = resp.data.length;
+          this.activeValidators = resp.data.filter(validator => validator.isActive === true).length;
 
-          const totalStakes = Math.floor(
+          this.totalStakes = Math.floor(
             resp.data
               .map((item: ValidatorStat) => item.totalStake)
               .reduce((total: number, current: number) => total + current, 0)
           );
 
-          const totalDeposits = Math.floor(
+          this.totalDeposits = Math.floor(
             resp.data
               .map((item: ValidatorStat) => item.deposit)
               .reduce((total: number, current: number) => total + current, 0)
           );
-
-          this.info = `
-              <strong>${totalValidators}</strong> validators
-              (<strong>${activeValidators}</strong> active) have
-              <strong>${totalStakes}</strong> CHX at stake and
-              <strong>${totalDeposits}</strong> CHX locked in deposits.
-          `;
 
           this.isLoading = of(false);
           resp.data.forEach((item: ValidatorStat) => {

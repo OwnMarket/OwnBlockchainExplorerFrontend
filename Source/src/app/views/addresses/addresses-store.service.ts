@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AddressStat } from '@app/core/models/address-stat.model';
 import { AddressesService } from './addresses.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -57,10 +58,9 @@ export class AddressesStoreService {
 
   getAddresses(page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingAddresses = true;
-    this.service.getAddresses(page, limit).subscribe(res => {
+    return this.service.getAddresses(page, limit).subscribe(res => {
       if (res.data.addresses.length > 0) {
         this.totalAddresses = res.data.addressCount;
-
         if (shouldAppend) {
           this.appendAddresses = res.data.addresses;
         } else {
@@ -68,11 +68,11 @@ export class AddressesStoreService {
         }
       }
 
-      this.loadingAddresses = false;
-
       if (res.data.addresses.length === 0) {
         this.canLoadMore = false;
       }
+
+      this.loadingAddresses = false;
     });
   }
 }

@@ -10,7 +10,8 @@
       "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "scss"
+          "styleext": "scss",
+          "style": "scss"
         }
       },
       "architect": {
@@ -30,14 +31,13 @@
               "src/assets"
             ],
             "styles": ["src/main.scss", "./node_modules/leaflet/dist/leaflet.css"],
-            "scripts": ["src/app/core/lib/own-blockchain-sdk.js"]
+            "scripts": ["src/app/core/lib/own-blockchain-sdk.js"],
+            "aot": true
           },
           "configurations": {
             "production": {
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -48,6 +48,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ],
               "fileReplacements": [
@@ -58,7 +62,13 @@
               ]
             },
             "ci": {
-              "progress": false
+              "progress": false,
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ]
             }
           }
         },
@@ -136,5 +146,8 @@
       }
     }
   },
-  "defaultProject": "blockchain-explorer"
+  "defaultProject": "blockchain-explorer",
+  "cli": {
+    "analytics": "4492c393-0845-4245-b1a3-4d2b10f80bf8"
+  }
 }

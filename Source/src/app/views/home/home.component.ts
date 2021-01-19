@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { untilDestroyed, Logger } from '@app/core';
-import * as moment from 'moment';
-import * as _ from 'lodash';
+import moment from 'moment';
+import _ from 'lodash';
 
 import { BlockStoreService } from '../blocks/block-store.service';
 import { HomeStoreService } from './home-store.service';

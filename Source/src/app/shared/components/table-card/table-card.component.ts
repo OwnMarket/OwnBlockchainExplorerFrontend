@@ -1,13 +1,23 @@
-import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewEncapsulation,
+  Output,
+  EventEmitter,
+  ElementRef,
+  ViewChild,
+  AfterViewInit
+} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Logger } from '@app/core';
+import { DatatableComponent } from '@swimlane/ngx-datatable';
 
 const log = new Logger('Table-Card');
 @Component({
   selector: 'app-table-card',
   templateUrl: './table-card.component.html',
   styleUrls: ['./table-card.component.scss'],
-  // encapsulation: ViewEncapsulation.Emulated
   encapsulation: ViewEncapsulation.None
 })
 export class TableCardComponent implements OnInit {
@@ -35,19 +45,21 @@ export class TableCardComponent implements OnInit {
   @Input() scrollH = false;
   @Input() rowClass = () => {};
 
-  source: any[];
+  source: any[] = [];
   @Input('source') set _source(value: any[]) {
-    if (!this.loading) {
-      if (value.length === 0) {
-        this.tableHeight = '25px';
-      } else if (value.length < 10) {
-        this.tableHeight = value.length * this.rowHeight + 100 + 'px';
-      } else if (value.length > 0 && this.showAll) {
-        this.tableHeight = value.length * this.rowHeight + 100 + 'px';
-      } else {
-        this.tableHeight = '500px';
-      }
+    if (value) {
       this.source = value;
+      this.source = [...this.source];
+    }
+    this.tableHeight = '500px';
+
+    if (!this.loading && this.source) {
+      if (this.source.length === 0) {
+        this.tableHeight = '25px';
+      } else if (this.source.length < 10) {
+      } else if (this.source.length > 0 && this.showAll) {
+        this.tableHeight = value.length * this.rowHeight + 100 + 'px';
+      }
     }
   }
 
