@@ -135,7 +135,9 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
         name: 'Action',
         prop: 'numberOfActions',
         maxWidth: 70,
-        sortable: false
+        sortable: false,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       }
     ];
 
@@ -149,7 +151,9 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
       {
         name: 'Slashed amount',
         prop: 'takenDeposit.amount',
-        sortable: false
+        sortable: false,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       }
     ];
 
@@ -164,7 +168,9 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
         name: 'Amount',
         prop: 'amount',
         maxWidth: 150,
-        sortable: false
+        sortable: false,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       }
     ];
   }

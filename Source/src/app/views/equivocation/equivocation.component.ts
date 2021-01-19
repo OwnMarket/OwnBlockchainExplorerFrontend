@@ -46,7 +46,9 @@ export class EquivocationComponent implements OnInit, OnDestroy, AfterViewInit {
           name: 'Amount',
           prop: 'amount',
           sortable: true,
-          maxWidth: 100
+          maxWidth: 100,
+          headerClass: 'text-right',
+          cellClass: 'text-right'
         }
       ];
     }, 1000);

@@ -122,15 +122,19 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
         name: 'Block number',
         prop: 'blockNumber',
         sortable: false,
-        maxWidth: 100,
-        cellTemplate: this.blockLink
+        maxWidth: 120,
+        cellTemplate: this.blockLink,
+        headerClass: 'text-center',
+        cellClass: 'text-center'
       },
       {
         name: 'Date/Time',
         prop: 'blockTime',
         sortable: false,
         width: 150,
-        cellTemplate: this.eventDate
+        cellTemplate: this.eventDate,
+        headerClass: 'text-center',
+        cellClass: 'text-center'
       },
       {
         name: 'TX',
@@ -149,13 +153,17 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
         prop: 'amount',
         sortable: false,
         width: 150,
-        cellTemplate: this.eventAmount
+        cellTemplate: this.eventAmount,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       },
       {
         name: 'Fee',
         prop: 'fee',
         width: 100,
-        sortable: false
+        sortable: false,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       }
     ];
 
@@ -192,7 +200,9 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
         name: 'Amount',
         prop: 'amount',
         maxWidth: 80,
-        sortable: false
+        sortable: false,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       }
     ];
 
@@ -207,7 +217,9 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
         name: 'Amount',
         prop: 'amount',
         maxWidth: 80,
-        sortable: false
+        sortable: false,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       }
     ];
   }

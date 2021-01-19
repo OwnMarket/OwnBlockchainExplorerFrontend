@@ -47,13 +47,17 @@ export class ValidatorsComponent implements OnInit {
         name: 'Deposit',
         prop: 'deposit',
         sortable: true,
-        maxWidth: 70
+        maxWidth: 100,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       },
       {
         name: 'Stake',
         prop: 'totalStake',
         sortable: true,
-        maxWidth: 150
+        maxWidth: 100,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       },
       {
         name: 'Reward %',
@@ -66,25 +70,33 @@ export class ValidatorsComponent implements OnInit {
         name: 'Collected',
         prop: 'rewardsCollected',
         sortable: true,
-        maxWidth: 100
+        maxWidth: 120,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       },
       {
         name: 'Distributed',
         prop: 'rewardsDistributed',
         sortable: true,
-        maxWidth: 100
+        maxWidth: 120,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       },
       {
         name: 'Blocks',
         prop: 'blocksProposed',
         sortable: true,
-        maxWidth: 70
+        maxWidth: 70,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       },
       {
         name: 'TXs',
         prop: 'txsProposed',
         sortable: true,
-        maxWidth: 50
+        maxWidth: 50,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       }
     ];
 

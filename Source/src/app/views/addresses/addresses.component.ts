@@ -39,7 +39,9 @@ export class AddressesComponent implements OnInit, OnDestroy {
         prop: 'totalBalance',
         sortable: true,
         maxWidth: 150,
-        cellTemplate: this.addValue
+        cellTemplate: this.addValue,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       }
     ];
 

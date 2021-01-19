@@ -48,7 +48,9 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         prop: 'blockNumber',
         maxWidth: 150,
         sortable: false,
-        cellTemplate: this.txBlock
+        cellTemplate: this.txBlock,
+        headerClass: 'text-center',
+        cellClass: 'text-center'
       },
       {
         name: 'Sender address',
@@ -60,7 +62,9 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         name: 'Actions',
         prop: 'numberOfActions',
         maxWidth: 100,
-        sortable: false
+        sortable: false,
+        headerClass: 'text-right',
+        cellClass: 'text-right'
       }
     ];
 

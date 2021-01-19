@@ -4,8 +4,9 @@
     <h6 class="text-center">Validators</h6>
     <div class="card h-100">
       <div class="card-body last-block">
-        <div class="row justify-content-center align-items-center h-100">
-          <h5 class="last-block-number card-title text-center">{{ totalValidators }}</h5>
+        <div class="row justify-content-center align-items-center h-100 last-block-number">
+          <app-loader [isLoading]="!totalValidators"></app-loader>
+          <h5 class="last-block-number card-title text-center" *ngIf="totalValidators">{{ totalValidators }}</h5>
         </div>
       </div>
     </div>
@@ -14,8 +15,9 @@
     <h6 class="text-center">Active validators</h6>
     <div class="card h-100">
       <div class="card-body last-block">
-        <div class="row justify-content-center align-items-center h-100">
-          <h5 class="last-block-number card-title text-center">{{ activeValidators }}</h5>
+        <div class="row justify-content-center align-items-center h-100 last-block-number">
+          <app-loader [isLoading]="!activeValidators"></app-loader>
+          <h5 class="last-block-number card-title text-center" *ngIf="activeValidators">{{ activeValidators }}</h5>
         </div>
       </div>
     </div>
@@ -24,8 +26,9 @@
     <h6 class="text-center">At stake</h6>
     <div class="card h-100">
       <div class="card-body last-block">
-        <div class="row justify-content-center align-items-center h-100">
-          <h5 class="last-block-number card-title text-center">{{ totalStakes }} CHX</h5>
+        <div class="row justify-content-center align-items-center h-100 last-block-number">
+          <app-loader [isLoading]="!totalStakes"></app-loader>
+          <h5 class="last-block-number card-title text-center" *ngIf="totalStakes">{{ totalStakes }} CHX</h5>
         </div>
       </div>
     </div>
@@ -35,8 +38,9 @@
     <h6 class="text-center">Locked in deposits</h6>
     <div class="card h-100">
       <div class="card-body last-block">
-        <div class="row justify-content-center align-items-center h-100">
-          <h5 class="last-block-number card-title text-center">{{ totalDeposits }} CHX</h5>
+        <div class="row justify-content-center align-items-center h-100 last-block-number">
+          <app-loader [isLoading]="!totalDeposits"></app-loader>
+          <h5 class="last-block-number card-title text-center" *ngIf="totalDeposits">{{ totalDeposits }} CHX</h5>
         </div>
       </div>
     </div>
