@@ -51,16 +51,17 @@ export class TableCardComponent implements OnInit {
       this.source = value;
       this.source = [...this.source];
     }
-    this.tableHeight = '500px';
 
-    if (!this.loading && this.source) {
-      if (this.source.length === 0) {
-        this.tableHeight = '25px';
-      } else if (this.source.length < 10) {
-      } else if (this.source.length > 0 && this.showAll) {
-        this.tableHeight = value.length * this.rowHeight + 100 + 'px';
+    setTimeout(() => {
+      if (!this.loading && this.source) {
+        if (this.source.length === 0) {
+          this.tableHeight = '25px';
+        }
+        if (this.showAll) {
+          this.tableHeight = this.source.length * this.rowHeight + 50 + 'px';
+        }
       }
-    }
+    }, 0);
   }
 
   // TODO Need to find better way for filters handler

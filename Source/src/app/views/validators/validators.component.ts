@@ -64,7 +64,9 @@ export class ValidatorsComponent implements OnInit {
         prop: 'sharedRewardPercent',
         sortable: true,
         cellTemplate: this.rewardPerc,
-        maxWidth: 100
+        maxWidth: 100,
+        headerClass: 'text-center',
+        cellClass: 'text-center'
       },
       {
         name: 'Collected',
