@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Logger, untilDestroyed } from '@app/core';
+import { environment } from '@env/environment';
 import { Observable, Subscription } from 'rxjs';
 import { AddressInfoStoreService } from './address-store.service';
+import { AddressInfoService } from './address.service';
 
 const log = new Logger('AdressInfo');
 @Component({
@@ -65,7 +67,11 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   // Filter
   currentFilter: string;
 
-  constructor(private route: ActivatedRoute, private addressStoreService: AddressInfoStoreService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private addressStoreService: AddressInfoStoreService,
+    private addressInfoService: AddressInfoService
+  ) {}
 
   ngOnInit() {
     this.subscription = this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params: ParamMap) => {
@@ -222,6 +228,10 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
         cellClass: 'text-right'
       }
     ];
+  }
+
+  getExportEventsUrl(address: string): string {
+    return `${environment.serverUrl}/address/${address}/events/download`;
   }
 
   getAddressInfo() {
