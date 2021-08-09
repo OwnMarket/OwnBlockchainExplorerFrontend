@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ApiResponse } from '@app/core/models/api-response.model';
 
 const routes = {
   search: (hash: string) => `/search/${hash}`
@@ -12,17 +12,11 @@ const routes = {
   providedIn: 'root'
 })
 export class SearchService {
-  constructor(private httpClient: HttpClient, private toastr: ToastrService) {}
+  constructor(private httpClient: HttpClient) {}
 
-  searchByHash(hash: string): Observable<{}> {
-    return this.httpClient.get<any>(routes.search(hash)).pipe(
-      map((response: any) => response.data),
-      catchError(err => {
-        err.error.alerts.forEach((alert: any) => {
-          this.toastr.error(alert.message);
-        });
-        return of();
-      })
-    );
+  searchByHash(hash: string): Observable<string> {
+    return this.httpClient
+      .get<ApiResponse<string>>(routes.search(hash))
+      .pipe(map((response: ApiResponse<string>) => response.data));
   }
 }

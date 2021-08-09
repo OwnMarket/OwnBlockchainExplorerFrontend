@@ -4,6 +4,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { HomeComponent } from './home.component';
+import { BlockStoreService } from '../blocks/block-store.service';
+import { HomeStoreService } from './home-store.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -12,8 +14,9 @@ describe('HomeComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [CoreModule, SharedModule, HttpClientTestingModule],
-        declarations: [HomeComponent]
+        imports: [HttpClientTestingModule],
+        declarations: [HomeComponent],
+        providers: [BlockStoreService, HomeStoreService]
       }).compileComponents();
     })
   );

@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { TransactionStoreService } from './transaction-store.service';
 
 import { TransactionsComponent } from './transactions.component';
 
@@ -9,7 +11,9 @@ describe('TransactionsComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [TransactionsComponent]
+        declarations: [TransactionsComponent],
+        imports: [HttpClientTestingModule],
+        providers: [TransactionStoreService]
       }).compileComponents();
     })
   );

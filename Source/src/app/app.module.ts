@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 
 import { CoreModule } from '@app/core';
@@ -20,7 +19,6 @@ import { HeaderModule } from './shared/components/header/header.module';
     BrowserAnimationsModule,
     HttpClientModule,
     TranslateModule.forRoot(),
-    NgbModule,
     ToastrModule.forRoot(),
     CoreModule,
     HeaderModule,

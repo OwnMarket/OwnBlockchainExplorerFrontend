@@ -1,12 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-
 import { AddressesService } from './addresses.service';
 
 describe('AddressesService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let httpClientSpy: { get: jasmine.Spy };
+  let addressService: AddressesService;
+
+  beforeEach(() => {
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
+    addressService = new AddressesService(httpClientSpy as any);
+  });
 
   it('should be created', () => {
-    const service: AddressesService = TestBed.get(AddressesService);
-    expect(service).toBeTruthy();
+    expect(addressService).toBeTruthy();
   });
 });

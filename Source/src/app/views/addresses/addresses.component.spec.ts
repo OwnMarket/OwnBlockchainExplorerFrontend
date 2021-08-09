@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { AddressesStoreService } from './addresses-store.service';
 
 import { AddressesComponent } from './addresses.component';
 
@@ -9,7 +11,9 @@ describe('AddressesComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [AddressesComponent]
+        declarations: [AddressesComponent],
+        imports: [HttpClientTestingModule],
+        providers: [AddressesStoreService]
       }).compileComponents();
     })
   );

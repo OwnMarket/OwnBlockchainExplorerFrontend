@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ValidatorsService } from '../validators.service';
 
 import { ValidatorsMapComponent } from './validators-map.component';
 
@@ -9,7 +11,9 @@ describe('ValidatorsMapComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [ValidatorsMapComponent]
+        declarations: [ValidatorsMapComponent],
+        imports: [HttpClientTestingModule],
+        providers: [ValidatorsService]
       }).compileComponents();
     })
   );

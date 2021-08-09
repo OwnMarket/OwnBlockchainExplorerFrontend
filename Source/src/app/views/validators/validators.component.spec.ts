@@ -1,6 +1,8 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ValidatorsComponent } from './validators.component';
+import { ValidatorsService } from './validators.service';
 
 describe('ValidatorsComponent', () => {
   let component: ValidatorsComponent;
@@ -9,7 +11,9 @@ describe('ValidatorsComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [ValidatorsComponent]
+        declarations: [ValidatorsComponent],
+        imports: [HttpClientTestingModule],
+        providers: [ValidatorsService]
       }).compileComponents();
     })
   );

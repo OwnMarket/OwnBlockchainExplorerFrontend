@@ -1,12 +1,19 @@
 import { TestBed } from '@angular/core/testing';
-
 import { AddressesStoreService } from './addresses-store.service';
+import { AddressesService } from './addresses.service';
 
 describe('AddressesStoreService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let httpClientSpy: { get: jasmine.Spy };
+  let addressesService: AddressesService;
+  let astoreService: AddressesStoreService;
+
+  beforeEach(() => {
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
+    addressesService = new AddressesService(httpClientSpy as any);
+    astoreService = new AddressesStoreService(addressesService);
+  });
 
   it('should be created', () => {
-    const service: AddressesStoreService = TestBed.get(AddressesStoreService);
-    expect(service).toBeTruthy();
+    expect(astoreService).toBeTruthy();
   });
 });

@@ -1,10 +1,12 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { I18nService } from '@app/core';
 import { HeaderComponent } from './header.component';
+import { SearchStoreService } from '@app/shared/services/search-store.service';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -13,9 +15,9 @@ describe('HeaderComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [RouterTestingModule, NgbModule, TranslateModule.forRoot()],
+        imports: [HttpClientTestingModule, RouterTestingModule, TranslateModule.forRoot(), ToastrModule.forRoot()],
         declarations: [HeaderComponent],
-        providers: [I18nService]
+        providers: [I18nService, SearchStoreService, ToastrService]
       }).compileComponents();
     })
   );

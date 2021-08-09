@@ -67,11 +67,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   // Filter
   currentFilter: string;
 
-  constructor(
-    private route: ActivatedRoute,
-    private addressStoreService: AddressInfoStoreService,
-    private addressInfoService: AddressInfoService
-  ) {}
+  constructor(private route: ActivatedRoute, private addressStoreService: AddressInfoStoreService) {}
 
   ngOnInit() {
     this.subscription = this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params: ParamMap) => {

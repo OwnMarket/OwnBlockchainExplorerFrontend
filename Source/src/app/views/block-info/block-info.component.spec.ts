@@ -1,4 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { BlockStoreService } from '../blocks/block-store.service';
 
 import { BlockInfoComponent } from './block-info.component';
 
@@ -9,7 +12,9 @@ describe('BlockInfoComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [BlockInfoComponent]
+        declarations: [BlockInfoComponent],
+        imports: [HttpClientTestingModule, RouterTestingModule],
+        providers: [BlockStoreService]
       }).compileComponents();
     })
   );

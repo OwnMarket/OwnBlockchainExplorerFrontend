@@ -3,7 +3,7 @@ import { I18nService, untilDestroyed, Logger } from '@app/core';
 import { Observable } from 'rxjs';
 import { SearchStoreService } from '@app/shared/services/search-store.service';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 const log = new Logger('App');
 @Component({
@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private i18nService: I18nService,
     private searchStoreService: SearchStoreService
   ) {}

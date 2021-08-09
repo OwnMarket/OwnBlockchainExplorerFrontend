@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { SearchService } from './search.service';
 
@@ -15,7 +16,7 @@ export class SearchStoreService {
   // tslint:disable-next-line: member-ordering
   readonly loadingSearch$ = this._loadingSearch.asObservable();
 
-  constructor(private searchService: SearchService) {}
+  constructor(private searchService: SearchService, private toastr: ToastrService) {}
 
   // the getter will return the last value emitted in _transactions subject
   get searchResult(): any {
@@ -32,9 +33,14 @@ export class SearchStoreService {
 
   searchByHash(hash: string) {
     this.loadingSearch = true;
-    this.searchService.searchByHash(hash).subscribe(res => {
-      this.searchResult = res;
-      this.loadingSearch = false;
-    });
+    this.searchService.searchByHash(hash).subscribe(
+      res => {
+        this.searchResult = res;
+        this.loadingSearch = false;
+      },
+      err => {
+        this.toastr.error(err.error.alerts[0].message);
+      }
+    );
   }
 }

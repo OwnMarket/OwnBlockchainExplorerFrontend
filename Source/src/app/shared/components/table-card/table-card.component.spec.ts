@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { TableCardComponent } from './table-card.component';
 
@@ -9,7 +10,8 @@ describe('TableCardComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [TableCardComponent]
+        declarations: [TableCardComponent],
+        imports: [RouterTestingModule]
       }).compileComponents();
     })
   );

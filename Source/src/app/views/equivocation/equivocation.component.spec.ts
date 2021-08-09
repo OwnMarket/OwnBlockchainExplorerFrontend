@@ -1,4 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { EquivocationStoreService } from './equivocation-store.service';
 
 import { EquivocationComponent } from './equivocation.component';
 
@@ -9,7 +12,9 @@ describe('EquivocationComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [EquivocationComponent]
+        declarations: [EquivocationComponent],
+        imports: [HttpClientTestingModule, RouterTestingModule],
+        providers: [EquivocationStoreService]
       }).compileComponents();
     })
   );

@@ -5,10 +5,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BlocksRoutingModule } from './blocks-routing.module';
 import { BlocksComponent } from './blocks.component';
 import { SharedModule } from '@app/shared';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, NgbModule, SharedModule, BlocksRoutingModule],
+  imports: [CommonModule, TranslateModule, SharedModule, BlocksRoutingModule],
   declarations: [BlocksComponent],
   providers: [],
   exports: [BlocksComponent]
