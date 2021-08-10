@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ToastrModule } from 'ngx-toastr';
 
 import { CoreModule } from '@app/core';
@@ -13,12 +13,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeModule } from './views/home/home.module';
 import { HeaderModule } from './shared/components/header/header.module';
 
+import { TranslationLoaderService } from './core/services/translation-loader.service';
+import { environment } from '@env/environment';
+import { appFactory } from './core/factories/app.factory';
+
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+registerLocaleData(localeDe, 'de');
+
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    TranslateModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useClass: TranslationLoaderService,
+        deps: [HttpBackend]
+      }
+    }),
     ToastrModule.forRoot(),
     CoreModule,
     HeaderModule,
@@ -26,7 +40,22 @@ import { HeaderModule } from './shared/components/header/header.module';
     AppRoutingModule
   ],
   declarations: [AppComponent],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [HttpClient, TranslateService],
+      useFactory: appFactory
+    },
+    {
+      provide: LOCALE_ID,
+      deps: [TranslateService],
+      useFactory: (translate: TranslateService) => {
+        const lang = localStorage.getItem('selectedLanguage');
+        return lang ? lang : environment.defaultLanguage;
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

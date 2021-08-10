@@ -17,7 +17,33 @@
         </div>
         <div [ngClass]="{ 'col-6 col-lg-4': expandable || filterable }">
           <div class="float-right" *ngIf="expandable">
-            <i [ngClass]="expanded ? 'fa-angle-up' : 'fa-angle-down'" class="fas icon-pointer" (click)="expand()"></i>
+            <svg
+              *ngIf="expanded"
+              class="icon-pointer"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              (click)="expand()"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 15l7-7 7 7"></path>
+            </svg>
+
+            <svg
+              *ngIf="!expanded"
+              class="icon-pointer"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              (click)="expand()"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7"></path>
+            </svg>
           </div>
           <!-- TODO Need to find better way for filters handler -->
           <div *ngIf="filterable" class="filters-wrapper float-right">

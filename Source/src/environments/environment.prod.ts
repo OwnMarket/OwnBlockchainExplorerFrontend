@@ -10,6 +10,7 @@ export const environment = {
   production: true,
   version: env.npm_package_version,
   serverUrl: '<<EXPLORER_API_URL>>',
-  defaultLanguage: 'en-US',
-  supportedLanguages: ['en-US']
+  translationsUrl: 'https://platform-api.weown.com/translations/turtle',
+  defaultLanguage: 'en',
+  supportedLanguages: ['en', 'de']
 };

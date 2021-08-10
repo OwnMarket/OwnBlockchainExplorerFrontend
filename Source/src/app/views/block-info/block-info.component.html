@@ -90,11 +90,33 @@
             <div class="card-header transparent">
               <span class="additional-label">Additional info</span>
               <div class="float-right">
-                <i
-                  [ngClass]="additionalInfoExpanded ? 'fa-angle-up' : 'fa-angle-down'"
-                  class="fas icon-pointer"
+                <svg
+                  *ngIf="additionalInfoExpanded"
+                  class="icon-pointer"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
                   (click)="expandAdditionalInfo()"
-                ></i>
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 15l7-7 7 7"></path>
+                </svg>
+
+                <svg
+                  *ngIf="!additionalInfoExpanded"
+                  class="icon-pointer"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  (click)="expandAdditionalInfo()"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7"></path>
+                </svg>
               </div>
             </div>
             <div class="card-body" *ngIf="additionalInfoExpanded">

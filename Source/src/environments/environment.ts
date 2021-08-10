@@ -14,8 +14,9 @@ export const environment = {
   production: false,
   version: env.npm_package_version + '-dev',
   serverUrl: 'https://test.explorer-api.weown.com',
-  defaultLanguage: 'en-US',
-  supportedLanguages: ['en-US']
+  translationsUrl: 'https://test.platform-api.weown.com/translations/turtle',
+  defaultLanguage: 'en',
+  supportedLanguages: ['en', 'de']
 };
 
 /*

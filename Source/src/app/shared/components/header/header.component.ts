@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { I18nService, untilDestroyed, Logger } from '@app/core';
+import { untilDestroyed, Logger } from '@app/core';
 import { Observable } from 'rxjs';
 import { SearchStoreService } from '@app/shared/services/search-store.service';
 import { FormControl } from '@angular/forms';
@@ -18,11 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   searchResult: Observable<{}>;
   isLoading: Observable<boolean>;
 
-  constructor(
-    private router: Router,
-    private i18nService: I18nService,
-    private searchStoreService: SearchStoreService
-  ) {}
+  constructor(private router: Router, private searchStoreService: SearchStoreService) {}
 
   ngOnInit() {
     this.searchStoreService.searchResult$.pipe(untilDestroyed(this)).subscribe((type: string) => {
@@ -37,9 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuHidden = !this.menuHidden;
   }
 
-  setLanguage(language: string) {
-    this.i18nService.language = language;
-  }
+  setLanguage(language: string) {}
 
   searchByHash() {
     this.searchStoreService.searchByHash(this.searchField.value);
@@ -59,13 +53,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
       default:
         break;
     }
-  }
-
-  get currentLanguage(): string {
-    return this.i18nService.language;
-  }
-
-  get languages(): string[] {
-    return this.i18nService.supportedLanguages;
   }
 }
