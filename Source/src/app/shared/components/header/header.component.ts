@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { SearchStoreService } from '@app/shared/services/search-store.service';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('App');
 @Component({
@@ -13,18 +14,32 @@ const log = new Logger('App');
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   menuHidden = true;
-
   searchField: FormControl = new FormControl();
   searchResult: Observable<{}>;
   isLoading: Observable<boolean>;
+  selectedLanguage: string;
 
-  constructor(private router: Router, private searchStoreService: SearchStoreService) {}
+  constructor(
+    private router: Router,
+    private translate: TranslateService,
+    private searchStoreService: SearchStoreService
+  ) {}
 
   ngOnInit() {
+    this.selectedLanguage = localStorage.getItem('selectedLanguage');
+    if (!this.selectedLanguage) {
+      this.selectedLanguage = 'en';
+    }
     this.searchStoreService.searchResult$.pipe(untilDestroyed(this)).subscribe((type: string) => {
       this.checkType(type, this.searchField.value);
     });
     this.isLoading = this.searchStoreService.loadingSearch$.pipe(untilDestroyed(this));
+  }
+
+  selectLanguage(language: string) {
+    localStorage.setItem('selectedLanguage', language);
+    this.selectedLanguage = language;
+    this.translate.use(language);
   }
 
   ngOnDestroy() {}
@@ -32,8 +47,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   toggleMenu() {
     this.menuHidden = !this.menuHidden;
   }
-
-  setLanguage(language: string) {}
 
   searchByHash() {
     this.searchStoreService.searchByHash(this.searchField.value);

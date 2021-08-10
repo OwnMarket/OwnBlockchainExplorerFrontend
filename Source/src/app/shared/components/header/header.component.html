@@ -75,23 +75,39 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0 float-md-right">
               <li class="nav-item">
                 <a class="nav-item nav-link" routerLink="/blocks" routerLinkActive="active">
-                  <span translate>Blocks</span>
+                  <span>{{ 'turtle.ex.blocks' | translate }}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-item nav-link" routerLink="/transactions" routerLinkActive="active">
-                  <span translate>Transactions</span>
+                  <span>{{ 'turtle.ex.transactions' | translate }}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-item nav-link" routerLink="/addresses" routerLinkActive="active">
-                  <span translate>Addresses</span>
+                  <span>{{ 'turtle.ex.addresses' | translate }}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-item nav-link" routerLink="/validators" routerLinkActive="active">
-                  <span translate>Validators</span>
+                  <span>{{ 'turtle.ex.validators' | translate }}</span>
                 </a>
+              </li>
+              <li class="nav-item d-flex justify-content-center align-items-center">
+                <img
+                  class="nav-link flag lang mr-2 icon-pointer"
+                  [class.selected-lang]="selectedLanguage == 'en'"
+                  src="assets/images/gb-flag.png"
+                  alt="gb flag"
+                  (click)="selectLanguage('en')"
+                />
+                <img
+                  class="nav-link flag lang icon-pointer"
+                  [class.selected-lang]="selectedLanguage == 'de'"
+                  src="assets/images/de-flag.png"
+                  alt="de flag"
+                  (click)="selectLanguage('de')"
+                />
               </li>
             </ul>
           </div>
@@ -102,7 +118,7 @@
                 (keyup.enter)="searchByHash()"
                 [formControl]="searchField"
                 class="form-control"
-                placeholder="Search by Address, Transaction, Block..."
+                [placeholder]="'turtle.ex.searchBy' | translate"
                 aria-label="Search"
                 aria-describedby="button-addon2"
               />
@@ -138,7 +154,7 @@
         (keyup.enter)="searchByHash()"
         [formControl]="searchField"
         class="form-control"
-        placeholder="Search by Address, Transaction, Block..."
+        [placeholder]="'turtle.ex.searchBy' | translate"
         aria-label="Search"
         aria-describedby="button-addon2"
       />
