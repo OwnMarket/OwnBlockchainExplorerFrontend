@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { untilDestroyed, Logger } from '@app/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { SearchStoreService } from '@app/shared/services/search-store.service';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   searchResult: Observable<{}>;
   isLoading: Observable<boolean>;
   selectedLanguage: string;
+  languageSub: Subscription;
 
   constructor(
     private router: Router,
@@ -30,6 +31,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (!this.selectedLanguage) {
       this.selectedLanguage = 'en';
     }
+
+    this.languageSub = this.translate.onLangChange.subscribe(event => {
+      this.selectedLanguage = event.lang;
+    });
+
     this.searchStoreService.searchResult$.pipe(untilDestroyed(this)).subscribe((type: string) => {
       this.checkType(type, this.searchField.value);
     });
@@ -42,7 +48,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.translate.use(language);
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    if (this.languageSub) this.languageSub.unsubscribe();
+  }
 
   toggleMenu() {
     this.menuHidden = !this.menuHidden;
