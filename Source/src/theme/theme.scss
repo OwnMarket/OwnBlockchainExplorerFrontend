@@ -2,15 +2,44 @@
  * Global application theme.
  * Framework overrides and customization goes here.
  */
+
+:root {
+  --main-bg: #ffffff;
+  --brand: #eb6723;
+  --accent: #37a2ae;
+}
+
 * {
-  // TODO: CHECK FONT AVERTA
-  // font-family: "Open Sans";
-  font-size: 14px;
+  scrollbar-width: thin;
+  scrollbar-color: transparent var(--card-separator-color);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  @apply w-3;
+}
+
+*::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply rounded-xl border-4 border-inherit bg-brand;
+}
+
+html,
+body {
+  @apply min-h-screen;
 }
 
 body {
   background-color: #f4f4f4;
-  overflow-x: hidden;
+  background-image: url("/assets/images/bg.jpg");
+  @apply bg-cover bg-fixed overflow-x-hidden;
+}
+
+a {
+  @apply text-accent font-bold underline;
 }
 
 .clip-text {
@@ -20,21 +49,13 @@ body {
 }
 
 .card {
-  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.11);
-  background-color: #ffffff;
-  border: none;
-  border-radius: 15px;
+  @apply border border-neutral-100 shadow-lg overflow-hidden bg-white rounded-xl;
 
   // font-size: 11px;
   .card-header {
     &:last-child {
-      border-radius: 15px;
+      @apply rounded-xl;
     }
-
-    margin-top: 10px;
-    background-color: white;
-    color: #1e1e1e;
-
     i {
       color: #fa591f;
       font-size: 25px;
@@ -49,7 +70,6 @@ body {
   .card-header {
     background-color: transparent !important;
     border: none;
-    border-bottom: 2px solid #999999;
   }
 }
 
@@ -59,10 +79,7 @@ body {
   letter-spacing: 0.07px;
 
   .title-card {
-    color: #3c3b3b;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 0.09px;
+    @apply font-bold text-xl;
   }
 
   .info-label {

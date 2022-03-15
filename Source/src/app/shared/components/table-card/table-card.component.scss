@@ -1,24 +1,18 @@
 .table-card {
   .card {
     .card-header {
-      margin-top: 10px;
-      background-color: white;
-      color: #1e1e1e;
-
       i {
         color: #fa591f;
         font-size: 25px;
       }
 
-      .title {
-        display: flex;
-        justify-content: space-between;
-      }
+      @apply font-bold text-xl text-left flex justify-between py-4 px-6 bg-inherit rounded-t-lg;
     }
 
     .card-body {
       padding: 0;
       margin-left: 0;
+      @apply text-sm;
 
       .empty-row {
         text-align: center;
@@ -66,28 +60,23 @@
         }
 
         .datatable-header {
-          border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-          text-transform: uppercase;
-          display: flex;
-          align-items: center;
-          color: #848484;
-          background-color: #f4f4f4;
+          // border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+          @apply flex items-center;
 
           .datatable-header-cell-template-wrap {
             padding: 0 10px;
           }
 
           .datatable-header-cell-label {
-            font-size: 12px;
+            @apply font-bold;
           }
         }
 
         .datatable-body {
-          font-size: 11px;
           overflow-x: hidden;
 
           .datatable-row-wrapper {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+            // border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
             .datatable-body-cell {
               display: flex;

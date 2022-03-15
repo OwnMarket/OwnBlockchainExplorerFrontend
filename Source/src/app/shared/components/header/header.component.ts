@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { untilDestroyed, Logger } from '@app/core';
 import { Observable, Subscription } from 'rxjs';
 import { SearchStoreService } from '@app/shared/services/search-store.service';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-const log = new Logger('App');
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -16,7 +14,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   menuHidden = true;
   searchField: FormControl = new FormControl();
   searchResult: Observable<{}>;
-  isLoading: Observable<boolean>;
   selectedLanguage: string;
   languageSub: Subscription;
 
@@ -35,11 +32,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.languageSub = this.translate.onLangChange.subscribe(event => {
       this.selectedLanguage = event.lang;
     });
-
-    this.searchStoreService.searchResult$.pipe(untilDestroyed(this)).subscribe((type: string) => {
-      this.checkType(type, this.searchField.value);
-    });
-    this.isLoading = this.searchStoreService.loadingSearch$.pipe(untilDestroyed(this));
   }
 
   selectLanguage(language: string) {

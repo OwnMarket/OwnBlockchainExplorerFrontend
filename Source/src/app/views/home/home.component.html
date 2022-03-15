@@ -1,42 +1,36 @@
-<div class="container">
-  <div class="row">
-    <div class="col col-sm-4 col-md-3 col-lg-2">
-      <h6 class="text-center">Last block</h6>
-      <div class="card h-100">
-        <div class="card-body last-block">
-          <div class="row justify-content-center align-items-center h-100">
-            <h5 class="last-block-number card-title text-center">{{ lastBlock }}</h5>
-          </div>
-        </div>
-      </div>
+<div class="grid sm:grid-cols-12 gap-6 text-sm">
+  <div class="sm:col-span-2 order-1">
+    <h6 class="font-bold">Last block</h6>
+  </div>
+  <div class="sm:col-span-10 order-3 sm:order-2">
+    <h6 class="font-bold">Transactions by day</h6>
+  </div>
+  <div class="sm:col-span-2 order-2 sm:order-3">
+    <div class="card h-full flex justify-center items-center">
+      <h5 class="text-brand font-bold text-lg">{{ lastBlock }}</h5>
     </div>
-    <div class="col col-sm-8 col-md-9 col-lg-10 mt-5 mt-md-0">
-      <h6>Transactions by day</h6>
-      <div class="card h-100">
-        <div class="card-body p-0">
-          <div class="chart">
-            <ngx-charts-line-chart
-              [scheme]="colorScheme"
-              [results]="chartData"
-              [gradient]="gradient"
-              [showGridLines]="false"
-              [xAxis]="true"
-              [yAxis]="false"
-            >
-            </ngx-charts-line-chart>
-          </div>
+  </div>
+  <div class="sm:col-span-10 order-4">
+    <div class="card pb-2">
+      <div class="flex items-end">
+        <div class="chart">
+          <ngx-charts-line-chart
+            [scheme]="colorScheme"
+            [results]="chartData"
+            [gradient]="gradient"
+            [showGridLines]="false"
+            [xAxis]="true"
+            [yAxis]="false"
+          >
+          </ngx-charts-line-chart>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="row mt-5">
-    <div class="col-12 col-sm-12 col-md-5">
-      <app-blocks></app-blocks>
-    </div>
-
-    <div class="col-12 col-sm-12 col-md-7 mt-5 mt-md-0">
-      <app-transactions></app-transactions>
-    </div>
+  <div class="sm:col-span-5 order-5">
+    <app-blocks></app-blocks>
+  </div>
+  <div class="sm:col-span-7 order-6">
+    <app-transactions></app-transactions>
   </div>
 </div>

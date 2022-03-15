@@ -5,7 +5,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TimeagoModule, TimeagoClock } from 'ngx-timeago';
 
 import { LoaderComponent } from './components/loader/loader.component';
-import { SearchInputComponent } from './components/search-input/search-input.component';
 import { TableCardComponent } from './components/table-card/table-card.component';
 import { PageTitleComponent } from './components/page-title/page-title.component';
 import { LabeledCardComponent } from './components/labeled-card/labeled-card.component';
@@ -17,7 +16,6 @@ import { CamelCaseToSpace } from './pipes/camelcase-to-space.pipe';
 import { CustomClock } from './clock';
 import { DisplayTimestampPipe } from './pipes/display-timestamp.pipe';
 import { FilterSelectorComponent } from './components/filter-selector/filter-selector.component';
-import { HeaderModule } from './components/header/header.module';
 import { ClickOutDirective } from './directives/click-out.directive';
 
 @NgModule({
@@ -25,12 +23,10 @@ import { ClickOutDirective } from './directives/click-out.directive';
     CommonModule,
     RouterModule,
     NgxDatatableModule,
-    HeaderModule,
     TimeagoModule.forRoot({ clock: { provide: TimeagoClock, useClass: CustomClock } })
   ],
   declarations: [
     LoaderComponent,
-    SearchInputComponent,
     TableCardComponent,
     HtmlRenderPipe,
     CamelCaseToSpace,
@@ -44,7 +40,6 @@ import { ClickOutDirective } from './directives/click-out.directive';
   providers: [SearchService],
   exports: [
     LoaderComponent,
-    SearchInputComponent,
     TableCardComponent,
     PageTitleComponent,
     LabeledCardComponent,
@@ -52,7 +47,6 @@ import { ClickOutDirective } from './directives/click-out.directive';
     CamelCaseToSpace,
     DisplayTimestampPipe,
     FilterSelectorComponent,
-    HeaderModule,
     ClickOutDirective
   ]
 })

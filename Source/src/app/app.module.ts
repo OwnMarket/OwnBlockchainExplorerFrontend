@@ -19,6 +19,7 @@ import { appFactory } from './core/factories/app.factory';
 
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
+import { ToolbarModule } from './shared/components';
 registerLocaleData(localeDe, 'de');
 
 @NgModule({
@@ -34,6 +35,7 @@ registerLocaleData(localeDe, 'de');
       }
     }),
     ToastrModule.forRoot(),
+    ToolbarModule,
     CoreModule,
     HeaderModule,
     HomeModule,
