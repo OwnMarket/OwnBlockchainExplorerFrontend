@@ -1,0 +1,19 @@
+<div *ngIf="isOpen" class="fixed top-0 right-0 left-0 bottom-0" (click)="isOpen = false"></div>
+<div class="relative h-full">
+  <button class="h-full select-none cursor-pointer z-20 w-full block" (click)="toggle()">
+    <ng-content select="[walletDropdownTrigger]"></ng-content>
+  </button>
+  <div
+    class="absolute bg-white dark:bg-neutral-800 shadow-lg rounded-lg right-0 mt-1 w-auto whitespace-nowrap transform transition-all duration-150 ease-in-out overflow-hidden z-10"
+    [ngClass]="{
+      'opacity-0 -translate-y-2 pointer-events-none invisible': !isOpen,
+      'opacity-100 translate-y-0 visible': isOpen,
+      'right-0': isRight,
+      'left-0': isLeft
+    }"
+  >
+    <div>
+      <ng-content select="[walletDropdownItem]"></ng-content>
+    </div>
+  </div>
+</div>

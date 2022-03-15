@@ -1,0 +1,43 @@
+<div
+  class="h-16 fixed top-0 left-0 right-0 z-20 bg-white dark:bg-neutral-800 flex justify-between print:justify-center items-center shadow text-sm print:shadow-none"
+>
+  <a routerLink="/" class="text-neutral-800">
+    <app-logo></app-logo>
+  </a>
+  <div class="flex print:hidden">
+    <app-search-input></app-search-input>
+    <div class="ml-2 my-1 border-l border-gray-300 dark:border-neutral-600"></div>
+    <div class="-my-2 mr-2">
+      <app-dropdown #dropdown>
+        <div walletDropdownTrigger class="p-4 pr-2 text-brand hover:text-accent">
+          <cog-icon></cog-icon>
+        </div>
+        <div walletDropdownItem class="border-b dark:border-neutral-600">
+          <div class="text-gray-400 px-4 py-2">{{ 'wallet.selectLanguage' | translate }}</div>
+          <ul>
+            <li>
+              <button
+                role="button"
+                class="menu-item hover:bg-orange-100/50 hover:text-brand dark:hover:bg-neutral-700 dark:hover:text-white m-0"
+                [class.font-bold]="selectedLanguage === 'en'"
+                (click)="selectLanguage('en')"
+              >
+                <gb-icon></gb-icon> {{ 'wallet.english' | translate }}
+              </button>
+            </li>
+            <li>
+              <button
+                role="button"
+                class="menu-item hover:bg-orange-100/50 hover:text-brand dark:hover:bg-neutral-700 dark:hover:text-white m-0"
+                [class.font-bold]="selectedLanguage === 'de'"
+                (click)="selectLanguage('de')"
+              >
+                <de-icon></de-icon> {{ 'wallet.german' | translate }}
+              </button>
+            </li>
+          </ul>
+        </div>
+      </app-dropdown>
+    </div>
+  </div>
+</div>

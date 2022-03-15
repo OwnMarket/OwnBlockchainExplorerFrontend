@@ -1,0 +1,6 @@
+.menu-item {
+  @apply px-6 py-3 cursor-pointer select-none flex items-center w-full;
+  > * {
+    @apply mr-4;
+  }
+}

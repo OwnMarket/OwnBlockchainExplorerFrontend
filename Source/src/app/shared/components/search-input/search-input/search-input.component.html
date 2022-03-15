@@ -1,0 +1,30 @@
+<div class="input-wrapp text-sm hidden sm:flex" *ngIf="searchForm">
+  <form [formGroup]="searchForm" (ngSubmit)="submit(searchForm)" class="relative">
+    <input
+      #input
+      id="term"
+      class="rounded-r-none border-gray-300 dark:border-neutral-600"
+      type="text"
+      formControlName="hash"
+      placeholder="Search by Address, Transaction, Block..."
+      aria-label="Search"
+      autocomplete="off"
+      (blur)="blur()"
+      tabindex="0"
+    />
+    <div
+      *ngIf="input.value && input.value.length > 0"
+      class="absolute right-2 top-3 cursor-pointer"
+      (click)="resetValue()"
+    >
+      <x-icon classNames="w-4 h-4"></x-icon>
+    </div>
+  </form>
+  <button
+    [disabled]="searchForm.invalid"
+    (click)="submit(searchForm)"
+    class="bg-brand dark:bg-neutral-700 text-white dark:text-brand disabled:bg-gray-400 disabled:dark:opacity-40 disabled:dark:text-neutral-500 hover:bg-yellow-500 dark:hover:bg-neutral-600 dark:hover:text-white disabled:cursor-not-allowed"
+  >
+    <search-icon classNames="w-4 h-4"></search-icon>
+  </button>
+</div>
