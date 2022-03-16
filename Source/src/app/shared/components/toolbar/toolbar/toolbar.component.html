@@ -1,6 +1,4 @@
-<div
-  class="h-16 fixed top-0 left-0 right-0 z-20 bg-white dark:bg-neutral-800 flex justify-between print:justify-center items-center shadow text-sm print:shadow-none"
->
+<div class="toolbar">
   <a routerLink="/" class="text-neutral-800">
     <app-logo></app-logo>
   </a>
@@ -19,7 +17,7 @@
             <li>
               <button
                 role="button"
-                class="menu-item hover:bg-orange-100/50 hover:text-brand dark:hover:bg-neutral-700 dark:hover:text-white m-0"
+                class="menu-item"
                 [class.font-bold]="selectedLanguage === 'en'"
                 (click)="selectLanguage('en')"
               >

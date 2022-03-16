@@ -1,54 +1,33 @@
-<app-validators-map></app-validators-map>
-<div class="row mt-5">
-  <div class="col col-12 col-sm-3 mb-5 sm-mb-0">
-    <h6 class="text-center">Validators</h6>
-    <div class="card h-100">
-      <div class="card-body last-block">
-        <div class="row justify-content-center align-items-center h-100 last-block-number">
-          <app-loader [isLoading]="!totalValidators"></app-loader>
-          <h5 class="last-block-number card-title text-center" *ngIf="totalValidators">{{ totalValidators }}</h5>
-        </div>
-      </div>
+<div class="grid sm:col-span-12 gap-6 text-sm">
+  <div class="sm:col-span-12">
+    <app-validators-map></app-validators-map>
+  </div>
+  <div class="weown-card__brand sm:col-span-3">
+    <div>Validators:</div>
+    <app-loader [isLoading]="!totalValidators"></app-loader>
+    <div class="font-bold text-lg truncate" *ngIf="totalValidators">
+      {{ totalValidators }}
     </div>
   </div>
-  <div class="col col-12 col-sm-3 mb-5 sm-mb-0">
-    <h6 class="text-center">Active validators</h6>
-    <div class="card h-100">
-      <div class="card-body last-block">
-        <div class="row justify-content-center align-items-center h-100 last-block-number">
-          <app-loader [isLoading]="!activeValidators"></app-loader>
-          <h5 class="last-block-number card-title text-center" *ngIf="activeValidators">{{ activeValidators }}</h5>
-        </div>
-      </div>
+  <div class="weown-card__brand sm:col-span-3">
+    <div>Active validators:</div>
+    <app-loader [isLoading]="!activeValidators"></app-loader>
+    <div class="font-bold text-lg truncate" *ngIf="activeValidators">
+      {{ activeValidators }}
     </div>
   </div>
-  <div class="col col-12 col-sm-3 mb-5 sm-mb-0">
-    <h6 class="text-center">At stake</h6>
-    <div class="card h-100">
-      <div class="card-body last-block">
-        <div class="row justify-content-center align-items-center h-100 last-block-number">
-          <app-loader [isLoading]="!totalStakes"></app-loader>
-          <h5 class="last-block-number card-title text-center" *ngIf="totalStakes">{{ totalStakes }} CHX</h5>
-        </div>
-      </div>
-    </div>
+  <div class="weown-card__brand sm:col-span-3">
+    <div>At stake:</div>
+    <app-loader [isLoading]="!totalStakes"></app-loader>
+    <div class="font-bold text-lg truncate" *ngIf="totalStakes">{{ totalStakes }} CHX</div>
+  </div>
+  <div class="weown-card__brand sm:col-span-3">
+    <div>Locked in deposits:</div>
+    <app-loader [isLoading]="!totalDeposits"></app-loader>
+    <div class="font-bold text-lg truncate" *ngIf="totalDeposits">{{ totalDeposits }} CHX</div>
   </div>
 
-  <div class="col col-12 col-sm-3 mb-5 sm-mb-0">
-    <h6 class="text-center">Locked in deposits</h6>
-    <div class="card h-100">
-      <div class="card-body last-block">
-        <div class="row justify-content-center align-items-center h-100 last-block-number">
-          <app-loader [isLoading]="!totalDeposits"></app-loader>
-          <h5 class="last-block-number card-title text-center" *ngIf="totalDeposits">{{ totalDeposits }} CHX</h5>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-12">
+  <div class="sm:col-span-12 relative">
     <div class="filter">
       <app-validator-time-filter (valueChanged)="filterValidators($event)"> </app-validator-time-filter>
     </div>
@@ -83,17 +62,4 @@
   <a [title]="value">{{ value }}</a>
 </ng-template>
 
-<ng-template #rewardPerc let-row="row" let-value="value">
-  <div class="progress" style="height: 15px;">
-    <div
-      class="progress-bar"
-      role="progressbar"
-      [ngStyle]="{ width: value + '%' }"
-      [attr.aria-valuenow]="value"
-      aria-valuemin="0"
-      aria-valuemax="100"
-    >
-      {{ value }}%
-    </div>
-  </div>
-</ng-template>
+<ng-template #rewardPerc let-row="row" let-value="value"> {{ value }}% </ng-template>

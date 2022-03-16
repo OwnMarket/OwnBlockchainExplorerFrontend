@@ -24,7 +24,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  @apply rounded-xl border-2 border-inherit bg-brand;
+  @apply rounded border-2 border-inherit bg-brand;
 }
 
 html,
@@ -205,4 +205,11 @@ a {
 .last-block-number {
   color: #fa591f;
   font-weight: bolder;
+}
+
+.menu-item {
+  @apply px-6 py-3 cursor-pointer select-none flex items-center w-full no-underline font-normal text-neutral-800 dark:text-neutral-300 hover:bg-orange-100/50 hover:text-brand dark:hover:bg-neutral-700 dark:hover:text-white m-0;
+  > * {
+    @apply mr-4;
+  }
 }

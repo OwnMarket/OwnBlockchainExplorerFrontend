@@ -1,6 +1,3 @@
 .filter {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  z-index: 2;
+  @apply absolute top-3 right-6 z-10;
 }

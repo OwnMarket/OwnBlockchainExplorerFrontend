@@ -1,20 +1,19 @@
-<div class="dropdown" [class.show]="open">
-  <button
-    (click)="togglePopup()"
-    class="btn btn-light dropdown-toggle"
-    type="button"
-    id="dropdownMenu2"
-    data-toggle="dropdown"
-    aria-haspopup="true"
-    [attr.aria-expanded]="open"
+<app-dropdown #dropdown>
+  <div
+    walletDropdownTrigger
+    class="pl-6 pr-2 py-1 rounded-xl border hover:border-brand hover:text-brand flex items-center justify-between"
   >
-    Data for {{ selected }}
-  </button>
-  <div [class.show]="open" class="dropdown-menu" aria-labelledby="dropdownMenu2">
-    <ng-container *ngFor="let value of values">
-      <a class="dropdown-item" [class.active]="value.text === selected" (click)="valueIsChanged(value)">
-        {{ value.text }}
-      </a>
-    </ng-container>
+    <div class="mr-2">Data for {{ selected }}</div>
+    <div
+      class="transform transition-transform duration-150"
+      [ngClass]="{ 'rotate-180': dropdown.isOpen, 'rotate-0': !dropdown.isOpen }"
+    >
+      <chevron-down-icon></chevron-down-icon>
+    </div>
   </div>
-</div>
+  <div walletDropdownItem *ngFor="let value of values">
+    <a class="menu-item" *ngIf="value.text !== selected" (click)="valueIsChanged(value)">
+      {{ value.text }}
+    </a>
+  </div>
+</app-dropdown>
