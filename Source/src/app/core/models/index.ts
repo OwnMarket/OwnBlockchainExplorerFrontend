@@ -4,6 +4,7 @@ export * from './address-summary.model';
 export * from './address.model';
 export * from './alert.model';
 export * from './api-response.model';
+export * from './asset-summary.model';
 export * from './block-item.model';
 export * from './block-tx.model';
 export * from './block.model';

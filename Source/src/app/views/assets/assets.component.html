@@ -1,0 +1,14 @@
+<app-table-card
+  title="Assets"
+  [tableHeight]="tableHeight"
+  [columns]="columns"
+  [source]="assets | async"
+  [loading]="isLoading | async"
+  (loadMore)="onLoadMore($event)"
+  [canLoadMore]="canLoad | async"
+>
+</app-table-card>
+
+<ng-template #asset let-row="row" let-value="value">
+  <a [routerLink]="['/asset', value]" [title]="value">{{ value }}</a>
+</ng-template>

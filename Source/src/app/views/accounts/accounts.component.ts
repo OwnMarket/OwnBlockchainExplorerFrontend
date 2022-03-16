@@ -53,17 +53,17 @@ export class AccountsComponent implements OnInit, OnDestroy {
     this.isLoading = this.accountStoreService.loadingAccounts$.pipe(untilDestroyed(this));
     this.canLoad = this.accountStoreService.canLoadMore$.pipe(untilDestroyed(this));
     this.accountCount = this.accountStoreService.totalAccounts$.pipe(untilDestroyed(this));
-    this.getAddresses();
+    this.getAccounts();
   }
 
   ngOnDestroy(): void {}
 
-  getAddresses(shouldAppend: boolean = false) {
+  getAccounts(shouldAppend: boolean = false) {
     this.accountStoreService.getAccounts(this.currentPage, this.pageLimit, shouldAppend);
   }
 
   onLoadMore(event: any) {
     this.currentPage++;
-    this.getAddresses(true);
+    this.getAccounts(true);
   }
 }

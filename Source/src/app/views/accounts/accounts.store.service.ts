@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AccountSummary } from '@app/core';
 import { BehaviorSubject } from 'rxjs';
+import { AccountSummary } from '@app/core';
 import { AccountsService } from './accounts.service';
 
 @Injectable({
