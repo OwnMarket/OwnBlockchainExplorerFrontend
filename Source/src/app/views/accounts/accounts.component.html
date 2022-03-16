@@ -1,0 +1,18 @@
+<app-table-card
+  title="Accounts"
+  [tableHeight]="tableHeight"
+  [columns]="columns"
+  [source]="accounts | async"
+  [loading]="isLoading | async"
+  (loadMore)="onLoadMore($event)"
+  [canLoadMore]="canLoad | async"
+>
+</app-table-card>
+
+<ng-template #account let-row="row" let-value="value">
+  <a [routerLink]="['/account', value]" [title]="value">{{ value }}</a>
+</ng-template>
+
+<ng-template #address let-row="row" let-value="value">
+  <a [routerLink]="['/address', value]" [title]="value">{{ value }}</a>
+</ng-template>

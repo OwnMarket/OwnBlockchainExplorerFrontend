@@ -12,7 +12,7 @@
     </div>
   </div>
   <div walletDropdownItem *ngFor="let value of values">
-    <a class="menu-item" *ngIf="value.text !== selected" (click)="valueIsChanged(value)">
+    <a class="menu-item" *ngIf="value.text !== selected" (click)="valueIsChanged(value, dropdown)">
       {{ value.text }}
     </a>
   </div>

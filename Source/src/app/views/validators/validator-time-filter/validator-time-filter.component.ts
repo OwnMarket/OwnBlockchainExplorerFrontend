@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { DropdownComponent } from '@app/shared/components/dropdown/dropdown/dropdown.component';
 
 @Component({
   selector: 'app-validator-time-filter',
@@ -25,10 +26,10 @@ export class ValidatorTimeFilterComponent {
 
   @Output() valueChanged: EventEmitter<number> = new EventEmitter<number>();
 
-  valueIsChanged(option: any) {
-    this.togglePopup();
+  valueIsChanged(option: any, dropdown: DropdownComponent) {
     this.selected = option.text;
     this.valueChanged.emit(option.value);
+    dropdown.toggle();
   }
 
   togglePopup() {

@@ -3,13 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
-  {
     path: 'home',
     loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule)
+  },
+  {
+    path: 'accounts',
+    loadChildren: () => import('./views/accounts/accounts.module').then(m => m.AccountsModule)
   },
   {
     path: 'blocks',
@@ -42,6 +41,11 @@ const routes: Routes = [
   {
     path: 'equivocation',
     loadChildren: () => import('./views/equivocation/equivocation.module').then(m => m.EquivocationModule)
+  },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
   },
   {
     path: '**',
