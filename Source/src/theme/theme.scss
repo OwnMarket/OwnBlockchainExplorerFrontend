@@ -24,7 +24,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  @apply rounded-xl border-4 border-inherit bg-brand;
+  @apply rounded-xl border-2 border-inherit bg-brand;
 }
 
 html,
@@ -52,6 +52,12 @@ a {
 }
 
 .weown-card {
+  &__success {
+    @apply bg-green-100 text-green-600 dark:bg-neutral-800 p-4 overflow-hidden rounded-lg shadow;
+  }
+  &__fail {
+    @apply bg-red-100 text-red-600 dark:bg-neutral-800 p-4 overflow-hidden rounded-lg shadow;
+  }
   &__white {
     @apply bg-white/70 dark:bg-neutral-800 p-4 overflow-hidden rounded-lg shadow;
   }

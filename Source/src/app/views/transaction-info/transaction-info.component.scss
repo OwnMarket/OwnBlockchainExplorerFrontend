@@ -20,8 +20,7 @@
 }
 
 .details-row-item {
-  padding-bottom: 0.8rem;
-  font-size: 11px;
+  @apply pb-3;
 }
 
 .transaction-status {

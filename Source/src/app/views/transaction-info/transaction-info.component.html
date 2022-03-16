@@ -1,237 +1,157 @@
 <div *ngIf="transactionInfo | async as transaction">
-  <!-- TITLE -->
-  <div class="row justify-content-md-center">
-    <div class="col-12 col-md-10 ml-3">
-      <app-page-title title="Transaction"></app-page-title>
-    </div>
-  </div>
-
-  <!-- LOADER -->
+  <app-page-title title="Transaction"></app-page-title>
   <app-loader [isLoading]="loadingTransactionInfo | async"></app-loader>
 
-  <div [hidden]="loadingTransactionInfo | async" class="detail-info">
-    <div class="row justify-content-md-center">
-      <div class="col-12 col-md-10">
-        <div class="row">
-          <div class="col-12 col-lg-8">
-            <p class="title-card ml-3">&nbsp;</p>
-            <div class="transaction-status">
-              <img *ngIf="transaction.status === 'Success'" src="assets/images/success-text.svg" />
-              <img *ngIf="transaction.status === 'Pending'" src="assets/images/pending-text.svg" />
-              <img *ngIf="transaction.status === 'Failure'" src="assets/images/failed-text.svg" />
-            </div>
-            <div class="card">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-5 col-md-3">
-                    <p class="info-label">Transaction Hash</p>
-                  </div>
-                  <div class="col-7 col-md-9 text-right">
-                    <p class="info-value">{{ transaction.hash }}</p>
-                  </div>
-                </div>
-                <div class="row mt-3">
-                  <div class="col-6 col-md-4">
-                    <p class="info-label">Block number</p>
-                  </div>
-                  <div class="col-6 col-md-8 text-right">
-                    <p class="info-value">
-                      <a class="text-secondary" [routerLink]="['/block', transaction.blockNumber]">
-                        {{ transaction.blockNumber }}
-                      </a>
-                    </p>
-                  </div>
-                </div>
+  <div
+    [hidden]="loadingTransactionInfo | async"
+    class="detail-info"
+    class="grid grid-cols-1 sm:grid-cols-6 gap-4 text-sm"
+  >
+    <div
+      class="sm:col-span-4 relative"
+      [ngClass]="{
+        'weown-card__success': transaction.status === 'Success',
+        'weown-card__accent': transaction.status === 'Pending',
+        'weown-card__fail': transaction.status === 'Failure'
+      }"
+    >
+      <div class="absolute -right-6 -top-6 opacity-50">
+        <img class="w-28 h-28" *ngIf="transaction.status === 'Success'" src="/assets/images/success-icon.svg" />
+        <img class="w-28 h-28" *ngIf="transaction.status === 'Pending'" src="/assets/images/pending-icon.svg" />
+        <img class="w-28 h-28" *ngIf="transaction.status === 'Failure'" src="/assets/images/failed-icon.svg" />
+      </div>
+      <div>Transaction Hash:</div>
+      <div class="font-bold truncate">{{ transaction.hash }}</div>
+    </div>
 
-                <div *ngIf="transaction.status === 'Failure'">
-                  <div class="row mt-3">
-                    <div class="col-6 col-md-4">
-                      <p class="info-label">Error message</p>
-                    </div>
-                    <div class="col-6 col-md-8 text-right">
-                      <p class="info-value">{{ transaction.errorMessage | camelCaseToSpace | titlecase }}</p>
-                    </div>
-                  </div>
-                  <div class="row mt-3" *ngIf="transaction.failedActionNumber">
-                    <div class="col-6 col-md-4">
-                      <p class="info-label">Failed action number</p>
-                    </div>
-                    <div class="col-6 col-md-8 text-right">
-                      <p class="info-value">{{ transaction.failedActionNumber }}</p>
-                    </div>
-                  </div>
-                </div>
+    <div class="weown-card__accent sm:col-span-2">
+      <div>Block number:</div>
+      <div class="font-bold truncate">
+        <a class="text-secondary" [routerLink]="['/block', transaction.blockNumber]">
+          {{ transaction.blockNumber }}
+        </a>
+      </div>
+    </div>
 
-                <div class="row mt-3" *ngIf="transaction.status === 'Fa'">
-                  <div class="col-6 col-md-4">
-                    <p class="info-label">Block number</p>
-                  </div>
-                  <div class="col-6 col-md-8 text-right">
-                    <p class="info-value">
-                      <a class="text-secondary" [routerLink]="['/block', transaction.blockNumber]">
-                        {{ transaction.blockNumber }}</a
-                      >
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div class="weown-card__white sm:col-span-4">
+      <div>From:</div>
+      <div class="font-bold truncate">
+        <a class="text-secondary" [routerLink]="['/address', transaction.senderAddress]">
+          {{ transaction.senderAddress }}
+        </a>
+      </div>
+    </div>
+
+    <div class="weown-card__white sm:col-span-2">
+      <div>Nonce:</div>
+      <div class="font-bold truncate">
+        {{ transaction.nonce }}
+      </div>
+    </div>
+
+    <div class="weown-card__white sm:col-span-2">
+      <div>Action fee:</div>
+      <div class="font-bold truncate">{{ transaction.actionFee }} CHX</div>
+    </div>
+
+    <div class="weown-card__white sm:col-span-2">
+      <div>Total fee:</div>
+      <div class="font-bold truncate">{{ totalFee(transaction.actionFee, transaction.numberOfActions) }} CHX</div>
+    </div>
+
+    <div class="weown-card__white sm:col-span-2">
+      <div>Actions:</div>
+      <div class="font-bold truncate">{{ transaction.numberOfActions }}</div>
+    </div>
+
+    <div class="weown-card__white sm:col-span-3">
+      <div>Expiration time:</div>
+      <div class="font-bold truncate">
+        {{ transaction.expirationTime ? (transaction.expirationTime | displayTimestamp) : '-' }}
+      </div>
+    </div>
+
+    <div class="weown-card__white sm:col-span-3">
+      <div>Timestamp:</div>
+      <div class="font-bold truncate" *ngIf="transaction.timestamp">
+        {{ transaction.timestamp | displayTimestamp }} ({{ transaction.timestamp + 'Z' | timeago: true }})
+      </div>
+    </div>
+
+    <ng-container *ngIf="transaction.status === 'Failure'">
+      <div class="text-xl font-bold my-6 sm:col-span-6">
+        Errors
+      </div>
+      <div
+        class="weown-card__fail"
+        [ngClass]="{
+          'sm:col-span-4': transaction.failedActionNumber,
+          'sm:col-span-6': !transaction.failedActionNumber
+        }"
+      >
+        <div>Error message:</div>
+        <div class="font-bold">
+          {{ transaction.errorMessage | camelCaseToSpace | titlecase }}
+        </div>
+      </div>
+      <div class="sm:col-span-2 weown-card__fail" *ngIf="transaction.failedActionNumber">
+        <div>Failed action number:</div>
+        <div class="font-bold">
+          {{ transaction.failedActionNumber }}
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="text-xl font-bold my-6 sm:col-span-6">
+      Actions
+    </div>
+
+    <div class="sm:col-span-6 weown-card__white" *ngFor="let action of transactionActions | async; let i = index">
+      <div class="col-12 mb-4">
+        <b>{{ i + 1 }}. {{ action.actionType | camelCaseToSpace }}</b>
+      </div>
+      <div class="col-12">
+        <div class="row details-row-item mb-1 mb-md-0" *ngIf="action.actionType === 'CreateAsset'">
+          <div class="col-12 col-md-3">
+            <span class="ml-3">Asset</span>
           </div>
-
-          <div class="col-12 col-lg-4 from-card-section">
-            <h6>&nbsp;</h6>
-            <div class="card-transparent">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-4 col-md-3">
-                    <div class="from-image"></div>
-                  </div>
-                  <div class="col-8 col-md-9">
-                    <p class="info-label">From</p>
-                    <div class="clip-text">
-                      <a class="text-secondary" [routerLink]="['/address', transaction.senderAddress]">
-                        {{ transaction.senderAddress }}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="col-12 col-md-9 ml-3 ml-md-0 font-bold" *ngIf="transaction.senderAddress">
+            <a [routerLink]="['/asset', deriveHash(transaction.senderAddress, transaction.nonce, i + 1)]">
+              {{ deriveHash(transaction.senderAddress, transaction.nonce, i + 1) }}
+            </a>
           </div>
-
-          <div class="col-12 mt-5">
-            <div class="row">
-              <div class="col-12 col-md-6">
-                <div class="row details-row-item">
-                  <div class="col-6">
-                    <p class="info-label">Nonce</p>
-                  </div>
-                  <div class="col-6 border-right">
-                    <p class="info-value">{{ transaction.nonce }}</p>
-                  </div>
-                </div>
-
-                <div class="row details-row-item">
-                  <div class="col-6">
-                    <p class="info-label">Expiration time</p>
-                  </div>
-                  <div class="col-6 border-right">
-                    <p class="info-value" *ngIf="transaction.expirationTime">
-                      {{ transaction.expirationTime | displayTimestamp }}
-                    </p>
-                    <p class="info-value" *ngIf="!transaction.expirationTime">
-                      -
-                    </p>
-                  </div>
-                </div>
-
-                <div class="row details-row-item">
-                  <div class="col-4">
-                    <p class="info-label">Timestamp</p>
-                  </div>
-                  <div class="col-8 border-right">
-                    <p class="info-value" *ngIf="transaction.timestamp">
-                      {{ transaction.timestamp | displayTimestamp }}
-                      ({{ transaction.timestamp + 'Z' | timeago: true }})
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-12 col-md-6">
-                <div class="row details-row-item">
-                  <div class="col-6">
-                    <p class="info-label">Actions</p>
-                  </div>
-                  <div class="col-6">
-                    <p class="info-value">{{ transaction.numberOfActions }}</p>
-                  </div>
-                </div>
-
-                <div class="row details-row-item">
-                  <div class="col-6">
-                    <p class="info-label">Action fee</p>
-                  </div>
-                  <div class="col-6">
-                    <p class="info-value">{{ transaction.actionFee }} CHX</p>
-                  </div>
-                </div>
-
-                <div class="row details-row-item">
-                  <div class="col-6">
-                    <p class="info-label">Total fee</p>
-                  </div>
-                  <div class="col-6">
-                    <p class="info-value">{{ totalFee(transaction.actionFee, transaction.numberOfActions) }} CHX</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+        </div>
+        <div class="row details-row-item mb-1 mb-md-0" *ngIf="action.actionType === 'CreateAccount'">
+          <div class="col-12 col-md-3">
+            <span class="ml-3">Account</span>
           </div>
-
-          <div class="col-12 mt-3">
-            <h5 class="border-bottom pb-4">Actions</h5>
+          <div class="col-12 col-md-9 ml-3 ml-md-0 font-bold" *ngIf="transaction.senderAddress">
+            <a [routerLink]="['/account', deriveHash(transaction.senderAddress, transaction.nonce, i + 1)]">
+              {{ deriveHash(transaction.senderAddress, transaction.nonce, i + 1) }}
+            </a>
           </div>
-
-          <div class="col-12">
-            <div class="row px-4">
-              <div class="col-12">
-                <div
-                  class="row detail-info mt-3 border-bottom"
-                  *ngFor="let action of transactionActions | async; let i = index"
-                >
-                  <div class="col-12 mb-4">
-                    <b>{{ i + 1 }}. {{ action.actionType | camelCaseToSpace }}</b>
-                  </div>
-                  <div class="col-12">
-                    <div class="row details-row-item mb-1 mb-md-0" *ngIf="action.actionType === 'CreateAsset'">
-                      <div class="col-12 col-md-3">
-                        <span class="ml-3">Asset</span>
-                      </div>
-                      <div class="col-12 col-md-9 ml-1 ml-md-0">
-                        {{ deriveHash(transaction.senderAddress, transaction.nonce, i + 1) }}
-                      </div>
-                    </div>
-                    <div class="row details-row-item mb-1 mb-md-0" *ngIf="action.actionType === 'CreateAccount'">
-                      <div class="col-12 col-md-3">
-                        <span class="ml-3">Account</span>
-                      </div>
-                      <div class="col-12 col-md-9 ml-3 ml-md-0">
-                        {{ deriveHash(transaction.senderAddress, transaction.nonce, i + 1) }}
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 mb-4">
-                    <div
-                      class="row details-row-item mb-1 mb-md-0"
-                      *ngFor="let item of parseActions(action.actionData) | keyvalue"
-                    >
-                      <div class="col-12 col-md-3">
-                        <span class="ml-3">{{ item.key | camelCaseToSpace | titlecase }}</span>
-                      </div>
-                      <div class="col-12 col-md-9 ml-3 ml-md-0 elipsis">
-                        <span *ngIf="item.key === 'networkAddress'">
-                          {{ item.value }}
-                        </span>
-                        <a
-                          *ngIf="
-                            item.key === 'providerAddress' ||
-                            item.key === 'recipientAddress' ||
-                            item.key === 'validatorAddress'
-                          "
-                          routerLink="/address/{{ item.value }}"
-                        >
-                          {{ item.value }}
-                        </a>
-                        <span *ngIf="!item.key.includes('Address')">
-                          {{ item.value }}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        </div>
+      </div>
+      <div class="col-12 mb-4">
+        <div class="row details-row-item mb-1 mb-md-0" *ngFor="let item of parseActions(action.actionData) | keyvalue">
+          <div class="col-12 col-md-3">
+            <span class="ml-3">{{ item.key | camelCaseToSpace | titlecase }}</span>
+          </div>
+          <div class="col-12 col-md-9 ml-3 ml-md-0 elipsis">
+            <span *ngIf="item.key === 'networkAddress'">
+              {{ item.value }}
+            </span>
+            <a
+              *ngIf="
+                item.key === 'providerAddress' || item.key === 'recipientAddress' || item.key === 'validatorAddress'
+              "
+              routerLink="/address/{{ item.value }}"
+            >
+              {{ item.value }}
+            </a>
+            <span *ngIf="!item.key.includes('Address')" class="font-bold">
+              {{ item.value }}
+            </span>
           </div>
         </div>
       </div>
