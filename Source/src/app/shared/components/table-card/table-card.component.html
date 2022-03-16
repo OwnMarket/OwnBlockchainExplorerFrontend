@@ -1,8 +1,8 @@
 <div class="table-card">
   <div [class.card]="!isTransparent" [class.card-transparent]="isTransparent">
-    <div class="card-header">
-      <div [ngClass]="{ 'col-6 col-lg-8': expandable || filterable, 'col-12': !(expandable || filterable) }">
-        <div class="flex items-center justify-between">
+    <div class="card-header" [ngClass]="{ 'flex justify-between items-center': !stakes }">
+      <div>
+        <div class="flex items-center justify-between w-full">
           <div>
             <h4 *ngIf="title && !info" [innerHTML]="title"></h4>
             <p *ngIf="info && !title" [innerHTML]="info"></p>
@@ -14,8 +14,8 @@
           </div>
         </div>
       </div>
-      <div [ngClass]="{ 'col-6 col-lg-4': expandable || filterable }">
-        <div class="float-right" *ngIf="expandable">
+      <div>
+        <div *ngIf="expandable">
           <svg
             *ngIf="expanded"
             class="icon-pointer"

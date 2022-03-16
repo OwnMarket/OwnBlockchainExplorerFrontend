@@ -51,8 +51,20 @@ a {
   text-overflow: ellipsis;
 }
 
+.weown-card {
+  &__white {
+    @apply bg-white/70 dark:bg-neutral-800 p-4 overflow-hidden rounded-lg shadow;
+  }
+  &__brand {
+    @apply bg-orange-100/50 dark:bg-neutral-800 text-brand p-4 overflow-hidden rounded-lg shadow;
+  }
+  &__accent {
+    @apply bg-blue-100/50 dark:bg-neutral-800 text-accent p-4 overflow-hidden rounded-lg shadow;
+  }
+}
+
 .card {
-  @apply border border-neutral-100 shadow-lg overflow-hidden bg-white rounded-xl;
+  @apply shadow overflow-hidden bg-white rounded-xl;
 
   // font-size: 11px;
   .card-header {

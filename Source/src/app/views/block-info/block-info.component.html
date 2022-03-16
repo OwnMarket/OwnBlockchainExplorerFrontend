@@ -1,290 +1,178 @@
 <div *ngIf="blockInfo | async as block">
-  <!-- TITLE -->
-  <div class="row justify-content-md-center pb-2">
-    <div class="col-sm-12 col-md-10 ml-3">
-      <app-page-title title="Block"></app-page-title>
-    </div>
-  </div>
-
-  <!-- LOADER -->
+  <app-page-title title="Block"></app-page-title>
   <app-loader [isLoading]="loadingBlockInfo | async"></app-loader>
 
-  <div [hidden]="loadingBlockInfo | async" class="detail-info">
-    <div class="row justify-content-md-center mt-4">
-      <div class="col-sm-12 col-md-10">
-        <div class="row">
-          <div class="col-12 col-lg-6">
-            <div class="card">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-6 col-sm-5 col-lg-5 col-xl-4">
-                    <p class="info-label">Block number</p>
-                  </div>
-                  <div class="col-6 col-sm-7 col-lg-7 col-xl-8 text-right">
-                    <p class="info-orange">{{ block.blockNumber }}</p>
-                  </div>
-                </div>
-                <div class="row mt-3">
-                  <div class="col-2">
-                    <p class="info-label">Hash</p>
-                  </div>
-                  <div class="col-10 text-right no-padding">
-                    <p class="info-value">{{ block.hash }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div *ngIf="!(loadingBlockInfo | async)" class="grid grid-cols-1 sm:grid-cols-6 gap-4 text-sm">
+    <div class="weown-card__brand sm:col-span-4">
+      <div>Block hash:</div>
+      <div class="font-bold truncate">{{ block.hash }}</div>
+    </div>
+    <div class="weown-card__accent sm:col-span-2">
+      <div>Block number:</div>
+      <div class="font-bold truncate">{{ block.blockNumber }}</div>
+    </div>
+    <div class="weown-card__white sm:col-span-4">
+      <div>Previous block hash:</div>
+      <div class="font-bold truncate">{{ block.previousBlockHash }}</div>
+    </div>
+    <div class="weown-card__white sm:col-span-2">
+      <div>Previous block number:</div>
+      <div class="font-bold truncate">
+        <a class="text-secondary" [routerLink]="['/block', block.previousBlockNumber]">
+          {{ block.previousBlockNumber }}
+        </a>
+      </div>
+    </div>
+    <div class="weown-card__white sm:col-span-4">
+      <div>Proposer address:</div>
+      <div class="font-bold truncate">
+        <a class="text-secondary" [routerLink]="['/address', block.validatorAddress]">
+          {{ block.validatorAddress }}
+        </a>
+      </div>
+    </div>
+    <div class="weown-card__white sm:col-span-2">
+      <div>Time created:</div>
+      <div class="font-bold truncate">
+        {{ block.timestamp | displayTimestamp }}
+        ({{ block.timestamp + 'Z' | timeago: true }})
+      </div>
+    </div>
+    <div class="text-xl font-bold my-6 sm:col-span-6">
+      Additional info
+    </div>
+    <div class="weown-card__white sm:col-span-3" *ngIf="block.txSetRoot">
+      <div>TX set root:</div>
+      <div class="font-bold truncate">
+        {{ block.txSetRoot }}
+      </div>
+    </div>
+    <div class="weown-card__white sm:col-span-3" *ngIf="block.txResultSetRoot">
+      <div>TX result root:</div>
+      <div class="font-bold truncate">
+        {{ block.txResultSetRoot }}
+      </div>
+    </div>
+    <div class="weown-card__white sm:col-span-3" *ngIf="block.equivocationProofsRoot">
+      <div>Equivocation proofs root:</div>
+      <div class="font-bold truncate">
+        {{ block.equivocationProofsRoot }}
+      </div>
+    </div>
+    <div class="weown-card__white sm:col-span-3" *ngIf="block.equivocationProofResultsRoot">
+      <div>Equivocation proof result root:</div>
+      <div class="font-bold truncate">
+        {{ block.equivocationProofResultsRoot }}
+      </div>
+    </div>
+    <div class="weown-card__white sm:col-span-3" *ngIf="block.stateRoot">
+      <div>State root:</div>
+      <div class="font-bold truncate">
+        {{ block.stateRoot }}
+      </div>
+    </div>
+    <div class="weown-card__white sm:col-span-3" *ngIf="block.stakingRewardsRoot">
+      <div>Staking rewards root:</div>
+      <div class="font-bold truncate">
+        {{ block.stakingRewardsRoot }}
+      </div>
+    </div>
+    <div class="weown-card__white sm:col-span-3" *ngIf="block.configurationRoot">
+      <div>Configuration root:</div>
+      <div class="font-bold truncate">
+        {{ block.configurationRoot }}
+      </div>
+    </div>
+    <div class="weown-card__white sm:col-span-3" *ngIf="block.configurationBlockNumber">
+      <div>Configuration block number:</div>
+      <div class="font-bold truncate">
+        <a [routerLink]="['/block', block.configurationBlockNumber]">{{ block.configurationBlockNumber }}</a>
+      </div>
+    </div>
+    <div class="weown-card__white sm:col-span-3" *ngIf="block.consensusRound">
+      <div>Consensus round:</div>
+      <div class="font-bold truncate">
+        {{ block.consensusRound }}
+      </div>
+    </div>
 
-          <div class="col-sm-12 col-lg-6 mt-3 mt-md-0">
-            <div class="card">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-9 col-md-8 col-xl-6">
-                    <p class="info-label">Previous block number</p>
-                  </div>
-                  <div class="col-3 col-md-4 col-xl-6 text-right">
-                    <p class="info-bold">
-                      <a class="text-secondary" [routerLink]="['/block', block.previousBlockNumber]">
-                        {{ block.previousBlockNumber }}</a
-                      >
-                    </p>
-                  </div>
-                </div>
-                <div class="row mt-3">
-                  <div class="col-2 info-label">
-                    <p>Hash</p>
-                  </div>
-                  <div class="col-10 text-right no-padding">
-                    <p class="info-value">{{ block.previousBlockHash }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <ng-container *ngIf="{ loading: loadingTransactions | async, tx: transactions | async } as txData">
+      <div class="sm:col-span-6" *ngIf="!txData.loading && txData.tx.length > 0">
+        <app-table-card
+          title="Transactions"
+          [tableHeight]="tableHeight"
+          [columns]="transactionColumns"
+          [loading]="txData.loading"
+          [source]="txData.tx"
+          (loadMore)="onLoadMoreTransactions($event)"
+        >
+        </app-table-card>
+      </div>
+    </ng-container>
 
-          <div class="col-12 mt-5">
-            <div class="row details-row-item">
-              <div class="col-2 col-md-2">
-                <p class="info-label">Time created</p>
-              </div>
+    <ng-container *ngIf="{ loading: loadingEquivocations | async, eq: equivocations | async } as eqData">
+      <div class="sm:col-span-6" *ngIf="!eqData.loading && eqData.eq.length > 0">
+        <app-table-card
+          title="Equivocation proofs"
+          [tableHeight]="tableHeight"
+          [columns]="equivocationColumns"
+          [expandable]="true"
+          [defaultExpand]="false"
+          [loading]="eqData.loading"
+          [source]="eqData.eq"
+          (loadMore)="onLoadMoreEquivocations($event)"
+        >
+        </app-table-card>
+      </div>
+    </ng-container>
 
-              <div class="col-10 col-md-4 border-right">
-                <p class="info-value" *ngIf="block.timestamp">
-                  {{ block.timestamp | displayTimestamp }}
-                  ({{ block.timestamp + 'Z' | timeago: true }})
-                </p>
-              </div>
+    <ng-container *ngIf="{ loading: loadingStakingRewards | async, st: stakingRewards | async } as stData">
+      <div class="sm:col-span-6" *ngIf="!stData.loading && stData.st.length > 0">
+        <app-table-card
+          title="Staking rewards"
+          [tableHeight]="tableHeight"
+          [columns]="stakingRewardColumns"
+          [expandable]="true"
+          [defaultExpand]="false"
+          [loading]="stData.loading"
+          [source]="stData.st"
+          (loadMore)="onLoadMoreStakingRewards($event)"
+          [canLoadMore]="canLoadMoreStakingRewards | async"
+        >
+        </app-table-card>
+      </div>
+    </ng-container>
 
-              <div class="col-2 col-md-2 mt-3 mt-md-0">
-                <p class="info-label">Proposer</p>
-              </div>
-              <div class="col-10 col-md-4 mt-3 mt-md-0">
-                <p class="info-value" *ngIf="block.timestamp">{{ block.validatorAddress }}</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- ADDITIONAL INFORMATION -->
-          <div class="col-12 mt-3">
-            <div class="card-header transparent">
-              <span class="additional-label">Additional info</span>
-              <div class="float-right">
-                <svg
-                  *ngIf="additionalInfoExpanded"
-                  class="icon-pointer"
-                  width="20"
-                  height="20"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  (click)="expandAdditionalInfo()"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 15l7-7 7 7"></path>
-                </svg>
-
-                <svg
-                  *ngIf="!additionalInfoExpanded"
-                  class="icon-pointer"
-                  width="20"
-                  height="20"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  (click)="expandAdditionalInfo()"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-            </div>
-            <div class="card-body" *ngIf="additionalInfoExpanded">
-              <div class="table-responsive">
-                <table class="table">
-                  <tbody>
-                    <tr *ngIf="block.txSetRoot">
-                      <td class="label"><strong>TX set root</strong></td>
-                      <td class="value">{{ block.txSetRoot }}</td>
-                    </tr>
-                    <tr *ngIf="block.txResultSetRoot">
-                      <td class="label"><strong>TX result root</strong></td>
-                      <td class="value">{{ block.txResultSetRoot }}</td>
-                    </tr>
-                    <tr *ngIf="block.equivocationProofsRoot">
-                      <td class="label"><strong>Equivocation proofs root</strong></td>
-                      <td class="value">{{ block.equivocationProofsRoot }}</td>
-                    </tr>
-                    <tr *ngIf="block.equivocationProofResultsRoot">
-                      <td class="label"><strong>Equivocation proof result root</strong></td>
-                      <td class="value">{{ block.equivocationProofResultsRoot }}</td>
-                    </tr>
-                    <tr *ngIf="block.stateRoot">
-                      <td class="label"><strong>State root</strong></td>
-                      <td class="value">{{ block.stateRoot }}</td>
-                    </tr>
-                    <tr *ngIf="block.stakingRewardsRoot">
-                      <td class="label"><strong>Staking rewards root</strong></td>
-                      <td class="value">{{ block.stakingRewardsRoot }}</td>
-                    </tr>
-                    <tr *ngIf="block.configurationRoot">
-                      <td class="label"><strong>Configuration root</strong></td>
-                      <td class="value">{{ block.configurationRoot }}</td>
-                    </tr>
-                    <tr *ngIf="block.configurationBlockNumber">
-                      <td class="label"><strong>Configuration block number</strong></td>
-                      <td class="value">
-                        <a [routerLink]="['/block', block.configurationBlockNumber]">{{
-                          block.configurationBlockNumber
-                        }}</a>
-                      </td>
-                    </tr>
-                    <tr *ngIf="block.consensusRound">
-                      <td class="label"><strong>Consensus round</strong></td>
-                      <td class="value">{{ block.consensusRound }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+    <ng-container *ngIf="block.configuration">
+      <div class="text-xl font-bold my-6 sm:col-span-6">
+        Configuration
+      </div>
+      <div class="weown-card__white sm:col-span-3">
+        <div>Configuration block delta:</div>
+        <div class="font-bold truncate">
+          {{ block.configuration.configurationBlockDelta }}
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="row mt-5">
-    <div class="col-12">
-      <app-table-card
-        title="Transactions"
-        [tableHeight]="tableHeight"
-        [columns]="transactionColumns"
-        [loading]="loadingTransactions | async"
-        [source]="transactions | async"
-        (loadMore)="onLoadMoreTransactions($event)"
-      >
-      </app-table-card>
-    </div>
-  </div>
-
-  <div class="row mt-5" *ngIf="(equivocations | async).length > 0">
-    <div class="col-12">
-      <app-table-card
-        title="Equivocation proofs"
-        [tableHeight]="tableHeight"
-        [columns]="equivocationColumns"
-        [expandable]="true"
-        [defaultExpand]="false"
-        [loading]="loadingEquivocations | async"
-        [source]="equivocations | async"
-        (loadMore)="onLoadMoreEquivocations($event)"
-      >
-      </app-table-card>
-    </div>
-  </div>
-
-  <div class="row mt-5" *ngIf="(stakingRewards | async).length > 0">
-    <div class="col-12">
-      <app-table-card
-        title="Staking rewards"
-        [tableHeight]="tableHeight"
-        [columns]="stakingRewardColumns"
-        [expandable]="true"
-        [defaultExpand]="false"
-        [loading]="loadingStakingRewards | async"
-        [source]="stakingRewards | async"
-        (loadMore)="onLoadMoreStakingRewards($event)"
-        [canLoadMore]="canLoadMoreStakingRewards | async"
-      >
-      </app-table-card>
-    </div>
-  </div>
-
-  <div *ngIf="block.configuration">
-    <div class="row justify-content-md-center pb-2">
-      <div class="col-sm-12 col-md-10 ml-3">
-        <app-page-title title="Configuration"></app-page-title>
-      </div>
-    </div>
-
-    <div class="detail-info">
-      <div class="row justify-content-md-center mt-4">
-        <div class="col-sm-12 col-md-10">
-          <div class="row">
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-6 col-sm-5 col-lg-5 col-xl-4">
-                      <p class="info-label">Configuration block delta:</p>
-                    </div>
-                    <div class="col-6 col-sm-7 col-lg-7 col-xl-8 text-right">
-                      <p class="info-value">{{ block.configuration.configurationBlockDelta }}</p>
-                    </div>
-                  </div>
-                  <div class="row mt-3">
-                    <div class="col-8">
-                      <p class="info-label">Max transactions per block:</p>
-                    </div>
-                    <div class="col-4 text-right">
-                      <p class="info-value">{{ block.configuration.maxTxCountPerBlock }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-12 col-lg-6">
-              <div class="card no-shadow">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-9 info-label">
-                      <p>Validator deposit lock time:</p>
-                    </div>
-                    <div class="col-3 text-right">
-                      <p class="info-value">{{ block.configuration.validatorDepositLockTime }}</p>
-                    </div>
-                  </div>
-                  <div class="row mt-3">
-                    <div class="col-9 col-md-8 col-xl-6">
-                      <p class="info-label">Blacklist time:</p>
-                    </div>
-                    <div class="col-3 col-md-4 col-xl-6 text-right">
-                      <p class="info-value">
-                        {{ block.configuration.validatorBlacklistTime }}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class="weown-card__white sm:col-span-3">
+        <div>Max transactions per block:</div>
+        <div class="font-bold truncate">
+          {{ block.configuration.maxTxCountPerBlock }}
         </div>
       </div>
-    </div>
+      <div class="weown-card__white sm:col-span-3">
+        <div>Validator deposit lock time:</div>
+        <div class="font-bold truncate">
+          {{ block.configuration.validatorDepositLockTime }}
+        </div>
+      </div>
+      <div class="weown-card__white sm:col-span-3">
+        <div>Blacklist time:</div>
+        <div class="font-bold truncate">
+          {{ block.configuration.validatorBlacklistTime }}
+        </div>
+      </div>
 
-    <div class="row mt-5" *ngIf="block.configuration.validatorsBlacklist.length > 0">
-      <div class="col-12">
+      <div class="sm:col-span-6" *ngIf="block.configuration.validatorsBlacklist.length > 0">
         <app-table-card
           title="Validators Blacklist"
           [tableHeight]="tableHeight"
@@ -294,20 +182,20 @@
         >
         </app-table-card>
       </div>
-    </div>
 
-    <div class="row mt-5" *ngIf="block.configuration.validators.length > 0">
-      <div class="col-12">
-        <app-table-card
-          title="Validators"
-          [tableHeight]="tableHeight"
-          [columns]="validatorColumns"
-          [loading]="loadingBlockInfo | async"
-          [source]="block.configuration.validators"
-        >
-        </app-table-card>
+      <div class="sm:col-span-6" *ngIf="block.configuration.validators.length > 0">
+        <div class="col-12">
+          <app-table-card
+            title="Validators"
+            [tableHeight]="tableHeight"
+            [columns]="validatorColumns"
+            [loading]="loadingBlockInfo | async"
+            [source]="block.configuration.validators"
+          >
+          </app-table-card>
+        </div>
       </div>
-    </div>
+    </ng-container>
   </div>
 </div>
 
