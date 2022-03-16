@@ -48,9 +48,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         prop: 'blockNumber',
         maxWidth: 150,
         sortable: false,
-        cellTemplate: this.txBlock,
-        headerClass: 'text-center',
-        cellClass: 'text-center'
+        cellTemplate: this.txBlock
       },
       {
         name: 'Sender address',

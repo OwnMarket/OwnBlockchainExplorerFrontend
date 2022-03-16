@@ -1,63 +1,61 @@
 <div class="table-card">
   <div [class.card]="!isTransparent" [class.card-transparent]="isTransparent">
     <div class="card-header">
-      <div class="row">
-        <div [ngClass]="{ 'col-6 col-lg-8': expandable || filterable, 'col-12': !(expandable || filterable) }">
-          <div class="row">
-            <div class="col-12 col-md-8 text-center text-md-left">
-              <h4 *ngIf="title && !info" [innerHTML]="title"></h4>
-              <p *ngIf="info && !title" [innerHTML]="info"></p>
-              <p></p>
-            </div>
+      <div [ngClass]="{ 'col-6 col-lg-8': expandable || filterable, 'col-12': !(expandable || filterable) }">
+        <div class="flex items-center justify-between">
+          <div>
+            <h4 *ngIf="title && !info" [innerHTML]="title"></h4>
+            <p *ngIf="info && !title" [innerHTML]="info"></p>
+            <p></p>
+          </div>
 
-            <div class="col-12 col-md-4 text-center text-md-right">
-              <p *ngIf="stakes" [innerHTML]="stakes"></p>
-            </div>
+          <div class="text-sm text-right font-normal">
+            <p *ngIf="stakes" [innerHTML]="stakes"></p>
           </div>
         </div>
-        <div [ngClass]="{ 'col-6 col-lg-4': expandable || filterable }">
-          <div class="float-right" *ngIf="expandable">
-            <svg
-              *ngIf="expanded"
-              class="icon-pointer"
-              width="20"
-              height="20"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              (click)="expand()"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 15l7-7 7 7"></path>
-            </svg>
+      </div>
+      <div [ngClass]="{ 'col-6 col-lg-4': expandable || filterable }">
+        <div class="float-right" *ngIf="expandable">
+          <svg
+            *ngIf="expanded"
+            class="icon-pointer"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            (click)="expand()"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 15l7-7 7 7"></path>
+          </svg>
 
-            <svg
-              *ngIf="!expanded"
-              class="icon-pointer"
-              width="20"
-              height="20"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              (click)="expand()"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7"></path>
-            </svg>
-          </div>
-          <!-- TODO Need to find better way for filters handler -->
-          <div *ngIf="filterable" class="filters-wrapper float-right">
-            <div class="custom-control custom-switch float-right">
-              <span class="mr-5">PAST</span>
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                [attr.id]="title"
-                (change)="onFilter(activeFilter !== 'current' ? 'current' : 'past')"
-                [checked]="activeFilter === 'current'"
-              />
-              <label class="custom-control-label uppercase" [attr.for]="title">current</label>
-            </div>
+          <svg
+            *ngIf="!expanded"
+            class="icon-pointer"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            (click)="expand()"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+        <!-- TODO Need to find better way for filters handler -->
+        <div *ngIf="filterable" class="filters-wrapper float-right">
+          <div class="custom-control custom-switch float-right">
+            <span class="mr-5">PAST</span>
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              [attr.id]="title"
+              (change)="onFilter(activeFilter !== 'current' ? 'current' : 'past')"
+              [checked]="activeFilter === 'current'"
+            />
+            <label class="custom-control-label uppercase" [attr.for]="title">current</label>
           </div>
         </div>
       </div>

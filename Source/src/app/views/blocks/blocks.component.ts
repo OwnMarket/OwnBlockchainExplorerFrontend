@@ -33,9 +33,7 @@ export class BlocksComponent implements OnInit, OnDestroy {
         prop: 'blockNumber',
         sortable: false,
         maxWidth: 150,
-        cellTemplate: this.linkBlock,
-        headerClass: 'text-center',
-        cellClass: 'text-center'
+        cellTemplate: this.linkBlock
       },
       {
         name: 'Block hash',

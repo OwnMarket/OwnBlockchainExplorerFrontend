@@ -40,6 +40,9 @@ body {
 
 a {
   @apply text-accent font-bold underline;
+  &:hover {
+    @apply text-brand;
+  }
 }
 
 .clip-text {
@@ -53,9 +56,7 @@ a {
 
   // font-size: 11px;
   .card-header {
-    &:last-child {
-      @apply rounded-xl;
-    }
+    @apply bg-white;
     i {
       color: #fa591f;
       font-size: 25px;

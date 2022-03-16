@@ -1,0 +1,17 @@
+nav {
+  @apply h-full mr-4;
+  ul {
+    @apply flex items-center h-full;
+    li {
+      a {
+        @apply px-4 py-2 text-sm no-underline text-neutral-800 font-normal;
+        &:hover {
+          @apply text-brand;
+        }
+        &.active {
+          @apply border-b-4 border-brand;
+        }
+      }
+    }
+  }
+}

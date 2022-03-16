@@ -5,14 +5,11 @@
         color: #fa591f;
         font-size: 25px;
       }
-
-      @apply font-bold text-xl text-left flex justify-between py-4 px-6 bg-inherit rounded-t-lg;
+      @apply font-bold text-xl text-left py-4 px-7 bg-inherit rounded-t-lg;
     }
 
     .card-body {
-      padding: 0;
-      margin-left: 0;
-      @apply text-sm;
+      @apply text-sm px-4 pb-4;
 
       .empty-row {
         text-align: center;
@@ -64,7 +61,7 @@
           @apply flex items-center;
 
           .datatable-header-cell-template-wrap {
-            padding: 0 10px;
+            @apply px-3;
           }
 
           .datatable-header-cell-label {
@@ -79,9 +76,7 @@
             // border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
             .datatable-body-cell {
-              display: flex;
-              align-items: center;
-              padding: 0 10px;
+              @apply flex items-center px-3;
 
               .datatable-body-cell-label {
                 width: 95%;
