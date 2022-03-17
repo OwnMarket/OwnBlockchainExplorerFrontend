@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule)
   },
   {
+    path: 'account',
+    loadChildren: () => import('./views/account-info/account-info.module').then(m => m.AccountInfoModule)
+  },
+  {
     path: 'accounts',
     loadChildren: () => import('./views/accounts/accounts.module').then(m => m.AccountsModule)
   },

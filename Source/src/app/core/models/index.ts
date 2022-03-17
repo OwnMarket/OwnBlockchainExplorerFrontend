@@ -1,3 +1,6 @@
+export * from './account-info.model';
+export * from './account-holding.model';
+export * from './account-transfer-info.model';
 export * from './account-summary.model';
 export * from './address-stat.model';
 export * from './address-summary.model';
