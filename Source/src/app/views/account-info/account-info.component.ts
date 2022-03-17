@@ -18,13 +18,11 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
   @ViewChild('account', { static: true }) accountTpl: TemplateRef<any>;
   @ViewChild('asset', { static: true }) assetTpl: TemplateRef<any>;
 
-  accountHash: Observable<string>;
-  accountInfo: Observable<AccountInfo>;
-  accountTransferInfo: Observable<AccountTransferInfo[]>;
-  accountHoldingInfo: Observable<any>;
-
   tableHeight = '500px';
   pageLimit = 20;
+
+  accountHash: Observable<string>;
+  accountInfo: Observable<AccountInfo>;
 
   transferColumns: any = [];
   transfersCurrentPage: number = 1;

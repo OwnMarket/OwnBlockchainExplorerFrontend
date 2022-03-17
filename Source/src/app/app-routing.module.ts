@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('./views/accounts/accounts.module').then(m => m.AccountsModule)
   },
   {
+    path: 'asset',
+    loadChildren: () => import('./views/asset-info/asset-info.module').then(m => m.AssetInfoModule)
+  },
+  {
     path: 'assets',
     loadChildren: () => import('./views/assets/assets.module').then(m => m.AssetsModule)
   },
