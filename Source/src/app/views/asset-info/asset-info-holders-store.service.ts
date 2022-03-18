@@ -56,7 +56,7 @@ export class AssetHoldersStoreService {
     this._totalholders.next(value);
   }
 
-  getAccountHolders(hash: string, page: number, limit: number, shouldAppend: boolean = false) {
+  getAssetHolders(hash: string, page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingHolders = true;
     return this.service.getAssetHolders(hash, page, limit).subscribe(res => {
       if (res.data.length > 0) {

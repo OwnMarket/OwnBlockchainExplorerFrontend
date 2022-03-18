@@ -3,10 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AssetInfo, AssetTransferInfo, AssetHolderInfo, untilDestroyed } from '@app/core';
+import { AssetInfo, AssetTransferInfo, AssetHolderInfo, untilDestroyed, AssetBridgeTransferInfo } from '@app/core';
 import { AssetInfoService } from './asset-info.service';
 import { AssetTransfersStoreService } from './asset-info-transfers-store.service';
 import { AssetHoldersStoreService } from './asset-info-holders-store.service';
+import { AssetBridgeTransfersStoreService } from './asset-info-bridge-transfers-store.service';
 
 @Component({
   selector: 'app-asset-info',
@@ -27,6 +28,13 @@ export class AssetInfoComponent implements OnInit, OnDestroy {
   transfersCanLoad: Observable<boolean>;
   transfersCount: Observable<number>;
 
+  bridgeTransferColumns: any = [];
+  bridgeTransfersCurrentPage: number = 1;
+  bridgeTransfers: Observable<AssetBridgeTransferInfo[]>;
+  bridgeTransfersLoading: Observable<boolean>;
+  bridgeTransfersCanLoad: Observable<boolean>;
+  bridgeTransfersCount: Observable<number>;
+
   holderColumns: any = [];
   holdersCurrentPage: number = 1;
   holders: Observable<AssetHolderInfo[]>;
@@ -38,6 +46,7 @@ export class AssetInfoComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private assetInfoService: AssetInfoService,
     private assetTransfersStore: AssetTransfersStoreService,
+    private assetBridgeTransfersStore: AssetBridgeTransfersStoreService,
     private assetHoldersStore: AssetHoldersStoreService
   ) {
     this.assetHash = this.activatedRoute.paramMap.pipe(
@@ -49,6 +58,11 @@ export class AssetInfoComponent implements OnInit, OnDestroy {
         this.transfersCanLoad = this.assetTransfersStore.canLoadMore$.pipe(untilDestroyed(this));
         this.transfersCount = this.assetTransfersStore.totalTransfers$.pipe(untilDestroyed(this));
         this.getTransfers(hash);
+        this.bridgeTransfers = this.assetBridgeTransfersStore.transfers$.pipe(untilDestroyed(this));
+        this.bridgeTransfersLoading = this.assetBridgeTransfersStore.loadingTransfers$.pipe(untilDestroyed(this));
+        this.bridgeTransfersCanLoad = this.assetBridgeTransfersStore.canLoadMore$.pipe(untilDestroyed(this));
+        this.bridgeTransfersCount = this.assetBridgeTransfersStore.totalTransfers$.pipe(untilDestroyed(this));
+        this.getBridgeTransfers(hash);
         this.holders = this.assetHoldersStore.holders$.pipe(untilDestroyed(this));
         this.holdersLoading = this.assetHoldersStore.loadingHolders$.pipe(untilDestroyed(this));
         this.holdersCanLoad = this.assetHoldersStore.canLoadMore$.pipe(untilDestroyed(this));
@@ -64,11 +78,15 @@ export class AssetInfoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {}
 
   getTransfers(hash: string, shouldAppend: boolean = false) {
-    this.assetTransfersStore.getAccountTransfers(hash, this.transfersCurrentPage, this.pageLimit, shouldAppend);
+    this.assetTransfersStore.getAssetTransfers(hash, this.transfersCurrentPage, this.pageLimit, shouldAppend);
+  }
+
+  getBridgeTransfers(hash: string, shouldAppend: boolean = false) {
+    this.assetTransfersStore.getAssetTransfers(hash, this.transfersCurrentPage, this.pageLimit, shouldAppend);
   }
 
   getHolders(hash: string, shouldAppend: boolean = false) {
-    this.assetHoldersStore.getAccountHolders(hash, this.transfersCurrentPage, this.pageLimit, shouldAppend);
+    this.assetHoldersStore.getAssetHolders(hash, this.transfersCurrentPage, this.pageLimit, shouldAppend);
   }
 
   onLoadMore(hash: string, resource: string) {

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { AssetTransferInfo } from '@app/core';
+import { AssetBridgeTransferInfo } from '@app/core';
 import { AssetInfoService } from './asset-info.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AssetTransfersStoreService {
-  private _transfers = new BehaviorSubject<AssetTransferInfo[]>([]);
+export class AssetBridgeTransfersStoreService {
+  private _transfers = new BehaviorSubject<AssetBridgeTransferInfo[]>([]);
   private _loadingTransfers = new BehaviorSubject<boolean>(false);
   private _canLoadMore = new BehaviorSubject<boolean>(true);
   private _totalTransfers = new BehaviorSubject<number>(0);
@@ -20,7 +20,7 @@ export class AssetTransfersStoreService {
 
   constructor(private service: AssetInfoService) {}
 
-  get transfers(): AssetTransferInfo[] {
+  get transfers(): AssetBridgeTransferInfo[] {
     return this._transfers.getValue();
   }
 
@@ -36,7 +36,7 @@ export class AssetTransfersStoreService {
     return this._totalTransfers.getValue();
   }
 
-  set transfers(value: AssetTransferInfo[]) {
+  set transfers(value: AssetBridgeTransferInfo[]) {
     this._transfers.next(value);
   }
 
@@ -44,7 +44,7 @@ export class AssetTransfersStoreService {
     this._loadingTransfers.next(value);
   }
 
-  set appendTransfers(value: AssetTransferInfo[]) {
+  set appendTransfers(value: AssetBridgeTransferInfo[]) {
     this._transfers.next([...this.transfers, ...value]);
   }
 
@@ -56,9 +56,9 @@ export class AssetTransfersStoreService {
     this._totalTransfers.next(value);
   }
 
-  getAssetTransfers(hash: string, page: number, limit: number, shouldAppend: boolean = false) {
+  getAssetBridgeTransfers(hash: string, page: number, limit: number, shouldAppend: boolean = false) {
     this.loadingTransfers = true;
-    return this.service.getAssetTransfers(hash, page, limit).subscribe(res => {
+    return this.service.getAssetBridgeTransfers(hash).subscribe(res => {
       if (res.data.length > 0) {
         this.totalTransfers = res.data.length;
         if (shouldAppend) {

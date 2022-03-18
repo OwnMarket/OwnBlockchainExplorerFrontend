@@ -17,6 +17,7 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
   @ViewChild('tx', { static: true }) txTpl: TemplateRef<any>;
   @ViewChild('account', { static: true }) accountTpl: TemplateRef<any>;
   @ViewChild('asset', { static: true }) assetTpl: TemplateRef<any>;
+  @ViewChild('assetCode', { static: true }) assetCodeTpl: TemplateRef<any>;
 
   tableHeight = '500px';
   pageLimit = 20;
@@ -64,6 +65,8 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.accountTransfersStore.transfers = [];
+    this.accountHoldingsStore.holdings = [];
     this.transferColumns = [
       {
         name: 'Transaction',
@@ -94,7 +97,8 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
         name: 'Asset',
         prop: 'assetCode',
         headerClass: 'text-right',
-        cellClass: 'text-right'
+        cellClass: 'text-right',
+        cellTemplate: this.assetCodeTpl
       }
     ];
     this.holdingColumns = [
