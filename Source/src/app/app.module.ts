@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HomeModule } from './views/home/home.module';
-import { HeaderModule } from './shared/components/header/header.module';
 
 import { TranslationLoaderService } from './core/services/translation-loader.service';
 import { environment } from '@env/environment';
@@ -37,7 +36,6 @@ registerLocaleData(localeDe, 'de');
     ToastrModule.forRoot(),
     ToolbarModule,
     CoreModule,
-    HeaderModule,
     HomeModule,
     AppRoutingModule
   ],
