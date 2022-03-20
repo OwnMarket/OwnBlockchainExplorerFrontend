@@ -23,6 +23,7 @@ export * from './events-summary.model';
 export * from './stake-reward.model';
 export * from './stake-summary.model';
 export * from './stake.model';
+export * from './translation-term.model';
 export * from './tx.model';
 export * from './validator-currency.model';
 export * from './validator-geo.model';

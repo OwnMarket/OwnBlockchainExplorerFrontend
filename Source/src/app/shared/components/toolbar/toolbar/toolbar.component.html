@@ -12,7 +12,7 @@
           <cog-icon></cog-icon>
         </div>
         <div walletDropdownItem class="border-b dark:border-neutral-600">
-          <div class="text-gray-400 px-4 py-2">{{ 'wallet.selectLanguage' | translate }}</div>
+          <div class="text-gray-400 px-4 py-2">{{ 'explorer.selectLanguage' | translate }}</div>
           <ul>
             <li>
               <button
@@ -21,7 +21,7 @@
                 [class.font-bold]="selectedLanguage === 'en'"
                 (click)="selectLanguage('en')"
               >
-                <gb-icon></gb-icon> {{ 'wallet.english' | translate }}
+                <gb-icon></gb-icon> {{ 'explorer.english' | translate }}
               </button>
             </li>
             <li>
@@ -31,7 +31,7 @@
                 [class.font-bold]="selectedLanguage === 'de'"
                 (click)="selectLanguage('de')"
               >
-                <de-icon></de-icon> {{ 'wallet.german' | translate }}
+                <de-icon></de-icon> {{ 'explorer.german' | translate }}
               </button>
             </li>
           </ul>

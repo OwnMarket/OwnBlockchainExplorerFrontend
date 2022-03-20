@@ -1,13 +1,19 @@
 <div class="row">
   <div class="col-12">
     <app-table-card
-      title="Transactions"
+      [title]="'explorer.transactions' | translate"
       [tableHeight]="tableHeight"
       [columns]="columns"
       [loading]="isLoading | async"
       [source]="transactions | async"
       (loadMore)="onLoadMore($event)"
     ></app-table-card>
+
+    <ng-template #header let-column="column" let-sort="sortFn" let-reorder="reorderFn">
+      <span class="datatable-header-cell-wrapper font-bold" (click)="sort()">
+        {{ column.name | translate }}
+      </span>
+    </ng-template>
 
     <ng-template #txBadge let-row="row" let-value="value">
       <img *ngIf="value === 'Success'" src="assets/images/success-icon.svg" />

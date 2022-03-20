@@ -8,9 +8,10 @@ import { env } from './.env';
 
 export const environment = {
   production: true,
+  appContext: 'explorer',
   version: env.npm_package_version,
   serverUrl: '<<EXPLORER_API_URL>>',
-  translationsUrl: 'https://platform-api.weown.com/translations/turtle',
+  localizationUrl: 'https://localization-api.weown.com/terms/translations',
   defaultLanguage: 'en',
-  supportedLanguages: ['en', 'de']
+  supportedLanguages: ['en', 'de'],
 };

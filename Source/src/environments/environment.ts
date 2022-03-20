@@ -12,11 +12,12 @@ import { env } from './.env';
 
 export const environment = {
   production: false,
+  appContext: 'explorer',
   version: env.npm_package_version + '-dev',
   serverUrl: 'https://test.explorer-api.weown.com',
-  translationsUrl: 'https://test.platform-api.weown.com/translations/turtle',
+  localizationUrl: 'https://localization-api.weown.com/terms/translations',
   defaultLanguage: 'en',
-  supportedLanguages: ['en', 'de']
+  supportedLanguages: ['en', 'de'],
 };
 
 /*

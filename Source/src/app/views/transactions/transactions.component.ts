@@ -8,9 +8,10 @@ const log = new Logger('Transactions');
 @Component({
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
-  styleUrls: ['./transactions.component.scss']
+  styleUrls: ['./transactions.component.scss'],
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
+  @ViewChild('header', { static: true }) headerTpl: TemplateRef<any>;
   @ViewChild('txHash', { static: true }) txHash: TemplateRef<any>;
   @ViewChild('txBlock', { static: true }) txBlock: TemplateRef<any>;
   @ViewChild('txAddress', { static: true }) txAddress: TemplateRef<any>;
@@ -35,35 +36,40 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         prop: 'status',
         maxWidth: 50,
         sortable: false,
-        cellTemplate: this.txBadge
+        cellTemplate: this.txBadge,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Transaction hash',
+        name: 'explorer.transactionHash',
         prop: 'hash',
         sortable: false,
-        cellTemplate: this.txHash
+        cellTemplate: this.txHash,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Block number',
+        name: 'explorer.blockNumber',
         prop: 'blockNumber',
         maxWidth: 150,
         sortable: false,
-        cellTemplate: this.txBlock
+        cellTemplate: this.txBlock,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Sender address',
+        name: 'explorer.senderAddress',
         prop: 'senderAddress',
         sortable: false,
-        cellTemplate: this.txAddress
+        cellTemplate: this.txAddress,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Actions',
+        name: 'explorer.actions',
         prop: 'numberOfActions',
         maxWidth: 100,
         sortable: false,
         headerClass: 'text-right',
-        cellClass: 'text-right'
-      }
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
     ];
 
     this.transactions = this.transactionStoreService.transactions$.pipe(untilDestroyed(this));

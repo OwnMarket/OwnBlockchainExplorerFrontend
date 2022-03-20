@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12">
     <app-table-card
-      title="Blocks"
+      [title]="'explorer.blocks' | translate"
       [tableHeight]="tableHeight"
       [loading]="isLoading | async"
       [columns]="columns"
@@ -10,9 +10,17 @@
     ></app-table-card>
   </div>
 </div>
+
+<ng-template #header let-column="column" let-sort="sortFn" let-reorder="reorderFn">
+  <span class="datatable-header-cell-wrapper font-bold" (click)="sort()">
+    {{ column.name | translate }}
+  </span>
+</ng-template>
+
 <ng-template #linkBlock let-row="row" let-value="value">
   <a [routerLink]="['/block', value]">{{ value }}</a>
 </ng-template>
+
 <ng-template #passedTime let-row="row" let-value="value">
   <span placement="bottom" ngbTooltip="{{ value + 'Z' | date: 'd MMMM - hh:mm' }}" *ngIf="value">{{
     value + 'Z' | timeago: 'live'

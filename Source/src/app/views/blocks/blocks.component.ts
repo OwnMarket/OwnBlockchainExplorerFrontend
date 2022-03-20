@@ -7,12 +7,13 @@ const log = new Logger('Blocks');
 @Component({
   selector: 'app-blocks',
   templateUrl: './blocks.component.html',
-  styleUrls: ['./blocks.component.scss']
+  styleUrls: ['./blocks.component.scss'],
 })
 export class BlocksComponent implements OnInit, OnDestroy {
+  @ViewChild('header', { static: true }) headerTpl: TemplateRef<any>;
   @ViewChild('linkBlock', { static: true }) linkBlock: TemplateRef<any>;
   @ViewChild('passedTime', { static: true }) passedTime: TemplateRef<any>;
-  // TODO: make models
+
   blocks: Observable<any[]>;
   isLoading: Observable<boolean>;
 
@@ -29,24 +30,27 @@ export class BlocksComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.columns = [
       {
-        name: 'Block number',
+        name: 'explorer.blockNumber',
         prop: 'blockNumber',
         sortable: false,
         maxWidth: 150,
-        cellTemplate: this.linkBlock
+        cellTemplate: this.linkBlock,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Block hash',
+        name: 'explorer.blockHash',
         prop: 'hash',
-        sortable: false
+        sortable: false,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Timestamp',
+        name: 'explorer.timestamp',
         prop: 'timestamp',
         maxWidth: 150,
         sortable: false,
-        cellTemplate: this.passedTime
-      }
+        cellTemplate: this.passedTime,
+        headerTemplate: this.headerTpl,
+      },
     ];
 
     this.blocks = this.blockStoreService.blocks$.pipe(untilDestroyed(this));

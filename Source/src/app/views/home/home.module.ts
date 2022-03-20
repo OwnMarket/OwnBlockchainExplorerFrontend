@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { SharedModule } from '@app/shared';
-import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home.component';
 import { BlockModule } from '../blocks/block.module';
 import { TransactionsModule } from '../transactions/transactions.module';
 import { HomeService } from './home.service';
+import { HomeRoutingModule } from './home-routing.module';
+
+import { HomeComponent } from './home.component';
 
 @NgModule({
   imports: [
@@ -17,12 +17,12 @@ import { HomeService } from './home.service';
     NgxChartsModule,
     CommonModule,
     BrowserAnimationsModule,
-    TranslateModule,
+    TranslateModule.forChild(),
     SharedModule,
     BlockModule,
-    TransactionsModule
+    TransactionsModule,
   ],
   providers: [HomeService],
-  declarations: [HomeComponent]
+  declarations: [HomeComponent],
 })
 export class HomeModule {}
