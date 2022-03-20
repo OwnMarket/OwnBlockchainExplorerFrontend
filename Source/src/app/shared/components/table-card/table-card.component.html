@@ -26,7 +26,7 @@
             [attr.id]="title"
             [checked]="activeFilter === 'current'"
             (change)="onFilter(activeFilter !== 'current' ? 'current' : 'past')"
-            class="absolute left-1/2 -translate-x-1/2 w-full h-full peer appearance-none rounded-md"
+            class="absolute left-1/2 -translate-x-1/2 w-full h-full peer appearance-none bg-transparent checked:bg-transparent border-none text-transparent checked:hover:bg-transparent focus:ring-0 focus:outline-none rounded-md checked:bg-none"
           />
           <span
             class="w-12 h-6 flex items-center flex-shrink-0 ml-4 p-1 bg-gray-300 rounded-full duration-300 ease-in-out peer-checked:bg-accent after:w-4 after:h-4 after:bg-white after:rounded-full after:shadow-md after:duration-300 peer-checked:after:translate-x-6 group-hover:after:translate-x-1"

@@ -1,16 +1,16 @@
 module.exports = {
-  content: ['./src/**/*.{html,ts}'],
-  darkMode: 'class',
+  content: ["./src/**/*.{html,ts}"],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        brand: 'var(--brand)',
-        accent: 'var(--accent)'
+        brand: "var(--brand)",
+        accent: "var(--accent)",
       },
       transitionProperty: {
-        height: 'height'
-      }
-    }
+        height: "height",
+      },
+    },
   },
-  plugins: []
+  plugins: [require("@tailwindcss/forms")],
 };

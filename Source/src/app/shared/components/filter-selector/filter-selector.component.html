@@ -12,7 +12,14 @@
     </div>
   </div>
   <label walletDropdownItem *ngFor="let option of options" [for]="option" class="menu-item select-auto">
-    <input [id]="option" type="checkbox" [value]="option" [name]="option" (change)="onChangeFilter($event, option)" />
+    <input
+      [id]="option"
+      type="checkbox"
+      [value]="option"
+      [name]="option"
+      class="focus:ring-accent checked:bg-accent checked:focus:bg-accent hover:bg-white checked:hover:bg-accent rounded"
+      (change)="onChangeFilter($event, option)"
+    />
     {{ option }}
   </label>
 </app-dropdown>
