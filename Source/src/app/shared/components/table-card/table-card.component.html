@@ -14,7 +14,26 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="flex items-center">
+        <label
+          *ngIf="filterable"
+          class="relative cursor-pointer flex justify-between items-center group p-2 text-sm mr-4"
+          [attr.for]="title"
+        >
+          PAST
+          <input
+            type="checkbox"
+            [attr.id]="title"
+            [checked]="activeFilter === 'current'"
+            (change)="onFilter(activeFilter !== 'current' ? 'current' : 'past')"
+            class="absolute left-1/2 -translate-x-1/2 w-full h-full peer appearance-none rounded-md"
+          />
+          <span
+            class="w-12 h-6 flex items-center flex-shrink-0 ml-4 p-1 bg-gray-300 rounded-full duration-300 ease-in-out peer-checked:bg-accent after:w-4 after:h-4 after:bg-white after:rounded-full after:shadow-md after:duration-300 peer-checked:after:translate-x-6 group-hover:after:translate-x-1"
+          ></span>
+          <span class="ml-4">CURRENT</span>
+        </label>
+
         <div *ngIf="expandable">
           <svg
             *ngIf="expanded"
@@ -43,20 +62,6 @@
           >
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7"></path>
           </svg>
-        </div>
-        <!-- TODO Need to find better way for filters handler -->
-        <div *ngIf="filterable" class="filters-wrapper float-right">
-          <div class="custom-control custom-switch float-right">
-            <span class="mr-5">PAST</span>
-            <input
-              type="checkbox"
-              class="custom-control-input"
-              [attr.id]="title"
-              (change)="onFilter(activeFilter !== 'current' ? 'current' : 'past')"
-              [checked]="activeFilter === 'current'"
-            />
-            <label class="custom-control-label uppercase" [attr.for]="title">current</label>
-          </div>
         </div>
       </div>
     </div>
