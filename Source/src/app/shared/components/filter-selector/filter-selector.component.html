@@ -1,19 +1,18 @@
-<div class="dropdown" [class.show]="open" class="filter-selector" (clickOut)="togglePopup($event)">
-  <button
-    (click)="togglePopup('filter')"
-    class="btn btn-light dropdown-toggle"
-    type="button"
-    id="dropdownMenuButton"
-    data-toggle="dropdown"
-    aria-haspopup="true"
-    [attr.aria-expanded]="open"
+<app-dropdown #dropdown>
+  <div
+    walletDropdownTrigger
+    class="pl-6 pr-2 py-1 rounded-xl border hover:border-brand hover:text-brand flex items-center justify-between"
   >
-    Filter
-  </button>
-  <div class="dropdown-menu dropdown-menu-right" [class.show]="open" aria-labelledby="dropdownMenuButton">
-    <label *ngFor="let option of options" [for]="option" class="dropdown-item">
-      <input type="checkbox" [value]="option" [name]="option" (change)="onChangeFilter($event, option)" />
-      {{ option }}
-    </label>
+    <div class="mr-2">Filter</div>
+    <div
+      class="transform transition-transform duration-150"
+      [ngClass]="{ 'rotate-180': dropdown.isOpen, 'rotate-0': !dropdown.isOpen }"
+    >
+      <chevron-down-icon></chevron-down-icon>
+    </div>
   </div>
-</div>
+  <label walletDropdownItem *ngFor="let option of options" [for]="option" class="menu-item select-auto">
+    <input [id]="option" type="checkbox" [value]="option" [name]="option" (change)="onChangeFilter($event, option)" />
+    {{ option }}
+  </label>
+</app-dropdown>

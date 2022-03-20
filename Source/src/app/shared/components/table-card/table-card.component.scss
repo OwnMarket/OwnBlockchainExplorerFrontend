@@ -1,119 +1,99 @@
-.table-card {
-  .card {
-    .card-header {
-      i {
-        color: #fa591f;
-        font-size: 25px;
-      }
-      @apply font-bold text-xl text-left py-4 px-7 bg-inherit rounded-t-lg;
+.progress-linear {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 95%;
+  height: 5px;
+
+  position: fixed;
+  bottom: 0px;
+
+  .container {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 5px;
+    -webkit-transform: translate(0, 0) scale(1, 1);
+    transform: translate(0, 0) scale(1, 1);
+    background-color: #f4f4f4;
+
+    .bar {
+      transition: all 0.2s linear;
+      -webkit-animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
+      animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
+      transition: -webkit-transform 0.2s linear;
+      transition: transform 0.2s linear;
+      background-color: #ea6723;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      height: 5px;
+    }
+  }
+}
+
+.card-header {
+  i {
+    color: #fa591f;
+    font-size: 25px;
+  }
+  @apply font-bold px-2 mb-6 text-xl text-left bg-inherit rounded-t-lg;
+}
+
+.card-body {
+  @apply text-sm;
+  .empty-row {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .datatable-header {
+    @apply flex items-center;
+
+    .datatable-header-cell-template-wrap {
+      @apply px-3;
     }
 
-    .card-body {
-      @apply text-sm px-4 pb-4;
+    .datatable-header-cell-label {
+      @apply font-bold;
+    }
+  }
 
-      .empty-row {
-        text-align: center;
-        font-weight: bold;
-      }
+  .datatable-body {
+    overflow-x: hidden;
 
-      .table-card {
-        // min-height: 30vh;
+    .datatable-row-wrapper {
+      // border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
-        .progress-linear {
-          display: block;
-          position: relative;
-          width: 100%;
-          max-width: 95%;
-          height: 5px;
+      .datatable-body-cell {
+        @apply flex items-center px-3;
 
-          position: fixed;
-          bottom: 0px;
-
-          .container {
-            display: block;
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            height: 5px;
-            -webkit-transform: translate(0, 0) scale(1, 1);
-            transform: translate(0, 0) scale(1, 1);
-            background-color: #f4f4f4;
-
-            .bar {
-              transition: all 0.2s linear;
-              -webkit-animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
-              animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
-              transition: -webkit-transform 0.2s linear;
-              transition: transform 0.2s linear;
-              background-color: #ea6723;
-              position: absolute;
-              left: 0;
-              top: 0;
-              bottom: 0;
-              width: 100%;
-              height: 5px;
-            }
-          }
-        }
-
-        .datatable-header {
-          // border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-          @apply flex items-center;
-
-          .datatable-header-cell-template-wrap {
-            @apply px-3;
-          }
-
-          .datatable-header-cell-label {
-            @apply font-bold;
-          }
-        }
-
-        .datatable-body {
-          overflow-x: hidden;
-
-          .datatable-row-wrapper {
-            // border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-
-            .datatable-body-cell {
-              @apply flex items-center px-3;
-
-              .datatable-body-cell-label {
-                width: 95%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-              }
-            }
-          }
-        }
-
-        /**
-         * Progress bar animations
-         */
-        @keyframes query {
-          0% {
-            opacity: 1;
-            transform: translateX(35%) scale(0.3, 1);
-          }
-
-          100% {
-            opacity: 0;
-            transform: translateX(-50%) scale(0, 1);
-          }
+        .datatable-body-cell-label {
+          width: 95%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
   }
 
-  .filters-wrapper {
-    display: inline-flex;
-  }
+  /**
+     * Progress bar animations
+     */
+  @keyframes query {
+    0% {
+      opacity: 1;
+      transform: translateX(35%) scale(0.3, 1);
+    }
 
-  .custom-control.custom-switch {
-    margin-right: 1.5em;
-    text-transform: uppercase;
-    font-size: 12px;
+    100% {
+      opacity: 0;
+      transform: translateX(-50%) scale(0, 1);
+    }
   }
 }
 

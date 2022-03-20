@@ -1,93 +1,57 @@
-<div class="" *ngIf="addressInfo | async as address">
-  <!-- TITLE -->
-  <div class="row justify-content-md-center">
-    <div class="col-sm-12 col-md-10 ml-3">
-      <app-page-title title="Address"></app-page-title>
-    </div>
-  </div>
+<ng-container *ngIf="addressInfo | async as address">
+  <app-page-title title="Address"></app-page-title>
 
   <!-- LOADER -->
   <app-loader [isLoading]="loadingAddressInfo | async"></app-loader>
 
-  <div [hidden]="loadingAddressInfo | async" class="detail-info">
-    <div class="row justify-content-md-center">
-      <div class="col-sm-12 col-md-10">
-        <div class="row">
-          <div class="col-sm-12 col-md-8">
-            <p class="title-card ml-3">&nbsp;</p>
-            <div class="card">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-12 col-lg-10 border-right pb-3 pb-md-0">
-                    <p class="info-label">Address</p>
-                    <p class="info-value">{{ address.blockchainAddress }}</p>
-                  </div>
-                  <div class="col-sm-12 col-lg-2 text-lg-center pt-3 pt-md-0">
-                    <p class="info-label">Nonce</p>
-                    <p class="info-value">{{ address.nonce }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-12 col-md-4">
-            <p class="title-card">&nbsp;</p>
-            <div class="card">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col col-12 text-center">
-                    <p class="info-bold">{{ address.chxBalanceInfo?.totalBalance }} CHX</p>
-                    <p class="info-label">Total balance</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12">
-            <div class="row details-row-item text-center mt-5">
-              <div class="col-sm-12 col-md-4 border-right py-5">
-                <p class="info-bold">{{ address.chxBalanceInfo?.validatorDeposit }} CHX</p>
-                <p class="info-value">Deposit</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 border-right py-5">
-                <p class="info-bold">{{ address.chxBalanceInfo?.delegatedStakes }} CHX</p>
-                <p class="info-value">Delegated</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 py-5">
-                <p class="info-bold-orange">{{ address.chxBalanceInfo?.availableBalance }} CHX</p>
-                <p class="info-value">Available</p>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div [hidden]="loadingAddressInfo | async" class="grid grid-cols-1 sm:grid-cols-6 gap-4 text-sm">
+    <div class="weown-card__white sm:col-span-4">
+      <div>Address:</div>
+      <div class="font-bold truncate">
+        {{ address.blockchainAddress }}
       </div>
     </div>
-  </div>
-
-  <div class="row mt-5">
-    <div class="col-12">
-      <a class="btn btn-light btn-export" [href]="getExportEventsUrl(address.blockchainAddress)">
-        Export
-      </a>
-      <app-filter-selector (onFilterChange)="filterEvents($event)"> </app-filter-selector>
-
-      <app-table-card
-        [title]="'Events (Total: ' + (eventsCount | async) + ')'"
-        [tableHeight]="tableHeight"
-        [columns]="eventColumns"
-        [loading]="loadingEvents | async"
-        [source]="events | async"
-        (loadMore)="onLoadMoreEvents($event)"
-      ></app-table-card>
+    <div class="weown-card__white sm:col-span-2">
+      <div>Nonce:</div>
+      <div class="font-bold truncate">
+        {{ address.nonce }}
+      </div>
     </div>
-  </div>
-
-  <div class="row mt-5">
-    <div class="col-12">
+    <div class="weown-card__brand sm:col-span-3">
+      <div>Total balance:</div>
+      <div class="font-bold truncate text-lg">{{ address.chxBalanceInfo?.totalBalance }} CHX</div>
+    </div>
+    <div class="weown-card__brand sm:col-span-3">
+      <div>Available balance:</div>
+      <div class="font-bold truncate text-lg">{{ address.chxBalanceInfo?.availableBalance }} CHX</div>
+    </div>
+    <div class="weown-card__accent sm:col-span-3">
+      <div>Deposited:</div>
+      <div class="font-bold truncate text-lg">{{ address.chxBalanceInfo?.validatorDeposit }} CHX</div>
+    </div>
+    <div class="weown-card__accent sm:col-span-3">
+      <div>Delegated:</div>
+      <div class="font-bold truncate text-lg">{{ address.chxBalanceInfo?.delegatedStakes }} CHX</div>
+    </div>
+    <div class="sm:col-span-6">
+      <div class="relative">
+        <div class="flex absolute item-center top-3 right-6">
+          <a class="btn btn-light btn-export" [href]="getExportEventsUrl(address.blockchainAddress)">
+            Export
+          </a>
+          <app-filter-selector (onFilterChange)="filterEvents($event)"> </app-filter-selector>
+        </div>
+        <app-table-card
+          [title]="'Events (Total: ' + (eventsCount | async) + ')'"
+          [tableHeight]="tableHeight"
+          [columns]="eventColumns"
+          [loading]="loadingEvents | async"
+          [source]="events | async"
+          (loadMore)="onLoadMoreEvents($event)"
+        ></app-table-card>
+      </div>
+    </div>
+    <div class="sm:col-span-6">
       <app-table-card
         title="Accounts"
         [tableHeight]="tableHeight"
@@ -101,10 +65,7 @@
         (filter)="onAddressAccountsFilter($event)"
       ></app-table-card>
     </div>
-  </div>
-
-  <div class="row mt-5">
-    <div class="col-12">
+    <div class="sm:col-span-6">
       <app-table-card
         title="Assets"
         [tableHeight]="tableHeight"
@@ -118,10 +79,7 @@
         (filter)="onAddressAssetsFilter($event)"
       ></app-table-card>
     </div>
-  </div>
-
-  <div class="row mt-5">
-    <div class="col-12 col-md-6">
+    <div class="sm:col-span-6 grid sm:grid-cols-2 gap-4 place-content-stretch">
       <app-table-card
         title="Stakes delegated by this address"
         [tableHeight]="tableHeight"
@@ -131,9 +89,6 @@
         (loadMore)="onLoadMoreAddressDelegatedStakes($event)"
         [stakes]="delegatedStakesTotal | async"
       ></app-table-card>
-    </div>
-
-    <div class="col-12 col-md-6 mt-5 mt-md-0">
       <app-table-card
         title="Stakes delegated to this address"
         [tableHeight]="tableHeight"
@@ -145,7 +100,7 @@
       ></app-table-card>
     </div>
   </div>
-</div>
+</ng-container>
 
 <ng-template #blockLink let-row="row" let-value="value">
   <a [routerLink]="['/block', value]">{{ value }}</a>

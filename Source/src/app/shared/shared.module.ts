@@ -15,7 +15,6 @@ import { SearchService } from './services/search.service';
 import { CamelCaseToSpace } from './pipes/camelcase-to-space.pipe';
 import { CustomClock } from './clock';
 import { DisplayTimestampPipe } from './pipes/display-timestamp.pipe';
-import { FilterSelectorComponent } from './components/filter-selector/filter-selector.component';
 import { ClickOutDirective } from './directives/click-out.directive';
 
 @NgModule({
@@ -34,7 +33,6 @@ import { ClickOutDirective } from './directives/click-out.directive';
     LabeledCardComponent,
     ScrollEndDirective,
     DisplayTimestampPipe,
-    FilterSelectorComponent,
     ClickOutDirective
   ],
   providers: [SearchService],
@@ -46,7 +44,6 @@ import { ClickOutDirective } from './directives/click-out.directive';
     TimeagoModule,
     CamelCaseToSpace,
     DisplayTimestampPipe,
-    FilterSelectorComponent,
     ClickOutDirective
   ]
 })

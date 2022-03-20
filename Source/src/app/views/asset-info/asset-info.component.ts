@@ -73,7 +73,11 @@ export class AssetInfoComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.assetBridgeTransfersStore.transfers = [];
+    this.assetBridgeTransfersStore.transfers = [];
+    this.assetHoldersStore.holders = [];
+  }
 
   ngOnDestroy(): void {}
 

@@ -1,0 +1,8 @@
+<app-page-title title="Asset"></app-page-title>
+<ng-container *ngIf="{ hash: assetHash | async } as acc">
+  <ng-container *ngIf="acc.hash">
+    <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 text-sm">
+      <ng-container *ngIf="{ info: assetInfo | async } as account"> </ng-container>
+    </div>
+  </ng-container>
+</ng-container>
