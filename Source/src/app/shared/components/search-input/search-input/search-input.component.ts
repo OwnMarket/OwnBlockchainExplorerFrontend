@@ -8,7 +8,7 @@ import { SearchService } from '@app/shared/services/search.service';
 @Component({
   selector: 'app-search-input',
   templateUrl: './search-input.component.html',
-  styleUrls: ['./search-input.component.scss']
+  styleUrls: ['./search-input.component.scss'],
 })
 export class SearchInputComponent implements OnInit, OnDestroy {
   searchForm: FormGroup;
@@ -18,7 +18,7 @@ export class SearchInputComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.searchForm = this.fb.group({
-      hash: [null, [Validators.required]]
+      hash: [null, [Validators.required]],
     });
   }
 
@@ -29,13 +29,19 @@ export class SearchInputComponent implements OnInit, OnDestroy {
   submit(form: FormGroup): void {
     const {
       valid,
-      value: { hash }
+      value: { hash },
     } = form;
-    if (valid) this.searchSub = this.searchService.searchByHash(hash).subscribe(type => this.checkType(type, hash));
+    if (valid) this.searchSub = this.searchService.searchByHash(hash).subscribe((type) => this.checkType(type, hash));
   }
 
   checkType(type: string, hash: string) {
     switch (type) {
+      case 'Asset':
+        this.router.navigate(['asset', hash]);
+        break;
+      case 'Account':
+        this.router.navigate(['account', hash]);
+        break;
       case 'Address':
         this.router.navigate(['address', hash]);
         break;
