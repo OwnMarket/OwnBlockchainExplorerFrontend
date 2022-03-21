@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,10 +12,16 @@ import { AssetBridgeTransfersStoreService } from './asset-info-bridge-transfers-
 @Component({
   selector: 'app-asset-info',
   templateUrl: './asset-info.component.html',
-  styleUrls: ['./asset-info.component.scss']
+  styleUrls: ['./asset-info.component.scss'],
 })
 export class AssetInfoComponent implements OnInit, OnDestroy {
+  @ViewChild('tx', { static: true }) txTpl: TemplateRef<any>;
+  @ViewChild('account', { static: true }) accountTpl: TemplateRef<any>;
+  @ViewChild('asset', { static: true }) assetTpl: TemplateRef<any>;
+  @ViewChild('assetCode', { static: true }) assetCodeTpl: TemplateRef<any>;
+
   tableHeight = '500px';
+  bridgeTableHeight = '150px';
   pageLimit = 20;
 
   assetHash: Observable<string>;
@@ -50,9 +56,9 @@ export class AssetInfoComponent implements OnInit, OnDestroy {
     private assetHoldersStore: AssetHoldersStoreService
   ) {
     this.assetHash = this.activatedRoute.paramMap.pipe(
-      map(params => {
+      map((params) => {
         const hash = params.get('hash');
-        this.assetInfo = this.assetInfoService.getAssetInfo(hash).pipe(map(resp => resp.data));
+        this.assetInfo = this.assetInfoService.getAssetInfo(hash).pipe(map((resp) => resp.data));
         this.transfers = this.assetTransfersStore.transfers$.pipe(untilDestroyed(this));
         this.transfersLoading = this.assetTransfersStore.loadingTransfers$.pipe(untilDestroyed(this));
         this.transfersCanLoad = this.assetTransfersStore.canLoadMore$.pipe(untilDestroyed(this));
@@ -77,6 +83,72 @@ export class AssetInfoComponent implements OnInit, OnDestroy {
     this.assetBridgeTransfersStore.transfers = [];
     this.assetBridgeTransfersStore.transfers = [];
     this.assetHoldersStore.holders = [];
+    this.transferColumns = [
+      {
+        name: 'Transaction',
+        prop: 'hash',
+        cellTemplate: this.txTpl,
+      },
+      {
+        name: 'From',
+        prop: 'fromAccountHash',
+        cellTemplate: this.accountTpl,
+      },
+      {
+        name: 'To',
+        prop: 'toAccountHash',
+        cellTemplate: this.accountTpl,
+      },
+      {
+        name: 'Date/time',
+        prop: 'date',
+      },
+      {
+        name: 'Amount',
+        prop: 'amount',
+        headerClass: 'text-right',
+        cellClass: 'text-right',
+      },
+    ];
+
+    this.bridgeTransferColumns = [
+      {
+        name: 'Contract',
+        prop: 'contractAddress',
+        cellTemplate: this.txTpl,
+      },
+      {
+        name: 'Blockchain',
+        prop: 'blockchainCode',
+        headerClass: 'text-right',
+        cellClass: 'text-right',
+      },
+      {
+        name: 'Transfers',
+        prop: 'transfersCount',
+        headerClass: 'text-right',
+        cellClass: 'text-right',
+      },
+      {
+        name: 'Supply',
+        prop: 'circulatingSupply',
+        headerClass: 'text-right',
+        cellClass: 'text-right',
+      },
+    ];
+    this.holderColumns = [
+      {
+        name: 'Account',
+        prop: 'accountHash',
+        cellTemplate: this.accountTpl,
+      },
+      {
+        name: 'Balance',
+        prop: 'balance',
+        headerClass: 'text-right',
+        cellClass: 'text-right',
+      },
+    ];
   }
 
   ngOnDestroy(): void {}
@@ -86,7 +158,12 @@ export class AssetInfoComponent implements OnInit, OnDestroy {
   }
 
   getBridgeTransfers(hash: string, shouldAppend: boolean = false) {
-    this.assetTransfersStore.getAssetTransfers(hash, this.transfersCurrentPage, this.pageLimit, shouldAppend);
+    this.assetBridgeTransfersStore.getAssetBridgeTransfers(
+      hash,
+      this.transfersCurrentPage,
+      this.pageLimit,
+      shouldAppend
+    );
   }
 
   getHolders(hash: string, shouldAppend: boolean = false) {

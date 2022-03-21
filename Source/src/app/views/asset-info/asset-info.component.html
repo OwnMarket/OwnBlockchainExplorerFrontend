@@ -2,7 +2,84 @@
 <ng-container *ngIf="{ hash: assetHash | async } as acc">
   <ng-container *ngIf="acc.hash">
     <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 text-sm">
-      <ng-container *ngIf="{ info: assetInfo | async } as account"> </ng-container>
+      <ng-container *ngIf="{ info: assetInfo | async } as asset">
+        <div class="weown-card__brand sm:col-span-4">
+          <div>Asset hash:</div>
+          <div class="font-bold truncate">
+            {{ asset?.info?.hash }}
+          </div>
+        </div>
+        <div class="weown-card__white sm:col-span-2">
+          <div>Asset code:</div>
+          <div class="font-bold truncate">
+            {{ asset?.info?.assetCode ? asset?.info?.assetCode : '-' }}
+          </div>
+        </div>
+        <div class="weown-card__white sm:col-span-4">
+          <div>Controller address:</div>
+          <div class="font-bold truncate">
+            {{ asset?.info?.controllerAddress }}
+          </div>
+        </div>
+        <div class="weown-card__white sm:col-span-2">
+          <div>Eligibility required:</div>
+          <div class="font-bold truncate">
+            {{ asset?.info?.isEligibilityRequired ? 'Yes' : 'No' }}
+          </div>
+        </div>
+        <div class="sm:col-span-6">
+          <app-table-card
+            title="Transfers"
+            [tableHeight]="tableHeight"
+            [columns]="transferColumns"
+            [source]="transfers | async"
+            [loading]="transfersLoading | async"
+            [canLoadMore]="transfersCanLoad | async"
+            (loadMore)="onLoadMore(acc.hash, 'transfers')"
+          >
+          </app-table-card>
+        </div>
+        <div class="sm:col-span-6">
+          <app-table-card
+            title="Bridge transfers"
+            [tableHeight]="bridgeTableHeight"
+            [columns]="bridgeTransferColumns"
+            [source]="bridgeTransfers | async"
+            [loading]="bridgeTransfersLoading | async"
+            [canLoadMore]="bridgeTransfersCanLoad | async"
+            (loadMore)="onLoadMore(acc.hash, 'transfers')"
+          >
+          </app-table-card>
+        </div>
+        <div class="sm:col-span-6">
+          <app-table-card
+            title="Holders"
+            [tableHeight]="tableHeight"
+            [columns]="holderColumns"
+            [source]="holders | async"
+            [loading]="holdersLoading | async"
+            [canLoadMore]="holdersCanLoad | async"
+            (loadMore)="onLoadMore(acc.hash, 'holders')"
+          >
+          </app-table-card>
+        </div>
+      </ng-container>
     </div>
   </ng-container>
 </ng-container>
+
+<ng-template #tx let-row="row" let-value="value">
+  <a [routerLink]="['/tx', value]" [title]="value">{{ value }}</a>
+</ng-template>
+
+<ng-template #account let-row="row" let-value="value">
+  <a [routerLink]="['/account', value]" [title]="value">{{ value }}</a>
+</ng-template>
+
+<ng-template #asset let-row="row" let-value="value">
+  <a [routerLink]="['/asset', value]" [title]="value">{{ value }}</a>
+</ng-template>
+
+<ng-template #assetCode let-row="row" let-value="value">
+  {{ value ? value : 'CHX' }}
+</ng-template>
