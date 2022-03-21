@@ -7,9 +7,10 @@ import { AssetsStoreService } from './assets-store.service';
 @Component({
   selector: 'app-assets',
   templateUrl: 'assets.component.html',
-  styleUrls: ['./assets.component.scss']
+  styleUrls: ['./assets.component.scss'],
 })
 export class AssetsComponent implements OnInit, OnDestroy {
+  @ViewChild('header', { static: true }) headerTpl: TemplateRef<any>;
   @ViewChild('asset', { static: true }) assetTpl: TemplateRef<any>;
 
   assets: Observable<AssetSummary[]>;
@@ -28,32 +29,36 @@ export class AssetsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.columns = [
       {
-        name: 'Asset',
+        name: 'explorer.asset',
         prop: 'hash',
         sortable: true,
-        cellTemplate: this.assetTpl
+        cellTemplate: this.assetTpl,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Asset code',
+        name: 'explorer.assetCode',
         prop: 'assetCode',
         sortable: true,
         headerClass: 'text-center',
-        cellClass: 'text-center'
+        cellClass: 'text-center',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Total supply',
+        name: 'explorer.totalSupply',
         prop: 'totalSupply',
         sortable: true,
         headerClass: 'text-right',
-        cellClass: 'text-right'
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Holders',
+        name: 'explorer.holders',
         prop: 'holdersCount',
         sortable: true,
         headerClass: 'text-right',
-        cellClass: 'text-right'
-      }
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
     ];
 
     this.assets = this.assetsStoreService.assets$.pipe(untilDestroyed(this));

@@ -3,10 +3,10 @@
     <input
       #input
       id="term"
-      class="rounded-r-none border-gray-300 dark:border-neutral-600"
+      class="rounded-r-none border-gray-300 dark:border-neutral-600 text-sm"
       type="text"
       formControlName="hash"
-      placeholder="Search by Address, Transaction, Block..."
+      [placeholder]="'explorer.searchPlaceholder' | translate"
       aria-label="Search"
       autocomplete="off"
       (blur)="blur()"

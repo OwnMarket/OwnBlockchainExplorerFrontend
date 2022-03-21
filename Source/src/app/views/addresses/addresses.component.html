@@ -1,18 +1,30 @@
 <div class="row">
   <div class="col-12">
     <app-table-card
-      title="Addresses"
+      [title]="'explorer.addresses' | translate"
       [tableHeight]="tableHeight"
       [columns]="columns"
       [source]="addresses | async"
       [loading]="isLoading | async"
       (loadMore)="onLoadMore($event)"
       [canLoadMore]="canLoad | async"
-      [stakes]="'Total: <strong>' + (addressCount | async) + '</strong> addresses with balance.'"
+      [stakes]="
+        ('explorer.total' | translate) +
+        ': <strong>' +
+        (addressCount | async) +
+        '</strong> ' +
+        ('explorer.totalAddresses' | translate)
+      "
     >
     </app-table-card>
   </div>
 </div>
+
+<ng-template #header let-column="column" let-sort="sortFn" let-reorder="reorderFn">
+  <span class="datatable-header-cell-wrapper font-bold" (click)="sort()">
+    {{ column.name | translate }}
+  </span>
+</ng-template>
 
 <ng-template #addKey let-row="row" let-value="value">
   <a [routerLink]="['/address', value]" [title]="value">{{ value }}</a>

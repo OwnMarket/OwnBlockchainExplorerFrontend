@@ -1,5 +1,5 @@
 <app-table-card
-  title="Accounts"
+  [title]="'explorer.accounts' | translate"
   [tableHeight]="tableHeight"
   [columns]="columns"
   [source]="accounts | async"
@@ -8,6 +8,12 @@
   [canLoadMore]="canLoad | async"
 >
 </app-table-card>
+
+<ng-template #header let-column="column" let-sort="sortFn" let-reorder="reorderFn">
+  <span class="datatable-header-cell-wrapper font-bold" (click)="sort()">
+    {{ column.name | translate }}
+  </span>
+</ng-template>
 
 <ng-template #account let-row="row" let-value="value">
   <a [routerLink]="['/account', value]" [title]="value">{{ value }}</a>

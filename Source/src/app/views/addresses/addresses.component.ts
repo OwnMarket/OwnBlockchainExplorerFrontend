@@ -7,9 +7,10 @@ import { untilDestroyed } from '@app/core';
 @Component({
   selector: 'app-addresses',
   templateUrl: './addresses.component.html',
-  styleUrls: ['./addresses.component.scss']
+  styleUrls: ['./addresses.component.scss'],
 })
 export class AddressesComponent implements OnInit, OnDestroy {
+  @ViewChild('header', { static: true }) headerTpl: TemplateRef<any>;
   @ViewChild('addKey', { static: true }) addKey: TemplateRef<any>;
   @ViewChild('addValue', { static: true }) addValue: TemplateRef<any>;
 
@@ -29,20 +30,22 @@ export class AddressesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.columns = [
       {
-        name: 'Address',
+        name: 'explorer.address',
         prop: 'blockchainAddress',
         sortable: true,
-        cellTemplate: this.addKey
+        cellTemplate: this.addKey,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Total Balance',
+        name: 'explorer.balance',
         prop: 'totalBalance',
         sortable: true,
         maxWidth: 150,
         cellTemplate: this.addValue,
         headerClass: 'text-right',
-        cellClass: 'text-right'
-      }
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
     ];
 
     this.addresses = this.addressesStoreService.addresses$.pipe(untilDestroyed(this));

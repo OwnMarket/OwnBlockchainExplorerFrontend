@@ -8,9 +8,9 @@ import { AddressesRoutingModule } from './addresses-routing.module';
 import { AddressesService } from './addresses.service';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, SharedModule, AddressesRoutingModule],
+  imports: [CommonModule, TranslateModule.forChild(), SharedModule, AddressesRoutingModule],
   declarations: [AddressesComponent],
   providers: [AddressesService],
-  exports: []
+  exports: [],
 })
 export class AddressesModule {}

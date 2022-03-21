@@ -7,9 +7,10 @@ import { AccountsStoreService } from './accounts.store.service';
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
-  styleUrls: ['./accounts.component.scss']
+  styleUrls: ['./accounts.component.scss'],
 })
 export class AccountsComponent implements OnInit, OnDestroy {
+  @ViewChild('header', { static: true }) headerTpl: TemplateRef<any>;
   @ViewChild('address', { static: true }) addressTpl: TemplateRef<any>;
   @ViewChild('account', { static: true }) accountTpl: TemplateRef<any>;
 
@@ -29,24 +30,27 @@ export class AccountsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.columns = [
       {
-        name: 'Account',
+        name: 'explorer.account',
         prop: 'hash',
         sortable: true,
-        cellTemplate: this.accountTpl
+        cellTemplate: this.accountTpl,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Controller address',
+        name: 'explorer.controllerAddress',
         prop: 'controllerAddress',
         sortable: true,
-        cellTemplate: this.addressTpl
+        cellTemplate: this.addressTpl,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Assets',
+        name: 'explorer.assets',
         prop: 'assetsCount',
         sortable: true,
         headerClass: 'text-right',
-        cellClass: 'text-right'
-      }
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
     ];
 
     this.accounts = this.accountStoreService.accounts$.pipe(untilDestroyed(this));
