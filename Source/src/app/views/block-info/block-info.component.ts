@@ -9,9 +9,10 @@ const log = new Logger('BlockInfo');
 @Component({
   selector: 'app-block-info',
   templateUrl: './block-info.component.html',
-  styleUrls: ['./block-info.component.scss']
+  styleUrls: ['./block-info.component.scss'],
 })
 export class BlockInfoComponent implements OnInit, OnDestroy {
+  @ViewChild('header', { static: true }) headerTpl: TemplateRef<any>;
   @ViewChild('txHash', { static: true }) txHash: TemplateRef<any>;
   @ViewChild('txAddress', { static: true }) txAddress: TemplateRef<any>;
   @ViewChild('txEquivocation', { static: true }) txEquivocation: TemplateRef<any>;
@@ -23,7 +24,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   currentPage = {
     tx: 1,
     eq: 1,
-    sr: 1
+    sr: 1,
   };
 
   blockNumber: number;
@@ -84,99 +85,111 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   setupColumns() {
     this.validatorColumns = [
       {
-        name: 'Address',
+        name: 'explorer.address',
         prop: 'validatorAddress',
         sortable: false,
-        cellTemplate: this.txAddress
+        cellTemplate: this.txAddress,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Network Address',
+        name: 'explorer.networkAddress',
         prop: 'networkAddress',
-        sortable: false
+        sortable: false,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Shared Reward %',
+        name: 'explorer.rewardPercent',
         prop: 'sharedRewardPercent',
         sortable: true,
         maxWidth: 150,
-        cellTemplate: this.rewardPerc
+        cellTemplate: this.rewardPerc,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Stake',
+        name: 'explorer.stake',
         prop: 'totalStake',
         sortable: true,
-        maxWidth: 150
-      }
+        maxWidth: 150,
+        headerTemplate: this.headerTpl,
+      },
     ];
 
     this.validatorBlacklistColumns = [
       {
-        name: 'Address',
+        name: 'explorer.address',
         prop: 'validatorAddress',
         sortable: false,
-        cellTemplate: this.txAddress
-      }
+        cellTemplate: this.txAddress,
+        headerTemplate: this.headerTpl,
+      },
     ];
 
     this.transactionColumns = [
       {
-        name: 'Transaction hash',
+        name: 'explorer.txHash',
         prop: 'hash',
         sortable: false,
-        cellTemplate: this.txHash
+        cellTemplate: this.txHash,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Sender address',
+        name: 'explorer.senderAddress',
         prop: 'senderAddress',
         sortable: false,
-        cellTemplate: this.txAddress
+        cellTemplate: this.txAddress,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Action',
+        name: 'explorer.action',
         prop: 'numberOfActions',
         maxWidth: 70,
         sortable: false,
         headerClass: 'text-right',
-        cellClass: 'text-right'
-      }
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
     ];
 
     this.equivocationColumns = [
       {
-        name: 'EQ hash',
+        name: 'explorer.eqHash',
         prop: 'equivocationProofHash',
         sortable: false,
-        cellTemplate: this.txEquivocation
+        cellTemplate: this.txEquivocation,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Slashed amount',
+        name: 'explorer.slashedAmount',
         prop: 'takenDeposit.amount',
         sortable: false,
         headerClass: 'text-right',
-        cellClass: 'text-right'
-      }
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
     ];
 
     this.stakingRewardColumns = [
       {
-        name: 'Staker address',
+        name: 'explorer.stakerAddress',
         prop: 'stakerAddress',
         sortable: false,
-        cellTemplate: this.txAddress
+        cellTemplate: this.txAddress,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Amount',
+        name: 'explorer.amount',
         prop: 'amount',
         maxWidth: 150,
         sortable: false,
         headerClass: 'text-right',
-        cellClass: 'text-right'
-      }
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
     ];
   }
 
   formatValidatorsBlacklist(list: string[]): any[] {
-    return list.map(item => ({ validatorAddress: item }));
+    return list.map((item) => ({ validatorAddress: item }));
   }
 
   expandAdditionalInfo() {
