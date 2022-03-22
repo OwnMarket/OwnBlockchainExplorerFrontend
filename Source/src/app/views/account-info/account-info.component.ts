@@ -11,9 +11,10 @@ import { AccountHoldingsStoreService } from './account-holdings-store.service';
 @Component({
   selector: 'app-account-info',
   templateUrl: './account-info.component.html',
-  styleUrls: ['./account-info.component.scss']
+  styleUrls: ['./account-info.component.scss'],
 })
 export class AccountInfoComponent implements OnInit, OnDestroy {
+  @ViewChild('header', { static: true }) headerTpl: TemplateRef<any>;
   @ViewChild('tx', { static: true }) txTpl: TemplateRef<any>;
   @ViewChild('account', { static: true }) accountTpl: TemplateRef<any>;
   @ViewChild('asset', { static: true }) assetTpl: TemplateRef<any>;
@@ -46,9 +47,9 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
     private accountHoldingsStore: AccountHoldingsStoreService
   ) {
     this.accountHash = this.activatedRoute.paramMap.pipe(
-      map(params => {
+      map((params) => {
         const hash = params.get('hash');
-        this.accountInfo = this.accountInfoService.getAccountInfo(hash).pipe(map(resp => resp.data));
+        this.accountInfo = this.accountInfoService.getAccountInfo(hash).pipe(map((resp) => resp.data));
         this.transfers = this.accountTransfersStore.transfers$.pipe(untilDestroyed(this));
         this.transfersLoading = this.accountTransfersStore.loadingTransfers$.pipe(untilDestroyed(this));
         this.transfersCanLoad = this.accountTransfersStore.canLoadMore$.pipe(untilDestroyed(this));
@@ -69,56 +70,65 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
     this.accountHoldingsStore.holdings = [];
     this.transferColumns = [
       {
-        name: 'Transaction',
+        name: 'explorer.transaction',
         prop: 'hash',
-        cellTemplate: this.txTpl
+        cellTemplate: this.txTpl,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'From',
+        name: 'explorer.from',
         prop: 'fromAccountHash',
-        cellTemplate: this.accountTpl
+        cellTemplate: this.accountTpl,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'To',
+        name: 'explorer.to',
         prop: 'toAccountHash',
-        cellTemplate: this.accountTpl
+        cellTemplate: this.accountTpl,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Date/time',
-        prop: 'date'
+        name: 'explorer.dateTime',
+        prop: 'date',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Amount',
+        name: 'explorer.amount',
         prop: 'amount',
         headerClass: 'text-right',
-        cellClass: 'text-right'
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Asset',
+        name: 'explorer.asset',
         prop: 'assetCode',
         headerClass: 'text-right',
         cellClass: 'text-right',
-        cellTemplate: this.assetCodeTpl
-      }
+        cellTemplate: this.assetCodeTpl,
+        headerTemplate: this.headerTpl,
+      },
     ];
     this.holdingColumns = [
       {
-        name: 'Hash',
+        name: 'explorer.hash',
         prop: 'hash',
-        cellTemplate: this.assetTpl
+        cellTemplate: this.assetTpl,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Code',
+        name: 'explorer.code',
         prop: 'assetCode',
         headerClass: 'text-right',
-        cellClass: 'text-right'
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Amount',
+        name: 'explorer.amount',
         prop: 'amount',
         headerClass: 'text-right',
-        cellClass: 'text-right'
-      }
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
     ];
   }
 

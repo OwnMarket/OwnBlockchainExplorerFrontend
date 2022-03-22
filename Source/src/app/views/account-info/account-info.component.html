@@ -1,22 +1,22 @@
-<app-page-title title="Account"></app-page-title>
+<app-page-title [title]="'explorer.account' | translate"></app-page-title>
 <ng-container *ngIf="{ hash: accountHash | async } as acc">
   <ng-container *ngIf="acc.hash">
     <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 text-sm">
       <ng-container *ngIf="{ info: accountInfo | async } as account">
         <div class="weown-card__brand sm:col-span-4">
-          <div>Account hash:</div>
+          <div>{{ 'explorer.accountHash' | translate }}:</div>
           <div class="font-bold truncate">
             {{ account?.info?.hash }}
           </div>
         </div>
         <div class="weown-card__white sm:col-span-2">
-          <div>Transfers:</div>
+          <div>{{ 'explorer.transfers' | translate }}:</div>
           <div class="font-bold truncate">
             {{ account?.info?.transfersCount }}
           </div>
         </div>
         <div class="weown-card__accent sm:col-span-4">
-          <div>Controller address:</div>
+          <div>{{ 'explorer.controllerAddress' | translate }}:</div>
           <div class="font-bold truncate">
             <a class="text-secondary" [routerLink]="['/address', account?.info?.controllerAddress]">
               {{ account?.info?.controllerAddress }}
@@ -24,14 +24,14 @@
           </div>
         </div>
         <div class="weown-card__white sm:col-span-2">
-          <div>Nr. of assets:</div>
+          <div>{{ 'explorer.numberOfAssets' | translate }}:</div>
           <div class="font-bold truncate">
             {{ account?.info?.assetsCount }}
           </div>
         </div>
         <div class="sm:col-span-6">
           <app-table-card
-            title="Transfers"
+            [title]="'explorer.transfers' | translate"
             [tableHeight]="tableHeight"
             [columns]="transferColumns"
             [source]="transfers | async"
@@ -43,7 +43,7 @@
         </div>
         <div class="sm:col-span-6">
           <app-table-card
-            title="Holdings"
+            [title]="'explorer.holdings' | translate"
             [tableHeight]="tableHeight"
             [columns]="holdingColumns"
             [source]="holdings | async"
@@ -57,6 +57,12 @@
     </div>
   </ng-container>
 </ng-container>
+
+<ng-template #header let-column="column" let-sort="sortFn" let-reorder="reorderFn">
+  <span class="datatable-header-cell-wrapper font-bold" (click)="sort()">
+    {{ column.name | translate }}
+  </span>
+</ng-template>
 
 <ng-template #tx let-row="row" let-value="value">
   <a [routerLink]="['/tx', value]" [title]="value">{{ value }}</a>
