@@ -1,48 +1,46 @@
 <ng-container *ngIf="addressInfo | async as address">
-  <app-page-title title="Address"></app-page-title>
+  <app-page-title [title]="'explorer.address' | translate"></app-page-title>
 
   <!-- LOADER -->
   <app-loader [isLoading]="loadingAddressInfo | async"></app-loader>
 
   <div [hidden]="loadingAddressInfo | async" class="grid grid-cols-1 sm:grid-cols-6 gap-4 text-sm">
     <div class="weown-card__white sm:col-span-4">
-      <div>Address:</div>
+      <div>{{ 'explorer.address' | translate }}:</div>
       <div class="font-bold truncate">
         {{ address.blockchainAddress }}
       </div>
     </div>
     <div class="weown-card__white sm:col-span-2">
-      <div>Nonce:</div>
+      <div>{{ 'explorer.nonce' | translate }}:</div>
       <div class="font-bold truncate">
         {{ address.nonce }}
       </div>
     </div>
     <div class="weown-card__brand sm:col-span-3">
-      <div>Total balance:</div>
+      <div>{{ 'explorer.totalBalance' | translate }}:</div>
       <div class="font-bold truncate text-lg">{{ address.chxBalanceInfo?.totalBalance }} CHX</div>
     </div>
     <div class="weown-card__brand sm:col-span-3">
-      <div>Available balance:</div>
+      <div>{{ 'explorer.availableBalance' | translate }}:</div>
       <div class="font-bold truncate text-lg">{{ address.chxBalanceInfo?.availableBalance }} CHX</div>
     </div>
     <div class="weown-card__accent sm:col-span-3">
-      <div>Deposited:</div>
+      <div>{{ 'explorer.deposited' | translate }}:</div>
       <div class="font-bold truncate text-lg">{{ address.chxBalanceInfo?.validatorDeposit }} CHX</div>
     </div>
     <div class="weown-card__accent sm:col-span-3">
-      <div>Delegated:</div>
+      <div>{{ 'explorer.staked' | translate }}:</div>
       <div class="font-bold truncate text-lg">{{ address.chxBalanceInfo?.delegatedStakes }} CHX</div>
     </div>
     <div class="sm:col-span-6">
       <div class="relative">
         <div class="flex absolute item-center top-3 right-6">
-          <a class="btn btn-light btn-export" [href]="getExportEventsUrl(address.blockchainAddress)">
-            Export
-          </a>
+          <a class="btn btn-light btn-export" [href]="getExportEventsUrl(address.blockchainAddress)"> Export </a>
           <app-filter-selector (onFilterChange)="filterEvents($event)"> </app-filter-selector>
         </div>
         <app-table-card
-          [title]="'Events (Total: ' + (eventsCount | async) + ')'"
+          [title]="('explorer.eventsTotal' | translate) + (eventsCount | async) + ')'"
           [tableHeight]="tableHeight"
           [columns]="eventColumns"
           [loading]="loadingEvents | async"
@@ -53,7 +51,7 @@
     </div>
     <div class="sm:col-span-6">
       <app-table-card
-        title="Accounts"
+        [title]="'explorer.accounts' | translate"
         [tableHeight]="tableHeight"
         [columns]="accountColumns"
         [loading]="loadingAccounts | async"
@@ -67,7 +65,7 @@
     </div>
     <div class="sm:col-span-6">
       <app-table-card
-        title="Assets"
+        [title]="'explorer.assets' | translate"
         [tableHeight]="tableHeight"
         [columns]="assetColumns"
         [loading]="loadingAssets | async"
@@ -81,7 +79,7 @@
     </div>
     <div class="sm:col-span-6 grid sm:grid-cols-2 gap-4 place-content-stretch">
       <app-table-card
-        title="Stakes delegated by this address"
+        [title]="'explorer.stakesDelegatedByAddress' | translate"
         [tableHeight]="tableHeight"
         [columns]="delegatedStakeColumns"
         [loading]="loadingDelegatedStakes | async"
@@ -90,7 +88,7 @@
         [stakes]="delegatedStakesTotal | async"
       ></app-table-card>
       <app-table-card
-        title="Stakes delegated to this address"
+        [title]="'explorer.stakesDelegatedToThisAddress' | translate"
         [tableHeight]="tableHeight"
         [columns]="receivedStakeColumns"
         [loading]="loadingReceivedStakes | async"
@@ -102,12 +100,26 @@
   </div>
 </ng-container>
 
+<ng-template #header let-column="column" let-sort="sortFn" let-reorder="reorderFn">
+  <span class="datatable-header-cell-wrapper font-bold" (click)="sort()">
+    {{ column.name | translate }}
+  </span>
+</ng-template>
+
 <ng-template #blockLink let-row="row" let-value="value">
   <a [routerLink]="['/block', value]">{{ value }}</a>
 </ng-template>
 
 <ng-template #addLink let-row="row" let-value="value">
   <a [routerLink]="['/address', value]">{{ value }}</a>
+</ng-template>
+
+<ng-template #account let-row="row" let-value="value">
+  <a [routerLink]="['/account', value]">{{ value }}</a>
+</ng-template>
+
+<ng-template #asset let-row="row" let-value="value">
+  <a [routerLink]="['/asset', value]">{{ value }}</a>
 </ng-template>
 
 <ng-template #txLink let-row="row" let-value="value">

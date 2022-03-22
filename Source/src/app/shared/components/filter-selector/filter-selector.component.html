@@ -20,6 +20,6 @@
       class="focus:ring-accent checked:bg-accent checked:focus:bg-accent hover:bg-white checked:hover:bg-accent rounded"
       (change)="onChangeFilter($event, option)"
     />
-    {{ option }}
+    {{ option | camelCaseToSpace }}
   </label>
 </app-dropdown>

@@ -4,20 +4,22 @@ import { Logger, untilDestroyed } from '@app/core';
 import { environment } from '@env/environment';
 import { Observable, Subscription } from 'rxjs';
 import { AddressInfoStoreService } from './address-store.service';
-import { AddressInfoService } from './address.service';
 
 const log = new Logger('AdressInfo');
 @Component({
   selector: 'app-address-info',
   templateUrl: './address-info.component.html',
-  styleUrls: ['./address-info.component.scss']
+  styleUrls: ['./address-info.component.scss'],
 })
 export class AddressInfoComponent implements OnInit, OnDestroy {
+  @ViewChild('header', { static: true }) headerTpl: TemplateRef<any>;
   @ViewChild('blockLink', { static: true }) blockLink: TemplateRef<any>;
   @ViewChild('addLink', { static: true }) addLink: TemplateRef<any>;
   @ViewChild('txLink', { static: true }) txLink: TemplateRef<any>;
   @ViewChild('eventDate', { static: true }) eventDate: TemplateRef<any>;
   @ViewChild('eventAmount', { static: true }) eventAmount: TemplateRef<any>;
+  @ViewChild('account', { static: true }) accountTpl: TemplateRef<any>;
+  @ViewChild('asset', { static: true }) assetTpl: TemplateRef<any>;
 
   @Input() tableHeight = '500px';
   @Input() pageLimit = 20;
@@ -27,7 +29,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     accounts: 1,
     assets: 1,
     receivedStakes: 1,
-    delegatedStakes: 1
+    delegatedStakes: 1,
   };
 
   subscription: Subscription;
@@ -121,108 +123,124 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   setupColumns() {
     this.eventColumns = [
       {
-        name: 'Block number',
+        name: 'explorer.blockNumber',
         prop: 'blockNumber',
         sortable: false,
         maxWidth: 120,
         cellTemplate: this.blockLink,
         headerClass: 'text-center',
-        cellClass: 'text-center'
+        cellClass: 'text-center',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Date/Time',
+        name: 'explorer.dateTime',
         prop: 'blockTime',
         sortable: false,
         width: 150,
         cellTemplate: this.eventDate,
         headerClass: 'text-center',
-        cellClass: 'text-center'
+        cellClass: 'text-center',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'TX',
+        name: 'explorer.txHash',
         prop: 'hash',
         sortable: false,
-        cellTemplate: this.txLink
+        cellTemplate: this.txLink,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Event info',
+        name: 'explorer.eventInfo',
         prop: 'eventDetails',
         sortable: false,
-        width: 150
+        width: 150,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Amount',
+        name: 'explorer.amount',
         prop: 'amount',
         sortable: false,
         width: 150,
         cellTemplate: this.eventAmount,
         headerClass: 'text-right',
-        cellClass: 'text-right'
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Fee',
+        name: 'explorer.fee',
         prop: 'fee',
         width: 100,
         sortable: false,
         headerClass: 'text-right',
-        cellClass: 'text-right'
-      }
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
     ];
 
     this.accountColumns = [
       {
-        name: 'Account hash',
+        name: 'explorer.accountHash',
         prop: 'hash',
-        sortable: false
-      }
+        sortable: false,
+        headerTemplate: this.headerTpl,
+        cellTemplate: this.accountTpl,
+      },
     ];
 
     this.assetColumns = [
       {
-        name: 'Asset hash',
+        name: 'explorer.assetHash',
         prop: 'hash',
-        sortable: false
+        sortable: false,
+        headerTemplate: this.headerTpl,
+        cellTemplate: this.assetTpl,
       },
       {
-        name: 'Asset code',
+        name: 'explorer.code',
         prop: 'assetCode',
         sortable: false,
-        maxWidth: 200
-      }
+        headerClass: 'text-right',
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
     ];
 
     this.delegatedStakeColumns = [
       {
-        name: 'Validator address',
+        name: 'explorer.address',
         prop: 'validatorAddress',
         sortable: false,
-        cellTemplate: this.addLink
+        cellTemplate: this.addLink,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Amount',
+        name: 'explorer.amount',
         prop: 'amount',
         maxWidth: 80,
         sortable: false,
         headerClass: 'text-right',
-        cellClass: 'text-right'
-      }
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
     ];
 
     this.receivedStakeColumns = [
       {
-        name: 'Staker address',
+        name: 'explorer.stakerAddress',
         prop: 'stakerAddress',
         sortable: false,
-        cellTemplate: this.addLink
+        cellTemplate: this.addLink,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Amount',
+        name: 'explorer.amount',
         prop: 'amount',
         maxWidth: 80,
         sortable: false,
         headerClass: 'text-right',
-        cellClass: 'text-right'
-      }
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
     ];
   }
 
