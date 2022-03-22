@@ -3,7 +3,10 @@
     walletDropdownTrigger
     class="pl-6 pr-2 py-1 rounded-xl border hover:border-brand hover:text-brand flex items-center justify-between"
   >
-    <div class="mr-2">Data for {{ selected }}</div>
+    <div class="mr-2">
+      {{ 'explorer.dataFor' | translate }} {{ selected }}
+      {{ selected > 0 ? (selected > 1 ? ('explorer.days' | translate) : ('explorer.day' | translate)) : '' }}
+    </div>
     <div
       class="transform transition-transform duration-150"
       [ngClass]="{ 'rotate-180': dropdown.isOpen, 'rotate-0': !dropdown.isOpen }"
@@ -12,8 +15,10 @@
     </div>
   </div>
   <div walletDropdownItem *ngFor="let value of values">
-    <a class="menu-item" *ngIf="value.text !== selected" (click)="valueIsChanged(value, dropdown)">
-      {{ value.text }}
+    <a class="menu-item" *ngIf="value !== selected" (click)="valueIsChanged(value, dropdown)">
+      {{ value === 0 ? ('explorer.configBlock' | translate) : '' }}
+      {{ value === 1 ? value + ' ' + ('explorer.day' | translate) : '' }}
+      {{ value > 1 ? value + ' ' + ('explorer.days' | translate) : '' }}
     </a>
   </div>
 </app-dropdown>

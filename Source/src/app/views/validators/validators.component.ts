@@ -7,9 +7,10 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-validators',
   templateUrl: './validators.component.html',
-  styleUrls: ['./validators.component.scss']
+  styleUrls: ['./validators.component.scss'],
 })
 export class ValidatorsComponent implements OnInit {
+  @ViewChild('header', { static: true }) headerTpl: TemplateRef<any>;
   @ViewChild('txStatus', { static: true }) txStatus: TemplateRef<any>;
   @ViewChild('addKey', { static: true }) addKey: TemplateRef<any>;
   @ViewChild('addValue', { static: true }) addValue: TemplateRef<any>;
@@ -17,7 +18,6 @@ export class ValidatorsComponent implements OnInit {
 
   validators: Observable<ValidatorStat[]>;
   isLoading: Observable<boolean>;
-  info: string = 'Validators';
   totalValidators: number;
   activeValidators: number;
   totalStakes: number;
@@ -36,61 +36,69 @@ export class ValidatorsComponent implements OnInit {
         prop: 'isActive',
         sortable: true,
         cellTemplate: this.txStatus,
-        maxWidth: 50
+        maxWidth: 50,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Validator Address',
+        name: 'explorer.validatorAddress',
         prop: 'fullAddress',
-        cellTemplate: this.addKey
+        cellTemplate: this.addKey,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Deposit',
+        name: 'explorer.deposit',
         prop: 'deposit',
         sortable: true,
         maxWidth: 100,
         headerClass: 'text-right',
-        cellClass: 'text-right'
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Stake',
+        name: 'explorer.stake',
         prop: 'totalStake',
         sortable: true,
         maxWidth: 100,
         headerClass: 'text-right',
-        cellClass: 'text-right'
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Reward %',
+        name: 'explorer.rewardPercent',
         prop: 'sharedRewardPercent',
         sortable: true,
         cellTemplate: this.rewardPerc,
         maxWidth: 100,
         headerClass: 'text-center',
-        cellClass: 'text-center'
+        cellClass: 'text-center',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Collected',
+        name: 'explorer.collected',
         prop: 'rewardsCollected',
         sortable: true,
         maxWidth: 120,
         headerClass: 'text-right',
-        cellClass: 'text-right'
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Distributed',
+        name: 'explorer.distributed',
         prop: 'rewardsDistributed',
         sortable: true,
         maxWidth: 120,
         headerClass: 'text-right',
-        cellClass: 'text-right'
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Blocks',
+        name: 'explorer.blocks',
         prop: 'blocksProposed',
         sortable: true,
         maxWidth: 70,
         headerClass: 'text-right',
-        cellClass: 'text-right'
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
       },
       {
         name: 'TXs',
@@ -98,8 +106,9 @@ export class ValidatorsComponent implements OnInit {
         sortable: true,
         maxWidth: 50,
         headerClass: 'text-right',
-        cellClass: 'text-right'
-      }
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
     ];
 
     this.fetchValidators();
@@ -112,10 +121,10 @@ export class ValidatorsComponent implements OnInit {
   fetchValidators(numberOfDays: number = 7) {
     this.isLoading = of(true);
     this.validators = this.service.getValidatorStats(numberOfDays).pipe(
-      map(resp => {
+      map((resp) => {
         if (resp.data) {
           this.totalValidators = resp.data.length;
-          this.activeValidators = resp.data.filter(validator => validator.isActive === true).length;
+          this.activeValidators = resp.data.filter((validator) => validator.isActive === true).length;
 
           this.totalStakes = Math.floor(
             resp.data
@@ -133,7 +142,7 @@ export class ValidatorsComponent implements OnInit {
           resp.data.forEach((item: ValidatorStat) => {
             item.fullAddress = {
               blockchainAddress: item.blockchainAddress,
-              networkAddress: item.networkAddress
+              networkAddress: item.networkAddress,
             };
 
             item.totalStake = Math.floor(item.totalStake);
@@ -147,7 +156,7 @@ export class ValidatorsComponent implements OnInit {
 
   getRowClass(row: any) {
     return {
-      'row-warning': row.blocksProposed === 0 && row.isActive
+      'row-warning': row.blocksProposed === 0 && row.isActive,
     };
   }
 }

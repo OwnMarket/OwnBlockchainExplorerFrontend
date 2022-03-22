@@ -10,7 +10,7 @@ import { ValidatorsService } from '../validators.service';
 @Component({
   selector: 'app-validators-map',
   templateUrl: './validators-map.component.html',
-  styleUrls: ['./validators-map.component.scss']
+  styleUrls: ['./validators-map.component.scss'],
 })
 export class ValidatorsMapComponent implements AfterViewInit {
   subscription: Subscription;
@@ -25,11 +25,11 @@ export class ValidatorsMapComponent implements AfterViewInit {
     layers: [
       tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
-        attribution: '...'
-      })
+        attribution: '...',
+      }),
     ],
     zoom: 2,
-    center: latLng(30, 0)
+    center: latLng(30, 0),
   };
 
   constructor(private service: ValidatorsService) {}
@@ -43,14 +43,14 @@ export class ValidatorsMapComponent implements AfterViewInit {
       icon: icon({
         iconSize: [25, 25],
         iconAnchor: [0.5, 0.5],
-        iconUrl: 'assets/images/marker.svg'
+        iconUrl: 'assets/images/marker.svg',
       }),
-      title: validator.networkAddress
+      title: validator.networkAddress,
     });
 
     const localValidators = this.validatorsPerAddress(validator.location.latitude, validator.location.longitude);
 
-    let content = `<h4>${localValidators.length} in ${validator.location.city}, ${validator.location.country_name} <img src="${validator.location.country_flag}" width="20" alt="flag" /></h4>`;
+    let content = `<h4 class="flex items-center justify-between mb-4">${localValidators.length} in ${validator.location.city}, ${validator.location.country_name} <img class="ml-2" src="${validator.location.country_flag}" width="20" heigh="10" alt="flag" /></h4>`;
 
     for (const item of localValidators) {
       content += `
@@ -68,11 +68,11 @@ export class ValidatorsMapComponent implements AfterViewInit {
   loadData() {
     this.subscription = this.service
       .fetchValidatorGeo()
-      .pipe(map(response => response.data))
-      .subscribe(data => {
+      .pipe(map((response) => response.data))
+      .subscribe((data) => {
         if (data.length > 0) {
           this.validators = data;
-          this.validators.forEach(validator => {
+          this.validators.forEach((validator) => {
             this.addMarker(validator);
           });
         }
@@ -80,6 +80,6 @@ export class ValidatorsMapComponent implements AfterViewInit {
   }
 
   validatorsPerAddress(lat: string, lon: string): ValidatorGeo[] {
-    return this.validators.filter(item => lat === item.location.latitude && lon === item.location.longitude);
+    return this.validators.filter((item) => lat === item.location.latitude && lon === item.location.longitude);
   }
 }

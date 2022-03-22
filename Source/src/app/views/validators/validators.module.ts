@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { SharedModule } from '@app/shared';
 import { DropdownModule, IconsModule } from '@app/shared/components';
@@ -11,6 +12,14 @@ import { ValidatorTimeFilterComponent } from './validator-time-filter/validator-
 
 @NgModule({
   declarations: [ValidatorsComponent, ValidatorsMapComponent, ValidatorTimeFilterComponent],
-  imports: [CommonModule, SharedModule, LeafletModule.forRoot(), DropdownModule, IconsModule, ValidatorsRoutingModule]
+  imports: [
+    CommonModule,
+    TranslateModule.forChild(),
+    SharedModule,
+    LeafletModule.forRoot(),
+    DropdownModule,
+    IconsModule,
+    ValidatorsRoutingModule,
+  ],
 })
 export class ValidatorsModule {}
