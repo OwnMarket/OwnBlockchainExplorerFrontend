@@ -1,5 +1,5 @@
 <div *ngIf="transactionInfo | async as transaction">
-  <app-page-title title="Transaction"></app-page-title>
+  <app-page-title [title]="'explorer.transaction' | translate"></app-page-title>
   <app-loader [isLoading]="loadingTransactionInfo | async"></app-loader>
 
   <div [hidden]="loadingTransactionInfo | async" class="grid grid-cols-1 sm:grid-cols-6 gap-4 text-sm">
@@ -16,12 +16,12 @@
         <img class="w-28 h-28" *ngIf="transaction.status === 'Pending'" src="/assets/images/pending-icon.svg" />
         <img class="w-28 h-28" *ngIf="transaction.status === 'Failure'" src="/assets/images/failed-icon.svg" />
       </div>
-      <div>Transaction Hash:</div>
+      <div>{{ 'explorer.txHash' | translate }}:</div>
       <div class="font-bold truncate">{{ transaction.hash }}</div>
     </div>
 
     <div class="weown-card__accent sm:col-span-2">
-      <div>Block number:</div>
+      <div>{{ 'explorer.blockNumber' | translate }}:</div>
       <div class="font-bold truncate">
         <a class="text-secondary" [routerLink]="['/block', transaction.blockNumber]">
           {{ transaction.blockNumber }}
@@ -30,7 +30,7 @@
     </div>
 
     <div class="weown-card__white sm:col-span-4">
-      <div>From:</div>
+      <div>{{ 'explorer.from' | translate }}:</div>
       <div class="font-bold truncate">
         <a class="text-secondary" [routerLink]="['/address', transaction.senderAddress]">
           {{ transaction.senderAddress }}
@@ -46,29 +46,29 @@
     </div>
 
     <div class="weown-card__white sm:col-span-2">
-      <div>Action fee:</div>
+      <div>{{ 'explorer.actionFee' | translate }}:</div>
       <div class="font-bold truncate">{{ transaction.actionFee }} CHX</div>
     </div>
 
     <div class="weown-card__white sm:col-span-2">
-      <div>Total fee:</div>
+      <div>{{ 'explorer.totalFee' | translate }}:</div>
       <div class="font-bold truncate">{{ totalFee(transaction.actionFee, transaction.numberOfActions) }} CHX</div>
     </div>
 
     <div class="weown-card__white sm:col-span-2">
-      <div>Actions:</div>
+      <div>{{ 'explorer.actions' | translate }}:</div>
       <div class="font-bold truncate">{{ transaction.numberOfActions }}</div>
     </div>
 
     <div class="weown-card__white sm:col-span-3">
-      <div>Expiration time:</div>
+      <div>{{ 'explorer.expirationTime' | translate }}:</div>
       <div class="font-bold truncate">
         {{ transaction.expirationTime ? (transaction.expirationTime | displayTimestamp) : '-' }}
       </div>
     </div>
 
     <div class="weown-card__white sm:col-span-3">
-      <div>Timestamp:</div>
+      <div>{{ 'explorer.timestamp' | translate }}:</div>
       <div class="font-bold truncate" *ngIf="transaction.timestamp">
         {{ transaction.timestamp | displayTimestamp }} ({{ transaction.timestamp + 'Z' | timeago: true }})
       </div>
@@ -76,7 +76,7 @@
 
     <ng-container *ngIf="transaction.status === 'Failure'">
       <div class="text-xl font-bold my-6 sm:col-span-6">
-        Errors
+        {{ 'explorer.errors' | translate }}
       </div>
       <div
         class="weown-card__fail"
@@ -85,7 +85,7 @@
           'sm:col-span-6': !transaction.failedActionNumber
         }"
       >
-        <div>Error message:</div>
+        <div>{{ 'explorer.errorMessages' | translate }}:</div>
         <div class="font-bold">
           {{ transaction.errorMessage | camelCaseToSpace | titlecase }}
         </div>
@@ -98,9 +98,7 @@
       </div>
     </ng-container>
 
-    <div class="text-xl font-bold my-6 sm:col-span-6">
-      Actions
-    </div>
+    <div class="text-xl font-bold my-6 sm:col-span-6">{{ 'explorer.actions' | translate }}</div>
 
     <div class="sm:col-span-6 weown-card__white" *ngFor="let action of transactionActions | async; let i = index">
       <div class="col-12 mb-4">
