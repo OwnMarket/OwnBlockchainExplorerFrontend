@@ -15,6 +15,7 @@ import { AssetBridgeTransfersStoreService } from './asset-info-bridge-transfers-
   styleUrls: ['./asset-info.component.scss'],
 })
 export class AssetInfoComponent implements OnInit, OnDestroy {
+  @ViewChild('header', { static: true }) headerTpl: TemplateRef<any>;
   @ViewChild('tx', { static: true }) txTpl: TemplateRef<any>;
   @ViewChild('account', { static: true }) accountTpl: TemplateRef<any>;
   @ViewChild('asset', { static: true }) assetTpl: TemplateRef<any>;
@@ -85,68 +86,79 @@ export class AssetInfoComponent implements OnInit, OnDestroy {
     this.assetHoldersStore.holders = [];
     this.transferColumns = [
       {
-        name: 'Transaction',
+        name: 'explorer.transaction',
         prop: 'hash',
         cellTemplate: this.txTpl,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'From',
+        name: 'explorer.from',
         prop: 'fromAccountHash',
         cellTemplate: this.accountTpl,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'To',
+        name: 'explorer.to',
         prop: 'toAccountHash',
         cellTemplate: this.accountTpl,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Date/time',
+        name: 'explorer.dateTime',
         prop: 'date',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Amount',
+        name: 'explorer.amount',
         prop: 'amount',
         headerClass: 'text-right',
         cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
       },
     ];
 
     this.bridgeTransferColumns = [
       {
-        name: 'Contract',
+        name: 'explorer.contract',
         prop: 'contractAddress',
         cellTemplate: this.txTpl,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Blockchain',
+        name: 'explorer.blockchain',
         prop: 'blockchainCode',
         headerClass: 'text-right',
         cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Transfers',
+        name: 'explorer.transfers',
         prop: 'transfersCount',
         headerClass: 'text-right',
         cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Supply',
+        name: 'explorer.supply',
         prop: 'circulatingSupply',
         headerClass: 'text-right',
         cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
       },
     ];
     this.holderColumns = [
       {
-        name: 'Account',
+        name: 'explorer.account',
         prop: 'accountHash',
         cellTemplate: this.accountTpl,
+        headerTemplate: this.headerTpl,
       },
       {
-        name: 'Balance',
+        name: 'explorer.balance',
         prop: 'balance',
         headerClass: 'text-right',
         cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
       },
     ];
   }

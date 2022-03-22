@@ -4,32 +4,32 @@
     <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 text-sm">
       <ng-container *ngIf="{ info: assetInfo | async } as asset">
         <div class="weown-card__brand sm:col-span-4">
-          <div>Asset hash:</div>
+          <div>{{ 'explorer.assetHash' | translate }}:</div>
           <div class="font-bold truncate">
             {{ asset?.info?.hash }}
           </div>
         </div>
         <div class="weown-card__white sm:col-span-2">
-          <div>Asset code:</div>
+          <div>{{ 'explorer.assetCode' | translate }}:</div>
           <div class="font-bold truncate">
             {{ asset?.info?.assetCode ? asset?.info?.assetCode : '-' }}
           </div>
         </div>
         <div class="weown-card__white sm:col-span-4">
-          <div>Controller address:</div>
+          <div>{{ 'explorer.controllerAddress' | translate }}:</div>
           <div class="font-bold truncate">
             {{ asset?.info?.controllerAddress }}
           </div>
         </div>
         <div class="weown-card__white sm:col-span-2">
-          <div>Eligibility required:</div>
+          <div>{{ 'explorer.eligibilityRequired' | translate }}:</div>
           <div class="font-bold truncate">
-            {{ asset?.info?.isEligibilityRequired ? 'Yes' : 'No' }}
+            {{ asset?.info?.isEligibilityRequired ? ('explorer.yes' | translate) : ('explorer.no' | translate) }}
           </div>
         </div>
         <div class="sm:col-span-6">
           <app-table-card
-            title="Transfers"
+            [title]="'explorer.transfers' | translate"
             [tableHeight]="tableHeight"
             [columns]="transferColumns"
             [source]="transfers | async"
@@ -41,7 +41,7 @@
         </div>
         <div class="sm:col-span-6">
           <app-table-card
-            title="Bridge transfers"
+            [title]="'explorer.bridgeTransfers' | translate"
             [tableHeight]="bridgeTableHeight"
             [columns]="bridgeTransferColumns"
             [source]="bridgeTransfers | async"
@@ -53,7 +53,7 @@
         </div>
         <div class="sm:col-span-6">
           <app-table-card
-            title="Holders"
+            [title]="'explorer.holders' | translate"
             [tableHeight]="tableHeight"
             [columns]="holderColumns"
             [source]="holders | async"
@@ -67,6 +67,12 @@
     </div>
   </ng-container>
 </ng-container>
+
+<ng-template #header let-column="column" let-sort="sortFn" let-reorder="reorderFn">
+  <span class="datatable-header-cell-wrapper font-bold" (click)="sort()">
+    {{ column.name | translate }}
+  </span>
+</ng-template>
 
 <ng-template #tx let-row="row" let-value="value">
   <a [routerLink]="['/tx', value]" [title]="value">{{ value }}</a>
