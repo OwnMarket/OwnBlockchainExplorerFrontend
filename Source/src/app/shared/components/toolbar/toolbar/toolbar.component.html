@@ -1,5 +1,7 @@
-<div class="toolbar">
-  <a routerLink="/" class="text-neutral-800">
+<div
+  class="toolbar h-16 fixed top-0 left-0 right-0 bg-white dark:bg-neutral-800 flex justify-between print:justify-center items-center shadow text-sm print:shadow-none"
+>
+  <a routerLink="/" class="text-neutral-800 dark:text-neutral-400">
     <app-logo></app-logo>
   </a>
   <div class="flex print:hidden">
@@ -18,7 +20,7 @@
               <button
                 role="button"
                 class="menu-item"
-                [class.font-bold]="selectedLanguage === 'en'"
+                [class.selected]="selectedLanguage === 'en'"
                 (click)="selectLanguage('en')"
               >
                 <gb-icon></gb-icon> {{ 'explorer.english' | translate }}
@@ -27,14 +29,22 @@
             <li>
               <button
                 role="button"
-                class="menu-item hover:bg-orange-100/50 hover:text-brand dark:hover:bg-neutral-700 dark:hover:text-white m-0"
-                [class.font-bold]="selectedLanguage === 'de'"
+                class="menu-item"
+                [class.selected]="selectedLanguage === 'de'"
                 (click)="selectLanguage('de')"
               >
                 <de-icon></de-icon> {{ 'explorer.german' | translate }}
               </button>
             </li>
           </ul>
+        </div>
+        <div walletDropdownItem>
+          <div class="menu-item" *ngIf="theme === 'light'" (click)="setTheme('dark')">
+            <moon-icon></moon-icon> {{ 'explorer.darkMode' | translate }}
+          </div>
+          <div class="menu-item" *ngIf="theme === 'dark'" (click)="setTheme('light')">
+            <sun-icon></sun-icon> {{ 'explorer.lightMode' | translate }}
+          </div>
         </div>
       </app-dropdown>
     </div>

@@ -4,7 +4,7 @@ nav {
     @apply flex items-center h-full;
     li {
       a {
-        @apply px-4 py-2 text-sm no-underline text-neutral-800 font-normal;
+        @apply px-4 py-2 text-sm no-underline font-normal;
         &:hover {
           @apply text-brand;
         }
