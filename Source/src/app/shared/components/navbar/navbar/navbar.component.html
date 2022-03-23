@@ -1,4 +1,15 @@
-<nav>
+<div class="fixed top-5 right-20 sm:hidden">
+  <a role="button" class="text-brand hover:text-accent" (click)="isOpen = !isOpen">
+    <menu-icon></menu-icon>
+  </a>
+</div>
+
+<nav
+  [ngClass]="{
+    'translate-x-0': isOpen,
+    'translate-x-full sm:translate-x-0': !isOpen
+  }"
+>
   <ul>
     <li>
       <a class="text-neutral-800 dark:text-neutral-300" routerLink="/addresses" routerLinkActive="active">
@@ -29,6 +40,9 @@
       <a class="text-neutral-800 dark:text-neutral-300" routerLink="/validators" routerLinkActive="active">
         {{ 'explorer.validators' | translate }}
       </a>
+    </li>
+    <li class="order-first sm:order-last mb-12 sm:mb-0">
+      <app-search-input></app-search-input>
     </li>
   </ul>
 </nav>

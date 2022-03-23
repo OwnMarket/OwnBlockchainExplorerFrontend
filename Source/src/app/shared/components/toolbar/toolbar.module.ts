@@ -6,7 +6,6 @@ import { LogoModule } from '../logo/logo.module';
 import { DropdownModule } from '../dropdown/dropdown.module';
 import { IconsModule } from '../icons/icons.module';
 import { NavbarModule } from '../navbar/navbar.module';
-import { SearchInputModule } from '../search-input/search-input.module';
 
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
@@ -20,8 +19,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     DropdownModule,
     IconsModule,
     NavbarModule,
-    SearchInputModule
   ],
-  exports: [ToolbarComponent]
+  exports: [ToolbarComponent],
 })
 export class ToolbarModule {}

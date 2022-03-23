@@ -44,6 +44,7 @@ import { UserCheckIconComponent } from './user-check-icon.component';
 import { ArrowLeftIconComponent } from './arrow-left-icon.component';
 import { WeOwnIconComponent } from './weown-icon.component';
 import { SwapIconComponent } from './swap-icon.component';
+import { MenuIconComponent } from './menu-icon.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -91,7 +92,8 @@ import { SwapIconComponent } from './swap-icon.component';
     UserCheckIconComponent,
     ArrowLeftIconComponent,
     WeOwnIconComponent,
-    SwapIconComponent
+    SwapIconComponent,
+    MenuIconComponent,
   ],
   exports: [
     SmileyIconComponent,
@@ -137,7 +139,8 @@ import { SwapIconComponent } from './swap-icon.component';
     UserCheckIconComponent,
     ArrowLeftIconComponent,
     WeOwnIconComponent,
-    SwapIconComponent
-  ]
+    SwapIconComponent,
+    MenuIconComponent,
+  ],
 })
 export class IconsModule {}

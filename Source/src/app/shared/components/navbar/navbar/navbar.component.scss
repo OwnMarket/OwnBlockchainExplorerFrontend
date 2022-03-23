@@ -1,10 +1,11 @@
 nav {
-  @apply h-full mr-4;
+  @apply h-full w-full sm:w-auto mr-4 pt-12 sm:pt-0 fixed sm:relative top-16 left-0 sm:top-0 sm:left-auto bg-white sm:bg-inherit transition-all duration-150 ease-in-out;
+
   ul {
-    @apply flex items-center h-full;
+    @apply flex flex-col sm:flex-row items-center h-full;
     li {
       a {
-        @apply px-4 py-2 text-sm no-underline font-normal;
+        @apply block px-6 py-6 sm:px-4 sm:py-2 text-sm no-underline font-normal text-center;
         &:hover {
           @apply text-brand;
         }

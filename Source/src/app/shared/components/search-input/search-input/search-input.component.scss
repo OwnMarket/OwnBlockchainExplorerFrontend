@@ -4,7 +4,7 @@
     @apply text-gray-400 absolute left-2 top-0 px-1 mx-1 border-gray-300 pointer-events-none flex leading-10 transition-all duration-300;
   }
   input {
-    @apply w-96 h-full leading-normal shadow-none outline-none focus:outline-none focus:ring-0 p-4 bg-inherit border rounded-lg rounded-r-none border-r-0 focus:border-2 focus:border-brand;
+    @apply w-full sm:w-96 h-full leading-normal shadow-none outline-none focus:outline-none focus:ring-0 p-4 bg-inherit border rounded-lg rounded-r-none border-r-0 focus:border-2 focus:border-brand;
     &:focus + label,
     &.ng-dirty + label {
       @apply -top-4 bg-white text-sm mt-1;
