@@ -2,26 +2,26 @@
   <div class="sm:col-span-12">
     <app-validators-map></app-validators-map>
   </div>
-  <div class="weown-card__brand sm:col-span-3">
+  <div class="weown-card__white sm:col-span-3">
     <div>{{ 'explorer.validators' | translate }}:</div>
     <app-loader [isLoading]="!totalValidators"></app-loader>
     <div class="font-bold text-lg truncate" *ngIf="totalValidators">
       {{ totalValidators }}
     </div>
   </div>
-  <div class="weown-card__brand sm:col-span-3">
+  <div class="weown-card__white sm:col-span-3">
     <div>{{ 'explorer.activeValidators' | translate }}:</div>
     <app-loader [isLoading]="!activeValidators"></app-loader>
     <div class="font-bold text-lg truncate" *ngIf="activeValidators">
       {{ activeValidators }}
     </div>
   </div>
-  <div class="weown-card__brand sm:col-span-3">
+  <div class="weown-card__white sm:col-span-3">
     <div>{{ 'explorer.staked' | translate }}:</div>
     <app-loader [isLoading]="!totalStakes"></app-loader>
     <div class="font-bold text-lg truncate" *ngIf="totalStakes">{{ totalStakes }} CHX</div>
   </div>
-  <div class="weown-card__brand sm:col-span-3">
+  <div class="weown-card__white sm:col-span-3">
     <div>{{ 'explorer.deposited' | translate }}:</div>
     <app-loader [isLoading]="!totalDeposits"></app-loader>
     <div class="font-bold text-lg truncate" *ngIf="totalDeposits">{{ totalDeposits }} CHX</div>

@@ -3,7 +3,7 @@
   <ng-container *ngIf="acc.hash">
     <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 text-sm">
       <ng-container *ngIf="{ info: accountInfo | async } as account">
-        <div class="weown-card__brand sm:col-span-4">
+        <div class="weown-card__white sm:col-span-4">
           <div>{{ 'explorer.accountHash' | translate }}:</div>
           <div class="font-bold truncate">
             {{ account?.info?.hash }}
@@ -15,7 +15,7 @@
             {{ account?.info?.transfersCount }}
           </div>
         </div>
-        <div class="weown-card__accent sm:col-span-4">
+        <div class="weown-card__white sm:col-span-4">
           <div>{{ 'explorer.controllerAddress' | translate }}:</div>
           <div class="font-bold truncate">
             <a class="text-secondary" [routerLink]="['/address', account?.info?.controllerAddress]">
@@ -77,5 +77,5 @@
 </ng-template>
 
 <ng-template #assetCode let-row="row" let-value="value">
-  {{ value }}
+  {{ value ? value : '-' }}
 </ng-template>

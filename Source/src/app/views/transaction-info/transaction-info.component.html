@@ -7,7 +7,7 @@
       class="sm:col-span-4 relative"
       [ngClass]="{
         'weown-card__success': transaction.status === 'Success',
-        'weown-card__accent': transaction.status === 'Pending',
+        'weown-card__white': transaction.status === 'Pending',
         'weown-card__fail': transaction.status === 'Failure'
       }"
     >
@@ -20,7 +20,7 @@
       <div class="font-bold truncate">{{ transaction.hash }}</div>
     </div>
 
-    <div class="weown-card__accent sm:col-span-2">
+    <div class="weown-card__white sm:col-span-2">
       <div>{{ 'explorer.blockNumber' | translate }}:</div>
       <div class="font-bold truncate">
         <a class="text-secondary" [routerLink]="['/block', transaction.blockNumber]">

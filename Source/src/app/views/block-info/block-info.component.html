@@ -3,11 +3,11 @@
   <app-loader [isLoading]="loadingBlockInfo | async"></app-loader>
 
   <div *ngIf="!(loadingBlockInfo | async)" class="grid grid-cols-1 sm:grid-cols-6 gap-4 text-sm">
-    <div class="weown-card__brand sm:col-span-4">
+    <div class="weown-card__white sm:col-span-4">
       <div>{{ 'explorer.blockHash' | translate }}:</div>
       <div class="font-bold truncate">{{ block.hash }}</div>
     </div>
-    <div class="weown-card__accent sm:col-span-2">
+    <div class="weown-card__white sm:col-span-2">
       <div>{{ 'explorer.blockNumber' | translate }}:</div>
       <div class="font-bold truncate">{{ block.blockNumber }}</div>
     </div>

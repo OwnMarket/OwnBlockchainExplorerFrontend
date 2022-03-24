@@ -12,6 +12,7 @@ import { AssetsStoreService } from './assets-store.service';
 export class AssetsComponent implements OnInit, OnDestroy {
   @ViewChild('header', { static: true }) headerTpl: TemplateRef<any>;
   @ViewChild('asset', { static: true }) assetTpl: TemplateRef<any>;
+  @ViewChild('assetCode', { static: true }) assetCodeTpl: TemplateRef<any>;
 
   assets: Observable<AssetSummary[]>;
   isLoading: Observable<boolean>;
@@ -41,6 +42,7 @@ export class AssetsComponent implements OnInit, OnDestroy {
         sortable: true,
         headerClass: 'text-center',
         cellClass: 'text-center',
+        cellTemplate: this.assetCodeTpl,
         headerTemplate: this.headerTpl,
       },
       {

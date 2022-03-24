@@ -62,12 +62,6 @@ a {
   &__white {
     @apply bg-white/70 dark:bg-neutral-800 p-4 overflow-hidden rounded-lg shadow h-full;
   }
-  &__brand {
-    @apply bg-orange-100/50 dark:bg-neutral-800 text-brand p-4 overflow-hidden rounded-lg shadow h-full;
-  }
-  &__accent {
-    @apply bg-blue-100/50 dark:bg-neutral-800 text-accent p-4 overflow-hidden rounded-lg shadow h-full;
-  }
 }
 
 .card {

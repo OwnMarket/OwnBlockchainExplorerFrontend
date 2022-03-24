@@ -18,3 +18,7 @@
 <ng-template #asset let-row="row" let-value="value">
   <a [routerLink]="['/asset', value]" [title]="value">{{ value }}</a>
 </ng-template>
+
+<ng-template #assetCode let-row="row" let-value="value">
+  {{ value ? value : '-' }}
+</ng-template>

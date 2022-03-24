@@ -1,6 +1,5 @@
 nav {
   @apply h-full w-full sm:w-auto mr-4 pt-12 sm:pt-0 fixed sm:relative top-16 left-0 sm:top-0 sm:left-auto transition-all duration-150 ease-in-out;
-
   ul {
     @apply flex flex-col sm:flex-row items-center h-full;
     li {

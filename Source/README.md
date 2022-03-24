@@ -6,12 +6,13 @@
 
 ```sh
 npm install
+npm run env
 ```
 
 2. Launch development server, and open `localhost:4200` in your browser:
 
 ```sh
-npm start
+ng serve
 ```
 
 # Project structure
@@ -117,8 +118,7 @@ Development, build and quality processes are based on [angular-cli](https://gith
 #### Libraries
 
 - [Angular](https://angular.io)
-- [Bootstrap 4](https://getbootstrap.com)
-- [ng-bootsrap](https://ng-bootstrap.github.io/)
+- [Tailwindcss 3](https://tailwindcss.com)
 - [Font Awesome](http://fontawesome.io)
 - [RxJS](http://reactivex.io/rxjs)
 - [ngx-translate](https://github.com/ngx-translate/core)

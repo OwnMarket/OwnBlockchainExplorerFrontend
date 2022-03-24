@@ -111,7 +111,7 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
     this.holdingColumns = [
       {
         name: 'explorer.hash',
-        prop: 'hash',
+        prop: 'assetHash',
         cellTemplate: this.assetTpl,
         headerTemplate: this.headerTpl,
       },
@@ -124,7 +124,7 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
       },
       {
         name: 'explorer.amount',
-        prop: 'amount',
+        prop: 'balance',
         headerClass: 'text-right',
         cellClass: 'text-right',
         headerTemplate: this.headerTpl,
