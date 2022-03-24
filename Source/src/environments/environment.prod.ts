@@ -12,8 +12,8 @@ export const environment = {
   version: env.npm_package_version,
   serverUrl: '<<EXPLORER_API_URL>>',
   localizationUrl: 'https://localization-api.weown.com/terms/translations',
-  ethExplorerUrl: 'https://etherscan.io',
-  bscExplorerUrl: 'https://bscscan.com',
+  ethExplorerUrl: '<<ETH_EXPLORER_API_URL>>',
+  bscExplorerUrl: '<<BSC_EXPLORER_API_URL>>',
   defaultLanguage: 'en',
   supportedLanguages: ['en', 'de'],
 };
