@@ -9,7 +9,7 @@ export class AssetInfoService {
   constructor(private http: HttpClient) {}
 
   getAssetInfo(assetHash: string): Observable<ApiResponse<AssetInfo>> {
-    return this.http.get<ApiResponse<AssetInfo>>(`/asset/${assetHash}`);
+    return this.http.get<ApiResponse<AssetInfo>>(`/assets/${assetHash}`);
   }
 
   getAssetTransfers(

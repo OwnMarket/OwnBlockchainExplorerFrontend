@@ -16,6 +16,8 @@ export const environment = {
   version: env.npm_package_version + '-dev',
   serverUrl: 'https://test.explorer-api.weown.com',
   localizationUrl: 'https://localization-api.weown.com/terms/translations',
+  ethExplorerUrl: 'https://rinkeby.etherscan.io',
+  bscExplorerUrl: 'https://testnet.bscscan.com',
   defaultLanguage: 'en',
   supportedLanguages: ['en', 'de'],
 };

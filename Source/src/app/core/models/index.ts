@@ -11,6 +11,7 @@ export * from './asset-summary.model';
 export * from './asset-info.model';
 export * from './asset-transfer-info.model';
 export * from './asset-bridge-transfer-info.model';
+export * from './asset-bridge-transfer-stat.model';
 export * from './asset-holder-info.model';
 export * from './block-item.model';
 export * from './block-tx.model';

@@ -41,8 +41,19 @@
         </div>
         <div class="sm:col-span-6">
           <app-table-card
-            [title]="'explorer.bridgeTransfers' | translate"
+            [title]="'explorer.assetBridgeStatsCols' | translate"
             [tableHeight]="bridgeTableHeight"
+            [columns]="assetBridgeStatsCols"
+            [source]="asset?.info?.bridgeTransferStats"
+            [loading]="bridgeTransfersLoading | async"
+            [canLoadMore]="false"
+          >
+          </app-table-card>
+        </div>
+        <div class="sm:col-span-6">
+          <app-table-card
+            [title]="'explorer.bridgeTransfers' | translate"
+            [tableHeight]="tableHeight"
             [columns]="bridgeTransferColumns"
             [source]="bridgeTransfers | async"
             [loading]="bridgeTransfersLoading | async"
@@ -88,4 +99,40 @@
 
 <ng-template #assetCode let-row="row" let-value="value">
   {{ value ? value : 'CHX' }}
+</ng-template>
+
+<ng-template #bridgeTxType let-row="row" let-value="value">
+  {{ value | camelCaseToSpace }}
+</ng-template>
+
+<ng-template #contract let-row="row" let-value="value">
+  <a [href]="getBridgeExplorerUrl(row.blockchainCode) + '/address/' + value" [title]="value" target="_blank">
+    {{ value }}
+  </a>
+</ng-template>
+
+<ng-template #originalHash let-row="row" let-value="value">
+  <ng-container *ngIf="row.transferTypeCode === 'ToNative'">
+    <a [href]="getBridgeExplorerUrl(row.blockchainCode) + '/tx/' + value" target="_blank" [title]="value">
+      {{ value }}
+    </a>
+  </ng-container>
+  <ng-container *ngIf="row.transferTypeCode !== 'ToNative'">
+    <a [routerLink]="['/tx', value]" [title]="value">
+      {{ value }}
+    </a>
+  </ng-container>
+</ng-template>
+
+<ng-template #swapHash let-row="row" let-value="value">
+  <ng-container *ngIf="row.transferTypeCode === 'FromNative'">
+    <a [href]="getBridgeExplorerUrl(row.blockchainCode) + '/tx/' + value" [title]="value" target="_blank">
+      {{ value }}
+    </a>
+  </ng-container>
+  <ng-container *ngIf="row.transferTypeCode === 'ToNative'">
+    <a [routerLink]="['/tx', value]" [title]="value">
+      {{ value }}
+    </a>
+  </ng-container>
 </ng-template>

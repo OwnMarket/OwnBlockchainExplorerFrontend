@@ -8,6 +8,7 @@ import { AssetInfoService } from './asset-info.service';
 import { AssetTransfersStoreService } from './asset-info-transfers-store.service';
 import { AssetHoldersStoreService } from './asset-info-holders-store.service';
 import { AssetBridgeTransfersStoreService } from './asset-info-bridge-transfers-store.service';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-asset-info',
@@ -20,6 +21,10 @@ export class AssetInfoComponent implements OnInit, OnDestroy {
   @ViewChild('account', { static: true }) accountTpl: TemplateRef<any>;
   @ViewChild('asset', { static: true }) assetTpl: TemplateRef<any>;
   @ViewChild('assetCode', { static: true }) assetCodeTpl: TemplateRef<any>;
+  @ViewChild('contract', { static: true }) contractTpl: TemplateRef<any>;
+  @ViewChild('bridgeTxType', { static: true }) bridgeTxTypeTpl: TemplateRef<any>;
+  @ViewChild('originalHash', { static: true }) originalHashTpl: TemplateRef<any>;
+  @ViewChild('swapHash', { static: true }) swapHashTpl: TemplateRef<any>;
 
   tableHeight = '500px';
   bridgeTableHeight = '150px';
@@ -27,6 +32,7 @@ export class AssetInfoComponent implements OnInit, OnDestroy {
 
   assetHash: Observable<string>;
   assetInfo: Observable<AssetInfo>;
+  assetBridgeStatsCols: any = [];
 
   transferColumns: any = [];
   transfersCurrentPage: number = 1;
@@ -117,18 +123,19 @@ export class AssetInfoComponent implements OnInit, OnDestroy {
       },
     ];
 
-    this.bridgeTransferColumns = [
+    this.assetBridgeStatsCols = [
       {
         name: 'explorer.contract',
         prop: 'contractAddress',
-        cellTemplate: this.txTpl,
+        cellTemplate: this.contractTpl,
         headerTemplate: this.headerTpl,
+        minWidth: 420,
       },
       {
         name: 'explorer.blockchain',
         prop: 'blockchainCode',
-        headerClass: 'text-right',
-        cellClass: 'text-right',
+        headerClass: 'text-center',
+        cellClass: 'text-center uppercase',
         headerTemplate: this.headerTpl,
       },
       {
@@ -141,6 +148,48 @@ export class AssetInfoComponent implements OnInit, OnDestroy {
       {
         name: 'explorer.supply',
         prop: 'circulatingSupply',
+        headerClass: 'text-right',
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
+    ];
+
+    this.bridgeTransferColumns = [
+      {
+        name: 'explorer.originalHash',
+        prop: 'originalTxHash',
+        cellTemplate: this.originalHashTpl,
+        headerTemplate: this.headerTpl,
+      },
+      {
+        name: 'explorer.swapTxHash',
+        prop: 'swapTxHash',
+        cellTemplate: this.swapHashTpl,
+        headerTemplate: this.headerTpl,
+      },
+      {
+        name: 'explorer.bridgeTransferType',
+        prop: 'transferTypeCode',
+        cellTemplate: this.bridgeTxTypeTpl,
+        headerTemplate: this.headerTpl,
+      },
+      {
+        name: 'explorer.blockchain',
+        prop: 'blockchainCode',
+        headerClass: 'text-center',
+        cellClass: 'text-center uppercase',
+        headerTemplate: this.headerTpl,
+      },
+      {
+        name: 'explorer.dateTime',
+        prop: 'blockTime',
+        headerClass: 'text-right',
+        cellClass: 'text-right',
+        headerTemplate: this.headerTpl,
+      },
+      {
+        name: 'explorer.amount',
+        prop: 'amount',
         headerClass: 'text-right',
         cellClass: 'text-right',
         headerTemplate: this.headerTpl,
@@ -164,6 +213,11 @@ export class AssetInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {}
+
+  getBridgeExplorerUrl(chainCode: string): string {
+    if (chainCode === 'Bsc') return environment.bscExplorerUrl;
+    if (chainCode === 'Eth') return environment.ethExplorerUrl;
+  }
 
   getTransfers(hash: string, shouldAppend: boolean = false) {
     this.assetTransfersStore.getAssetTransfers(hash, this.transfersCurrentPage, this.pageLimit, shouldAppend);

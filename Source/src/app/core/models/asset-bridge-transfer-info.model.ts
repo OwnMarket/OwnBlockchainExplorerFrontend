@@ -1,6 +1,8 @@
 export interface AssetBridgeTransferInfo {
+  transferTypeCode: string;
   blockchainCode: string;
-  contractAddress: string;
-  transfersCount: number;
-  circulatingSupply: number;
+  amount: number;
+  blockTime: string;
+  originalTxHash: string;
+  swapTxHash: string;
 }
