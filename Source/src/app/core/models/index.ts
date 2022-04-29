@@ -21,6 +21,7 @@ export * from './deposit.model';
 export * from './equivocation.model';
 export * from './event.model';
 export * from './events-summary.model';
+export * from './search-response.model';
 export * from './stake-reward.model';
 export * from './stake-summary.model';
 export * from './stake.model';

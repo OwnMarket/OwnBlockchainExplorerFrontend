@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { SearchService } from '@app/shared/services/search.service';
+import { SearchResponse } from '@app/core';
 
 @Component({
   selector: 'app-search-input',
@@ -31,13 +32,16 @@ export class SearchInputComponent implements OnInit, OnDestroy {
       valid,
       value: { hash },
     } = form;
-    if (valid) this.searchSub = this.searchService.searchByHash(hash).subscribe((type) => this.checkType(type, hash));
+    if (valid)
+      this.searchSub = this.searchService
+        .searchByHash(hash)
+        .subscribe((searchResp) => this.checkType(searchResp, hash));
   }
 
-  checkType(type: string, hash: string) {
-    switch (type) {
+  checkType(searchResp: SearchResponse, hash: string) {
+    switch (searchResp.type) {
       case 'Asset':
-        this.router.navigate(['asset', hash]);
+        this.router.navigate(['asset', searchResp.value]);
         break;
       case 'Account':
         this.router.navigate(['account', hash]);
