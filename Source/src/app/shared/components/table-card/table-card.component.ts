@@ -1,24 +1,10 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewEncapsulation,
-  Output,
-  EventEmitter,
-  ElementRef,
-  ViewChild,
-  AfterViewInit
-} from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Logger } from '@app/core';
-import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter, ElementRef } from '@angular/core';
 
-const log = new Logger('Table-Card');
 @Component({
   selector: 'app-table-card',
   templateUrl: './table-card.component.html',
   styleUrls: ['./table-card.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class TableCardComponent implements OnInit {
   expanded = true;
@@ -73,7 +59,7 @@ export class TableCardComponent implements OnInit {
   @Output() expandClicked: EventEmitter<boolean> = new EventEmitter();
   @Output() filter: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private el: ElementRef) {}
+  constructor(private el: ElementRef) {}
 
   ngOnInit() {
     this.onScroll(0);
