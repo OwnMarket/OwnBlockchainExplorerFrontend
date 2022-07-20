@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { BlockService } from './block.service';
 import { Logger } from '@app/core';
+import { catchError, map, finalize } from 'rxjs/operators';
 
 const log = new Logger('Block-Store');
 
@@ -20,6 +21,7 @@ export class BlockStoreService {
   private readonly _stakingRewards = new BehaviorSubject<any[]>([]);
   private readonly _loadingStakingRewards = new BehaviorSubject<boolean>(false);
   private readonly _canLoadMoreStakingRewards = new BehaviorSubject<boolean>(true);
+  private readonly _error = new BehaviorSubject<any>(null);
 
   // Expose the observable$ part of the _blocks subject (read only stream)
   // tslint:disable-next-line: member-ordering
@@ -44,6 +46,8 @@ export class BlockStoreService {
   readonly loadingStakingRewards$ = this._loadingStakingRewards.asObservable();
   // tslint:disable-next-line: member-ordering
   readonly canLoadMoreStakingRewards$ = this._canLoadMoreStakingRewards.asObservable();
+    // tslint:disable-next-line: member-ordering
+  readonly error$ = this._error.asObservable();
 
   constructor(private blockService: BlockService) {}
 
@@ -153,10 +157,18 @@ export class BlockStoreService {
 
   getBlockInfo(blockNumber: number) {
     this.loadingBlockInfo = true;
-    this.blockService.getBlockInfo(blockNumber).subscribe(res => {
-      this.blockInfo = res;
-      this.loadingBlockInfo = false;
-    });
+    this.blockService.getBlockInfo(blockNumber).pipe(
+      map(res => {
+        if (res.successful) {
+          this.blockInfo = res.data;
+        }
+        return res;
+      }),
+      catchError(err => {this._error.next(err.error.alerts[0]); 
+        return err;
+      }),
+      finalize(() => {this.loadingBlockInfo = false})
+    ).subscribe();
   }
 
   getTransactions(blockNumber: number, page: number, limit: number, shouldAppend: boolean = false) {

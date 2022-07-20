@@ -39,11 +39,8 @@ export class BlockService {
     );
   }
 
-  getBlockInfo(context: number): Observable<Block> {
-    return this.httpClient.get<ApiResponse<Block>>(routes.blockInfo(context)).pipe(
-      map((response: any) => response.data),
-      catchError(() => of('Error, could not get block info'))
-    );
+  getBlockInfo(context: number): Observable<ApiResponse<Block>> {
+    return this.httpClient.get<ApiResponse<Block>>(routes.blockInfo(context));
   }
 
   getTransactions(blockNumber: number, context: PageLimitContext): Observable<BlockTx[]> {

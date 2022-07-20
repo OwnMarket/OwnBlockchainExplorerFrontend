@@ -1,198 +1,207 @@
 <div *ngIf="blockInfo | async as block">
-  <app-page-title [title]="'explorer.block' | translate"></app-page-title>
-  <app-loader [isLoading]="loadingBlockInfo | async"></app-loader>
+  <ng-container *ngIf="error$ | async as error">
+    <div class="weown-card__fail">
+      <div>Error:</div>
+      <div class="font-bold truncate">{{ error.message }}</div>
+    </div>
+  </ng-container>
 
-  <div *ngIf="!(loadingBlockInfo | async)" class="grid grid-cols-1 sm:grid-cols-6 gap-4 text-sm">
-    <div class="weown-card__white sm:col-span-4">
-      <div>{{ 'explorer.blockHash' | translate }}:</div>
-      <div class="font-bold truncate">{{ block.hash }}</div>
-    </div>
-    <div class="weown-card__white sm:col-span-2">
-      <div>{{ 'explorer.blockNumber' | translate }}:</div>
-      <div class="font-bold truncate">{{ block.blockNumber }}</div>
-    </div>
-    <div class="weown-card__white sm:col-span-4">
-      <div>{{ 'explorer.previousBlockHash' | translate }}:</div>
-      <div class="font-bold truncate">{{ block.previousBlockHash }}</div>
-    </div>
-    <div class="weown-card__white sm:col-span-2">
-      <div>{{ 'explorer.previousBlockNumber' | translate }}:</div>
-      <div class="font-bold truncate">
-        <a class="text-secondary" [routerLink]="['/block', block.previousBlockNumber]">
-          {{ block.previousBlockNumber }}
-        </a>
-      </div>
-    </div>
-    <div class="weown-card__white sm:col-span-4">
-      <div>{{ 'explorer.proposerAddress' | translate }}:</div>
-      <div class="font-bold truncate">
-        <a class="text-secondary" [routerLink]="['/address', block.validatorAddress]">
-          {{ block.validatorAddress }}
-        </a>
-      </div>
-    </div>
-    <div class="weown-card__white sm:col-span-2">
-      <div>{{ 'explorer.timeCreated' | translate }}:</div>
-      <div class="font-bold truncate">
-        {{ block.timestamp | displayTimestamp }}
-        ({{ block.timestamp + 'Z' | timeago: true }})
-      </div>
-    </div>
-    <div class="text-xl font-bold my-6 sm:col-span-6">{{ 'explorer.additionalInfo' | translate }}</div>
-    <div class="weown-card__white sm:col-span-3" *ngIf="block.txSetRoot">
-      <div>{{ 'explorer.txSetRoot' | translate }}:</div>
-      <div class="font-bold truncate">
-        {{ block.txSetRoot }}
-      </div>
-    </div>
-    <div class="weown-card__white sm:col-span-3" *ngIf="block.txResultSetRoot">
-      <div>{{ 'explorer.txResultRoot' | translate }}:</div>
-      <div class="font-bold truncate">
-        {{ block.txResultSetRoot }}
-      </div>
-    </div>
-    <div class="weown-card__white sm:col-span-3" *ngIf="block.equivocationProofsRoot">
-      <div>{{ 'explorer.equivocationProofsRoot' | translate }}:</div>
-      <div class="font-bold truncate">
-        {{ block.equivocationProofsRoot }}
-      </div>
-    </div>
-    <div class="weown-card__white sm:col-span-3" *ngIf="block.equivocationProofResultsRoot">
-      <div>{{ 'explorer.equivocationProofResultRoot' | translate }}:</div>
-      <div class="font-bold truncate">
-        {{ block.equivocationProofResultsRoot }}
-      </div>
-    </div>
-    <div class="weown-card__white sm:col-span-3" *ngIf="block.stateRoot">
-      <div>{{ 'explorer.stateRoot' | translate }}:</div>
-      <div class="font-bold truncate">
-        {{ block.stateRoot }}
-      </div>
-    </div>
-    <div class="weown-card__white sm:col-span-3" *ngIf="block.stakingRewardsRoot">
-      <div>{{ 'explorer.stakingRewardsRoot' | translate }}:</div>
-      <div class="font-bold truncate">
-        {{ block.stakingRewardsRoot }}
-      </div>
-    </div>
-    <div class="weown-card__white sm:col-span-3" *ngIf="block.configurationRoot">
-      <div>{{ 'explorer.configurationRoot' | translate }}:</div>
-      <div class="font-bold truncate">
-        {{ block.configurationRoot }}
-      </div>
-    </div>
-    <div class="weown-card__white sm:col-span-3" *ngIf="block.configurationBlockNumber">
-      <div>{{ 'explorer.configurationBlockNumber' | translate }}:</div>
-      <div class="font-bold truncate">
-        <a [routerLink]="['/block', block.configurationBlockNumber]">{{ block.configurationBlockNumber }}</a>
-      </div>
-    </div>
-    <div class="weown-card__white sm:col-span-3" *ngIf="block.consensusRound">
-      <div>{{ 'explorer.consensusRound' | translate }}:</div>
-      <div class="font-bold truncate">
-        {{ block.consensusRound }}
-      </div>
-    </div>
+  <ng-container *ngIf="!(error$ | async)">
+    <app-page-title [title]="'explorer.block' | translate"></app-page-title>
+    <app-loader [isLoading]="loadingBlockInfo | async"></app-loader>
 
-    <ng-container *ngIf="{ loading: loadingTransactions | async, tx: transactions | async } as txData">
-      <div class="sm:col-span-6" *ngIf="!txData.loading && txData.tx.length > 0">
-        <app-table-card
-          [title]="'explorer.transactions' | translate"
-          [tableHeight]="tableHeight"
-          [columns]="transactionColumns"
-          [loading]="txData.loading"
-          [source]="txData.tx"
-          (loadMore)="onLoadMoreTransactions($event)"
-        >
-        </app-table-card>
+    <div *ngIf="!(loadingBlockInfo | async)" class="grid grid-cols-1 sm:grid-cols-6 gap-4 text-sm">
+      <div class="weown-card__white sm:col-span-4">
+        <div>{{ 'explorer.blockHash' | translate }}:</div>
+        <div class="font-bold truncate">{{ block.hash }}</div>
       </div>
-    </ng-container>
-
-    <ng-container *ngIf="{ loading: loadingEquivocations | async, eq: equivocations | async } as eqData">
-      <div class="sm:col-span-6" *ngIf="!eqData.loading && eqData.eq.length > 0">
-        <app-table-card
-          [title]="'explorer.equivocationProofs' | translate"
-          [tableHeight]="tableHeight"
-          [columns]="equivocationColumns"
-          [expandable]="true"
-          [defaultExpand]="false"
-          [loading]="eqData.loading"
-          [source]="eqData.eq"
-          (loadMore)="onLoadMoreEquivocations($event)"
-        >
-        </app-table-card>
+      <div class="weown-card__white sm:col-span-2">
+        <div>{{ 'explorer.blockNumber' | translate }}:</div>
+        <div class="font-bold truncate">{{ block.blockNumber }}</div>
       </div>
-    </ng-container>
-
-    <ng-container *ngIf="{ loading: loadingStakingRewards | async, st: stakingRewards | async } as stData">
-      <div class="sm:col-span-6" *ngIf="!stData.loading && stData.st.length > 0">
-        <app-table-card
-          [title]="'explorer.stakingRewards' | translate"
-          [tableHeight]="tableHeight"
-          [columns]="stakingRewardColumns"
-          [expandable]="true"
-          [defaultExpand]="false"
-          [loading]="stData.loading"
-          [source]="stData.st"
-          (loadMore)="onLoadMoreStakingRewards($event)"
-          [canLoadMore]="canLoadMoreStakingRewards | async"
-        >
-        </app-table-card>
+      <div class="weown-card__white sm:col-span-4">
+        <div>{{ 'explorer.previousBlockHash' | translate }}:</div>
+        <div class="font-bold truncate">{{ block.previousBlockHash }}</div>
       </div>
-    </ng-container>
-
-    <ng-container *ngIf="block.configuration">
-      <div class="text-xl font-bold my-6 sm:col-span-6">{{ 'explorer.configuration' | translate }}</div>
-      <div class="weown-card__white sm:col-span-3">
-        <div>{{ 'explorer.configurationBlockDelta' | translate }}:</div>
+      <div class="weown-card__white sm:col-span-2">
+        <div>{{ 'explorer.previousBlockNumber' | translate }}:</div>
         <div class="font-bold truncate">
-          {{ block.configuration.configurationBlockDelta }}
+          <a class="text-secondary" [routerLink]="['/block', block.previousBlockNumber]">
+            {{ block.previousBlockNumber }}
+          </a>
         </div>
       </div>
-      <div class="weown-card__white sm:col-span-3">
-        <div>{{ 'explorer.maxTransactionsPerBlock' | translate }}:</div>
+      <div class="weown-card__white sm:col-span-4">
+        <div>{{ 'explorer.proposerAddress' | translate }}:</div>
         <div class="font-bold truncate">
-          {{ block.configuration.maxTxCountPerBlock }}
+          <a class="text-secondary" [routerLink]="['/address', block.validatorAddress]">
+            {{ block.validatorAddress }}
+          </a>
         </div>
       </div>
-      <div class="weown-card__white sm:col-span-3">
-        <div>{{ 'explorer.validatorDepositLockTime' | translate }}:</div>
+      <div class="weown-card__white sm:col-span-2">
+        <div>{{ 'explorer.timeCreated' | translate }}:</div>
         <div class="font-bold truncate">
-          {{ block.configuration.validatorDepositLockTime }}
+          {{ block.timestamp | displayTimestamp }}
+          ({{ block.timestamp + 'Z' | timeago: true }})
         </div>
       </div>
-      <div class="weown-card__white sm:col-span-3">
-        <div>{{ 'explorer.blacklistTime' | translate }}:</div>
+      <div class="text-xl font-bold my-6 sm:col-span-6">{{ 'explorer.additionalInfo' | translate }}</div>
+      <div class="weown-card__white sm:col-span-3" *ngIf="block.txSetRoot">
+        <div>{{ 'explorer.txSetRoot' | translate }}:</div>
         <div class="font-bold truncate">
-          {{ block.configuration.validatorBlacklistTime }}
+          {{ block.txSetRoot }}
+        </div>
+      </div>
+      <div class="weown-card__white sm:col-span-3" *ngIf="block.txResultSetRoot">
+        <div>{{ 'explorer.txResultRoot' | translate }}:</div>
+        <div class="font-bold truncate">
+          {{ block.txResultSetRoot }}
+        </div>
+      </div>
+      <div class="weown-card__white sm:col-span-3" *ngIf="block.equivocationProofsRoot">
+        <div>{{ 'explorer.equivocationProofsRoot' | translate }}:</div>
+        <div class="font-bold truncate">
+          {{ block.equivocationProofsRoot }}
+        </div>
+      </div>
+      <div class="weown-card__white sm:col-span-3" *ngIf="block.equivocationProofResultsRoot">
+        <div>{{ 'explorer.equivocationProofResultRoot' | translate }}:</div>
+        <div class="font-bold truncate">
+          {{ block.equivocationProofResultsRoot }}
+        </div>
+      </div>
+      <div class="weown-card__white sm:col-span-3" *ngIf="block.stateRoot">
+        <div>{{ 'explorer.stateRoot' | translate }}:</div>
+        <div class="font-bold truncate">
+          {{ block.stateRoot }}
+        </div>
+      </div>
+      <div class="weown-card__white sm:col-span-3" *ngIf="block.stakingRewardsRoot">
+        <div>{{ 'explorer.stakingRewardsRoot' | translate }}:</div>
+        <div class="font-bold truncate">
+          {{ block.stakingRewardsRoot }}
+        </div>
+      </div>
+      <div class="weown-card__white sm:col-span-3" *ngIf="block.configurationRoot">
+        <div>{{ 'explorer.configurationRoot' | translate }}:</div>
+        <div class="font-bold truncate">
+          {{ block.configurationRoot }}
+        </div>
+      </div>
+      <div class="weown-card__white sm:col-span-3" *ngIf="block.configurationBlockNumber">
+        <div>{{ 'explorer.configurationBlockNumber' | translate }}:</div>
+        <div class="font-bold truncate">
+          <a [routerLink]="['/block', block.configurationBlockNumber]">{{ block.configurationBlockNumber }}</a>
+        </div>
+      </div>
+      <div class="weown-card__white sm:col-span-3" *ngIf="block.consensusRound">
+        <div>{{ 'explorer.consensusRound' | translate }}:</div>
+        <div class="font-bold truncate">
+          {{ block.consensusRound }}
         </div>
       </div>
 
-      <div class="sm:col-span-6" *ngIf="block.configuration.validatorsBlacklist.length > 0">
-        <app-table-card
-          title="Validators Blacklist"
-          [tableHeight]="tableHeight"
-          [columns]="validatorBlacklistColumns"
-          [loading]="loadingBlockInfo | async"
-          [source]="formatValidatorsBlacklist(block.configuration.validatorsBlacklist)"
-        >
-        </app-table-card>
-      </div>
-
-      <div class="sm:col-span-6" *ngIf="block.configuration.validators.length > 0">
-        <div class="col-12">
+      <ng-container *ngIf="{ loading: loadingTransactions | async, tx: transactions | async } as txData">
+        <div class="sm:col-span-6" *ngIf="!txData.loading && txData.tx.length > 0">
           <app-table-card
-            [title]="'explorer.validators' | translate"
+            [title]="'explorer.transactions' | translate"
             [tableHeight]="tableHeight"
-            [columns]="validatorColumns"
-            [loading]="loadingBlockInfo | async"
-            [source]="block.configuration.validators"
+            [columns]="transactionColumns"
+            [loading]="txData.loading"
+            [source]="txData.tx"
+            (loadMore)="onLoadMoreTransactions($event)"
           >
           </app-table-card>
         </div>
-      </div>
-    </ng-container>
-  </div>
+      </ng-container>
+
+      <ng-container *ngIf="{ loading: loadingEquivocations | async, eq: equivocations | async } as eqData">
+        <div class="sm:col-span-6" *ngIf="!eqData.loading && eqData.eq.length > 0">
+          <app-table-card
+            [title]="'explorer.equivocationProofs' | translate"
+            [tableHeight]="tableHeight"
+            [columns]="equivocationColumns"
+            [expandable]="true"
+            [defaultExpand]="false"
+            [loading]="eqData.loading"
+            [source]="eqData.eq"
+            (loadMore)="onLoadMoreEquivocations($event)"
+          >
+          </app-table-card>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="{ loading: loadingStakingRewards | async, st: stakingRewards | async } as stData">
+        <div class="sm:col-span-6" *ngIf="!stData.loading && stData.st.length > 0">
+          <app-table-card
+            [title]="'explorer.stakingRewards' | translate"
+            [tableHeight]="tableHeight"
+            [columns]="stakingRewardColumns"
+            [expandable]="true"
+            [defaultExpand]="false"
+            [loading]="stData.loading"
+            [source]="stData.st"
+            (loadMore)="onLoadMoreStakingRewards($event)"
+            [canLoadMore]="canLoadMoreStakingRewards | async"
+          >
+          </app-table-card>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="block.configuration">
+        <div class="text-xl font-bold my-6 sm:col-span-6">{{ 'explorer.configuration' | translate }}</div>
+        <div class="weown-card__white sm:col-span-3">
+          <div>{{ 'explorer.configurationBlockDelta' | translate }}:</div>
+          <div class="font-bold truncate">
+            {{ block.configuration.configurationBlockDelta }}
+          </div>
+        </div>
+        <div class="weown-card__white sm:col-span-3">
+          <div>{{ 'explorer.maxTransactionsPerBlock' | translate }}:</div>
+          <div class="font-bold truncate">
+            {{ block.configuration.maxTxCountPerBlock }}
+          </div>
+        </div>
+        <div class="weown-card__white sm:col-span-3">
+          <div>{{ 'explorer.validatorDepositLockTime' | translate }}:</div>
+          <div class="font-bold truncate">
+            {{ block.configuration.validatorDepositLockTime }}
+          </div>
+        </div>
+        <div class="weown-card__white sm:col-span-3">
+          <div>{{ 'explorer.blacklistTime' | translate }}:</div>
+          <div class="font-bold truncate">
+            {{ block.configuration.validatorBlacklistTime }}
+          </div>
+        </div>
+
+        <div class="sm:col-span-6" *ngIf="block.configuration.validatorsBlacklist.length > 0">
+          <app-table-card
+            title="Validators Blacklist"
+            [tableHeight]="tableHeight"
+            [columns]="validatorBlacklistColumns"
+            [loading]="loadingBlockInfo | async"
+            [source]="formatValidatorsBlacklist(block.configuration.validatorsBlacklist)"
+          >
+          </app-table-card>
+        </div>
+
+        <div class="sm:col-span-6" *ngIf="block.configuration.validators.length > 0">
+          <div class="col-12">
+            <app-table-card
+              [title]="'explorer.validators' | translate"
+              [tableHeight]="tableHeight"
+              [columns]="validatorColumns"
+              [loading]="loadingBlockInfo | async"
+              [source]="block.configuration.validators"
+            >
+            </app-table-card>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
 </div>
 
 <ng-template #header let-column="column" let-sort="sortFn" let-reorder="reorderFn">
