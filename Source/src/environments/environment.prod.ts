@@ -11,7 +11,7 @@ export const environment = {
   appContext: 'explorer',
   version: env.npm_package_version,
   serverUrl: '<<EXPLORER_API_URL>>',
-  localizationUrl: 'https://localization-api.weown.com/terms/translations',
+  localizationUrl: 'https://platform-api.weown.com/translations',
   ethExplorerUrl: '<<ETH_EXPLORER_API_URL>>',
   bscExplorerUrl: '<<BSC_EXPLORER_API_URL>>',
   defaultLanguage: 'en',

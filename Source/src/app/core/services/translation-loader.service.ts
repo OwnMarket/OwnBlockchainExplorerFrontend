@@ -16,14 +16,16 @@ export class TranslationLoaderService {
   }
 
   getTranslation(lang: string): Observable<{ [term: string]: string }> {
-    return this.http.get(`${environment.localizationUrl}/${lang}?appContext=${environment.appContext}`).pipe(
-      map((response: ApiResponse<TranslationTerm[]>) => {
-        const translations: { [term: string]: string } = {};
-        response.data.forEach(({ term, translation }: TranslationTerm) => {
-          translations[term] = translation;
-        });
-        return translations;
-      })
-    );
-  }
+    return this.http
+        .get<ApiResponse<{ [term: string]: string }>>(
+            `${environment.localizationUrl}/${lang}`
+        )
+        .pipe(
+            map((response: ApiResponse<{ [term: string]: string }>) => {
+                const translations: { [term: string]: string } =
+                    response.data;
+                return translations;
+            })
+        );
+}
 }
